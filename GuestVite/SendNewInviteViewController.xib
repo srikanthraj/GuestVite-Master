@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendNewInviteViewController">
+            <connections>
+                <outlet property="guestEMailText" destination="lu0-GX-0hT" id="UeG-VY-XM7"/>
+                <outlet property="guestNameText" destination="IjT-JN-3rF" id="5Hy-rV-LKO"/>
+                <outlet property="guestPhoneText" destination="FLY-oL-FLt" id="3He-QB-kqo"/>
+                <outlet property="inviteExpireDateText" destination="aZj-ve-yuD" id="F8p-e7-l5W"/>
+                <outlet property="inviteForDateText" destination="gD5-1N-zEG" id="CU6-Lt-w9y"/>
+                <outlet property="messageText" destination="fyq-c0-mTe" id="Tbj-zR-elU"/>
+                <outlet property="regView" destination="dFe-Z6-Ztw" id="Qsc-Ct-MqP"/>
+                <outlet property="scrollView" destination="t0k-J7-RaV" id="KHP-G6-Hfk"/>
+                <outlet property="segmentControl" destination="1i7-PI-nRC" id="Ux5-J2-MZM"/>
+                <outlet property="sendInvite" destination="AZg-4A-ZCf" id="ZT4-eb-w4l"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="hjg-0e-8Kw"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="t0k-J7-RaV">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="560"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Registration" translatesAutoresizingMaskIntoConstraints="NO" id="dFe-Z6-Ztw">
+                            <rect key="frame" x="-18" y="-11" width="412" height="700"/>
+                        </imageView>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Guest's First,Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IjT-JN-3rF">
+                            <rect key="frame" x="57" y="75" width="208" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Guest's E-Mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lu0-GX-0hT">
+                            <rect key="frame" x="57" y="123" width="208" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Guest's Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FLY-oL-FLt">
+                            <rect key="frame" x="57" y="169" width="208" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invite For Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gD5-1N-zEG">
+                            <rect key="frame" x="57" y="217" width="208" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invitation valid till Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aZj-ve-yuD">
+                            <rect key="frame" x="57" y="265" width="208" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Personalized Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="fyq-c0-mTe">
+                            <rect key="frame" x="21" y="315" width="280" height="136"/>
+                            <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZg-4A-ZCf">
+                            <rect key="frame" x="123" y="522" width="76" height="30"/>
+                            <state key="normal" title="Send Invite"/>
+                            <connections>
+                                <action selector="sendInviteTapped:" destination="-1" eventType="touchUpInside" id="eno-4h-DE2"/>
+                            </connections>
+                        </button>
+                        <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1i7-PI-nRC">
+                            <rect key="frame" x="1" y="26" width="320" height="29"/>
+                            <segments>
+                                <segment title="One Guest"/>
+                                <segment title="Many Guests"/>
+                                <segment title="Address Book"/>
+                            </segments>
+                            <connections>
+                                <action selector="segmentTapped:" destination="-1" eventType="valueChanged" id="lZX-8b-nbg"/>
+                            </connections>
+                        </segmentedControl>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="1i7-PI-nRC" firstAttribute="leading" secondItem="t0k-J7-RaV" secondAttribute="leading" constant="1" id="M5n-nl-L0o"/>
+                        <constraint firstItem="1i7-PI-nRC" firstAttribute="top" secondItem="t0k-J7-RaV" secondAttribute="top" constant="26" id="ULs-uq-uiL"/>
+                        <constraint firstAttribute="trailing" secondItem="1i7-PI-nRC" secondAttribute="trailing" constant="-1" id="w8o-nd-gYF"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="285" y="380"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Registration" width="2560" height="1440"/>
+    </resources>
+</document>

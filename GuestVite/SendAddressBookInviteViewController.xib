@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendAddressBookInviteViewController">
+            <connections>
+                <outlet property="addressBookButton" destination="prT-sT-nTm" id="X33-gG-iXI"/>
+                <outlet property="datePicker" destination="UzK-56-Yfg" id="OW7-ee-eqV"/>
+                <outlet property="datePickerExpire" destination="mrI-hF-LRo" id="KhH-tg-SxG"/>
+                <outlet property="eMailguestList" destination="JoZ-u9-g4e" id="KIt-hQ-WPe"/>
+                <outlet property="inviteExpireDateText" destination="5aG-fg-HnV" id="361-i1-Bzm"/>
+                <outlet property="inviteForDateText" destination="wFG-W4-Qj1" id="zCp-g0-uvD"/>
+                <outlet property="inviteMessage" destination="2ZU-nA-Chb" id="H4M-hm-5t8"/>
+                <outlet property="segmentControl" destination="1t1-Ax-8XR" id="mhL-Bl-TFG"/>
+                <outlet property="smsGuestList" destination="tkJ-5u-rDf" id="ARU-L0-39Z"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Black_BG" translatesAutoresizingMaskIntoConstraints="NO" id="vGK-jm-uev">
+                    <rect key="frame" x="0.0" y="0.0" width="401" height="568"/>
+                </imageView>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-Ax-8XR">
+                    <rect key="frame" x="0.0" y="23" width="320" height="29"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="320" id="4AV-Du-03R"/>
+                        <constraint firstAttribute="height" constant="28" id="RYx-4d-OfY"/>
+                    </constraints>
+                    <segments>
+                        <segment title="One Guest"/>
+                        <segment title="Many Guests"/>
+                        <segment title="Address Book"/>
+                    </segments>
+                    <connections>
+                        <action selector="segmentTapped:" destination="-1" eventType="valueChanged" id="1HH-1u-5YK"/>
+                    </connections>
+                </segmentedControl>
+                <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prT-sT-nTm">
+                    <rect key="frame" x="55" y="69" width="184" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="184" id="8JR-BB-pnK"/>
+                        <constraint firstAttribute="height" constant="30" id="zBp-lw-n8k"/>
+                    </constraints>
+                    <state key="normal" title="Import From Address Book"/>
+                    <connections>
+                        <action selector="addressButtonTapped:" destination="-1" eventType="touchUpInside" id="A1Y-aM-Owa"/>
+                    </connections>
+                </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JoZ-u9-g4e">
+                    <rect key="frame" x="14" y="107" width="292" height="104"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="80" id="8qj-xh-dsQ"/>
+                        <constraint firstAttribute="width" constant="292" id="92B-zr-cNM"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="292" id="BCE-jE-yZn"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="HSs-Td-QMD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="light"/>
+                </textView>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tkJ-5u-rDf">
+                    <rect key="frame" x="14" y="219" width="292" height="104"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="292" id="lf1-lf-UZJ"/>
+                        <constraint firstAttribute="width" constant="292" id="ng9-1O-T5r"/>
+                        <constraint firstAttribute="height" constant="80" id="uqM-8E-ouq"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="light"/>
+                </textView>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invitation valid till Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5aG-fg-HnV">
+                    <rect key="frame" x="14" y="384" width="141" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="40" id="FP2-nT-yYB"/>
+                        <constraint firstAttribute="width" constant="141" id="KAi-mQ-Vlw"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="forDateBeginEditExpire:" destination="-1" eventType="touchDown" id="N9w-u2-wne"/>
+                        <outlet property="delegate" destination="-1" id="P2y-rG-CVW"/>
+                    </connections>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uPZ-JO-7D7">
+                    <rect key="frame" x="34" y="530" width="71" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="71" id="ApQ-ri-Y5b"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="CPJ-Wd-hvE"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="71" id="Rqj-eH-Vie"/>
+                        <constraint firstAttribute="height" constant="30" id="Wmg-Yh-ODf"/>
+                    </constraints>
+                    <state key="normal" title="Send SMS"/>
+                    <connections>
+                        <action selector="sendSMSTapped:" destination="-1" eventType="touchUpInside" id="wdE-Rm-bR9"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SPX-eZ-XDR">
+                    <rect key="frame" x="197" y="530" width="83" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="845-cj-uKp"/>
+                        <constraint firstAttribute="width" constant="83" id="9Xj-6X-S6p"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="hn1-Cf-xiM"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="83" id="xYq-bn-NN4"/>
+                    </constraints>
+                    <state key="normal" title="Send E-Mail"/>
+                    <connections>
+                        <action selector="sendEMailTapped:" destination="-1" eventType="touchUpInside" id="xsd-fd-X0a"/>
+                    </connections>
+                </button>
+                <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="UzK-56-Yfg">
+                    <rect key="frame" x="163" y="326" width="143" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="143" id="9r2-jj-Eup"/>
+                        <constraint firstAttribute="height" constant="50" id="zpw-xR-5GB"/>
+                    </constraints>
+                    <date key="date" timeIntervalSinceReferenceDate="498934002.71286601">
+                        <!--2016-10-23 16:46:42 +0000-->
+                    </date>
+                </datePicker>
+                <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="mrI-hF-LRo">
+                    <rect key="frame" x="163" y="384" width="143" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="AEc-al-NX5"/>
+                        <constraint firstAttribute="height" constant="50" id="FVw-Fb-ZDV"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="143" id="XkB-bV-NQb"/>
+                        <constraint firstAttribute="width" constant="143" id="agg-1f-4pj"/>
+                    </constraints>
+                    <date key="date" timeIntervalSinceReferenceDate="498934002.71286601">
+                        <!--2016-10-23 16:46:42 +0000-->
+                    </date>
+                </datePicker>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invite For Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wFG-W4-Qj1">
+                    <rect key="frame" x="14" y="326" width="141" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="141" id="Ec0-Qy-XUO"/>
+                        <constraint firstAttribute="height" constant="40" id="sMP-U7-g2C"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="forDateBeginEdit:" destination="-1" eventType="touchDown" id="TnN-ZX-0jT"/>
+                        <outlet property="delegate" destination="-1" id="EHN-P0-OYz"/>
+                    </connections>
+                </textField>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Personalized Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2ZU-nA-Chb">
+                    <rect key="frame" x="11" y="432" width="299" height="100"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="292" id="QYJ-sZ-mfm"/>
+                        <constraint firstAttribute="height" constant="80" id="d00-bT-kmf"/>
+                    </constraints>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="5aG-fg-HnV" firstAttribute="width" secondItem="wFG-W4-Qj1" secondAttribute="width" id="2zH-Gl-mfQ"/>
+                <constraint firstItem="vGK-jm-uev" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="3uy-a1-2Bx"/>
+                <constraint firstItem="JoZ-u9-g4e" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="54Z-Lp-scL"/>
+                <constraint firstAttribute="trailing" secondItem="mrI-hF-LRo" secondAttribute="trailing" constant="14" id="6Ii-8C-hZe"/>
+                <constraint firstAttribute="bottom" secondItem="vGK-jm-uev" secondAttribute="bottom" id="BZc-kV-Zxw"/>
+                <constraint firstItem="tkJ-5u-rDf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="CVx-Rj-7zi"/>
+                <constraint firstAttribute="trailing" secondItem="prT-sT-nTm" secondAttribute="trailing" constant="81" id="G14-k4-rfa"/>
+                <constraint firstAttribute="trailing" secondItem="1t1-Ax-8XR" secondAttribute="trailing" id="GUl-eo-FjD"/>
+                <constraint firstItem="wFG-W4-Qj1" firstAttribute="top" secondItem="tkJ-5u-rDf" secondAttribute="bottom" constant="35" id="IZ4-VO-eGH"/>
+                <constraint firstAttribute="trailing" secondItem="2ZU-nA-Chb" secondAttribute="trailing" constant="10" id="MGU-kQ-4g3"/>
+                <constraint firstItem="uPZ-JO-7D7" firstAttribute="top" secondItem="vGK-jm-uev" secondAttribute="bottom" constant="-38" id="P4e-uS-2YE"/>
+                <constraint firstItem="2ZU-nA-Chb" firstAttribute="top" secondItem="mrI-hF-LRo" secondAttribute="bottom" constant="20" id="Tzj-BV-gMk"/>
+                <constraint firstAttribute="bottom" secondItem="vGK-jm-uev" secondAttribute="bottom" constant="10" id="WQ0-5E-Aif"/>
+                <constraint firstAttribute="trailing" secondItem="tkJ-5u-rDf" secondAttribute="trailing" constant="14" id="Xgx-8c-F38"/>
+                <constraint firstItem="JoZ-u9-g4e" firstAttribute="top" secondItem="prT-sT-nTm" secondAttribute="bottom" constant="8" id="YSv-bm-cp7"/>
+                <constraint firstItem="prT-sT-nTm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="55" id="ZeR-1B-3Kq"/>
+                <constraint firstItem="tkJ-5u-rDf" firstAttribute="height" secondItem="JoZ-u9-g4e" secondAttribute="height" id="ZpF-fZ-44s"/>
+                <constraint firstItem="tkJ-5u-rDf" firstAttribute="top" secondItem="JoZ-u9-g4e" secondAttribute="bottom" constant="8" id="cjG-J1-eoA"/>
+                <constraint firstItem="5aG-fg-HnV" firstAttribute="height" secondItem="wFG-W4-Qj1" secondAttribute="height" id="dMf-W7-0bs"/>
+                <constraint firstItem="vGK-jm-uev" firstAttribute="leading" secondItem="uPZ-JO-7D7" secondAttribute="trailing" constant="-105" id="ej3-Tn-mKv"/>
+                <constraint firstItem="2ZU-nA-Chb" firstAttribute="top" secondItem="5aG-fg-HnV" secondAttribute="bottom" constant="20" id="iFF-qu-psn"/>
+                <constraint firstItem="SPX-eZ-XDR" firstAttribute="top" secondItem="vGK-jm-uev" secondAttribute="bottom" constant="-38" id="iaS-GS-mdx"/>
+                <constraint firstAttribute="trailing" secondItem="UzK-56-Yfg" secondAttribute="trailing" constant="14" id="kbJ-dW-xBf"/>
+                <constraint firstItem="UzK-56-Yfg" firstAttribute="top" secondItem="tkJ-5u-rDf" secondAttribute="bottom" constant="35" id="p9e-F2-bUX"/>
+                <constraint firstAttribute="trailing" secondItem="JoZ-u9-g4e" secondAttribute="trailing" constant="14" id="sfR-3y-kaG"/>
+                <constraint firstItem="2ZU-nA-Chb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="shh-gX-xFI"/>
+                <constraint firstItem="SPX-eZ-XDR" firstAttribute="leading" secondItem="uPZ-JO-7D7" secondAttribute="trailing" constant="92" id="tw4-XM-uSL"/>
+                <constraint firstItem="wFG-W4-Qj1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="uxy-tJ-M3a"/>
+                <constraint firstItem="5aG-fg-HnV" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="wBX-WP-bd7"/>
+                <constraint firstItem="tkJ-5u-rDf" firstAttribute="width" secondItem="JoZ-u9-g4e" secondAttribute="width" id="xGO-sN-63F"/>
+                <constraint firstItem="prT-sT-nTm" firstAttribute="top" secondItem="1t1-Ax-8XR" secondAttribute="bottom" constant="18" id="xRy-TX-U6x"/>
+                <constraint firstAttribute="trailing" secondItem="vGK-jm-uev" secondAttribute="trailing" id="xf6-Ui-KHq"/>
+                <constraint firstItem="vGK-jm-uev" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xnc-tc-AEC"/>
+                <constraint firstItem="1t1-Ax-8XR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="yp7-e8-Gop"/>
+            </constraints>
+            <point key="canvasLocation" x="221" y="382"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Black_BG" width="640" height="410"/>
+    </resources>
+</document>

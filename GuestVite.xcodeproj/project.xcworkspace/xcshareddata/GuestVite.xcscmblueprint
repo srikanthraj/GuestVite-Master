@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F04634A206785EE98C5EB35A0FD565059764198D",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "F04634A206785EE98C5EB35A0FD565059764198D" : 0,
+    "7F8A9344E895D0686A50009303AA94B2F9791259" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "6D26947D-A4B4-4F51-B37C-0F28D02CAE94",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "F04634A206785EE98C5EB35A0FD565059764198D" : "GuestVite\/",
+    "7F8A9344E895D0686A50009303AA94B2F9791259" : ""
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "GuestVite",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "GuestVite.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com\/srikanthraj",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7F8A9344E895D0686A50009303AA94B2F9791259"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/srikanthraj\/GuestVite.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F04634A206785EE98C5EB35A0FD565059764198D"
+    }
+  ]
+}

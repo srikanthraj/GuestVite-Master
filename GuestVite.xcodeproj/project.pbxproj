@@ -1,0 +1,537 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		84267BF81DA9AB750044ACF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84267BF71DA9AB750044ACF4 /* GoogleService-Info.plist */; };
+		84267C011DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C001DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m */; };
+		84267C041DAC56D30044ACF4 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C031DAC56D30044ACF4 /* SWRevealViewController.m */; };
+		84267C091DAC6DC10044ACF4 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C061DAC6DC10044ACF4 /* FLAnimatedImage.m */; };
+		84267C0A1DAC6DC10044ACF4 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C081DAC6DC10044ACF4 /* FLAnimatedImageView.m */; };
+		84267C0C1DAC708B0044ACF4 /* Hello.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84267C0B1DAC708B0044ACF4 /* Hello.gif */; };
+		84267C101DAD9CF10044ACF4 /* SendNewInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C0E1DAD9CF10044ACF4 /* SendNewInviteViewController.m */; };
+		84267C111DAD9CF10044ACF4 /* SendNewInviteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C0F1DAD9CF10044ACF4 /* SendNewInviteViewController.xib */; };
+		84267C141DB04A7C0044ACF4 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84267C131DB04A7C0044ACF4 /* MessageUI.framework */; };
+		84267C181DB083D10044ACF4 /* SendBulkInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C161DB083D10044ACF4 /* SendBulkInviteViewController.m */; };
+		84267C191DB083D10044ACF4 /* SendBulkInviteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C171DB083D10044ACF4 /* SendBulkInviteViewController.xib */; };
+		84267C1D1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C1B1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.m */; };
+		84267C1E1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C1C1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.xib */; };
+		84267C261DB9B70B0044ACF4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84267C251DB9B70B0044ACF4 /* UIKit.framework */; };
+		84267C281DB9B7130044ACF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84267C271DB9B7130044ACF4 /* Foundation.framework */; };
+		84267C331DBBBF1C0044ACF4 /* DateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C2C1DBBBF1C0044ACF4 /* DateUtil.m */; };
+		84267C341DBBBF1C0044ACF4 /* DMLazyScrollView in Resources */ = {isa = PBXBuildFile; fileRef = 84267C2D1DBBBF1C0044ACF4 /* DMLazyScrollView */; };
+		84267C351DBBBF1C0044ACF4 /* SACalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C2F1DBBBF1C0044ACF4 /* SACalendar.m */; };
+		84267C361DBBBF1C0044ACF4 /* SACalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C311DBBBF1C0044ACF4 /* SACalendarCell.m */; };
+		84267C391DBBC81E0044ACF4 /* DMLazyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C381DBBC81E0044ACF4 /* DMLazyScrollView.m */; };
+		847340491DA937670038C047 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 847340481DA937670038C047 /* main.m */; };
+		8473404C1DA937670038C047 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473404B1DA937670038C047 /* AppDelegate.m */; };
+		8473404F1DA937670038C047 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473404E1DA937670038C047 /* ViewController.m */; };
+		847340551DA937680038C047 /* GuestVite.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 847340531DA937680038C047 /* GuestVite.xcdatamodeld */; };
+		847340571DA937680038C047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847340561DA937680038C047 /* Assets.xcassets */; };
+		8473405A1DA937680038C047 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847340581DA937680038C047 /* LaunchScreen.storyboard */; };
+		8473406C1DA96F180038C047 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8473406A1DA96F180038C047 /* Main.storyboard */; };
+		847340701DA977CD0038C047 /* HomePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473406E1DA977CD0038C047 /* HomePageViewController.m */; };
+		847340711DA977CD0038C047 /* HomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8473406F1DA977CD0038C047 /* HomePageViewController.xib */; };
+		847340751DA979A50038C047 /* RegPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847340731DA979A50038C047 /* RegPageViewController.m */; };
+		847340761DA979A50038C047 /* RegPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847340741DA979A50038C047 /* RegPageViewController.xib */; };
+		8473407B1DA983F10038C047 /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473407A1DA983F10038C047 /* TextFieldValidator.m */; };
+		8807A8849A35A4DFD7FB6C87 /* libPods-GuestVite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E4060546172690D586480F /* libPods-GuestVite.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		14E4060546172690D586480F /* libPods-GuestVite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GuestVite.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		48C15378E10A7A5F7D66BCBB /* Pods-GuestVite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuestVite.release.xcconfig"; path = "Pods/Target Support Files/Pods-GuestVite/Pods-GuestVite.release.xcconfig"; sourceTree = "<group>"; };
+		84267BF71DA9AB750044ACF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84267BFF1DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLScrollViewKeyboardSupport.h; path = "../../../../Downloads/SLScrollViewKeyboardSupport-master/SLScrollViewKeyboardSupport/SLScrollViewKeyboardSupport.h"; sourceTree = "<group>"; };
+		84267C001DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLScrollViewKeyboardSupport.m; path = "../../../../Downloads/SLScrollViewKeyboardSupport-master/SLScrollViewKeyboardSupport/SLScrollViewKeyboardSupport.m"; sourceTree = "<group>"; };
+		84267C021DAC56D30044ACF4 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.h"; sourceTree = "<group>"; };
+		84267C031DAC56D30044ACF4 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.m"; sourceTree = "<group>"; };
+		84267C051DAC6DC10044ACF4 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImage.h; path = "../../../../Downloads/FLAnimatedImage-master/FLAnimatedImage/FLAnimatedImage.h"; sourceTree = "<group>"; };
+		84267C061DAC6DC10044ACF4 /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImage.m; path = "../../../../Downloads/FLAnimatedImage-master/FLAnimatedImage/FLAnimatedImage.m"; sourceTree = "<group>"; };
+		84267C071DAC6DC10044ACF4 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImageView.h; path = "../../../../Downloads/FLAnimatedImage-master/FLAnimatedImage/FLAnimatedImageView.h"; sourceTree = "<group>"; };
+		84267C081DAC6DC10044ACF4 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImageView.m; path = "../../../../Downloads/FLAnimatedImage-master/FLAnimatedImage/FLAnimatedImageView.m"; sourceTree = "<group>"; };
+		84267C0B1DAC708B0044ACF4 /* Hello.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = Hello.gif; path = ../../../../Desktop/Hello.gif; sourceTree = "<group>"; };
+		84267C0D1DAD9CF10044ACF4 /* SendNewInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendNewInviteViewController.h; sourceTree = "<group>"; };
+		84267C0E1DAD9CF10044ACF4 /* SendNewInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendNewInviteViewController.m; sourceTree = "<group>"; };
+		84267C0F1DAD9CF10044ACF4 /* SendNewInviteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendNewInviteViewController.xib; sourceTree = "<group>"; };
+		84267C121DAF1DBE0044ACF4 /* SignOut.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SignOut.h; sourceTree = "<group>"; };
+		84267C131DB04A7C0044ACF4 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		84267C151DB083D10044ACF4 /* SendBulkInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendBulkInviteViewController.h; sourceTree = "<group>"; };
+		84267C161DB083D10044ACF4 /* SendBulkInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendBulkInviteViewController.m; sourceTree = "<group>"; };
+		84267C171DB083D10044ACF4 /* SendBulkInviteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendBulkInviteViewController.xib; sourceTree = "<group>"; };
+		84267C1A1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendAddressBookInviteViewController.h; sourceTree = "<group>"; };
+		84267C1B1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendAddressBookInviteViewController.m; sourceTree = "<group>"; };
+		84267C1C1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendAddressBookInviteViewController.xib; sourceTree = "<group>"; };
+		84267C251DB9B70B0044ACF4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		84267C271DB9B7130044ACF4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		84267C2B1DBBBF1C0044ACF4 /* DateUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateUtil.h; path = "../../../../Downloads/SACalendar-master/Classes/DateUtil.h"; sourceTree = "<group>"; };
+		84267C2C1DBBBF1C0044ACF4 /* DateUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateUtil.m; path = "../../../../Downloads/SACalendar-master/Classes/DateUtil.m"; sourceTree = "<group>"; };
+		84267C2D1DBBBF1C0044ACF4 /* DMLazyScrollView */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DMLazyScrollView; path = "../../../../Downloads/SACalendar-master/Classes/DMLazyScrollView"; sourceTree = "<group>"; };
+		84267C2E1DBBBF1C0044ACF4 /* SACalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SACalendar.h; path = "../../../../Downloads/SACalendar-master/Classes/SACalendar.h"; sourceTree = "<group>"; };
+		84267C2F1DBBBF1C0044ACF4 /* SACalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SACalendar.m; path = "../../../../Downloads/SACalendar-master/Classes/SACalendar.m"; sourceTree = "<group>"; };
+		84267C301DBBBF1C0044ACF4 /* SACalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SACalendarCell.h; path = "../../../../Downloads/SACalendar-master/Classes/SACalendarCell.h"; sourceTree = "<group>"; };
+		84267C311DBBBF1C0044ACF4 /* SACalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SACalendarCell.m; path = "../../../../Downloads/SACalendar-master/Classes/SACalendarCell.m"; sourceTree = "<group>"; };
+		84267C321DBBBF1C0044ACF4 /* SACalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SACalendarConstants.h; path = "../../../../Downloads/SACalendar-master/Classes/SACalendarConstants.h"; sourceTree = "<group>"; };
+		84267C371DBBC81E0044ACF4 /* DMLazyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMLazyScrollView.h; path = "../../../../Downloads/SACalendar-master/Classes/DMLazyScrollView/DMLazyScrollView.h"; sourceTree = "<group>"; };
+		84267C381DBBC81E0044ACF4 /* DMLazyScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DMLazyScrollView.m; path = "../../../../Downloads/SACalendar-master/Classes/DMLazyScrollView/DMLazyScrollView.m"; sourceTree = "<group>"; };
+		847340441DA937670038C047 /* GuestVite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuestVite.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		847340481DA937670038C047 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8473404A1DA937670038C047 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		8473404B1DA937670038C047 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		8473404D1DA937670038C047 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		8473404E1DA937670038C047 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		847340541DA937680038C047 /* GuestVite.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GuestVite.xcdatamodel; sourceTree = "<group>"; };
+		847340561DA937680038C047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		847340591DA937680038C047 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8473405B1DA937680038C047 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8473406B1DA96F180038C047 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8473406D1DA977CD0038C047 /* HomePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomePageViewController.h; sourceTree = "<group>"; };
+		8473406E1DA977CD0038C047 /* HomePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomePageViewController.m; sourceTree = "<group>"; };
+		8473406F1DA977CD0038C047 /* HomePageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HomePageViewController.xib; sourceTree = "<group>"; };
+		847340721DA979A50038C047 /* RegPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegPageViewController.h; sourceTree = "<group>"; };
+		847340731DA979A50038C047 /* RegPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegPageViewController.m; sourceTree = "<group>"; };
+		847340741DA979A50038C047 /* RegPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegPageViewController.xib; sourceTree = "<group>"; };
+		847340791DA983F10038C047 /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldValidator.h; path = "../../../../Downloads/TextFieldValidator-master/TextFieldValidator/TextFieldValidator.h"; sourceTree = "<group>"; };
+		8473407A1DA983F10038C047 /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextFieldValidator.m; path = "../../../../Downloads/TextFieldValidator-master/TextFieldValidator/TextFieldValidator.m"; sourceTree = "<group>"; };
+		99E7C1676E7E599B44419974 /* Pods-GuestVite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuestVite.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GuestVite/Pods-GuestVite.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		847340411DA937670038C047 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84267C281DB9B7130044ACF4 /* Foundation.framework in Frameworks */,
+				84267C261DB9B70B0044ACF4 /* UIKit.framework in Frameworks */,
+				84267C141DB04A7C0044ACF4 /* MessageUI.framework in Frameworks */,
+				8807A8849A35A4DFD7FB6C87 /* libPods-GuestVite.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3A39C1F4C90DECC973A8352E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				99E7C1676E7E599B44419974 /* Pods-GuestVite.debug.xcconfig */,
+				48C15378E10A7A5F7D66BCBB /* Pods-GuestVite.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		79FB75469F7F70C8F6489125 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				84267C271DB9B7130044ACF4 /* Foundation.framework */,
+				84267C251DB9B70B0044ACF4 /* UIKit.framework */,
+				84267C131DB04A7C0044ACF4 /* MessageUI.framework */,
+				14E4060546172690D586480F /* libPods-GuestVite.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		8473403B1DA937670038C047 = {
+			isa = PBXGroup;
+			children = (
+				847340461DA937670038C047 /* GuestVite */,
+				847340451DA937670038C047 /* Products */,
+				3A39C1F4C90DECC973A8352E /* Pods */,
+				79FB75469F7F70C8F6489125 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		847340451DA937670038C047 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				847340441DA937670038C047 /* GuestVite.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		847340461DA937670038C047 /* GuestVite */ = {
+			isa = PBXGroup;
+			children = (
+				84267C0B1DAC708B0044ACF4 /* Hello.gif */,
+				8473404A1DA937670038C047 /* AppDelegate.h */,
+				8473404B1DA937670038C047 /* AppDelegate.m */,
+				8473404D1DA937670038C047 /* ViewController.h */,
+				8473404E1DA937670038C047 /* ViewController.m */,
+				847340561DA937680038C047 /* Assets.xcassets */,
+				847340581DA937680038C047 /* LaunchScreen.storyboard */,
+				8473406A1DA96F180038C047 /* Main.storyboard */,
+				8473405B1DA937680038C047 /* Info.plist */,
+				84267BF71DA9AB750044ACF4 /* GoogleService-Info.plist */,
+				847340531DA937680038C047 /* GuestVite.xcdatamodeld */,
+				847340471DA937670038C047 /* Supporting Files */,
+				8473406D1DA977CD0038C047 /* HomePageViewController.h */,
+				84267C0D1DAD9CF10044ACF4 /* SendNewInviteViewController.h */,
+				84267C0E1DAD9CF10044ACF4 /* SendNewInviteViewController.m */,
+				84267C0F1DAD9CF10044ACF4 /* SendNewInviteViewController.xib */,
+				8473406E1DA977CD0038C047 /* HomePageViewController.m */,
+				8473406F1DA977CD0038C047 /* HomePageViewController.xib */,
+				847340721DA979A50038C047 /* RegPageViewController.h */,
+				847340731DA979A50038C047 /* RegPageViewController.m */,
+				847340741DA979A50038C047 /* RegPageViewController.xib */,
+				84267C121DAF1DBE0044ACF4 /* SignOut.h */,
+				84267C151DB083D10044ACF4 /* SendBulkInviteViewController.h */,
+				84267C161DB083D10044ACF4 /* SendBulkInviteViewController.m */,
+				84267C171DB083D10044ACF4 /* SendBulkInviteViewController.xib */,
+				84267C1A1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.h */,
+				84267C1B1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.m */,
+				84267C1C1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.xib */,
+			);
+			path = GuestVite;
+			sourceTree = "<group>";
+		};
+		847340471DA937670038C047 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				84267C2B1DBBBF1C0044ACF4 /* DateUtil.h */,
+				84267C2C1DBBBF1C0044ACF4 /* DateUtil.m */,
+				84267C371DBBC81E0044ACF4 /* DMLazyScrollView.h */,
+				84267C381DBBC81E0044ACF4 /* DMLazyScrollView.m */,
+				84267C2D1DBBBF1C0044ACF4 /* DMLazyScrollView */,
+				84267C2E1DBBBF1C0044ACF4 /* SACalendar.h */,
+				84267C2F1DBBBF1C0044ACF4 /* SACalendar.m */,
+				84267C301DBBBF1C0044ACF4 /* SACalendarCell.h */,
+				84267C311DBBBF1C0044ACF4 /* SACalendarCell.m */,
+				84267C321DBBBF1C0044ACF4 /* SACalendarConstants.h */,
+				84267C021DAC56D30044ACF4 /* SWRevealViewController.h */,
+				84267C031DAC56D30044ACF4 /* SWRevealViewController.m */,
+				84267C051DAC6DC10044ACF4 /* FLAnimatedImage.h */,
+				84267C061DAC6DC10044ACF4 /* FLAnimatedImage.m */,
+				84267C071DAC6DC10044ACF4 /* FLAnimatedImageView.h */,
+				84267C081DAC6DC10044ACF4 /* FLAnimatedImageView.m */,
+				847340481DA937670038C047 /* main.m */,
+				84267BFF1DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.h */,
+				84267C001DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m */,
+				847340791DA983F10038C047 /* TextFieldValidator.h */,
+				8473407A1DA983F10038C047 /* TextFieldValidator.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		847340431DA937670038C047 /* GuestVite */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8473405E1DA937680038C047 /* Build configuration list for PBXNativeTarget "GuestVite" */;
+			buildPhases = (
+				B00576E6E82E3F8143F43277 /* [CP] Check Pods Manifest.lock */,
+				847340401DA937670038C047 /* Sources */,
+				847340411DA937670038C047 /* Frameworks */,
+				847340421DA937670038C047 /* Resources */,
+				115954B125FD4F31556FCDF9 /* [CP] Embed Pods Frameworks */,
+				701079BC14D4AB9BEA9E871E /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GuestVite;
+			productName = GuestVite;
+			productReference = 847340441DA937670038C047 /* GuestVite.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8473403C1DA937670038C047 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = admin;
+				TargetAttributes = {
+					847340431DA937670038C047 = {
+						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 7D7YWS69ZD;
+					};
+				};
+			};
+			buildConfigurationList = 8473403F1DA937670038C047 /* Build configuration list for PBXProject "GuestVite" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8473403B1DA937670038C047;
+			productRefGroup = 847340451DA937670038C047 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				847340431DA937670038C047 /* GuestVite */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		847340421DA937670038C047 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8473405A1DA937680038C047 /* LaunchScreen.storyboard in Resources */,
+				84267C341DBBBF1C0044ACF4 /* DMLazyScrollView in Resources */,
+				847340711DA977CD0038C047 /* HomePageViewController.xib in Resources */,
+				84267C111DAD9CF10044ACF4 /* SendNewInviteViewController.xib in Resources */,
+				847340761DA979A50038C047 /* RegPageViewController.xib in Resources */,
+				847340571DA937680038C047 /* Assets.xcassets in Resources */,
+				84267C191DB083D10044ACF4 /* SendBulkInviteViewController.xib in Resources */,
+				8473406C1DA96F180038C047 /* Main.storyboard in Resources */,
+				84267C0C1DAC708B0044ACF4 /* Hello.gif in Resources */,
+				84267BF81DA9AB750044ACF4 /* GoogleService-Info.plist in Resources */,
+				84267C1E1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		115954B125FD4F31556FCDF9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GuestVite/Pods-GuestVite-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		701079BC14D4AB9BEA9E871E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GuestVite/Pods-GuestVite-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B00576E6E82E3F8143F43277 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		847340401DA937670038C047 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8473404F1DA937670038C047 /* ViewController.m in Sources */,
+				84267C181DB083D10044ACF4 /* SendBulkInviteViewController.m in Sources */,
+				8473404C1DA937670038C047 /* AppDelegate.m in Sources */,
+				84267C091DAC6DC10044ACF4 /* FLAnimatedImage.m in Sources */,
+				84267C391DBBC81E0044ACF4 /* DMLazyScrollView.m in Sources */,
+				8473407B1DA983F10038C047 /* TextFieldValidator.m in Sources */,
+				84267C351DBBBF1C0044ACF4 /* SACalendar.m in Sources */,
+				847340701DA977CD0038C047 /* HomePageViewController.m in Sources */,
+				84267C331DBBBF1C0044ACF4 /* DateUtil.m in Sources */,
+				847340551DA937680038C047 /* GuestVite.xcdatamodeld in Sources */,
+				84267C041DAC56D30044ACF4 /* SWRevealViewController.m in Sources */,
+				847340751DA979A50038C047 /* RegPageViewController.m in Sources */,
+				84267C0A1DAC6DC10044ACF4 /* FLAnimatedImageView.m in Sources */,
+				847340491DA937670038C047 /* main.m in Sources */,
+				84267C1D1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.m in Sources */,
+				84267C101DAD9CF10044ACF4 /* SendNewInviteViewController.m in Sources */,
+				84267C361DBBBF1C0044ACF4 /* SACalendarCell.m in Sources */,
+				84267C011DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		847340581DA937680038C047 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				847340591DA937680038C047 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		8473406A1DA96F180038C047 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				8473406B1DA96F180038C047 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		8473405C1DA937680038C047 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8473405D1DA937680038C047 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8473405F1DA937680038C047 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 99E7C1676E7E599B44419974 /* Pods-GuestVite.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GuestVite/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.helloworld.CoreDataAssignment.GuestVite;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		847340601DA937680038C047 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48C15378E10A7A5F7D66BCBB /* Pods-GuestVite.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = GuestVite/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.helloworld.CoreDataAssignment.GuestVite;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8473403F1DA937670038C047 /* Build configuration list for PBXProject "GuestVite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8473405C1DA937680038C047 /* Debug */,
+				8473405D1DA937680038C047 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8473405E1DA937680038C047 /* Build configuration list for PBXNativeTarget "GuestVite" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8473405F1DA937680038C047 /* Debug */,
+				847340601DA937680038C047 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		847340531DA937680038C047 /* GuestVite.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				847340541DA937680038C047 /* GuestVite.xcdatamodel */,
+			);
+			currentVersion = 847340541DA937680038C047 /* GuestVite.xcdatamodel */;
+			path = GuestVite.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 8473403C1DA937670038C047 /* Project object */;
+}

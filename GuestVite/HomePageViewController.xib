@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomePageViewController">
+            <connections>
+                <outlet property="awaitMyRespButton" destination="FL0-6e-PnW" id="8bC-3R-Lyp"/>
+                <outlet property="prevInvSentButton" destination="1VG-sD-hYG" id="ctK-Ky-9Yi"/>
+                <outlet property="prevReqRecvdButton" destination="RZs-0u-0hl" id="knd-04-kce"/>
+                <outlet property="sendInviteButton" destination="xEh-eg-igf" id="0Fz-Ez-9LD"/>
+                <outlet property="settingsButton" destination="u0k-Dp-fMY" id="7lV-Jf-kVf"/>
+                <outlet property="trackButton" destination="cdK-ih-Rmc" id="N3Q-Ag-X7M"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="waitingRespButton" destination="fHA-2M-DnO" id="79a-ET-00q"/>
+                <outlet property="welcomeLabel" destination="0Do-rU-heR" id="hBt-eE-ei0"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <viewController id="84d-Bk-qHR">
+            <layoutGuides>
+                <viewControllerLayoutGuide type="top" id="a8s-Nh-Zak"/>
+                <viewControllerLayoutGuide type="bottom" id="Ipc-74-aph"/>
+            </layoutGuides>
+            <view key="view" contentMode="scaleToFill" id="8vU-HL-IM1">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <subviews>
+                    <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Registration" translatesAutoresizingMaskIntoConstraints="NO" id="DQq-hZ-A0C">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="800" id="EG5-CX-wKG"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Do-rU-heR">
+                                <rect key="frame" x="18" y="15" width="191" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xEh-eg-igf">
+                                <rect key="frame" x="25" y="61" width="252" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="                  Send New Invite                            ">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="sendNewInviteTapped:" destination="-1" eventType="touchUpInside" id="KWW-dy-by2"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZs-0u-0hl">
+                                <rect key="frame" x="49" y="159" width="222" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="Previous Requests Received">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1VG-sD-hYG">
+                                <rect key="frame" x="58" y="214" width="186" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="Previous Invites Sent">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdK-ih-Rmc">
+                                <rect key="frame" x="74" y="263" width="155" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="Track My Guests ">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FL0-6e-PnW">
+                                <rect key="frame" x="61" y="316" width="186" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="Awaiting My response">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u0k-Dp-fMY">
+                                <rect key="frame" x="74" y="367" width="155" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="Settings">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHA-2M-DnO">
+                                <rect key="frame" x="58" y="109" width="202" height="30"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                                <state key="normal" title="Waiting responses From:">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ub5-zL-K7f">
+                                <rect key="frame" x="120" y="405" width="63" height="30"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Sign Out">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="signOutTapped:" destination="-1" eventType="touchUpInside" id="sHi-SW-k4D"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="RZs-0u-0hl" firstAttribute="width" secondItem="xEh-eg-igf" secondAttribute="width" id="18h-Gz-mL0"/>
+                            <constraint firstItem="RZs-0u-0hl" firstAttribute="height" secondItem="xEh-eg-igf" secondAttribute="height" id="1bL-Mo-fdb"/>
+                            <constraint firstItem="fHA-2M-DnO" firstAttribute="top" secondItem="xEh-eg-igf" secondAttribute="bottom" constant="21" id="2aL-EA-2Pc"/>
+                            <constraint firstItem="u0k-Dp-fMY" firstAttribute="width" secondItem="xEh-eg-igf" secondAttribute="width" id="7xf-Xs-zzr"/>
+                            <constraint firstItem="0Do-rU-heR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="18" id="FUd-ca-6W6"/>
+                            <constraint firstItem="fHA-2M-DnO" firstAttribute="height" secondItem="xEh-eg-igf" secondAttribute="height" id="IYu-V0-XTs"/>
+                            <constraint firstItem="Ub5-zL-K7f" firstAttribute="top" secondItem="u0k-Dp-fMY" secondAttribute="bottom" constant="8" id="Oo7-t7-ccH"/>
+                            <constraint firstItem="DQq-hZ-A0C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="-30" id="Op5-6i-Ta9"/>
+                            <constraint firstItem="fHA-2M-DnO" firstAttribute="width" secondItem="xEh-eg-igf" secondAttribute="width" id="Tyh-EH-v9b"/>
+                            <constraint firstItem="DQq-hZ-A0C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="-30" id="YSq-qv-MEe"/>
+                            <constraint firstAttribute="trailing" secondItem="DQq-hZ-A0C" secondAttribute="trailing" constant="-30" id="b1G-HV-wQ8"/>
+                            <constraint firstAttribute="bottom" secondItem="DQq-hZ-A0C" secondAttribute="bottom" constant="-50" id="bfL-tw-Uv1"/>
+                            <constraint firstItem="cdK-ih-Rmc" firstAttribute="height" secondItem="xEh-eg-igf" secondAttribute="height" id="dWw-Eu-5mw"/>
+                            <constraint firstItem="cdK-ih-Rmc" firstAttribute="top" secondItem="1VG-sD-hYG" secondAttribute="bottom" constant="32" id="dgG-Ms-qo2"/>
+                            <constraint firstItem="1VG-sD-hYG" firstAttribute="width" secondItem="xEh-eg-igf" secondAttribute="width" id="dpz-v0-WQl"/>
+                            <constraint firstItem="DQq-hZ-A0C" firstAttribute="leading" secondItem="xEh-eg-igf" secondAttribute="trailing" constant="-283" id="gSG-Bd-Xhr"/>
+                            <constraint firstItem="FL0-6e-PnW" firstAttribute="width" secondItem="xEh-eg-igf" secondAttribute="width" id="kVf-6m-ftU"/>
+                            <constraint firstItem="1VG-sD-hYG" firstAttribute="height" secondItem="xEh-eg-igf" secondAttribute="height" id="mVz-bG-1iZ"/>
+                            <constraint firstItem="FL0-6e-PnW" firstAttribute="top" secondItem="cdK-ih-Rmc" secondAttribute="bottom" constant="29" id="mvF-P0-WG3"/>
+                            <constraint firstItem="u0k-Dp-fMY" firstAttribute="top" secondItem="FL0-6e-PnW" secondAttribute="bottom" constant="81" id="nLj-Zd-Liy"/>
+                            <constraint firstItem="FL0-6e-PnW" firstAttribute="height" secondItem="xEh-eg-igf" secondAttribute="height" id="nVv-HS-rn9"/>
+                            <constraint firstItem="cdK-ih-Rmc" firstAttribute="width" secondItem="xEh-eg-igf" secondAttribute="width" id="pMe-cg-uDE"/>
+                            <constraint firstItem="0Do-rU-heR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="r1j-LJ-2rg"/>
+                            <constraint firstItem="1VG-sD-hYG" firstAttribute="top" secondItem="RZs-0u-0hl" secondAttribute="bottom" constant="23" id="vOk-vk-O4L"/>
+                            <constraint firstItem="u0k-Dp-fMY" firstAttribute="height" secondItem="xEh-eg-igf" secondAttribute="height" id="wlv-mn-cOL"/>
+                            <constraint firstAttribute="trailing" secondItem="0Do-rU-heR" secondAttribute="trailing" constant="206" id="xDh-Ri-dDJ"/>
+                            <constraint firstItem="RZs-0u-0hl" firstAttribute="top" secondItem="fHA-2M-DnO" secondAttribute="bottom" constant="27" id="ycs-x9-cKw"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="i5M-Pr-FkT" secondAttribute="trailing" id="R13-ke-q75"/>
+                    <constraint firstItem="i5M-Pr-FkT" firstAttribute="bottom" secondItem="Ipc-74-aph" secondAttribute="top" id="dnL-P7-yYW"/>
+                    <constraint firstItem="i5M-Pr-FkT" firstAttribute="leading" secondItem="8vU-HL-IM1" secondAttribute="leading" id="hdU-lg-0pU"/>
+                </constraints>
+            </view>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <size key="freeformSize" width="320" height="568"/>
+            <point key="canvasLocation" x="692" y="106"/>
+        </viewController>
+    </objects>
+    <resources>
+        <image name="Registration" width="2560" height="1440"/>
+    </resources>
+</document>
