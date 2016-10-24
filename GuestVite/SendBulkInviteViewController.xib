@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendBulkInviteViewController">
             <connections>
+                <outlet property="datePicker" destination="lnx-qD-85g" id="2G6-H8-pc8"/>
+                <outlet property="datePickerExpire" destination="C4u-RJ-0eS" id="TMK-7a-iAa"/>
                 <outlet property="eMailguestList" destination="PwQ-Pf-6fp" id="kNg-lU-0Yi"/>
                 <outlet property="inviteExpireDateText" destination="Xco-US-HjC" id="o7i-Fb-Kia"/>
                 <outlet property="inviteForDateText" destination="qVX-FB-pyw" id="QZ4-XD-Fbm"/>
@@ -21,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Registration" translatesAutoresizingMaskIntoConstraints="NO" id="nzy-GK-eRd">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Black_BG" translatesAutoresizingMaskIntoConstraints="NO" id="nzy-GK-eRd">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="h8w-Wn-c9c">
@@ -35,41 +37,23 @@
                         <action selector="segmentTapped:" destination="-1" eventType="valueChanged" id="yw9-KP-Rbb"/>
                     </connections>
                 </segmentedControl>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invite For Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qVX-FB-pyw">
-                    <rect key="frame" x="63" y="269" width="208" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="208" id="G4W-fC-zCu"/>
-                        <constraint firstAttribute="height" constant="30" id="qTR-Lx-nMd"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invitation valid till Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xco-US-HjC">
-                    <rect key="frame" x="63" y="312" width="208" height="30"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="208" id="K3t-K9-OEd"/>
-                        <constraint firstAttribute="height" constant="30" id="xgn-X6-aXf"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                </textField>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Personalized Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d8o-w3-8EW">
                     <rect key="frame" x="8" y="366" width="299" height="136"/>
-                    <color key="backgroundColor" red="0.0" green="0.25098040700000002" blue="0.50196081400000003" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="299" id="gbZ-jD-PHF"/>
-                        <constraint firstAttribute="height" constant="136" id="tAs-yq-n1U"/>
+                        <constraint firstAttribute="height" constant="80" id="UlO-5s-zMv"/>
+                        <constraint firstAttribute="width" constant="292" id="nM8-5u-OpE"/>
                     </constraints>
-                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                 </textView>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PwQ-Pf-6fp">
-                    <rect key="frame" x="15" y="52" width="292" height="104"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PwQ-Pf-6fp">
+                    <rect key="frame" x="14" y="52" width="292" height="104"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="104" id="As6-o2-gnO"/>
-                        <constraint firstAttribute="width" constant="292" id="Dqa-l0-TRz"/>
+                        <constraint firstAttribute="width" constant="292" id="3io-GW-qlp"/>
+                        <constraint firstAttribute="height" constant="80" id="edQ-Zh-zWC"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="light"/>
@@ -85,14 +69,12 @@
                         <action selector="sendSMSTapped:" destination="-1" eventType="touchUpInside" id="mj4-eo-XiU"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O6g-N8-VRL">
-                    <rect key="frame" x="15" y="164" width="292" height="104"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O6g-N8-VRL">
+                    <rect key="frame" x="14" y="164" width="292" height="104"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="196" id="PQw-Nb-86V"/>
-                        <constraint firstAttribute="width" constant="292" id="gdt-lS-t5j"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="104" id="iHf-VS-3Y9"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="292" id="rfm-Rt-8pr"/>
+                        <constraint firstAttribute="height" constant="80" id="Jwz-fy-0vN"/>
+                        <constraint firstAttribute="width" constant="292" id="hY6-FZ-mUK"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="light"/>
@@ -108,34 +90,83 @@
                         <action selector="sendEMailTapped:" destination="-1" eventType="touchUpInside" id="Haf-jJ-33a"/>
                     </connections>
                 </button>
+                <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="lnx-qD-85g">
+                    <rect key="frame" x="169" y="269" width="138" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="143" id="0N4-sK-vwD"/>
+                        <constraint firstAttribute="height" constant="50" id="4bH-o2-0TN"/>
+                    </constraints>
+                    <date key="date" timeIntervalSinceReferenceDate="498963518.36885297">
+                        <!--2016-10-24 00:58:38 +0000-->
+                    </date>
+                </datePicker>
+                <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="C4u-RJ-0eS">
+                    <rect key="frame" x="169" y="318" width="138" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="4rt-3l-4K5"/>
+                        <constraint firstAttribute="width" constant="143" id="Reb-cT-70O"/>
+                    </constraints>
+                    <date key="date" timeIntervalSinceReferenceDate="498963518.36885297">
+                        <!--2016-10-24 00:58:38 +0000-->
+                    </date>
+                </datePicker>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invite For Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qVX-FB-pyw">
+                    <rect key="frame" x="14" y="269" width="148" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="141" id="G4W-fC-zCu"/>
+                        <constraint firstAttribute="height" constant="40" id="qTR-Lx-nMd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="forDateBeginEdit:" destination="-1" eventType="touchDown" id="MEa-XA-EyK"/>
+                        <outlet property="delegate" destination="-1" id="KTA-Fy-IuU"/>
+                    </connections>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invitation valid till Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xco-US-HjC">
+                    <rect key="frame" x="14" y="317" width="148" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="141" id="K3t-K9-OEd"/>
+                        <constraint firstAttribute="height" constant="40" id="xgn-X6-aXf"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="forDateBeginEditExpire:" destination="-1" eventType="touchDown" id="M7a-gD-Ro0"/>
+                        <outlet property="delegate" destination="-1" id="fG5-x0-7Fx"/>
+                    </connections>
+                </textField>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="nzy-GK-eRd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1Y9-CM-Q8A"/>
-                <constraint firstItem="PwQ-Pf-6fp" firstAttribute="leading" secondItem="nzy-GK-eRd" secondAttribute="trailing" constant="-305" id="7Tj-Av-Lxq"/>
-                <constraint firstItem="nzy-GK-eRd" firstAttribute="leading" secondItem="d8o-w3-8EW" secondAttribute="trailing" constant="-307" id="HT4-KS-Avi"/>
+                <constraint firstItem="lnx-qD-85g" firstAttribute="top" secondItem="O6g-N8-VRL" secondAttribute="bottom" constant="10" id="78X-jQ-vb4"/>
+                <constraint firstItem="Xco-US-HjC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="HeM-3c-anJ"/>
                 <constraint firstItem="Xco-US-HjC" firstAttribute="width" secondItem="qVX-FB-pyw" secondAttribute="width" id="Hk7-8o-7Dn"/>
                 <constraint firstItem="AMa-Mo-OYU" firstAttribute="top" secondItem="nzy-GK-eRd" secondAttribute="bottom" constant="-58" id="J3V-2i-ouN"/>
                 <constraint firstItem="NDq-zM-QHB" firstAttribute="top" secondItem="nzy-GK-eRd" secondAttribute="bottom" constant="-58" id="KWH-CW-Zwe"/>
                 <constraint firstItem="h8w-Wn-c9c" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="LtP-bv-bd7"/>
+                <constraint firstItem="Xco-US-HjC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="PfB-s5-gc2"/>
                 <constraint firstItem="Xco-US-HjC" firstAttribute="height" secondItem="qVX-FB-pyw" secondAttribute="height" id="QpT-2b-e21"/>
-                <constraint firstItem="O6g-N8-VRL" firstAttribute="top" secondItem="PwQ-Pf-6fp" secondAttribute="bottom" constant="8" id="R1B-ks-ekB"/>
+                <constraint firstItem="d8o-w3-8EW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="RDW-x8-JMB"/>
                 <constraint firstAttribute="trailing" secondItem="h8w-Wn-c9c" secondAttribute="trailing" id="SaX-vG-mgd"/>
-                <constraint firstItem="O6g-N8-VRL" firstAttribute="width" secondItem="PwQ-Pf-6fp" secondAttribute="width" id="YEA-74-WlQ"/>
-                <constraint firstItem="PwQ-Pf-6fp" firstAttribute="top" secondItem="h8w-Wn-c9c" secondAttribute="bottom" constant="8" id="ev0-IB-IQV"/>
+                <constraint firstItem="qVX-FB-pyw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="Y3I-XI-503"/>
+                <constraint firstItem="PwQ-Pf-6fp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="fsV-Zg-W1j"/>
                 <constraint firstAttribute="bottom" secondItem="nzy-GK-eRd" secondAttribute="bottom" id="gv4-8W-OxG"/>
-                <constraint firstItem="O6g-N8-VRL" firstAttribute="leading" secondItem="nzy-GK-eRd" secondAttribute="trailing" constant="-305" id="ivO-J1-YjG"/>
+                <constraint firstItem="O6g-N8-VRL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="jmh-8v-fsw"/>
+                <constraint firstItem="O6g-N8-VRL" firstAttribute="top" secondItem="PwQ-Pf-6fp" secondAttribute="bottom" constant="8" id="kTe-9j-tnz"/>
                 <constraint firstItem="h8w-Wn-c9c" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="16" id="lhy-g4-qkI"/>
+                <constraint firstItem="qVX-FB-pyw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="mpR-r2-cSB"/>
                 <constraint firstItem="qVX-FB-pyw" firstAttribute="leading" secondItem="nzy-GK-eRd" secondAttribute="trailing" constant="-257" id="pXJ-lf-sEc"/>
                 <constraint firstItem="Xco-US-HjC" firstAttribute="leading" secondItem="nzy-GK-eRd" secondAttribute="trailing" constant="-257" id="sSD-89-qeo"/>
                 <constraint firstAttribute="trailing" secondItem="nzy-GK-eRd" secondAttribute="trailing" id="sUk-BM-tKp"/>
                 <constraint firstItem="nzy-GK-eRd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="uJy-e2-1MU"/>
-                <constraint firstItem="O6g-N8-VRL" firstAttribute="height" secondItem="PwQ-Pf-6fp" secondAttribute="height" id="yDL-0w-bcD"/>
+                <constraint firstItem="qVX-FB-pyw" firstAttribute="top" secondItem="O6g-N8-VRL" secondAttribute="bottom" constant="10" id="vvw-xw-BoW"/>
             </constraints>
             <point key="canvasLocation" x="265" y="384"/>
         </view>
     </objects>
     <resources>
-        <image name="Registration" width="2560" height="1440"/>
+        <image name="Black_BG" width="640" height="410"/>
     </resources>
 </document>

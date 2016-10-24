@@ -750,7 +750,7 @@
             [ac addAction:aa];
             [self presentViewController:ac animated:YES completion:nil];
         }
-        }//else ends
+        }//Main else ends
     
     
     
@@ -890,7 +890,7 @@
         }
         
         
-        }// else ends
+        }// Main else ends
     
     
     

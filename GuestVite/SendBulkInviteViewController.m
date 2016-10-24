@@ -10,11 +10,11 @@
 #import "SendAddressBookInviteViewController.h"
 #import "SendNewInviteViewController.h"
 #import <MessageUI/MessageUI.h>
-
+#import "SACalendar.h"
 
 @import Firebase;
 
-@interface SendBulkInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate>
+@interface SendBulkInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate,SACalendarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *eMailguestList;
 
@@ -25,9 +25,18 @@
 @property (weak, nonatomic) IBOutlet UITextView *inviteMessage;
 
 @property (weak, nonatomic) IBOutlet UITextView *smsGuestList;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (weak, nonatomic) IBOutlet UIDatePicker *datePickerExpire;
+
+@property (nonatomic, strong) UITextField *currentTextField;
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
+@property (nonatomic, strong) NSString *string;
+
+@property (nonatomic, strong) NSString *startTime;
+
+@property (nonatomic, strong) NSString *endTime;
 
 @end
 
@@ -59,6 +68,8 @@
     self.inviteExpireDateText.layer.cornerRadius = 10.0;
     self.inviteExpireDateText.layer.borderWidth = 1.0;
     
+    self.inviteMessage.text = @"Personalized Message";
+    self.inviteMessage.textColor = [UIColor lightGrayColor];
     self.inviteMessage.layer.cornerRadius = 10.0;
     self.inviteMessage.layer.borderWidth = 1.0;
     
@@ -70,16 +81,52 @@
     
     self.eMailguestList.inputAccessoryView = keyboardDoneButtonView;
     self.smsGuestList.inputAccessoryView = keyboardDoneButtonView;
-    self.inviteForDateText.inputAccessoryView = keyboardDoneButtonView;
-    self.inviteExpireDateText.inputAccessoryView = keyboardDoneButtonView;
+    //self.inviteForDateText.inputAccessoryView = keyboardDoneButtonView;
+    //self.inviteExpireDateText.inputAccessoryView = keyboardDoneButtonView;
     self.inviteMessage.inputAccessoryView = keyboardDoneButtonView;
     
     
     [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
 
+    self.datePicker.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
     
+    [self.datePicker setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
+    self.datePicker.datePickerMode = UIDatePickerModeTime;
+    [self.view addSubview: self.datePicker];
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+    [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
+    
+    
+    self.datePickerExpire.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
+    [self.datePickerExpire setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
+    
+    
+    self.datePickerExpire.datePickerMode = UIDatePickerModeTime;
+    [self.view addSubview: self.datePickerExpire];
+    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+    [self.datePickerExpire  addTarget:self action:@selector(dateChangedExpire:) forControlEvents:UIControlEventValueChanged];
 }
 
+
+- (void)dateChanged:(id)sender
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+    NSString *currentTime = [dateFormatter stringFromDate:self.datePicker.date];
+    NSLog(@"Time For %@", currentTime);
+    self.startTime = currentTime;
+}
+
+- (void)dateChangedExpire:(id)sender
+{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"hh:mm a"];
+    NSString *currentTime = [dateFormatter stringFromDate:self.datePickerExpire.date];
+    NSLog(@"Time Expire%@", currentTime);
+    self.endTime = currentTime;
+}
 
 - (IBAction)segmentTapped:(id)sender {
     
@@ -170,6 +217,84 @@
     //NSLog(@"Done Clicked.");
     [self.view endEditing:YES];
 }
+
+
+- (IBAction)forDateBeginEdit:(id)sender {
+    
+    self.inviteExpireDateText.enabled = FALSE;
+    
+    SACalendar *calendar = [[SACalendar alloc]initWithFrame:CGRectMake(0, 20, 320, 400)];
+    
+    calendar.delegate = self;
+    [self.view addSubview:calendar];
+    
+    [self.view endEditing:YES];
+}
+
+- (IBAction)forDateBeginEditExpire:(id)sender {
+    
+    self.inviteForDateText.enabled = FALSE;
+    
+    SACalendar *calendar1 = [[SACalendar alloc]initWithFrame:CGRectMake(0, 20, 320, 400)];
+    
+    calendar1.delegate = self;
+    [self.view addSubview:calendar1];
+    
+    [self.view endEditing:YES];
+}
+
+
+
+- (void) setCurrentTextField:(UITextField *)currentTextField{
+    self.currentTextField.text = self.string;
+}
+
+// Prints out the selected date
+-(void) SACalendar:(SACalendar*)calendar didSelectDate:(int)day month:(int)month year:(int)year
+{
+    
+    [self.view endEditing:YES];
+    self.string = [NSString stringWithFormat:@"%02d/%02d/%02d",month,day,year];
+    
+    NSLog(@"Date Selected is : %@",self.string);
+    
+    if(self.inviteForDateText.isEnabled){
+        self.inviteForDateText.text = self.string;
+        self.inviteExpireDateText.enabled = TRUE;
+        NSLog(@"FOR DATE ");
+    }
+    
+    else if(self.inviteExpireDateText.isEnabled){
+        self.inviteExpireDateText.text = self.string;
+        self.inviteForDateText.enabled = TRUE;
+        NSLog(@"EXPIRE DATE ");
+    }
+    
+    [calendar removeFromSuperview];
+    
+    
+    
+}
+
+//Utility Function to convert String to date
+
+-(NSDate *)dateToFormatedDate:(NSString *)dateStr {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
+    return [dateFormatter dateFromString:dateStr];
+}
+
+
+
+- (IBAction)editEnded:(id)sender {
+    [sender resignFirstResponder];
+}
+
+// Prints out the month and year displaying on the calendar
+-(void) SACalendar:(SACalendar *)calendar didDisplayCalendarForMonth:(int)month year:(int)year{
+    [self.view endEditing:YES];
+}
+
 - (IBAction)sendSMSTapped:(id)sender {
     
     
@@ -186,6 +311,28 @@
     __block NSMutableArray *noneList = [[NSMutableArray alloc] init];
     
     
+    __block NSString *startDateTime  = [[NSString alloc] init];
+    
+    __block NSString *endDateTime = [[NSString alloc] init];
+    
+    startDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteForDateText.text,self.startTime];
+    
+    endDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteExpireDateText.text,self.endTime];
+    
+    //startDateTime = [self.inviteForDateText.text self.startTime];
+    
+    //endDateTime = [self.inviteExpireDateText.text stringByAppendingString:self.endTime];
+    
+    
+    
+    NSDate *fromDate = [self dateToFormatedDate:startDateTime];
+    
+    NSDate *toDate = [self dateToFormatedDate:endDateTime];
+    
+    
+    NSLog(@"FROM DATE %@",fromDate);
+    
+    NSLog(@"TO DATE %@",toDate);
     
     if([self.smsGuestList.text length] ==0) {
         
@@ -198,6 +345,9 @@
     }
     
     else{
+        
+        if([fromDate compare:toDate] == NSOrderedAscending) // ONLY if from is earlier
+        {
         
         self.ref = [[FIRDatabase database] reference];
         
@@ -231,8 +381,8 @@
                                            @"Receiver Last Name": @"BULK",
                                            @"Receiver EMail": @"BULK",
                                            @"Receiver Phone": address,
-                                           @"Invite For Date": self.inviteForDateText.text,
-                                           @"Invite Valid Till Date": self.inviteExpireDateText.text,
+                                           @"Invite For Date": startDateTime,
+                                           @"Invite Valid Till Date": endDateTime,
                                            @"Invitation Status": @"Pending",
                                            };//Dict post
                     
@@ -301,7 +451,7 @@
             //NSArray *recipents = [NSArray arrayWithObject:self.guestPhoneText.text];
             
             
-            NSString *message = [NSString stringWithFormat:@"Hey!, You are invited by %@ as a guest, Please login/Register to GuestVite App for more Details ,Thanks!",senderName];
+            NSString *message = [NSString stringWithFormat:@"Hey!, You are invited by %@ as a guest on %@ at %@, Please login/Register to GuestVite App for more Details ,Thanks!",senderName,self.inviteForDateText.text,self.startTime];
             
             MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
             messageController.messageComposeDelegate = self;
@@ -313,7 +463,18 @@
             
         }
         
+    }
+    
+    else {
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
         
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+    }
+
+    
          if([noneList count] > 0) {
          
          NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
@@ -338,7 +499,7 @@
 
         
         
-    }
+    } // Main else ends
     
 }
 
@@ -356,7 +517,23 @@
     
     __block NSMutableArray *noneList = [[NSMutableArray alloc] init];
     
+    __block NSString *startDateTime  = [[NSString alloc] init];
     
+    __block NSString *endDateTime = [[NSString alloc] init];
+    
+    startDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteForDateText.text,self.startTime];
+    
+    endDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteExpireDateText.text,self.endTime];
+    
+    //startDateTime = [self.inviteForDateText.text self.startTime];
+    
+    //endDateTime = [self.inviteExpireDateText.text stringByAppendingString:self.endTime];
+    
+    
+    
+    NSDate *fromDate = [self dateToFormatedDate:startDateTime];
+    
+    NSDate *toDate = [self dateToFormatedDate:endDateTime];
     
     if([self.eMailguestList.text length] ==0) {
         
@@ -370,6 +547,9 @@
     
     else{
         
+        if([fromDate compare:toDate] == NSOrderedAscending) // ONLY if from is earlier
+        {
+            
         self.ref = [[FIRDatabase database] reference];
         
         
@@ -404,8 +584,8 @@
                                            @"Receiver Last Name": @"BULK",
                                            @"Receiver EMail": address,
                                            @"Receiver Phone": @"BULK",
-                                           @"Invite For Date": self.inviteForDateText.text,
-                                           @"Invite Valid Till Date": self.inviteExpireDateText.text,
+                                           @"Invite For Date": startDateTime,
+                                           @"Invite Valid Till Date": endDateTime,
                                            @"Invitation Status": @"Pending",
                                            };
                     
@@ -462,7 +642,7 @@
             // Email Subject
             NSString *emailTitle = @"Message From GeuestVite";
             // Email Content
-            NSString *messageBody = [NSString stringWithFormat:@"Hey!, This is %@  and I want to invite you at my place , please login to this new cool App GuestVite! for all further details, Thanks and looking forward to see you soon!",senderName];
+            NSString *messageBody = [NSString stringWithFormat:@"Hey!, This is %@  and I want to invite you at my place on %@ at %@ , please login to this new cool App GuestVite! for all further details, Thanks and looking forward to see you soon!",senderName,self.inviteForDateText.text,self.startTime];
             // To address
             //NSArray *toRecipents = [NSArray arrayWithObject:self.guestEMailText.text];
             
@@ -479,10 +659,23 @@
             
         }
         
-        
     }
     
+    else {
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+    }
+
     
+    
+    
+    }// else ends
+    
+        
     
     
     if([noneList count] > 0) {

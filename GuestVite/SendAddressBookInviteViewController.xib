@@ -53,18 +53,6 @@
                         <action selector="addressButtonTapped:" destination="-1" eventType="touchUpInside" id="A1Y-aM-Owa"/>
                     </connections>
                 </button>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JoZ-u9-g4e">
-                    <rect key="frame" x="14" y="107" width="292" height="104"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="80" id="8qj-xh-dsQ"/>
-                        <constraint firstAttribute="width" constant="292" id="92B-zr-cNM"/>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="292" id="BCE-jE-yZn"/>
-                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="HSs-Td-QMD"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="light"/>
-                </textView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tkJ-5u-rDf">
                     <rect key="frame" x="14" y="219" width="292" height="104"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -115,6 +103,19 @@
                         <action selector="sendEMailTapped:" destination="-1" eventType="touchUpInside" id="xsd-fd-X0a"/>
                     </connections>
                 </button>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Personalized Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2ZU-nA-Chb">
+                    <rect key="frame" x="11" y="432" width="299" height="100"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="292" id="2GA-X0-a1T"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="180" id="Inc-yn-4h5"/>
+                        <constraint firstAttribute="width" constant="292" id="QYJ-sZ-mfm"/>
+                        <constraint firstAttribute="height" constant="80" id="d00-bT-kmf"/>
+                    </constraints>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
                 <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="UzK-56-Yfg">
                     <rect key="frame" x="163" y="326" width="143" height="30"/>
                     <constraints>
@@ -150,16 +151,17 @@
                         <outlet property="delegate" destination="-1" id="EHN-P0-OYz"/>
                     </connections>
                 </textField>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Personalized Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2ZU-nA-Chb">
-                    <rect key="frame" x="11" y="432" width="299" height="100"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JoZ-u9-g4e">
+                    <rect key="frame" x="14" y="107" width="292" height="104"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="292" id="QYJ-sZ-mfm"/>
-                        <constraint firstAttribute="height" constant="80" id="d00-bT-kmf"/>
+                        <constraint firstAttribute="height" constant="80" id="8qj-xh-dsQ"/>
+                        <constraint firstAttribute="width" constant="292" id="92B-zr-cNM"/>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="292" id="BCE-jE-yZn"/>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="80" id="HSs-Td-QMD"/>
                     </constraints>
-                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="light"/>
                 </textView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -175,6 +177,7 @@
                 <constraint firstItem="wFG-W4-Qj1" firstAttribute="top" secondItem="tkJ-5u-rDf" secondAttribute="bottom" constant="35" id="IZ4-VO-eGH"/>
                 <constraint firstAttribute="trailing" secondItem="2ZU-nA-Chb" secondAttribute="trailing" constant="10" id="MGU-kQ-4g3"/>
                 <constraint firstItem="uPZ-JO-7D7" firstAttribute="top" secondItem="vGK-jm-uev" secondAttribute="bottom" constant="-38" id="P4e-uS-2YE"/>
+                <constraint firstItem="tkJ-5u-rDf" firstAttribute="top" secondItem="JoZ-u9-g4e" secondAttribute="bottom" constant="8" id="TUa-Zr-Qif"/>
                 <constraint firstItem="2ZU-nA-Chb" firstAttribute="top" secondItem="mrI-hF-LRo" secondAttribute="bottom" constant="20" id="Tzj-BV-gMk"/>
                 <constraint firstAttribute="bottom" secondItem="vGK-jm-uev" secondAttribute="bottom" constant="10" id="WQ0-5E-Aif"/>
                 <constraint firstAttribute="trailing" secondItem="tkJ-5u-rDf" secondAttribute="trailing" constant="14" id="Xgx-8c-F38"/>
