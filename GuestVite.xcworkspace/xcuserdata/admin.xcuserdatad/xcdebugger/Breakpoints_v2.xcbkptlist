@@ -73,22 +73,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GuestVite/SendNewInviteViewController.m"
-            timestampString = "498692380.967693"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "266"
-            endingLineNumber = "266"
-            landmarkName = "-sendInviteTapped:"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "GuestVite/ViewController.m"
             timestampString = "498016027.342852"
             startingColumnNumber = "9223372036854775807"
@@ -106,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/SendNewInviteViewController.m"
-            timestampString = "498692380.967693"
+            timestampString = "498971752.661315"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "331"
-            endingLineNumber = "331"
+            startingLineNumber = "490"
+            endingLineNumber = "490"
             landmarkName = "-sendInviteTapped:"
             landmarkType = "5">
          </BreakpointContent>
