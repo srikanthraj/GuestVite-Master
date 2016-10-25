@@ -1,15 +1,15 @@
 {
-  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F04634A206785EE98C5EB35A0FD565059764198D",
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "354166A3E3F5341EF257E1ABB6E353183BA31508",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "F04634A206785EE98C5EB35A0FD565059764198D" : 0,
+    "354166A3E3F5341EF257E1ABB6E353183BA31508" : 0,
     "7F8A9344E895D0686A50009303AA94B2F9791259" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "010A713F-5FFE-4C88-91E4-F7BB47F59D68",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "F04634A206785EE98C5EB35A0FD565059764198D" : "GuestVite\/",
+    "354166A3E3F5341EF257E1ABB6E353183BA31508" : "GuestVite-master\/",
     "7F8A9344E895D0686A50009303AA94B2F9791259" : ""
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "GuestVite",
@@ -17,14 +17,14 @@
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "GuestVite.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
     {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/srikanthraj\/GuestVite-Master.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "354166A3E3F5341EF257E1ABB6E353183BA31508"
+    },
+    {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com\/srikanthraj",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7F8A9344E895D0686A50009303AA94B2F9791259"
-    },
-    {
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/srikanthraj\/GuestVite.git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
-      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F04634A206785EE98C5EB35A0FD565059764198D"
     }
   ]
 }

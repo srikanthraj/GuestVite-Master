@@ -37,12 +37,14 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0)
   - KBContactsSelection (1.2.6):
     - APAddressBook (~> 0.2)
+  - SWTableViewCell (0.3.7)
 
 DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
   - KBContactsSelection
+  - SWTableViewCell (~> 0.3.7)
 
 SPEC CHECKSUMS:
   APAddressBook: 2a91bf05999548bea210ec9d1a68073f4dc8bfce
@@ -57,7 +59,8 @@ SPEC CHECKSUMS:
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
   KBContactsSelection: f31d916d041cc7c03338d2754f8e297d705709b9
+  SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
 
-PODFILE CHECKSUM: f541a266de7939b3dad639fedca0e2cdcfb0e601
+PODFILE CHECKSUM: 3e95a673490b51a7f657f988531e08e62badfe3a
 
 COCOAPODS: 1.0.1

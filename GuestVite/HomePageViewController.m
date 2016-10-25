@@ -13,6 +13,7 @@
 #import "ViewController.h"
 
 #import "SendNewInviteViewController.h"
+#import "AwaitMyResponseViewController.h"
 
 @import Firebase;
 @interface HomePageViewController ()
@@ -161,6 +162,20 @@
 }
 
 
+- (IBAction)awaitingMyResponseTapped:(id)sender {
+    
+    
+    AwaitMyResponseViewController *awaitresponseVC =
+    [[AwaitMyResponseViewController alloc] initWithNibName:@"AwaitMyResponseViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:awaitresponseVC animated:YES];
+    
+    [self presentViewController:awaitresponseVC animated:YES completion:nil];
+    
+}
+
+    
 
 
 

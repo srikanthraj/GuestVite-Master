@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SWTableViewCell.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -27,12 +32,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DA17884156D67867C1321919546DCA90</key>
+		<key>2314AA095CBCD13357F2B090A7070BDB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E3A6139ABFF012CD889133D427F8887B</key>
+		<key>49ED29040DB51B74106B5838EDAC11CC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DA17884156D67867C1321919546DCA90</key>
 		<dict>
 			<key>primary</key>
 			<true/>
