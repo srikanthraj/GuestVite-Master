@@ -54,6 +54,10 @@
     __block NSString *currentUserEMail = [[NSString alloc] init];
     __block NSString *currentUserPhone = [[NSString alloc] init];
     
+    __block NSUInteger inviteTableIterator;
+    
+    __block NSUInteger inviteTableLength;
+    
     self.ref = [[FIRDatabase database] reference];
     
     NSString *userID = [FIRAuth auth].currentUser.uid;
@@ -85,11 +89,14 @@
         NSArray * arr = [dict allValues];
         NSLog(@"Array %@",arr[0][@"Sender First Name"]);
         
-       // NSLog(@"ARR count %lu",(unsigned long)[arr count]);
+        inviteTableLength = [arr count];
+        //NSLog(@"ARR count %lu",(unsigned long)[arr count]);
         for(int i=0;i < [arr count];i++)
         {
             //startDateTime = arr[i][@"Invite For Date"];
             endDateTime = arr[i][@"Invite Valid Till Date"];
+            
+           // NSLog(@"Iteration Number : %lu", (unsigned long)i);
             //[self dateToFormatedDate:startDateTime];
             //;
             //NSLog(@"End Date time in the loop %@",endDateTime);
@@ -117,17 +124,28 @@
                 if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver Phone"] isEqualToString:currentUserPhone]) && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
                 {
                     
-                    [myfirstNameData setObject: arr[i][@"Sender First Name"] atIndexedSubscript:i];
-                    [mylastNameData setObject:arr[i][@"Sender Last Name"] atIndexedSubscript:i];
-                    [myinvitedFromData setObject:arr[i][@"Invite For Date"] atIndexedSubscript:i];
-                    [myinvitedTillData setObject:arr[i][@"Invite Valid Till Date"] atIndexedSubscript:i];
+                    [myfirstNameData addObject: arr[i][@"Sender First Name"]];
+                    [mylastNameData addObject:arr[i][@"Sender Last Name"]];
+                    [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
+                    [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
                 }
                 
                 
             }
             
+            if(i == ([arr count]-1)){ // Check in case of last iteration
+                
+                
+                    NSLog(@"Last Iteration");
+                    [myfirstNameData addObject: @"No Invites"];
+                    [mylastNameData addObject: @"No Invites"];
+                    [myinvitedFromData addObject: @"No Invites"];
+                    [myinvitedTillData addObject: @"No Invites"];
+                    
+                
+            }
             
-            
+            inviteTableIterator = i;
             
         }
         
