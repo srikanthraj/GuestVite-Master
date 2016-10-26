@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SWTableViewCell.h"
+@import Firebase;
 
-@interface SimpleTableCellTableViewCell : UITableViewCell
+@interface SimpleTableCellTableViewCell : SWTableViewCell
 
-@property (nonatomic, weak) IBOutlet UILabel *nameLabel;
+@property (nonatomic, weak) IBOutlet UILabel *firstNameLabel;
+
+@property (nonatomic, weak) IBOutlet UILabel *lastNameLabel;
+
+@property (nonatomic, weak) IBOutlet UILabel *invitedFromDateLabel;
+
+@property (nonatomic, weak) IBOutlet UILabel *invitedTillDateLabel;
 
 @end

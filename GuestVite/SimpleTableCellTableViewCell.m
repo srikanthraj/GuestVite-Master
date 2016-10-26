@@ -10,11 +10,18 @@
 
 @implementation SimpleTableCellTableViewCell
 
-@synthesize nameLabel = _nameLabel;
+@synthesize firstNameLabel = _firstNameLabel;
+@synthesize lastNameLabel = _lastNameLabel;
+@synthesize invitedFromDateLabel = _invitedFromDateLabel;
+@synthesize invitedTillDateLabel = _invitedTillDateLabel;
+
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

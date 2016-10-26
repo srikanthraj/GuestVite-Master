@@ -9,18 +9,68 @@
 #import "AwaitMyResponseViewController.h"
 #import "SimpleTableCellTableViewCell.h"
 
-@interface AwaitMyResponseViewController () <UITableViewDelegate, UITableViewDataSource>
+@import Firebase;
+
+
+@interface AwaitMyResponseViewController () <UITableViewDelegate, UITableViewDataSource,SWTableViewCellDelegate>
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+
 
 @end
 
 @implementation AwaitMyResponseViewController
 
-NSArray *tableData;
+
+ NSMutableArray *firstNameData;
+ NSMutableArray *lastNameData;
+ NSMutableArray *nameData;
+ NSMutableArray *invitedFromData;
+ NSMutableArray *invitedTillData;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    tableData = [NSArray arrayWithObjects:@"Egg Benedict", @"Mushroom Risotto", @"Full Breakfast", @"Hamburger", @"Ham and Egg Sandwich", @"Creme Brelee", @"White Chocolate Donut", @"Starbucks Coffee", @"Vegetable Curry", @"Instant Noodle with Egg", @"Noodle with BBQ Pork", @"Japanese Noodle with Pork", @"Green Tea", @"Thai Shrimp Cake", @"Angry Birds Cake", @"Ham and Cheese Panini", nil];
+    __block NSMutableArray *myfirstNameData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *mylastNameData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
+    
+    self.ref = [[FIRDatabase database] reference];
+    
+    
+    [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dict = snapshot.value;
+        NSArray * arr = [dict allValues];
+        NSLog(@"Array %@",arr[0][@"Sender First Name"]);
+        
+        for(int i=0;i < [arr count];i++)
+        {
+            [arr[i][@"SF"] appendFormat:@"%@",arr[i][@"SL"]];
+            
+        [myfirstNameData setObject: arr[i][@"Sender First Name"] atIndexedSubscript:i];
+        [mylastNameData setObject:arr[i][@"Sender Last Name"] atIndexedSubscript:i];
+        [myinvitedFromData setObject:arr[i][@"Invite For Date"] atIndexedSubscript:i];
+        [myinvitedTillData setObject:arr[i][@"Invite Valid Till Date"] atIndexedSubscript:i];
+        }
+        
+    }];
+    
+    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+   
+    //NSLog(@"My Data count %lu", (unsigned long)[myData count]);
+    firstNameData = [myfirstNameData copy];
+    lastNameData = [mylastNameData copy];
+    invitedFromData = [myinvitedFromData copy];
+    invitedTillData = [myinvitedTillData copy];
+    
+     NSLog(@"First Name data is %@",firstNameData);
+     NSLog(@"Last Name data is %@",lastNameData);
+    NSLog(@"From Date data is %@",invitedFromData);
+    NSLog(@"Till Date  data is %@",invitedTillData);
     // Do any additional setup after loading the view from its nib.
 }
 
@@ -31,7 +81,8 @@ NSArray *tableData;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [tableData count];
+
+    return [firstNameData count];
 }
 
 
@@ -40,21 +91,38 @@ NSArray *tableData;
     static NSString *simpleTableIdentifier = @"SimpleTableCell";
     
     SimpleTableCellTableViewCell *cell = (SimpleTableCellTableViewCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+    
+     // Add utility buttons
+    NSMutableArray *rightUtilityButtons = [NSMutableArray new];
+    
+    [rightUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0]
+                                                title:@"More"];
+    [rightUtilityButtons sw_addUtilityButtonWithColor:
+     [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
+                                                title:@"Delete"];
+    cell.rightUtilityButtons = rightUtilityButtons;
+    cell.delegate = self;
     if (cell == nil)
     {
         NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SimpleTableCell" owner:self options:nil];
         cell = [nib objectAtIndex:0];
     }
     
-    cell.nameLabel.text = [tableData objectAtIndex:indexPath.row];
+    cell.firstNameLabel.text = [firstNameData objectAtIndex:indexPath.row];
+    cell.lastNameLabel.text = [lastNameData objectAtIndex:indexPath.row];
+    cell.invitedFromDateLabel.text = [invitedFromData objectAtIndex:indexPath.row];
+    cell.invitedTillDateLabel.text = [invitedTillData objectAtIndex:indexPath.row];
     
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 113;
+    return 145;
 }
+
+
 
 /*
 #pragma mark - Navigation
