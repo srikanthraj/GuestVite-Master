@@ -138,11 +138,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/AwaitMyResponseViewController.m"
-            timestampString = "499131011.787687"
+            timestampString = "499213946.649847"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "23"
-            endingLineNumber = "23"
+            startingLineNumber = "24"
+            endingLineNumber = "24"
             landmarkName = "@implementation AwaitMyResponseViewController"
             landmarkType = "3">
          </BreakpointContent>

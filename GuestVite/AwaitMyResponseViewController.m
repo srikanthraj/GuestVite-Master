@@ -16,6 +16,7 @@
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -232,14 +233,17 @@
     return 145;
 }
 
+
+
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
     
     switch (index) {
         case 0:
         {
             
-            // Case of Invite accepted - Update the status to ACCEPTED
             
+            // Case of Invite accepted - Update the status to ACCEPTED
+             NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
             
             [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                 
@@ -252,7 +256,8 @@
                 for(int i=0;i<[arr count];i++){
                     
                     
-                    if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:index] isEqualToString:arr[i][@"Invite For Date"]])
+                    if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:cellIndexPath.row] isEqualToString:arr[i][@"Invite For Date"]])
+                       
                     { // If status is pending  and From date in table matches the one from the table
                         
                          NSLog(@"KEYS AT INDEX!! %@",keys[i]);
@@ -294,12 +299,54 @@
         }
         case 1:
         {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Declined Successfully"preferredStyle:UIAlertControllerStyleAlert];
+            // Case of Invite accepted - Update the status to DECLINED
+             NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
             
-            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-            
-            [ac addAction:aa];
-            [self presentViewController:ac animated:YES completion:nil];
+            [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                
+                NSDictionary *dict = snapshot.value;
+                NSArray *keys = [dict allKeys];
+                NSArray * arr = [dict allValues];
+                
+               
+                
+                for(int i=0;i<[arr count];i++){
+                    
+                    NSLog(@"CELL INDEX %ld",cellIndexPath.row);
+                    
+                    if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:cellIndexPath.row] isEqualToString:arr[i][@"Invite For Date"]])
+                    { // If status is pending  and From date in table matches the one from the table
+                        
+                        NSLog(@"KEYS AT INDEX!! %@",keys[i]);
+                        
+                        arr[i][@"Invitation Status"] = @"Declined";
+                        NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
+                        
+                        NSDictionary *postDict = @{@"Sender First Name": arr[i][@"Sender First Name"],
+                                                   @"Sender Last Name": arr[i][@"Sender Last Name"],
+                                                   @"Sender EMail": arr[i][@"Sender EMail"],
+                                                   @"Sender Address1": arr[i][@"Sender Address1"],
+                                                   @"Sender Address2": arr[i][@"Sender Address2"],
+                                                   @"Sender City": arr[i][@"Sender City"],
+                                                   @"Sender Zip": arr[i][@"Sender Zip"],
+                                                   @"Sender Phone": arr[i][@"Sender Phone"],
+                                                   @"Mesage From Sender": arr[i][@"Mesage From Sender"],
+                                                   @"Receiver First Name": arr[i][@"Receiver First Name"],
+                                                   @"Receiver Last Name": arr[i][@"Receiver Last Name"],
+                                                   @"Receiver EMail": arr[i][@"Receiver EMail"],
+                                                   @"Receiver Phone": arr[i][@"Receiver Phone"],
+                                                   @"Invite For Date": arr[i][@"Invite For Date"],
+                                                   @"Invite Valid Till Date": arr[i][@"Invite Valid Till Date"],
+                                                   @"Invitation Status": arr[i][@"Invitation Status"],
+                                                   };//Dict post
+                        NSLog(@"POST DIC %@",postDict);
+                        
+                        NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", keys[i]]: postDict};
+                        [_ref updateChildValues:childUpdates];
+                    }
+                    
+                }
+            }];
 
             break;
         }
