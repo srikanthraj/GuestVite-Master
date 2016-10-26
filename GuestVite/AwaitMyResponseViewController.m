@@ -28,31 +28,107 @@
  NSMutableArray *invitedFromData;
  NSMutableArray *invitedTillData;
 
+
+-(NSDate *)dateToFormatedDate:(NSString *)dateStr {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
+    return [dateFormatter dateFromString:dateStr];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
+    // or @"yyyy-MM-dd hh:mm:ss a" if you prefer the time with AM/PM
+    //NSLog(@"DATE IS %@",[dateFormatter stringFromDate:[NSDate date]]);
+    
+    NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
     
     __block NSMutableArray *myfirstNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *mylastNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
     
+    __block NSString *currentUserEMail = [[NSString alloc] init];
+    __block NSString *currentUserPhone = [[NSString alloc] init];
+    
     self.ref = [[FIRDatabase database] reference];
     
+    NSString *userID = [FIRAuth auth].currentUser.uid;
     
+    [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dictUser = snapshot.value;
+         NSArray * arrUser = [dictUser allValues];
+        NSLog(@"ARR USER %@",arrUser);
+        
+        currentUserEMail =  [NSString stringWithFormat:@"%@",arrUser[0]];
+        currentUserPhone  = [NSString stringWithFormat:@"%@",arrUser[3]];
+        
+       
+    }];
+    while([currentUserEMail length]== 0 || [currentUserPhone length] ==0) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+    
+    NSLog(@"Current User Email %@",currentUserEMail);
+    NSLog(@"Current User Phone %@",currentUserPhone);
+
+
     [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSDictionary *dict = snapshot.value;
+        //NSString *startDateTime  = [[NSString alloc] init];
+        NSString *endDateTime = [[NSString alloc] init];
         NSArray * arr = [dict allValues];
         NSLog(@"Array %@",arr[0][@"Sender First Name"]);
         
+       // NSLog(@"ARR count %lu",(unsigned long)[arr count]);
         for(int i=0;i < [arr count];i++)
         {
-            [arr[i][@"SF"] appendFormat:@"%@",arr[i][@"SL"]];
+            //startDateTime = arr[i][@"Invite For Date"];
+            endDateTime = arr[i][@"Invite Valid Till Date"];
+            //[self dateToFormatedDate:startDateTime];
+            //;
+            //NSLog(@"End Date time in the loop %@",endDateTime);
             
-        [myfirstNameData setObject: arr[i][@"Sender First Name"] atIndexedSubscript:i];
-        [mylastNameData setObject:arr[i][@"Sender Last Name"] atIndexedSubscript:i];
-        [myinvitedFromData setObject:arr[i][@"Invite For Date"] atIndexedSubscript:i];
-        [myinvitedTillData setObject:arr[i][@"Invite Valid Till Date"] atIndexedSubscript:i];
+            if([currentUserEMail length] > 0) // If user logged in via e_mail
+            {
+                
+                
+            if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail]) && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
+            {
+            
+                [myfirstNameData addObject: arr[i][@"Sender First Name"]];
+                [mylastNameData addObject:arr[i][@"Sender Last Name"]];
+                [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
+                [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
+                
+                
+            }
+            
+        }
+            
+            else if ([currentUserPhone length] > 0)
+            {
+                
+                if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver Phone"] isEqualToString:currentUserPhone]) && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
+                {
+                    
+                    [myfirstNameData setObject: arr[i][@"Sender First Name"] atIndexedSubscript:i];
+                    [mylastNameData setObject:arr[i][@"Sender Last Name"] atIndexedSubscript:i];
+                    [myinvitedFromData setObject:arr[i][@"Invite For Date"] atIndexedSubscript:i];
+                    [myinvitedTillData setObject:arr[i][@"Invite Valid Till Date"] atIndexedSubscript:i];
+                }
+                
+                
+            }
+            
+            
+            
+            
         }
         
     }];
@@ -105,10 +181,10 @@
     
     [rightUtilityButtons sw_addUtilityButtonWithColor:
      [UIColor colorWithRed:0.78f green:0.78f blue:0.8f alpha:1.0]
-                                                title:@"More"];
+                                                title:@"Accept"];
     [rightUtilityButtons sw_addUtilityButtonWithColor:
      [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
-                                                title:@"Delete"];
+                                                title:@"Decline"];
     cell.rightUtilityButtons = rightUtilityButtons;
     cell.delegate = self;
     
@@ -124,13 +200,41 @@
 
 
 
+            
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 145;
 }
 
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
+    
+    switch (index) {
+        case 0:
+        {
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Accepted Successfully"preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+            break;
+        }
+        case 1:
+        {
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Declined Successfully"preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
 
+            break;
+        }
+        default:
+            break;
+    }
+}
 
 
 @end
