@@ -32,8 +32,12 @@
 -(NSDate *)dateToFormatedDate:(NSString *)dateStr {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+   
+    [dateFormatter setTimeZone:timeZone];
     return [dateFormatter dateFromString:dateStr];
 }
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -42,7 +46,8 @@
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     // or @"yyyy-MM-dd hh:mm:ss a" if you prefer the time with AM/PM
-    //NSLog(@"DATE IS %@",[dateFormatter stringFromDate:[NSDate date]]);
+    NSLog(@"DATE IS %@",[NSDate date]);
+    
     
     NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
     
@@ -66,7 +71,7 @@
         
         NSDictionary *dictUser = snapshot.value;
          NSArray * arrUser = [dictUser allValues];
-        NSLog(@"ARR USER %@",arrUser);
+        //NSLog(@"ARR USER %@",arrUser);
         
         currentUserEMail =  [NSString stringWithFormat:@"%@",arrUser[0]];
         currentUserPhone  = [NSString stringWithFormat:@"%@",arrUser[3]];
@@ -87,61 +92,63 @@
         //NSString *startDateTime  = [[NSString alloc] init];
         NSString *endDateTime = [[NSString alloc] init];
         NSArray * arr = [dict allValues];
-        NSLog(@"Array %@",arr[0][@"Sender First Name"]);
+        //NSLog(@"Array %@",arr[0][@"Sender First Name"]);
+        
+        NSLog(@"Login date is %@",loginDate);
         
         inviteTableLength = [arr count];
         //NSLog(@"ARR count %lu",(unsigned long)[arr count]);
+        
         for(int i=0;i < [arr count];i++)
         {
-            //startDateTime = arr[i][@"Invite For Date"];
+            
             endDateTime = arr[i][@"Invite Valid Till Date"];
-            
-           // NSLog(@"Iteration Number : %lu", (unsigned long)i);
-            //[self dateToFormatedDate:startDateTime];
-            //;
-            //NSLog(@"End Date time in the loop %@",endDateTime);
-            
-            if([currentUserEMail length] > 0) // If user logged in via e_mail
+            NSLog(@"END DATE IS %@",[self dateToFormatedDate:endDateTime]);
+                
+            if([currentUserEMail length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail])
+               && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
             {
                 
-                
-            if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail]) && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
-            {
+                NSLog(@"INSIDE EMAIL");
             
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                 [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
-                
+                continue;
                 
             }
             
-        }
             
-            else if ([currentUserPhone length] > 0)
-            {
                 
-                if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver Phone"] isEqualToString:currentUserPhone]) && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
+                if([currentUserPhone length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver Phone"] isEqualToString:currentUserPhone])
+                   && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
                 {
                     
                     [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                     [mylastNameData addObject:arr[i][@"Sender Last Name"]];
                     [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                     [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
+                    
+                    continue;
+                    
                 }
                 
                 
-            }
+                
+                
             
-            if(i == ([arr count]-1)){ // Check in case of last iteration
+            if(i == ([arr count]-1)){ // Check in case of last iteration and Add "No Invites" Only if no data is added to invites list
                 
                 
                     NSLog(@"Last Iteration");
+                if([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0)
+                {
                     [myfirstNameData addObject: @"No Invites"];
                     [mylastNameData addObject: @"No Invites"];
                     [myinvitedFromData addObject: @"No Invites"];
                     [myinvitedTillData addObject: @"No Invites"];
-                    
+                }
                 
             }
             
@@ -230,12 +237,59 @@
     switch (index) {
         case 0:
         {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Accepted Successfully"preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            // Case of Invite accepted - Update the status to ACCEPTED
             
-            [ac addAction:aa];
-            [self presentViewController:ac animated:YES completion:nil];
+            
+            [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                
+                NSDictionary *dict = snapshot.value;
+                NSArray *keys = [dict allKeys];
+                NSArray * arr = [dict allValues];
+                
+               
+                
+                for(int i=0;i<[arr count];i++){
+                    
+                    
+                    if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:index] isEqualToString:arr[i][@"Invite For Date"]])
+                    { // If status is pending  and From date in table matches the one from the table
+                        
+                         NSLog(@"KEYS AT INDEX!! %@",keys[i]);
+                        
+                    arr[i][@"Invitation Status"] = @"Accepted";
+                        NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
+                        
+                        NSDictionary *postDict = @{@"Sender First Name": arr[i][@"Sender First Name"],
+                                                   @"Sender Last Name": arr[i][@"Sender Last Name"],
+                                                   @"Sender EMail": arr[i][@"Sender EMail"],
+                                                   @"Sender Address1": arr[i][@"Sender Address1"],
+                                                   @"Sender Address2": arr[i][@"Sender Address2"],
+                                                   @"Sender City": arr[i][@"Sender City"],
+                                                   @"Sender Zip": arr[i][@"Sender Zip"],
+                                                   @"Sender Phone": arr[i][@"Sender Phone"],
+                                                   @"Mesage From Sender": arr[i][@"Mesage From Sender"],
+                                                   @"Receiver First Name": arr[i][@"Receiver First Name"],
+                                                   @"Receiver Last Name": arr[i][@"Receiver Last Name"],
+                                                   @"Receiver EMail": arr[i][@"Receiver EMail"],
+                                                   @"Receiver Phone": arr[i][@"Receiver Phone"],
+                                                   @"Invite For Date": arr[i][@"Invite For Date"],
+                                                   @"Invite Valid Till Date": arr[i][@"Invite Valid Till Date"],
+                                                   @"Invitation Status": arr[i][@"Invitation Status"],
+                                                   };//Dict post
+                        NSLog(@"POST DIC %@",postDict);
+                        
+                        NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", keys[i]]: postDict};
+                        [_ref updateChildValues:childUpdates];
+                    }
+
+                }
+            }];
+            
+            
+            
+            
+            
             break;
         }
         case 1:
