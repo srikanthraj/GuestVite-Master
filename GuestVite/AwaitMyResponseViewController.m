@@ -72,6 +72,9 @@
     NSLog(@"From Date data is %@",invitedFromData);
     NSLog(@"Till Date  data is %@",invitedTillData);
     // Do any additional setup after loading the view from its nib.
+    
+    
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,11 +91,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *simpleTableIdentifier = @"SimpleTableCell";
     
-    SimpleTableCellTableViewCell *cell = (SimpleTableCellTableViewCell *)[tableView dequeueReusableCellWithIdentifier:simpleTableIdentifier];
+     [tableView registerNib:[UINib nibWithNibName:@"SimpleTableCell" bundle:nil] forCellReuseIdentifier:@"SimpleTableCell"];
     
-     // Add utility buttons
+    static NSString *cellIdentifier = @"SimpleTableCell";
+    
+    
+    
+    SimpleTableCellTableViewCell *cell = (SimpleTableCellTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
+    
+    // Add utility buttons
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
     
     [rightUtilityButtons sw_addUtilityButtonWithColor:
@@ -103,11 +111,8 @@
                                                 title:@"Delete"];
     cell.rightUtilityButtons = rightUtilityButtons;
     cell.delegate = self;
-    if (cell == nil)
-    {
-        NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"SimpleTableCell" owner:self options:nil];
-        cell = [nib objectAtIndex:0];
-    }
+    
+    
     
     cell.firstNameLabel.text = [firstNameData objectAtIndex:indexPath.row];
     cell.lastNameLabel.text = [lastNameData objectAtIndex:indexPath.row];
@@ -117,6 +122,9 @@
     return cell;
 }
 
+
+
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 145;
@@ -124,14 +132,5 @@
 
 
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
