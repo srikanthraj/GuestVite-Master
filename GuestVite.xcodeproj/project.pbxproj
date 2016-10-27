@@ -31,6 +31,8 @@
 		84267C591DBEDF4F0044ACF4 /* AwaitMyResponseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C571DBEDF4F0044ACF4 /* AwaitMyResponseViewController.xib */; };
 		84267C5B1DBEE2430044ACF4 /* SimpleTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C5A1DBEE2430044ACF4 /* SimpleTableCell.xib */; };
 		84267C5E1DBEE5AA0044ACF4 /* SimpleTableCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C5D1DBEE5AA0044ACF4 /* SimpleTableCellTableViewCell.m */; };
+		84267C671DC180A90044ACF4 /* AMRCellTapped.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C651DC180A90044ACF4 /* AMRCellTapped.m */; };
+		84267C681DC180A90044ACF4 /* AMRCellTapped.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C661DC180A90044ACF4 /* AMRCellTapped.xib */; };
 		847340491DA937670038C047 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 847340481DA937670038C047 /* main.m */; };
 		8473404C1DA937670038C047 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473404B1DA937670038C047 /* AppDelegate.m */; };
 		8473404F1DA937670038C047 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473404E1DA937670038C047 /* ViewController.m */; };
@@ -88,6 +90,9 @@
 		84267C5A1DBEE2430044ACF4 /* SimpleTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SimpleTableCell.xib; sourceTree = "<group>"; };
 		84267C5C1DBEE5AA0044ACF4 /* SimpleTableCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimpleTableCellTableViewCell.h; sourceTree = "<group>"; };
 		84267C5D1DBEE5AA0044ACF4 /* SimpleTableCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimpleTableCellTableViewCell.m; sourceTree = "<group>"; };
+		84267C641DC180A90044ACF4 /* AMRCellTapped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AMRCellTapped.h; sourceTree = "<group>"; };
+		84267C651DC180A90044ACF4 /* AMRCellTapped.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AMRCellTapped.m; sourceTree = "<group>"; };
+		84267C661DC180A90044ACF4 /* AMRCellTapped.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AMRCellTapped.xib; sourceTree = "<group>"; };
 		847340441DA937670038C047 /* GuestVite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuestVite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847340481DA937670038C047 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8473404A1DA937670038C047 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -200,6 +205,9 @@
 				84267C5A1DBEE2430044ACF4 /* SimpleTableCell.xib */,
 				84267C5C1DBEE5AA0044ACF4 /* SimpleTableCellTableViewCell.h */,
 				84267C5D1DBEE5AA0044ACF4 /* SimpleTableCellTableViewCell.m */,
+				84267C641DC180A90044ACF4 /* AMRCellTapped.h */,
+				84267C651DC180A90044ACF4 /* AMRCellTapped.m */,
+				84267C661DC180A90044ACF4 /* AMRCellTapped.xib */,
 			);
 			path = GuestVite;
 			sourceTree = "<group>";
@@ -293,6 +301,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84267C681DC180A90044ACF4 /* AMRCellTapped.xib in Resources */,
 				8473405A1DA937680038C047 /* LaunchScreen.storyboard in Resources */,
 				84267C341DBBBF1C0044ACF4 /* DMLazyScrollView in Resources */,
 				847340711DA977CD0038C047 /* HomePageViewController.xib in Resources */,
@@ -384,6 +393,7 @@
 				84267C101DAD9CF10044ACF4 /* SendNewInviteViewController.m in Sources */,
 				84267C361DBBBF1C0044ACF4 /* SACalendarCell.m in Sources */,
 				84267C011DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m in Sources */,
+				84267C671DC180A90044ACF4 /* AMRCellTapped.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

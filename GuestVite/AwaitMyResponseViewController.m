@@ -8,6 +8,7 @@
 
 #import "AwaitMyResponseViewController.h"
 #import "SimpleTableCellTableViewCell.h"
+#import "AMRCellTapped.h"
 
 @import Firebase;
 
@@ -28,7 +29,9 @@
  NSMutableArray *nameData;
  NSMutableArray *invitedFromData;
  NSMutableArray *invitedTillData;
+ NSMutableArray *personalMessageData;
 
+NSArray *keys;
 
 -(NSDate *)dateToFormatedDate:(NSString *)dateStr {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -43,6 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    keys = [[NSArray alloc]init];
     
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
@@ -52,10 +56,18 @@
     
     NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
     
+    firstNameData = [[NSMutableArray alloc] init];;
+    lastNameData = [[NSMutableArray alloc] init];
+    invitedFromData = [[NSMutableArray alloc] init];
+    invitedTillData = [[NSMutableArray alloc] init];
+    
     __block NSMutableArray *myfirstNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *mylastNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myPersonalMessageData = [[NSMutableArray alloc] init];
+    
+   
     
     __block NSString *currentUserEMail = [[NSString alloc] init];
     __block NSString *currentUserPhone = [[NSString alloc] init];
@@ -104,7 +116,8 @@
         {
             
             endDateTime = arr[i][@"Invite Valid Till Date"];
-            NSLog(@"END DATE IS %@",[self dateToFormatedDate:endDateTime]);
+            
+            NSLog(@"PESONAl MESSAGE at iteattion %d IS %@",i,arr[i][@"Mesage From Sender"]);
                 
             if([currentUserEMail length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail])
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
@@ -116,6 +129,7 @@
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                 [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
+                [myPersonalMessageData addObject:arr[i][@"Mesage From Sender"]];
                 continue;
                 
             }
@@ -130,6 +144,7 @@
                     [mylastNameData addObject:arr[i][@"Sender Last Name"]];
                     [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                     [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
+                    [myPersonalMessageData addObject:arr[i][@"Mesage From Sender"]];
                     
                     continue;
                     
@@ -149,6 +164,7 @@
                     [mylastNameData addObject: @"No Invites"];
                     [myinvitedFromData addObject: @"No Invites"];
                     [myinvitedTillData addObject: @"No Invites"];
+                    [myPersonalMessageData addObject: @"No Invites"];
                 }
                 
             }
@@ -163,12 +179,40 @@
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
    
+    NSLog(@"Class %@",NSStringFromClass([firstNameData class]));
+    
+    
     //NSLog(@"My Data count %lu", (unsigned long)[myData count]);
+    /*
+    for(int i=0;i<[myfirstNameData count];i++){
+        [firstNameData addObject:[myfirstNameData objectAtIndex:i]];
+        [lastNameData addObject:[mylastNameData objectAtIndex:i]];
+        [invitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
+        [invitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
+    }
+     */
+    
+    
+    
+        /*
+         
+         firstNameData = [NSMutableArray arrayWithArray:myfirstNameData];
+         lastNameData = [NSMutableArray arrayWithArray:mylastNameData];
+         invitedFromData = [NSMutableArray arrayWithArray:myinvitedFromData];
+         invitedTillData = [NSMutableArray arrayWithArray:myinvitedTillData];
+         
+         firstNameData = [[NSMutableArray alloc] initWithArray:myfirstNameData copyItems:YES];
+         lastNameData = [[NSMutableArray alloc] initWithArray:mylastNameData copyItems:YES];
+         invitedFromData = [[NSMutableArray alloc] initWithArray:myinvitedFromData copyItems:YES];;
+         invitedTillData = [[NSMutableArray alloc] initWithArray:myinvitedTillData copyItems:YES];;
+         */
+
     firstNameData = [myfirstNameData copy];
     lastNameData = [mylastNameData copy];
     invitedFromData = [myinvitedFromData copy];
     invitedTillData = [myinvitedTillData copy];
-    
+    personalMessageData = [myPersonalMessageData copy];
+   
      NSLog(@"First Name data is %@",firstNameData);
      NSLog(@"Last Name data is %@",lastNameData);
     NSLog(@"From Date data is %@",invitedFromData);
@@ -234,6 +278,24 @@
 }
 
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    AMRCellTapped *amrCellTapped =
+    [[AMRCellTapped alloc] initWithNibName:@"AMRCellTapped" bundle:nil];
+    
+    amrCellTapped.inviteByFirstName = [firstNameData objectAtIndex:indexPath.row];
+    amrCellTapped.inviteByLastName = [lastNameData objectAtIndex:indexPath.row];
+    amrCellTapped.invitedOn = [invitedFromData objectAtIndex:indexPath.row];
+    amrCellTapped.invitedTill = [invitedTillData objectAtIndex:indexPath.row];
+    amrCellTapped.personalMessage = [personalMessageData objectAtIndex:indexPath.row];
+    
+    [self.navigationController pushViewController:amrCellTapped animated:YES];
+    
+    [self presentViewController:amrCellTapped animated:YES completion:nil];
+    
+}
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
     
@@ -248,7 +310,7 @@
             [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                 
                 NSDictionary *dict = snapshot.value;
-                NSArray *keys = [dict allKeys];
+                keys = [dict allKeys];
                 NSArray * arr = [dict allValues];
                 
                
@@ -259,6 +321,23 @@
                     if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:cellIndexPath.row] isEqualToString:arr[i][@"Invite For Date"]])
                        
                     { // If status is pending  and From date in table matches the one from the table
+                        
+                        /*
+                        //Update the UI
+                        NSLog(@"GOING to REMOVE %@ , %@, %@, %@",[invitedFromData objectAtIndex:cellIndexPath.row],[invitedTillData objectAtIndex:cellIndexPath.row],[firstNameData objectAtIndex:cellIndexPath.row],[lastNameData objectAtIndex:cellIndexPath.row]);
+                        
+                        [invitedFromData removeObjectAtIndex:cellIndexPath.row];
+                        [invitedTillData removeObjectAtIndex:cellIndexPath.row];
+                        [firstNameData removeObjectAtIndex:cellIndexPath.row];
+                        [lastNameData removeObjectAtIndex:cellIndexPath.row];
+                        [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath]
+                                              withRowAnimation:UITableViewRowAnimationAutomatic];
+                        
+                        */
+                        
+                        //Update the data Model : Firebase in this case
+                        
+                        [self.tableView reloadData];
                         
                          NSLog(@"KEYS AT INDEX!! %@",keys[i]);
                         
@@ -314,9 +393,25 @@
                     
                     NSLog(@"CELL INDEX %ld",cellIndexPath.row);
                     
+                    
                     if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:cellIndexPath.row] isEqualToString:arr[i][@"Invite For Date"]])
                     { // If status is pending  and From date in table matches the one from the table
                         
+                        
+                        //Update the UI
+                        /*
+                        [invitedFromData removeObjectAtIndex:cellIndexPath.row];
+                        [invitedTillData removeObjectAtIndex:cellIndexPath.row];
+                        [firstNameData removeObjectAtIndex:cellIndexPath.row];
+                        [lastNameData removeObjectAtIndex:cellIndexPath.row];
+                        [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath]
+                                              withRowAnimation:UITableViewRowAnimationAutomatic];
+                        */
+                        
+                        [self.tableView reloadData];
+                        
+                        
+                        //Update the data Model : Firebase in this case
                         NSLog(@"KEYS AT INDEX!! %@",keys[i]);
                         
                         arr[i][@"Invitation Status"] = @"Declined";
