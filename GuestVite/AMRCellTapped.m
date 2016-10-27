@@ -28,6 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+     self.ref = [[FIRDatabase database] reference];
     self.invitedByLabel.text = [NSString stringWithFormat:@"%@ %@",_inviteByFirstName,_inviteByLastName];
     
     self.invitedOnLabel.text = _invitedOn;
@@ -38,6 +39,7 @@
     
     self.senderNameLabel.text = _inviteByFirstName;
     
+    self.acceptOrDeclineLabel.text = @"";
 }
 
 - (void)didReceiveMemoryWarning {
@@ -56,14 +58,88 @@
 */
 - (IBAction)declineTapped:(id)sender {
     
-    [self performSelector:@selector(loadingNextView)
-               withObject:nil afterDelay:2.0f];
+    //NSString *pkey = [NSString stringWithFormat:@"%@",[[_ref child:@"invites"] child:_key]];
+    
+    
+    
+    [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dict = snapshot.value;
+        
+        NSLog(@"DICT %@",dict);
+        
+        NSLog(@"Value Before decline %@" , [dict valueForKey:@"Invitation Status"]);
+        NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
+                                   @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
+                                   @"Sender EMail": [dict valueForKey:@"Sender EMail"],
+                                   @"Sender Address1": [dict valueForKey:@"Sender Address1"],
+                                   @"Sender Address2": [dict valueForKey:@"Sender Address2"],
+                                   @"Sender City": [dict valueForKey:@"Sender City"],
+                                   @"Sender Zip": [dict valueForKey:@"Sender Zip"],
+                                   @"Sender Phone": [dict valueForKey:@"Sender Phone"],
+                                   @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
+                                   @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
+                                   @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
+                                   @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
+                                   @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
+                                   @"Invite For Date": [dict valueForKey:@"Invite For Date"],
+                                   @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
+                                   @"Invitation Status": @"Declined",
+                                   };//Dict post
+        
+        NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
+        [_ref updateChildValues:childUpdates];
+        
+        NSLog(@"Value After decline %@" , [dict valueForKey:@"Invitation Status"]);
+        
+        
+    }];
+    
+    self.acceptOrDeclineLabel.text = @"Invitation Declined";
+    self.acceptOrDeclineLabel.textColor = [UIColor redColor];
+    
+    
+   // [self performSelector:@selector(loadingNextView)
+              // withObject:nil afterDelay:5.0f];
 }
 
 - (IBAction)acceptTapped:(id)sender {
     
+    [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dict = snapshot.value;
+        
+        
+        NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
+                                   @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
+                                   @"Sender EMail": [dict valueForKey:@"Sender EMail"],
+                                   @"Sender Address1": [dict valueForKey:@"Sender Address1"],
+                                   @"Sender Address2": [dict valueForKey:@"Sender Address2"],
+                                   @"Sender City": [dict valueForKey:@"Sender City"],
+                                   @"Sender Zip": [dict valueForKey:@"Sender Zip"],
+                                   @"Sender Phone": [dict valueForKey:@"Sender Phone"],
+                                   @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
+                                   @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
+                                   @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
+                                   @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
+                                   @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
+                                   @"Invite For Date": [dict valueForKey:@"Invite For Date"],
+                                   @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
+                                   @"Invitation Status": @"Accepted",
+                                   };//Dict post
+
+        NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
+        [_ref updateChildValues:childUpdates];
+        
+        
+    }];
+    
+    self.acceptOrDeclineLabel.text = @"Invitation Accepted";
+    self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+    
+    
     [self performSelector:@selector(loadingNextView)
-               withObject:nil afterDelay:2.0f];
+               withObject:nil afterDelay:5.0f];
     
     
 }

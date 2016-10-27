@@ -30,6 +30,7 @@
  NSMutableArray *invitedFromData;
  NSMutableArray *invitedTillData;
  NSMutableArray *personalMessageData;
+ NSMutableArray *keyData;
 
 NSArray *keys;
 
@@ -56,17 +57,19 @@ NSArray *keys;
     
     NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
     
+    /*
     firstNameData = [[NSMutableArray alloc] init];;
     lastNameData = [[NSMutableArray alloc] init];
     invitedFromData = [[NSMutableArray alloc] init];
     invitedTillData = [[NSMutableArray alloc] init];
-    
+    */
+     
     __block NSMutableArray *myfirstNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *mylastNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myPersonalMessageData = [[NSMutableArray alloc] init];
-    
+    __block NSMutableArray *myKeyData = [[NSMutableArray alloc] init];
    
     
     __block NSString *currentUserEMail = [[NSString alloc] init];
@@ -105,6 +108,7 @@ NSArray *keys;
         //NSString *startDateTime  = [[NSString alloc] init];
         NSString *endDateTime = [[NSString alloc] init];
         NSArray * arr = [dict allValues];
+        keys = [dict allKeys];
         //NSLog(@"Array %@",arr[0][@"Sender First Name"]);
         
         NSLog(@"Login date is %@",loginDate);
@@ -130,6 +134,7 @@ NSArray *keys;
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                 [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
                 [myPersonalMessageData addObject:arr[i][@"Mesage From Sender"]];
+                [myKeyData addObject:keys[i]];
                 continue;
                 
             }
@@ -145,6 +150,7 @@ NSArray *keys;
                     [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                     [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
                     [myPersonalMessageData addObject:arr[i][@"Mesage From Sender"]];
+                    [myKeyData addObject:keys[i]];
                     
                     continue;
                     
@@ -165,6 +171,7 @@ NSArray *keys;
                     [myinvitedFromData addObject: @"No Invites"];
                     [myinvitedTillData addObject: @"No Invites"];
                     [myPersonalMessageData addObject: @"No Invites"];
+                    [myKeyData addObject:@"-1"];
                 }
                 
             }
@@ -212,11 +219,10 @@ NSArray *keys;
     invitedFromData = [myinvitedFromData copy];
     invitedTillData = [myinvitedTillData copy];
     personalMessageData = [myPersonalMessageData copy];
+    keyData = [myKeyData copy];
    
-     NSLog(@"First Name data is %@",firstNameData);
-     NSLog(@"Last Name data is %@",lastNameData);
-    NSLog(@"From Date data is %@",invitedFromData);
-    NSLog(@"Till Date  data is %@",invitedTillData);
+    NSLog(@"Key data is %@",keyData);
+    
     // Do any additional setup after loading the view from its nib.
     
     
@@ -290,6 +296,7 @@ NSArray *keys;
     amrCellTapped.invitedOn = [invitedFromData objectAtIndex:indexPath.row];
     amrCellTapped.invitedTill = [invitedTillData objectAtIndex:indexPath.row];
     amrCellTapped.personalMessage = [personalMessageData objectAtIndex:indexPath.row];
+    amrCellTapped.key = [keyData objectAtIndex:indexPath.row];
     
     [self.navigationController pushViewController:amrCellTapped animated:YES];
     
@@ -310,7 +317,7 @@ NSArray *keys;
             [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                 
                 NSDictionary *dict = snapshot.value;
-                keys = [dict allKeys];
+                //keys = [dict allKeys];
                 NSArray * arr = [dict allValues];
                 
                

@@ -14,6 +14,7 @@
 @property(nonatomic) NSString *invitedOn;
 @property(nonatomic) NSString *invitedTill;
 @property(nonatomic) NSString *personalMessage;
+@property(nonatomic) NSString *key;
 
 
 @end

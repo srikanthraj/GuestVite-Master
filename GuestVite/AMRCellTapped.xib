@@ -130,7 +130,6 @@
                     <rect key="frame" x="15" y="280" width="288" height="157"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="157" id="uY6-oR-iw5"/>
-                        <constraint firstAttribute="width" constant="288" id="vbK-PR-PQK"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -162,12 +161,12 @@
                 <constraint firstItem="JMe-zl-00K" firstAttribute="top" secondItem="JdL-XV-BOR" secondAttribute="bottom" constant="27" id="60S-Y9-R3t"/>
                 <constraint firstAttribute="bottom" secondItem="zDl-tm-VBJ" secondAttribute="bottom" constant="28" id="6Lr-ok-QI6"/>
                 <constraint firstItem="bkt-vH-9Bh" firstAttribute="top" secondItem="2Rr-dv-KI8" secondAttribute="bottom" constant="37" id="6x0-Ya-c79"/>
+                <constraint firstAttribute="trailing" secondItem="zlB-Jd-nOd" secondAttribute="trailing" constant="17" id="9E8-af-xXm"/>
                 <constraint firstItem="2Rr-dv-KI8" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="31" id="B0y-pC-gHK"/>
                 <constraint firstItem="zDl-tm-VBJ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="32" id="BaN-vA-qij"/>
                 <constraint firstItem="Oot-Zu-avO" firstAttribute="leading" secondItem="OCY-SR-Scu" secondAttribute="trailing" constant="55" id="DdG-R3-9kc"/>
                 <constraint firstItem="Oot-Zu-avO" firstAttribute="top" secondItem="bkt-vH-9Bh" secondAttribute="bottom" constant="23" id="Eqc-jP-TPM"/>
                 <constraint firstItem="HkO-0j-vT7" firstAttribute="top" secondItem="Oot-Zu-avO" secondAttribute="bottom" constant="35" id="Ha1-yd-n0L"/>
-                <constraint firstAttribute="trailing" secondItem="zlB-Jd-nOd" secondAttribute="trailing" constant="15" id="In3-bs-dyp"/>
                 <constraint firstItem="a4P-kA-DQg" firstAttribute="top" secondItem="HkO-0j-vT7" secondAttribute="bottom" constant="33" id="KKI-Se-j9z"/>
                 <constraint firstItem="cA0-gQ-yNe" firstAttribute="top" secondItem="OCY-SR-Scu" secondAttribute="bottom" constant="35" id="KzT-iH-2u3"/>
                 <constraint firstItem="OCY-SR-Scu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="Ppq-iZ-kDH"/>
@@ -182,10 +181,10 @@
                 <constraint firstItem="ggR-cd-h3j" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="g3t-cU-iLn"/>
                 <constraint firstItem="a4P-kA-DQg" firstAttribute="leading" secondItem="ggR-cd-h3j" secondAttribute="trailing" constant="25" id="haT-rv-hC6"/>
                 <constraint firstItem="HkO-0j-vT7" firstAttribute="leading" secondItem="cA0-gQ-yNe" secondAttribute="trailing" constant="55" id="hn7-6S-Qws"/>
-                <constraint firstItem="zlB-Jd-nOd" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="hp7-qn-H9b"/>
                 <constraint firstItem="OCY-SR-Scu" firstAttribute="top" secondItem="wsM-pL-s1G" secondAttribute="bottom" constant="23" id="jZR-Bh-CSa"/>
                 <constraint firstItem="ggR-cd-h3j" firstAttribute="top" secondItem="cA0-gQ-yNe" secondAttribute="bottom" constant="33" id="khH-za-O27"/>
                 <constraint firstItem="JdL-XV-BOR" firstAttribute="top" secondItem="zlB-Jd-nOd" secondAttribute="bottom" constant="24" id="lUj-Bh-WYH"/>
+                <constraint firstItem="zlB-Jd-nOd" firstAttribute="leading" secondItem="ggR-cd-h3j" secondAttribute="leading" id="rbA-8A-bzZ"/>
                 <constraint firstItem="wsM-pL-s1G" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="zva-dy-ziB"/>
             </constraints>
             <point key="canvasLocation" x="180" y="248"/>
