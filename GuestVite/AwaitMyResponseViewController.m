@@ -271,6 +271,10 @@ NSArray *keys;
     cell.invitedFromDateLabel.text = [invitedFromData objectAtIndex:indexPath.row];
     cell.invitedTillDateLabel.text = [invitedTillData objectAtIndex:indexPath.row];
     
+    if([[keyData objectAtIndex:indexPath.row]integerValue] == -1){
+        NSLog(@"NOOO INVITE");
+        cell.userInteractionEnabled = NO;
+    }
     return cell;
 }
 
@@ -286,6 +290,8 @@ NSArray *keys;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    
     
     
     AMRCellTapped *amrCellTapped =

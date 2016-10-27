@@ -99,8 +99,8 @@
     self.acceptOrDeclineLabel.textColor = [UIColor redColor];
     
     
-   // [self performSelector:@selector(loadingNextView)
-              // withObject:nil afterDelay:5.0f];
+    [self performSelector:@selector(loadingNextView)
+               withObject:nil afterDelay:3.0f];
 }
 
 - (IBAction)acceptTapped:(id)sender {
@@ -139,7 +139,7 @@
     
     
     [self performSelector:@selector(loadingNextView)
-               withObject:nil afterDelay:5.0f];
+               withObject:nil afterDelay:3.0f];
     
     
 }
