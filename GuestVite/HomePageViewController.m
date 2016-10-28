@@ -14,6 +14,7 @@
 
 #import "SendNewInviteViewController.h"
 #import "AwaitMyResponseViewController.h"
+#import "PrevInvRecvdViewController.h"
 
 @import Firebase;
 @interface HomePageViewController ()
@@ -23,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendInviteButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *waitingRespButton;
-@property (weak, nonatomic) IBOutlet UIButton *prevReqRecvdButton;
+@property (weak, nonatomic) IBOutlet UIButton *prevInvRecvdButton;
 
 @property (weak, nonatomic) IBOutlet UIButton *prevInvSentButton;
 @property (weak, nonatomic) IBOutlet UIButton *trackButton;
@@ -66,9 +67,9 @@
     self.waitingRespButton.layer.borderWidth = 2.0;
 
     
-    self.prevReqRecvdButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
-    self.prevReqRecvdButton.layer.cornerRadius = 10.0;
-    self.prevReqRecvdButton.layer.borderWidth = 2.0;
+    self.prevInvRecvdButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
+    self.prevInvRecvdButton.layer.cornerRadius = 10.0;
+    self.prevInvRecvdButton.layer.borderWidth = 2.0;
 
     
     self.prevInvSentButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
@@ -153,6 +154,20 @@
     
     [self presentViewController:sendNewVC animated:YES completion:nil];
     
+}
+
+- (IBAction)prevInvRecvdTapped:(id)sender {
+    
+    
+    
+    PrevInvRecvdViewController *prevInvRecvdVC =
+    [[PrevInvRecvdViewController alloc] initWithNibName:@"PrevInvRecvdViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:prevInvRecvdVC animated:YES];
+    
+    [self presentViewController:prevInvRecvdVC animated:YES completion:nil];
+
 }
 
 

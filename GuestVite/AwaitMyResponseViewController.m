@@ -57,13 +57,7 @@ NSArray *keys;
     
     NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
     
-    /*
-    firstNameData = [[NSMutableArray alloc] init];;
-    lastNameData = [[NSMutableArray alloc] init];
-    invitedFromData = [[NSMutableArray alloc] init];
-    invitedTillData = [[NSMutableArray alloc] init];
-    */
-     
+    
     __block NSMutableArray *myfirstNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *mylastNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
@@ -189,31 +183,6 @@ NSArray *keys;
     NSLog(@"Class %@",NSStringFromClass([firstNameData class]));
     
     
-    //NSLog(@"My Data count %lu", (unsigned long)[myData count]);
-    /*
-    for(int i=0;i<[myfirstNameData count];i++){
-        [firstNameData addObject:[myfirstNameData objectAtIndex:i]];
-        [lastNameData addObject:[mylastNameData objectAtIndex:i]];
-        [invitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
-        [invitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
-    }
-     */
-    
-    
-    
-        /*
-         
-         firstNameData = [NSMutableArray arrayWithArray:myfirstNameData];
-         lastNameData = [NSMutableArray arrayWithArray:mylastNameData];
-         invitedFromData = [NSMutableArray arrayWithArray:myinvitedFromData];
-         invitedTillData = [NSMutableArray arrayWithArray:myinvitedTillData];
-         
-         firstNameData = [[NSMutableArray alloc] initWithArray:myfirstNameData copyItems:YES];
-         lastNameData = [[NSMutableArray alloc] initWithArray:mylastNameData copyItems:YES];
-         invitedFromData = [[NSMutableArray alloc] initWithArray:myinvitedFromData copyItems:YES];;
-         invitedTillData = [[NSMutableArray alloc] initWithArray:myinvitedTillData copyItems:YES];;
-         */
-
     firstNameData = [myfirstNameData copy];
     lastNameData = [mylastNameData copy];
     invitedFromData = [myinvitedFromData copy];
@@ -244,7 +213,7 @@ NSArray *keys;
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-     [tableView registerNib:[UINib nibWithNibName:@"SimpleTableCell" bundle:nil] forCellReuseIdentifier:@"SimpleTableCell"];
+    [tableView registerNib:[UINib nibWithNibName:@"SimpleTableCell" bundle:nil] forCellReuseIdentifier:@"SimpleTableCell"];
     
     static NSString *cellIdentifier = @"SimpleTableCell";
     
