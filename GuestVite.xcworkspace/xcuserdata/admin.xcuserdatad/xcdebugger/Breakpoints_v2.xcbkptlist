@@ -26,13 +26,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/HomePageViewController.m"
-            timestampString = "499043525.97542"
+            timestampString = "499539464.267721"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "welcomeLabel"
-            landmarkType = "19">
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "@interface HomePageViewController()"
+            landmarkType = "2">
             <Locations>
                <Location
                   shouldBeEnabled = "No"

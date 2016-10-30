@@ -114,6 +114,9 @@
                                 <state key="normal" title="Previous Invites Sent">
                                     <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="prevInvSentTapped:" destination="-1" eventType="touchUpInside" id="Aj7-hH-nLU"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdK-ih-Rmc">
                                 <rect key="frame" x="78" y="372" width="155" height="30"/>

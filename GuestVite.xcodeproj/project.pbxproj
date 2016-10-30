@@ -49,6 +49,10 @@
 		847340751DA979A50038C047 /* RegPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847340731DA979A50038C047 /* RegPageViewController.m */; };
 		847340761DA979A50038C047 /* RegPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847340741DA979A50038C047 /* RegPageViewController.xib */; };
 		8473407B1DA983F10038C047 /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473407A1DA983F10038C047 /* TextFieldValidator.m */; };
+		84DF6AA41DC650B600047435 /* PrevInvSentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DF6AA21DC650B600047435 /* PrevInvSentViewController.m */; };
+		84DF6AA51DC650B600047435 /* PrevInvSentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DF6AA31DC650B600047435 /* PrevInvSentViewController.xib */; };
+		84DF6AA91DC6525000047435 /* PrevInvSentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DF6AA71DC6525000047435 /* PrevInvSentCell.m */; };
+		84DF6AAA1DC6525000047435 /* PrevInvSentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DF6AA81DC6525000047435 /* PrevInvSentCell.xib */; };
 		8807A8849A35A4DFD7FB6C87 /* libPods-GuestVite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E4060546172690D586480F /* libPods-GuestVite.a */; };
 /* End PBXBuildFile section */
 
@@ -122,6 +126,12 @@
 		847340741DA979A50038C047 /* RegPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegPageViewController.xib; sourceTree = "<group>"; };
 		847340791DA983F10038C047 /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldValidator.h; path = "../../../../Downloads/TextFieldValidator-master/TextFieldValidator/TextFieldValidator.h"; sourceTree = "<group>"; };
 		8473407A1DA983F10038C047 /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextFieldValidator.m; path = "../../../../Downloads/TextFieldValidator-master/TextFieldValidator/TextFieldValidator.m"; sourceTree = "<group>"; };
+		84DF6AA11DC650B600047435 /* PrevInvSentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrevInvSentViewController.h; sourceTree = "<group>"; };
+		84DF6AA21DC650B600047435 /* PrevInvSentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrevInvSentViewController.m; sourceTree = "<group>"; };
+		84DF6AA31DC650B600047435 /* PrevInvSentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrevInvSentViewController.xib; sourceTree = "<group>"; };
+		84DF6AA61DC6525000047435 /* PrevInvSentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrevInvSentCell.h; sourceTree = "<group>"; };
+		84DF6AA71DC6525000047435 /* PrevInvSentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrevInvSentCell.m; sourceTree = "<group>"; };
+		84DF6AA81DC6525000047435 /* PrevInvSentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrevInvSentCell.xib; sourceTree = "<group>"; };
 		99E7C1676E7E599B44419974 /* Pods-GuestVite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuestVite.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GuestVite/Pods-GuestVite.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +234,12 @@
 				84267C6E1DC2C9590044ACF4 /* PrevInvRecvdCell.h */,
 				84267C6F1DC2C9590044ACF4 /* PrevInvRecvdCell.m */,
 				84267C701DC2C9590044ACF4 /* PrevInvRecvdCell.xib */,
+				84DF6AA11DC650B600047435 /* PrevInvSentViewController.h */,
+				84DF6AA21DC650B600047435 /* PrevInvSentViewController.m */,
+				84DF6AA31DC650B600047435 /* PrevInvSentViewController.xib */,
+				84DF6AA61DC6525000047435 /* PrevInvSentCell.h */,
+				84DF6AA71DC6525000047435 /* PrevInvSentCell.m */,
+				84DF6AA81DC6525000047435 /* PrevInvSentCell.xib */,
 			);
 			path = GuestVite;
 			sourceTree = "<group>";
@@ -322,8 +338,10 @@
 				84267C341DBBBF1C0044ACF4 /* DMLazyScrollView in Resources */,
 				84267C721DC2C9590044ACF4 /* PrevInvRecvdCell.xib in Resources */,
 				847340711DA977CD0038C047 /* HomePageViewController.xib in Resources */,
+				84DF6AA51DC650B600047435 /* PrevInvSentViewController.xib in Resources */,
 				84267C111DAD9CF10044ACF4 /* SendNewInviteViewController.xib in Resources */,
 				847340761DA979A50038C047 /* RegPageViewController.xib in Resources */,
+				84DF6AAA1DC6525000047435 /* PrevInvSentCell.xib in Resources */,
 				847340571DA937680038C047 /* Assets.xcassets in Resources */,
 				84267C191DB083D10044ACF4 /* SendBulkInviteViewController.xib in Resources */,
 				84267C5B1DBEE2430044ACF4 /* SimpleTableCell.xib in Resources */,
@@ -404,10 +422,12 @@
 				84267C331DBBBF1C0044ACF4 /* DateUtil.m in Sources */,
 				847340551DA937680038C047 /* GuestVite.xcdatamodeld in Sources */,
 				84267C041DAC56D30044ACF4 /* SWRevealViewController.m in Sources */,
+				84DF6AA91DC6525000047435 /* PrevInvSentCell.m in Sources */,
 				847340751DA979A50038C047 /* RegPageViewController.m in Sources */,
 				84267C0A1DAC6DC10044ACF4 /* FLAnimatedImageView.m in Sources */,
 				847340491DA937670038C047 /* main.m in Sources */,
 				84267C1D1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.m in Sources */,
+				84DF6AA41DC650B600047435 /* PrevInvSentViewController.m in Sources */,
 				84267C581DBEDF4F0044ACF4 /* AwaitMyResponseViewController.m in Sources */,
 				84267C101DAD9CF10044ACF4 /* SendNewInviteViewController.m in Sources */,
 				84267C711DC2C9590044ACF4 /* PrevInvRecvdCell.m in Sources */,

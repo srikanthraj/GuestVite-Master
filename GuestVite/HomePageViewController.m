@@ -15,6 +15,7 @@
 #import "SendNewInviteViewController.h"
 #import "AwaitMyResponseViewController.h"
 #import "PrevInvRecvdViewController.h"
+#import "PrevInvSentViewController.h"
 
 @import Firebase;
 @interface HomePageViewController ()
@@ -170,6 +171,17 @@
 
 }
 
+- (IBAction)prevInvSentTapped:(id)sender {
+    
+    PrevInvSentViewController *prevInvSentVC =
+    [[PrevInvSentViewController alloc] initWithNibName:@"PrevInvSentViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:prevInvSentVC animated:YES];
+    
+    [self presentViewController:prevInvSentVC animated:YES completion:nil];
+    
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

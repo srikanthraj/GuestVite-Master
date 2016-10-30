@@ -116,11 +116,12 @@ NSArray *pirkeys;
         inviteTableLength = [arr count];
         //NSLog(@"ARR count %lu",(unsigned long)[arr count]);
         
+        
         for(int i=0;i < [arr count];i++)
         {
             
             endDateTime = arr[i][@"Invite Valid Till Date"];
-            NSLog(@"Current User Email %@",currentUserEMail);
+            NSLog(@"END DATE TIME %@",endDateTime);
             
             if([currentUserEMail length] > 0 && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail])
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
