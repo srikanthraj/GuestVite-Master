@@ -18,6 +18,10 @@
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
+@property (weak, nonatomic) IBOutlet UINavigationBar *prevInvRecvdBack;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (weak, nonatomic) IBOutlet UILabel *backLabel;
+
 @end
 
 @implementation PrevInvRecvdViewController
@@ -49,6 +53,42 @@ NSArray *pirkeys;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
+    self.tableView.backgroundColor = background;
+    
+    
+    self.prevInvRecvdBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
+    
+    [self.prevInvRecvdBack setFrame:CGRectMake(0, 0, 400, 64)];
+    
+    self.prevInvRecvdBack.translucent = YES;
+    
+    
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
+    [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
+    
+    
+    
+    
+    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
+    self.backLabel.textColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    
+    
+    
+    self.navigationItem.leftBarButtonItem = _backButton;
+    
+    [self.view addSubview:_prevInvRecvdBack];
+    
+    
+    
     
     pirkeys = [[NSArray alloc]init];
     
@@ -207,6 +247,12 @@ NSArray *pirkeys;
     
 }
 
+
+- (IBAction)Back
+{
+    [self dismissViewControllerAnimated:YES completion:nil]; // ios 6
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -260,6 +306,12 @@ NSArray *pirkeys;
         
         cell.userInteractionEnabled = NO;
     }
+    
+    
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    
+    
     return cell;
 }
 
