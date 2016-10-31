@@ -7,6 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PrevInvSentViewController">
             <connections>
+                <outlet property="backButton" destination="tPQ-sL-gr9" id="Ipt-B0-xP2"/>
+                <outlet property="backLabel" destination="oqg-tW-z0P" id="WTo-hJ-w6r"/>
                 <outlet property="prevInvSentBack" destination="TcV-bQ-GJZ" id="z3g-Mf-hjz"/>
                 <outlet property="tableView" destination="7nZ-g5-ofm" id="Dhp-yu-CDv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -17,8 +19,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7nZ-g5-ofm">
-                    <rect key="frame" x="0.0" y="51" width="320" height="517"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7nZ-g5-ofm">
+                    <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="om5-S2-UxE"/>
@@ -28,21 +30,38 @@
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TcV-bQ-GJZ">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <items>
-                        <navigationItem title="Previous Invites Sent" id="GCP-Aj-QbL"/>
+                        <navigationItem title="Previous Invites Sent" id="GCP-Aj-QbL">
+                            <barButtonItem key="backBarButtonItem" title="Back" image="button_back" id="mwv-8W-4K6"/>
+                            <barButtonItem key="leftBarButtonItem" image="button_back" id="tPQ-sL-gr9">
+                                <color key="tintColor" red="0.090157443786422889" green="0.23058894230769234" blue="0.089826690417998442" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="Back" destination="-1" id="6kj-bP-Hpb"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
                     </items>
                 </navigationBar>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqg-tW-z0P">
+                    <rect key="frame" x="29" y="11" width="34" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="7nZ-g5-ofm" firstAttribute="top" secondItem="TcV-bQ-GJZ" secondAttribute="bottom" id="Aow-r7-1Nm"/>
-                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="H6W-Rr-jiX"/>
-                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="MWu-Xy-8ET"/>
-                <constraint firstAttribute="trailing" secondItem="TcV-bQ-GJZ" secondAttribute="trailing" id="QHK-6f-Huv"/>
-                <constraint firstAttribute="trailing" secondItem="7nZ-g5-ofm" secondAttribute="trailing" id="TSx-6P-jdy"/>
-                <constraint firstAttribute="bottom" secondItem="7nZ-g5-ofm" secondAttribute="bottom" id="ivc-WC-3SJ"/>
-                <constraint firstItem="7nZ-g5-ofm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="rfe-An-Zf0"/>
+                <constraint firstItem="7nZ-g5-ofm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ME5-bs-8Py"/>
+                <constraint firstAttribute="trailing" secondItem="7nZ-g5-ofm" secondAttribute="trailing" id="Nv3-ol-a8c"/>
+                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bYe-H5-jl5"/>
+                <constraint firstItem="7nZ-g5-ofm" firstAttribute="top" secondItem="TcV-bQ-GJZ" secondAttribute="bottom" id="gMj-6L-XJZ"/>
+                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qSU-w7-fu5"/>
+                <constraint firstAttribute="bottom" secondItem="7nZ-g5-ofm" secondAttribute="bottom" id="sKD-hG-H5F"/>
+                <constraint firstAttribute="trailing" secondItem="TcV-bQ-GJZ" secondAttribute="trailing" id="svw-e4-RTq"/>
             </constraints>
             <point key="canvasLocation" x="200" y="384"/>
         </view>
     </objects>
+    <resources>
+        <image name="button_back" width="50" height="30"/>
+    </resources>
 </document>

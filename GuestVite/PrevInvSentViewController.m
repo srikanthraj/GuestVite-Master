@@ -16,6 +16,8 @@
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UINavigationBar *prevInvSentBack;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (weak, nonatomic) IBOutlet UILabel *backLabel;
 
 @end
 
@@ -43,14 +45,23 @@ NSArray *piskeys;
 }
 
 
+-(void) viewWillAppear{
+    [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.view.frame.size.width,80.0)];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
-    _prevInvSentBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 320, 50)];
-    //do something like background color, title, etc you self
+    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
+    self.tableView.backgroundColor = background;
     
-    [self.view addSubview:_prevInvSentBack];
+
+    
+    self.prevInvSentBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
+    
+    [self.prevInvSentBack setFrame:CGRectMake(0, 0, 400, 64)];
+    
+    self.prevInvSentBack.translucent = YES;
+    
     
     UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
@@ -59,9 +70,47 @@ NSArray *piskeys;
                                                            [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
                                                            [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
     
+    
+    
+    
+    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
+    self.backLabel.textColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    
+    
+    
+    self.navigationItem.leftBarButtonItem = _backButton;
+    /*
+    
     // Change the appearance of back button
-    UIImage *backButtonImage = [[UIImage imageNamed:@"button_back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 6)];
-    [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+     
+     UIImage *backButtonImage = [[UIImage imageNamed:@"button_back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 6)];
+     
+     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+     
+     // Change the appearance of other navigation button
+     UIImage *barButtonImage = [[UIImage imageNamed:@"button_normal"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
+     
+     [[UIBarButtonItem appearance] setBackgroundImage:barButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    
+    
+    [[UIBarButtonItem appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                          NSForegroundColorAttributeName,
+                                                          [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],nil] forState:UIControlStateNormal];
+
+    
+    
+    
+    
+    */
+     
+    [self.view addSubview:_prevInvSentBack];
+    
+    
+
+    
     
     piskeys = [[NSArray alloc]init];
     
@@ -234,6 +283,12 @@ NSArray *piskeys;
     
 }
 
+- (IBAction)Back
+{
+    [self dismissViewControllerAnimated:YES completion:nil]; // ios 6
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -292,6 +347,10 @@ NSArray *piskeys;
     cell.invitedFromDateLabel.text = [pisinvitedFromData objectAtIndex:indexPath.row];
     cell.invitedTillDateLabel.text = [pisinvitedTillData objectAtIndex:indexPath.row];
     cell.actionTakenLabel.text = [pisactionTakenData objectAtIndex:indexPath.row];
+    
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    
     
     return cell;
 }

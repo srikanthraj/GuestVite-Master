@@ -13,7 +13,6 @@
                 <outlet property="sendInviteButton" destination="xEh-eg-igf" id="0Fz-Ez-9LD"/>
                 <outlet property="settingsButton" destination="u0k-Dp-fMY" id="7lV-Jf-kVf"/>
                 <outlet property="trackButton" destination="cdK-ih-Rmc" id="N3Q-Ag-X7M"/>
-                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="waitingRespButton" destination="fHA-2M-DnO" id="79a-ET-00q"/>
                 <outlet property="welcomeLabel" destination="0Do-rU-heR" id="hBt-eE-ei0"/>
             </connections>
@@ -28,151 +27,115 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 <subviews>
-                    <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="i5M-Pr-FkT">
+                    <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Black_BG" translatesAutoresizingMaskIntoConstraints="NO" id="DQq-hZ-A0C">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Black_BG" translatesAutoresizingMaskIntoConstraints="NO" id="DQq-hZ-A0C">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Do-rU-heR">
-                                <rect key="frame" x="18" y="15" width="191" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FL0-6e-PnW">
-                                <rect key="frame" x="66" y="436" width="186" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="59" id="7JA-ta-Bp8"/>
-                                    <constraint firstAttribute="width" constant="304" id="gvM-K1-EOf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                                <state key="normal" title="Awaiting My response">
-                                    <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="awaitingMyResponseTapped:" destination="-1" eventType="touchUpInside" id="SYV-bt-uoh"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u0k-Dp-fMY">
-                                <rect key="frame" x="8" y="492" width="294" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="59" id="1Zo-Lb-Cfu"/>
-                                    <constraint firstAttribute="width" constant="304" id="WZ8-zK-SBe"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                                <state key="normal" title="Settings">
-                                    <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ub5-zL-K7f">
-                                <rect key="frame" x="123" y="530" width="63" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Sign Out">
-                                    <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="signOutTapped:" destination="-1" eventType="touchUpInside" id="sHi-SW-k4D"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xEh-eg-igf">
-                                <rect key="frame" x="8" y="51" width="304" height="59"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="304" id="gXx-pM-l7B"/>
-                                    <constraint firstAttribute="height" constant="59" id="tSw-h9-NlR"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="59" id="ulc-us-hea"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                                <state key="normal" title="                  Send New Invite                            ">
-                                    <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="sendNewInviteTapped:" destination="-1" eventType="touchUpInside" id="KWW-dy-by2"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZs-0u-0hl">
-                                <rect key="frame" x="58" y="241" width="222" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="59" id="A32-rU-bPB"/>
-                                    <constraint firstAttribute="width" constant="304" id="OQz-hQ-UvQ"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                                <state key="normal" title="Previous Invites Received">
-                                    <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="prevInvRecvdTapped:" destination="-1" eventType="touchUpInside" id="Wxs-wo-vxn"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1VG-sD-hYG">
-                                <rect key="frame" x="67" y="311" width="186" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="304" id="aw6-pq-s1b"/>
-                                    <constraint firstAttribute="height" constant="59" id="rWj-98-oYi"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                                <state key="normal" title="Previous Invites Sent">
-                                    <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="prevInvSentTapped:" destination="-1" eventType="touchUpInside" id="Aj7-hH-nLU"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdK-ih-Rmc">
-                                <rect key="frame" x="78" y="372" width="155" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="59" id="FEP-I0-Uu6"/>
-                                    <constraint firstAttribute="width" constant="304" id="ZFA-wr-n83"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                                <state key="normal" title="Track My Guests ">
-                                    <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHA-2M-DnO">
-                                <rect key="frame" x="12" y="142" width="294" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="304" id="NUS-fy-usB"/>
-                                    <constraint firstAttribute="height" constant="59" id="wPj-rY-DjN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
-                                <state key="normal" title="Waiting responses From:">
-                                    <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Do-rU-heR">
+                        <rect key="frame" x="12" y="13" width="191" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FL0-6e-PnW">
+                        <rect key="frame" x="66" y="392" width="186" height="30"/>
                         <constraints>
-                            <constraint firstItem="RZs-0u-0hl" firstAttribute="top" secondItem="fHA-2M-DnO" secondAttribute="bottom" constant="15" id="0gE-aE-PB5"/>
-                            <constraint firstItem="0Do-rU-heR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="3Wo-yn-SMn"/>
-                            <constraint firstItem="fHA-2M-DnO" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="7gU-GN-mzI"/>
-                            <constraint firstItem="u0k-Dp-fMY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="8Ev-xG-4rY"/>
-                            <constraint firstItem="cdK-ih-Rmc" firstAttribute="top" secondItem="1VG-sD-hYG" secondAttribute="bottom" constant="15" id="8p0-b3-a3s"/>
-                            <constraint firstAttribute="trailing" secondItem="DQq-hZ-A0C" secondAttribute="trailing" id="A77-l0-U4P"/>
-                            <constraint firstAttribute="trailing" secondItem="FL0-6e-PnW" secondAttribute="trailing" constant="8" id="M1s-eB-fxY"/>
-                            <constraint firstItem="xEh-eg-igf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="O2h-6V-dJo"/>
-                            <constraint firstAttribute="trailing" secondItem="RZs-0u-0hl" secondAttribute="trailing" constant="8" id="OG8-LM-71O"/>
-                            <constraint firstAttribute="trailing" secondItem="cdK-ih-Rmc" secondAttribute="trailing" constant="8" id="QdI-5w-Jn9"/>
-                            <constraint firstItem="DQq-hZ-A0C" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Qux-K3-tly"/>
-                            <constraint firstAttribute="bottom" secondItem="DQq-hZ-A0C" secondAttribute="bottom" id="S2o-lA-Jsy"/>
-                            <constraint firstItem="FL0-6e-PnW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="U7Y-YH-bpX"/>
-                            <constraint firstItem="RZs-0u-0hl" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="UqS-nm-AG4"/>
-                            <constraint firstItem="DQq-hZ-A0C" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="XNA-9a-IQj"/>
-                            <constraint firstItem="cdK-ih-Rmc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Xxs-OA-WkS"/>
-                            <constraint firstAttribute="trailing" secondItem="u0k-Dp-fMY" secondAttribute="trailing" constant="8" id="a5G-xH-yz2"/>
-                            <constraint firstItem="1VG-sD-hYG" firstAttribute="top" secondItem="RZs-0u-0hl" secondAttribute="bottom" constant="15" id="cGy-bF-JSb"/>
-                            <constraint firstAttribute="trailing" secondItem="fHA-2M-DnO" secondAttribute="trailing" constant="8" id="hHX-Za-6Kf"/>
-                            <constraint firstAttribute="trailing" secondItem="xEh-eg-igf" secondAttribute="trailing" constant="8" id="hMk-vX-eib"/>
-                            <constraint firstAttribute="trailing" secondItem="1VG-sD-hYG" secondAttribute="trailing" constant="8" id="hYz-Z8-rL5"/>
-                            <constraint firstItem="xEh-eg-igf" firstAttribute="top" secondItem="0Do-rU-heR" secondAttribute="bottom" constant="15" id="ic7-bt-esq"/>
-                            <constraint firstItem="u0k-Dp-fMY" firstAttribute="top" secondItem="FL0-6e-PnW" secondAttribute="bottom" constant="15" id="jvI-Sg-5YU"/>
-                            <constraint firstItem="fHA-2M-DnO" firstAttribute="top" secondItem="xEh-eg-igf" secondAttribute="bottom" constant="15" id="qqL-N2-rBa"/>
-                            <constraint firstAttribute="trailing" secondItem="xEh-eg-igf" secondAttribute="trailing" constant="8" id="s7r-jy-wZe"/>
-                            <constraint firstItem="xEh-eg-igf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="ucO-Yg-Zhi"/>
-                            <constraint firstItem="1VG-sD-hYG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="vqQ-6m-RCe"/>
-                            <constraint firstItem="FL0-6e-PnW" firstAttribute="top" secondItem="cdK-ih-Rmc" secondAttribute="bottom" constant="15" id="wvo-vt-Jgw"/>
+                            <constraint firstAttribute="height" constant="59" id="7JA-ta-Bp8"/>
+                            <constraint firstAttribute="width" constant="304" id="gvM-K1-EOf"/>
                         </constraints>
-                    </view>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                        <state key="normal" title="Awaiting My response">
+                            <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="awaitingMyResponseTapped:" destination="-1" eventType="touchUpInside" id="SYV-bt-uoh"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ub5-zL-K7f">
+                        <rect key="frame" x="119" y="530" width="63" height="30"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <state key="normal" title="Sign Out">
+                            <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="signOutTapped:" destination="-1" eventType="touchUpInside" id="sHi-SW-k4D"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xEh-eg-igf">
+                        <rect key="frame" x="7" y="49" width="304" height="59"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="304" id="gXx-pM-l7B"/>
+                            <constraint firstAttribute="height" constant="59" id="tSw-h9-NlR"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="59" id="ulc-us-hea"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                        <state key="normal" title="                  Send New Invite                            ">
+                            <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="sendNewInviteTapped:" destination="-1" eventType="touchUpInside" id="KWW-dy-by2"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RZs-0u-0hl">
+                        <rect key="frame" x="49" y="258" width="222" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="59" id="A32-rU-bPB"/>
+                            <constraint firstAttribute="width" constant="304" id="OQz-hQ-UvQ"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                        <state key="normal" title="Previous Invites Received">
+                            <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="prevInvRecvdTapped:" destination="-1" eventType="touchUpInside" id="Wxs-wo-vxn"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1VG-sD-hYG">
+                        <rect key="frame" x="66" y="198" width="186" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="304" id="aw6-pq-s1b"/>
+                            <constraint firstAttribute="height" constant="59" id="rWj-98-oYi"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                        <state key="normal" title="Previous Invites Sent">
+                            <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="prevInvSentTapped:" destination="-1" eventType="touchUpInside" id="Aj7-hH-nLU"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cdK-ih-Rmc">
+                        <rect key="frame" x="73" y="318" width="155" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="59" id="FEP-I0-Uu6"/>
+                            <constraint firstAttribute="width" constant="304" id="ZFA-wr-n83"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                        <state key="normal" title="Track My Guests ">
+                            <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fHA-2M-DnO">
+                        <rect key="frame" x="13" y="138" width="294" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="304" id="NUS-fy-usB"/>
+                            <constraint firstAttribute="height" constant="59" id="wPj-rY-DjN"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                        <state key="normal" title="Waiting responses From:">
+                            <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u0k-Dp-fMY">
+                        <rect key="frame" x="6" y="452" width="294" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="59" id="1Zo-Lb-Cfu"/>
+                            <constraint firstAttribute="width" constant="304" id="WZ8-zK-SBe"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
+                        <state key="normal" title="Settings">
+                            <color key="titleColor" red="0.19912616959672091" green="0.57725339978326939" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             </view>

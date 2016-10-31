@@ -22,6 +22,9 @@
    
     
     [FIRApp configure];
+    
+    
+
    
     return YES;
 }

@@ -7,6 +7,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AwaitMyResponseViewController">
             <connections>
+                <outlet property="awaitMyResponseBack" destination="vbJ-XX-kxg" id="vL7-Fq-egb"/>
+                <outlet property="backButton" destination="U9a-kn-Bjp" id="eft-qd-aEk"/>
+                <outlet property="backLabel" destination="rhj-cb-FXz" id="OWz-YG-Htm"/>
                 <outlet property="tableView" destination="qCQ-xp-sYM" id="xGO-eL-bR8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -16,23 +19,45 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qCQ-xp-sYM">
-                    <rect key="frame" x="8" y="40" width="296" height="506"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qCQ-xp-sYM">
+                    <rect key="frame" x="8" y="44" width="296" height="502"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="iYv-VG-Py9"/>
                         <outlet property="delegate" destination="-1" id="Y9f-lA-vON"/>
                     </connections>
                 </tableView>
+                <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vbJ-XX-kxg">
+                    <rect key="frame" x="-4" y="0.0" width="320" height="44"/>
+                    <items>
+                        <navigationItem title="Awaiting My Response" id="8Eq-c5-qfu">
+                            <barButtonItem key="leftBarButtonItem" image="button_back" id="U9a-kn-Bjp">
+                                <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="Back" destination="-1" id="C5J-Vm-fiz"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhj-cb-FXz">
+                    <rect key="frame" x="24" y="11" width="38" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="qCQ-xp-sYM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="8" id="Cll-Qc-dkh"/>
-                <constraint firstAttribute="trailing" secondItem="qCQ-xp-sYM" secondAttribute="trailing" constant="8" id="NzV-rt-szs"/>
-                <constraint firstAttribute="bottom" secondItem="qCQ-xp-sYM" secondAttribute="bottom" constant="22" id="jfK-m9-hbP"/>
-                <constraint firstItem="qCQ-xp-sYM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="zqN-Sb-p2D"/>
+                <constraint firstAttribute="bottom" secondItem="qCQ-xp-sYM" secondAttribute="bottom" id="RMY-Rw-6LH"/>
+                <constraint firstItem="qCQ-xp-sYM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="VWN-85-PCP"/>
+                <constraint firstAttribute="trailing" secondItem="qCQ-xp-sYM" secondAttribute="trailing" id="mbw-On-gPz"/>
+                <constraint firstItem="qCQ-xp-sYM" firstAttribute="top" secondItem="vbJ-XX-kxg" secondAttribute="bottom" id="vM3-gV-mXC"/>
             </constraints>
             <point key="canvasLocation" x="195" y="248"/>
         </view>
     </objects>
+    <resources>
+        <image name="button_back" width="50" height="30"/>
+    </resources>
 </document>
