@@ -28,7 +28,6 @@
 
 NSMutableArray *pirfirstNameData;
 NSMutableArray *pirlastNameData;
-NSMutableArray *pirnameData;
 NSMutableArray *pirinvitedFromData;
 NSMutableArray *pirinvitedTillData;
 NSMutableArray *pirsenderPhoneData;
@@ -53,6 +52,17 @@ NSArray *pirkeys;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    
+    pirfirstNameData = [[NSMutableArray alloc]init];
+    pirlastNameData = [[NSMutableArray alloc]init];
+    pirinvitedFromData = [[NSMutableArray alloc]init];
+    pirinvitedTillData = [[NSMutableArray alloc]init];
+    pirsenderPhoneData = [[NSMutableArray alloc]init];
+    pirsenderEMailData = [[NSMutableArray alloc]init];
+    piractionTakenData = [[NSMutableArray alloc]init];
+    pirkeyData = [[NSMutableArray alloc]init];
+    
     
     UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
     self.tableView.backgroundColor = background;
@@ -233,6 +243,23 @@ NSArray *pirkeys;
     }
 
     
+    NSLog(@"myfirstNameData count is %lu",(unsigned long)[myfirstNameData count]);
+    for(int i =0;i<[myinvitedFromData count];i++){
+        [pirfirstNameData addObject:[myfirstNameData objectAtIndex:i]];
+        [pirlastNameData addObject:[mylastNameData objectAtIndex:i]];
+        [pirinvitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
+        [pirinvitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
+        [pirsenderPhoneData addObject:[mysenderPhoneData objectAtIndex:i]];
+        [pirsenderEMailData addObject:[mysenderEMailData objectAtIndex:i]];
+        
+        [piractionTakenData addObject:[myactionTakenData objectAtIndex:i]];
+        [pirkeyData addObject:[myKeyData objectAtIndex:i]];
+        
+    }
+    
+    
+    /*
+    
     pirfirstNameData = [myfirstNameData copy];
     pirlastNameData = [mylastNameData copy];
     pirinvitedFromData = [myinvitedFromData copy];
@@ -241,7 +268,7 @@ NSArray *pirkeys;
     pirsenderEMailData = [mysenderEMailData copy];
     piractionTakenData = [myactionTakenData copy];
     pirkeyData = [myKeyData copy];
-    
+    */
     NSLog(@"Key data is %@",pirkeyData);
     
     
@@ -397,6 +424,31 @@ NSArray *pirkeys;
 
             break;
         }
+         
+        case 2: // Delete
+        {
+            
+            
+            // Delete button is pressed
+            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+            [pirfirstNameData removeObjectAtIndex:cellIndexPath.row];
+            [pirlastNameData removeObjectAtIndex:cellIndexPath.row];
+            [pirinvitedFromData removeObjectAtIndex:cellIndexPath.row];
+            [pirinvitedTillData removeObjectAtIndex:cellIndexPath.row];
+            [pirsenderPhoneData removeObjectAtIndex:cellIndexPath.row];
+            [pirsenderEMailData removeObjectAtIndex:cellIndexPath.row];
+            [piractionTakenData removeObjectAtIndex:cellIndexPath.row];
+            [pirkeyData removeObjectAtIndex:cellIndexPath.row];
+            
+            [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            
+            
+            
+            break;
+
+            
+        }
+            
         default:
             break;
     }

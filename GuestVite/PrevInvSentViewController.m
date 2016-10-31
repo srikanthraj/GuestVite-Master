@@ -51,6 +51,14 @@ NSArray *piskeys;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    pisGuestEMailData = [[NSMutableArray alloc]init];
+    pisGuestPhoneData = [[NSMutableArray alloc]init];
+    pisinvitedFromData = [[NSMutableArray alloc]init];
+    pisinvitedTillData = [[NSMutableArray alloc]init];
+    pisactionTakenData = [[NSMutableArray alloc]init];
+    piskeyData = [[NSMutableArray alloc]init];
+    
+    
     UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
     self.tableView.backgroundColor = background;
     
@@ -82,30 +90,7 @@ NSArray *piskeys;
     
     
     self.navigationItem.leftBarButtonItem = _backButton;
-    /*
     
-    // Change the appearance of back button
-     
-     UIImage *backButtonImage = [[UIImage imageNamed:@"button_back"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 13, 0, 6)];
-     
-     [[UIBarButtonItem appearance] setBackButtonBackgroundImage:backButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-     
-     // Change the appearance of other navigation button
-     UIImage *barButtonImage = [[UIImage imageNamed:@"button_normal"] resizableImageWithCapInsets:UIEdgeInsetsMake(0, 6, 0, 6)];
-     
-     [[UIBarButtonItem appearance] setBackgroundImage:barButtonImage forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
-    
-    [[UIBarButtonItem appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                          NSForegroundColorAttributeName,
-                                                          [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.8],nil] forState:UIControlStateNormal];
-
-    
-    
-    
-    
-    */
-     
     [self.view addSubview:_prevInvSentBack];
     
     
@@ -270,6 +255,24 @@ NSArray *piskeys;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
+    NSLog(@"myinvitedFromData count is %lu",(unsigned long)[myinvitedFromData count]);
+    for(int i =0;i<[myinvitedFromData count];i++){
+        [pisGuestEMailData addObject:[myGuestEMailData objectAtIndex:i]];
+        [pisGuestPhoneData addObject:[myGuestPhoneData objectAtIndex:i]];
+        [pisinvitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
+        [pisinvitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
+        [pisactionTakenData addObject:[myactionTakenData objectAtIndex:i]];
+        [piskeyData addObject:[myactionTakenData objectAtIndex:i]];
+    }
+    
+    /*
+    [pisGuestEMailData addObject:nil];
+    [pisGuestPhoneData addObject:nil];
+    [pisinvitedFromData addObject:nil];
+    [pisinvitedTillData addObject:nil];
+    [pisactionTakenData addObject:nil];
+    [piskeyData addObject:nil];
+    
     
     pisGuestEMailData = [myGuestEMailData copy];
     pisGuestPhoneData = [myGuestPhoneData copy];
@@ -277,7 +280,7 @@ NSArray *piskeys;
     pisinvitedTillData = [myinvitedTillData copy];
     pisactionTakenData = [myactionTakenData copy];
     piskeyData = [myKeyData copy];
-    
+    */
     NSLog(@"Key data is %@",piskeyData);
 
     
@@ -368,6 +371,19 @@ NSArray *piskeys;
         {
             
             // LOGIC TO PERFORM DELETE OPERATION
+            
+            // Delete button is pressed
+            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+            [pisGuestEMailData removeObjectAtIndex:cellIndexPath.row];
+            [pisGuestPhoneData removeObjectAtIndex:cellIndexPath.row];
+            [pisinvitedFromData removeObjectAtIndex:cellIndexPath.row];
+            [pisinvitedTillData removeObjectAtIndex:cellIndexPath.row];
+            [pisactionTakenData removeObjectAtIndex:cellIndexPath.row];
+            [piskeyData removeObjectAtIndex:cellIndexPath.row];
+            
+            
+            [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+
             
             
             break;
