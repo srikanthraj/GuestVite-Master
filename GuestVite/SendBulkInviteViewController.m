@@ -7,6 +7,7 @@
 //
 
 #import "SendBulkInviteViewController.h"
+#import "HomePageViewController.h"
 #import "SendAddressBookInviteViewController.h"
 #import "SendNewInviteViewController.h"
 #import <MessageUI/MessageUI.h>
@@ -28,6 +29,11 @@
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePickerExpire;
 
+
+@property (weak, nonatomic) IBOutlet UINavigationBar *sendBulkInviteBack;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (weak, nonatomic) IBOutlet UILabel *backLabel;
+
 @property (nonatomic, strong) UITextField *currentTextField;
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
@@ -46,6 +52,37 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    
+    self.sendBulkInviteBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
+    
+    [self.sendBulkInviteBack setFrame:CGRectMake(0, 0, 400, 64)];
+    
+    self.sendBulkInviteBack.translucent = YES;
+    
+    
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
+    [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
+    
+    
+    
+    
+    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
+    self.backLabel.textColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    
+    
+    
+    self.navigationItem.leftBarButtonItem = _backButton;
+    
+    [self.view addSubview:_sendBulkInviteBack];
+    
     
    
     self.ref = [[FIRDatabase database] reference];
@@ -108,6 +145,19 @@
     [dateFormatter setDateFormat:@"hh:mm a"];
     [self.datePickerExpire  addTarget:self action:@selector(dateChangedExpire:) forControlEvents:UIControlEventValueChanged];
 }
+
+
+- (IBAction)Back
+{
+    HomePageViewController *homePageVC =
+    [[HomePageViewController alloc] initWithNibName:@"HomePageViewController" bundle:nil];
+    
+    
+    [self.navigationController pushViewController:homePageVC animated:YES];
+    
+    [self presentViewController:homePageVC animated:YES completion:nil];
+}
+
 
 
 - (void)dateChanged:(id)sender

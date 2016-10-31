@@ -9,6 +9,7 @@
 #import "SendNewInviteViewController.h"
 #import "SendBulkInviteViewController.h"
 #import "SendAddressBookInviteViewController.h"
+#import "HomePageViewController.h"
 
 #import <MessageUI/MessageUI.h>
 #import "SACalendar.h"
@@ -25,12 +26,17 @@
 @property (weak, nonatomic) IBOutlet UITextField *inviteForDateText;
 @property (weak, nonatomic) IBOutlet UITextField *inviteExpireDateText;
 @property (weak, nonatomic) IBOutlet UITextView *messageText;
-@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *sendInvite;
 @property (weak, nonatomic) IBOutlet UIImageView *regView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (weak, nonatomic) IBOutlet UIDatePicker *datePickerExpire;
+
+
+@property (weak, nonatomic) IBOutlet UINavigationBar *sendNewInviteBack;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (weak, nonatomic) IBOutlet UILabel *backLabel;
 
 @property (nonatomic, strong) UITextField *currentTextField;
 
@@ -48,6 +54,40 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+
+    
+    
+    self.sendNewInviteBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
+    
+    [self.sendNewInviteBack setFrame:CGRectMake(0, 0, 400, 64)];
+    
+    self.sendNewInviteBack.translucent = YES;
+    
+    
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
+    [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
+    
+    
+    
+    
+    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
+    self.backLabel.textColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    
+    
+    
+    self.navigationItem.leftBarButtonItem = _backButton;
+    
+    [self.view addSubview:_sendNewInviteBack];
+    
+    
     
     self.ref = [[FIRDatabase database] reference];
     
@@ -113,6 +153,18 @@
 }
 
 
+- (IBAction)Back
+{
+    HomePageViewController *homePageVC =
+    [[HomePageViewController alloc] initWithNibName:@"HomePageViewController" bundle:nil];
+    
+    
+    [self.navigationController pushViewController:homePageVC animated:YES];
+    
+    [self presentViewController:homePageVC animated:YES completion:nil];
+}
+
+
 - (void)dateChanged:(id)sender
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -137,10 +189,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (UIView *) viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    
-    return self.regView;
-}
+
 
 -(void)doneClicked:(id)sender
 {
@@ -216,120 +265,12 @@
 
 
 
-- (IBAction)editEnded:(id)sender {
-    [sender resignFirstResponder];
-}
-
 // Prints out the month and year displaying on the calendar
 -(void) SACalendar:(SACalendar *)calendar didDisplayCalendarForMonth:(int)month year:(int)year{
     [self.view endEditing:YES];
 }
 
 
-//-------------------------------
-
-
-- (void)registerForKeyboardNotifications {
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWasShown:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillBeHidden:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-    
-}
-
-- (void)deregisterFromKeyboardNotifications {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardDidHideNotification
-                                                  object:nil];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIKeyboardWillHideNotification
-                                                  object:nil];
-    
-}
-
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-    [self registerForKeyboardNotifications];
-    
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    
-    [self deregisterFromKeyboardNotifications];
-    
-    [super viewWillDisappear:animated];
-    
-}
-
-
-- (void)keyboardWasShown:(NSNotification *)notification {
-    
-    NSDictionary* info = [notification userInfo];
-    
-    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
-    
-    CGPoint buttonOrigin;
-    CGFloat buttonHeight;
-    
-    
-    if(self.messageText.isFirstResponder){
-        buttonOrigin = self.messageText.frame.origin;
-        
-        buttonHeight = self.messageText.frame.size.height;
-    }
-    
-    else if(self.sendInvite.isFirstResponder){
-        buttonOrigin = self.sendInvite.frame.origin;
-        
-        buttonHeight = self.sendInvite.frame.size.height;
-    }
-    
-    else if(self.inviteExpireDateText.isFirstResponder){
-        buttonOrigin = self.inviteExpireDateText.frame.origin;
-        
-        buttonHeight = self.inviteExpireDateText.frame.size.height;
-    }
-    
-    
-    
-    
-    
-    CGRect visibleRect = self.view.frame;
-    
-    visibleRect.size.height -= keyboardSize.height;
-    
-    if (!CGRectContainsPoint(visibleRect, buttonOrigin)){
-        
-        CGPoint scrollPoint = CGPointMake(0.0, buttonOrigin.y - visibleRect.size.height + buttonHeight);
-        
-        [self.scrollView setContentOffset:scrollPoint animated:YES];
-        
-    }
-    
-}
-
-- (void)keyboardWillBeHidden:(NSNotification *)notification {
-    
-    [self.scrollView setContentOffset:CGPointZero animated:YES];
-    
-}
-
--(void) dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
-//---------------------------------
 
 
 - (IBAction)segmentTapped:(id)sender {
