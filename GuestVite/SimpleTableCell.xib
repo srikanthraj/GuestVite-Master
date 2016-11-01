@@ -18,7 +18,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invitation From:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wvq-Sc-hPO">
                         <rect key="frame" x="14" y="13" width="118" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="118" id="VdL-Wq-hZf"/>
+                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="118" id="VdL-Wq-hZf"/>
                             <constraint firstAttribute="height" constant="21" id="qtR-UE-Z6Q"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -86,8 +86,11 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="firstNameLabel" destination="M5C-PQ-kjV" id="P4b-2Z-M46"/>
+                <outlet property="inviteFromLabel" destination="Wvq-Sc-hPO" id="rOX-H3-Yg7"/>
                 <outlet property="invitedFromDateLabel" destination="tur-hQ-lxP" id="cGO-i2-KgU"/>
+                <outlet property="invitedFromLabel" destination="V6k-i6-NxV" id="PqF-d5-oBd"/>
                 <outlet property="invitedTillDateLabel" destination="Sif-jf-1L8" id="A3p-fE-Mqn"/>
+                <outlet property="invitedTillLabel" destination="Brg-hO-eyO" id="PRk-2s-zRz"/>
                 <outlet property="lastNameLabel" destination="Waa-Du-m8Q" id="5Mq-Xl-ngK"/>
             </connections>
             <point key="canvasLocation" x="506.5" y="249.5"/>

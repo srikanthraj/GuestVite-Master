@@ -15,6 +15,11 @@
 @synthesize invitedFromDateLabel = _invitedFromDateLabel;
 @synthesize invitedTillDateLabel = _invitedTillDateLabel;
 
+@synthesize inviteFromLabel = _inviteFromLabel;
+@synthesize invitedFromLabel = _invitedFromLabel;
+@synthesize invitedTillLabel = _invitedTillLabel;
+
+
 
 
 - (void)awakeFromNib {

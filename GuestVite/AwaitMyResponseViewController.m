@@ -9,6 +9,7 @@
 #import "AwaitMyResponseViewController.h"
 #import "SimpleTableCellTableViewCell.h"
 #import "AMRCellTapped.h"
+#import "SendNewInviteViewController.h"
 
 @import Firebase;
 
@@ -286,9 +287,51 @@ NSArray *keys;
     cell.invitedFromDateLabel.text = [invitedFromData objectAtIndex:indexPath.row];
     cell.invitedTillDateLabel.text = [invitedTillData objectAtIndex:indexPath.row];
     
-    if([[keyData objectAtIndex:indexPath.row]integerValue] == -1){
-        NSLog(@"NOOO INVITE");
+    if([[keyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
+        
+        
+        
+        cell.inviteFromLabel.text = @"No Invitations are awaiting your response";
+        
+        
+        [cell.firstNameLabel setHidden:YES];
+        
+        [cell.lastNameLabel setHidden:YES];
+        [cell.invitedFromLabel setHidden:YES];
+        [cell.invitedFromDateLabel setHidden:YES];
+        [cell.invitedTillLabel setHidden:YES];
+        [cell.invitedTillDateLabel setHidden:YES];
+        
+        
         cell.userInteractionEnabled = NO;
+        self.tableView.hidden = YES;
+        
+        UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
+        
+        self.view.backgroundColor = background;
+        
+        CGRect labelFrame = CGRectMake( 10, 200, 500, 30 );
+        UILabel* label = [[UILabel alloc] initWithFrame: labelFrame];
+        [label setText: @"No Invitations are awaiting your response"];
+        [label setTextColor: [UIColor orangeColor]];
+        [self.view addSubview: label];
+        
+        CGRect labelFrame1 = CGRectMake( 10, 250, 500, 30 );
+        UILabel* label1 = [[UILabel alloc] initWithFrame: labelFrame1];
+        [label1 setText: @"Want to Invite SomeOne?, Send Invite Now!"];
+        [label1 setTextColor: [UIColor orangeColor]];
+        [self.view addSubview: label1];
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
+        [button setTitle:@"Send new Invite" forState:UIControlStateNormal];
+        [button sizeToFit];
+        button.center = CGPointMake(320/2, 300);
+        
+        [button addTarget:self action:@selector(buttonPressed:)
+         forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.view addSubview:button];
+        
     }
     
     cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
@@ -299,7 +342,15 @@ NSArray *keys;
     return cell;
 }
 
-
+- (void)buttonPressed:(UIButton *)button {
+    SendNewInviteViewController *sendNewVC =
+    [[SendNewInviteViewController alloc] initWithNibName:@"SendNewInviteViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:sendNewVC animated:YES];
+    
+    [self presentViewController:sendNewVC animated:YES completion:nil];
+}
 
             
 

@@ -19,5 +19,8 @@
 @property (nonatomic, weak) IBOutlet UILabel *invitedFromDateLabel;
 
 @property (nonatomic, weak) IBOutlet UILabel *invitedTillDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *inviteFromLabel;
+@property (weak, nonatomic) IBOutlet UILabel *invitedFromLabel;
+@property (weak, nonatomic) IBOutlet UILabel *invitedTillLabel;
 
 @end
