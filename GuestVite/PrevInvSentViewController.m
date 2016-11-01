@@ -173,14 +173,24 @@ NSArray *piskeys;
                 
                 NSLog(@"INSIDE EMAIL");
                 
-                if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
+                if([arr[i][@"Receiver EMail"] length] == 0) {
+                    [myGuestEMailData addObject: @"Not Specified"];
+                    NSLog(@"Receiver E-Mail Empty");
+                }
+                
+                else if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
                 [myGuestEMailData addObject: arr[i][@"Receiver EMail"]];
                 }
                 else {
                 [myGuestEMailData addObject: @"Not Specified"];
                 }
                 
-                if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
+                if([arr[i][@"Receiver Phone"] length] == 0) {
+                    [myGuestPhoneData addObject: @"Not Specified"];
+                    NSLog(@"Receiver Phone Empty");
+                }
+                
+                else if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
                     [myGuestPhoneData addObject: arr[i][@"Receiver Phone"]];
                 }
                 else {
@@ -201,14 +211,25 @@ NSArray *piskeys;
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
             {
                 
-                if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
+                if([arr[i][@"Receiver EMail"] length] == 0) {
+                    [myGuestEMailData addObject: @"Not Specified"];
+                    NSLog(@"Receiver E-Mail Empty");
+                }
+                
+                else if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
                     [myGuestEMailData addObject: arr[i][@"Receiver EMail"]];
                 }
+                
                 else {
                     [myGuestEMailData addObject: @"Not Specified"];
                 }
                 
-                if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
+                if([arr[i][@"Receiver Phone"] length] == 0) {
+                    [myGuestPhoneData addObject: @"Not Specified"];
+                    NSLog(@"Receiver Phone Empty");
+                }
+                
+                else if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
                     [myGuestPhoneData addObject: arr[i][@"Receiver Phone"]];
                 }
                 else {

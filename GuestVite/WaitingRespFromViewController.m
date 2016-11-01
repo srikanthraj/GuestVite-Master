@@ -161,7 +161,7 @@ NSArray *wrfkeys;
             
             endDateTime = arr[i][@"Invite Valid Till Date"];
             startDateTime = arr[i][@"Invite For Date"];
-            NSLog(@"END DATE TIME %@",endDateTime);
+            NSLog(@"EMail %lu",[arr[i][@"Receiver EMail"] length]);
             
             if([currentUserEMail length] > 0 && ([arr[i][@"Sender EMail"] isEqualToString:currentUserEMail])
                && ([loginDate compare:[self dateToFormatedDate:startDateTime]] == NSOrderedDescending) && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending) && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"])
@@ -169,23 +169,31 @@ NSArray *wrfkeys;
                 
                 NSLog(@"INSIDE EMAIL");
                 
-                if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
-                    [myGuestEMailData addObject: arr[i][@"Receiver EMail"]];
-                    NSLog(@"Receiver E-Mail NOT BULK");
-                }
                 if([arr[i][@"Receiver EMail"] length] == 0) {
                     [myGuestEMailData addObject: @"Not Specified"];
                     NSLog(@"Receiver E-Mail Empty");
                 }
+                else if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
+                    [myGuestEMailData addObject: arr[i][@"Receiver EMail"]];
+                    NSLog(@"Receiver E-Mail NOT BULK");
+                }
+                
                 else {
                     [myGuestEMailData addObject: @"Not Specified"];
                     NSLog(@"Receiver E-Mail BULK");
                 }
                 
-                if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
+                if([arr[i][@"Receiver Phone"] length] == 0) {
+                    [myGuestPhoneData addObject: @"Not Specified"];
+                    NSLog(@"Receiver Phone Empty");
+                }
+                
+                else if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
                     [myGuestPhoneData addObject: arr[i][@"Receiver Phone"]];
                     NSLog(@"Receiver Phone NOT BULK");
                 }
+                
+                
                 else {
                     [myGuestPhoneData addObject: @"Not Specified"];
                     NSLog(@"Receiver Phone BULK");
@@ -205,19 +213,31 @@ NSArray *wrfkeys;
                && ([loginDate compare:[self dateToFormatedDate:startDateTime]] == NSOrderedDescending)&& ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending)&& [arr[i][@"Invitation Status"] isEqualToString:@"Pending"])
             {
                 
-                if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
+                if([arr[i][@"Receiver EMail"] length] == 0) {
+                    [myGuestEMailData addObject: @"Not Specified"];
+                    NSLog(@"Receiver E-Mail Empty");
+                }
+                
+                else if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
                     [myGuestEMailData addObject: arr[i][@"Receiver EMail"]];
                     NSLog(@"Receiver E-Mail NOT BULK");
                 }
+                
                 else {
                     [myGuestEMailData addObject: @"Not Specified"];
                     NSLog(@"Receiver E-Mail BULK");
                 }
                 
-                if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
+                if([arr[i][@"Receiver Phone"] length] == 0) {
+                    [myGuestPhoneData addObject: @"Not Specified"];
+                    NSLog(@"Receiver Phone Empty");
+                }
+                
+                else if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
                     [myGuestPhoneData addObject: arr[i][@"Receiver Phone"]];
                     NSLog(@"Receiver Phone NOT BULK");
                 }
+                
                 else {
                     [myGuestPhoneData addObject: @"Not Specified"];
                     NSLog(@"Receiver Phone BULK");
