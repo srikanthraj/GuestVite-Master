@@ -23,18 +23,22 @@
 @interface HomePageViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 
-@property (weak, nonatomic) IBOutlet UIButton *sendInviteButton;
+@property (strong, nonatomic) IBOutlet HTPressableButton *sendNewInviteButton;
 
+@property (strong, nonatomic) IBOutlet HTPressableButton *waitingRespButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *waitingRespButton;
-@property (weak, nonatomic) IBOutlet UIButton *prevInvRecvdButton;
+@property (strong, nonatomic) IBOutlet HTPressableButton *prevInvSentButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *prevInvSentButton;
-@property (weak, nonatomic) IBOutlet UIButton *trackButton;
+@property (strong, nonatomic) IBOutlet HTPressableButton *prevInvRecvdButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *awaitMyRespButton;
+@property (strong, nonatomic) IBOutlet HTPressableButton *trackButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
+@property (strong, nonatomic) IBOutlet HTPressableButton *awaitMyRespButton;
+
+@property (strong, nonatomic) IBOutlet HTPressableButton *settingsButton;
+
+@property (strong, nonatomic) IBOutlet HTPressableButton *signOutButton;
+
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @end
 
@@ -60,48 +64,181 @@
     
     // Stylize the Tweet text View
     
-    /*
+    
     
     // Rounded rectangular default color button
-     CGRect frame = CGRectMake(30, 230, 260, 50);
-   _sendInviteButton = [[HTPressableButton alloc] initWithFrame:frame buttonStyle:HTPressableButtonStyleRounded];
-    [_sendInviteButton setTitle:@"Send New Invite" forState:UIControlStateNormal];
-    [self.view addSubview:_sendInviteButton];
-    */
+    CGRect frame = CGRectMake(14, 55, 294, 30);
+    self.sendNewInviteButton = [[HTPressableButton alloc] initWithFrame:frame buttonStyle:HTPressableButtonStyleRounded];
     
-     self.sendInviteButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
-    self.sendInviteButton.layer.cornerRadius = 10.0;
-    self.sendInviteButton.layer.borderWidth = 2.0;
+    [self.sendNewInviteButton setButtonColor:[UIColor ht_grassColor]];
+    [self.sendNewInviteButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.sendNewInviteButton setTitle:@"Send New Invite" forState:UIControlStateNormal];
+    [self.sendNewInviteButton addTarget:self action:@selector(buttonPressed:)
+     forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.sendNewInviteButton];
+    
+    
+    CGRect frame1 = CGRectMake(14, 119, 294, 30);
+    self.waitingRespButton = [[HTPressableButton alloc] initWithFrame:frame1 buttonStyle:HTPressableButtonStyleRounded];
+    
+    [self.waitingRespButton setButtonColor:[UIColor ht_grassColor]];
+    [self.waitingRespButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.waitingRespButton setTitle:@"Waiting Responses From:" forState:UIControlStateNormal];
+    [self.waitingRespButton addTarget:self action:@selector(waitingRespButtonPressed:)
+                       forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.waitingRespButton];
+    
+    CGRect frame2 = CGRectMake(14, 195, 294, 30);
+    self.prevInvSentButton = [[HTPressableButton alloc] initWithFrame:frame2 buttonStyle:HTPressableButtonStyleRounded];
+    [self.prevInvSentButton setButtonColor:[UIColor ht_grassColor]];
+    [self.prevInvSentButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.prevInvSentButton setTitle:@"Previous Invites Sent" forState:UIControlStateNormal];
+    [self.prevInvSentButton addTarget:self action:@selector(prevInvSentButtonPressed:)
+                     forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.prevInvSentButton];
+    
+    CGRect frame3 = CGRectMake(14, 255, 294, 30);
+    self.prevInvRecvdButton = [[HTPressableButton alloc] initWithFrame:frame3 buttonStyle:HTPressableButtonStyleRounded];
+    [self.prevInvRecvdButton setButtonColor:[UIColor ht_grassColor]];
+    [self.prevInvRecvdButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.prevInvRecvdButton setTitle:@"Previous Invites Received" forState:UIControlStateNormal];
+    [self.prevInvRecvdButton addTarget:self action:@selector(prevInvRecvdButtonPressed:)
+                     forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.prevInvRecvdButton];
+    
+    
+    CGRect frame4 = CGRectMake(14, 315, 294, 30);
+    self.trackButton = [[HTPressableButton alloc] initWithFrame:frame4 buttonStyle:HTPressableButtonStyleRounded];
+    [self.trackButton setButtonColor:[UIColor ht_grassColor]];
+    [self.trackButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.trackButton setTitle:@"Track My Guests" forState:UIControlStateNormal];
+    
+    [self.view addSubview:self.trackButton];
+    
+    
+    
+    CGRect frame5 = CGRectMake(14, 389, 294, 30);
+    self.awaitMyRespButton = [[HTPressableButton alloc] initWithFrame:frame5 buttonStyle:HTPressableButtonStyleRounded];
+    [self.awaitMyRespButton setButtonColor:[UIColor ht_grassColor]];
+    [self.awaitMyRespButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.awaitMyRespButton setTitle:@"Previous Invites Received" forState:UIControlStateNormal];
+    [self.awaitMyRespButton addTarget:self action:@selector(awaitMyRespButtonPressed:)
+                      forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.awaitMyRespButton];
+    
+    
+    CGRect frame6 = CGRectMake(14, 449, 294, 30);
+    self.settingsButton = [[HTPressableButton alloc] initWithFrame:frame6 buttonStyle:HTPressableButtonStyleRounded];
+    [self.settingsButton setButtonColor:[UIColor ht_grassColor]];
+    [self.settingsButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.settingsButton setTitle:@"Settings" forState:UIControlStateNormal];
+    
+    [self.view addSubview:self.settingsButton];
+
 
     
-    self.waitingRespButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
-    self.waitingRespButton.layer.cornerRadius = 10.0;
-    self.waitingRespButton.layer.borderWidth = 2.0;
+    CGRect frame7 = CGRectMake(121, 527, 100, 30);
+    self.signOutButton = [[HTPressableButton alloc] initWithFrame:frame7 buttonStyle:HTPressableButtonStyleRounded];
+    [self.signOutButton setButtonColor:[UIColor ht_bitterSweetColor]];
+    [self.signOutButton setShadowColor:[UIColor ht_bitterSweetDarkColor]];
+    [self.signOutButton setTitle:@"Sign Out" forState:UIControlStateNormal];
+    [self.signOutButton addTarget:self action:@selector(signOutButtonPressed:)
+                     forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.signOutButton];
 
     
-    self.prevInvRecvdButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
-    self.prevInvRecvdButton.layer.cornerRadius = 10.0;
-    self.prevInvRecvdButton.layer.borderWidth = 2.0;
+}
 
-    
-    self.prevInvSentButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
-    self.prevInvSentButton.layer.cornerRadius = 10.0;
-    self.prevInvSentButton.layer.borderWidth = 2.0;
 
-    
-    self.trackButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
-    self.trackButton.layer.cornerRadius = 10.0;
-    self.trackButton.layer.borderWidth = 2.0;
 
+- (void)buttonPressed:(UIButton *)button {
+    SendNewInviteViewController *sendNewVC =
+    [[SendNewInviteViewController alloc] initWithNibName:@"SendNewInviteViewController" bundle:nil];
     
-    self.awaitMyRespButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
-    self.awaitMyRespButton.layer.cornerRadius = 10.0;
-    self.awaitMyRespButton.layer.borderWidth = 2.0;
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:sendNewVC animated:YES];
+    
+    [self presentViewController:sendNewVC animated:YES completion:nil];
+}
 
-    self.settingsButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
-    self.settingsButton.layer.cornerRadius = 10.0;
-    self.settingsButton.layer.borderWidth = 2.0;
+
+- (void)waitingRespButtonPressed:(UIButton *)button {
+    WaitingRespFromViewController *wrfVC =
+    [[WaitingRespFromViewController alloc] initWithNibName:@"WaitingRespFromViewController" bundle:nil];
     
+    [self.navigationController pushViewController:wrfVC animated:YES];
+    
+    [self presentViewController:wrfVC animated:YES completion:nil];
+}
+
+
+
+
+- (void)prevInvSentButtonPressed:(UIButton *)button {
+    PrevInvSentViewController *prevInvSentVC =
+    [[PrevInvSentViewController alloc] initWithNibName:@"PrevInvSentViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:prevInvSentVC animated:YES];
+    
+    [self presentViewController:prevInvSentVC animated:YES completion:nil];
+}
+
+
+
+
+- (void)prevInvRecvdButtonPressed:(UIButton *)button {
+
+PrevInvRecvdViewController *prevInvRecvdVC =
+[[PrevInvRecvdViewController alloc] initWithNibName:@"PrevInvRecvdViewController" bundle:nil];
+
+//hPViewController.userName  = eMailEntered;
+[self.navigationController pushViewController:prevInvRecvdVC animated:YES];
+
+[self presentViewController:prevInvRecvdVC animated:YES completion:nil];
+
+}
+
+
+
+
+
+- (void)awaitMyRespButtonPressed:(UIButton *)button {
+    
+    AwaitMyResponseViewController *awaitresponseVC =
+    [[AwaitMyResponseViewController alloc] initWithNibName:@"AwaitMyResponseViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:awaitresponseVC animated:YES];
+    
+    [self presentViewController:awaitresponseVC animated:YES completion:nil];
+    
+}
+
+
+
+
+
+- (void)signOutButtonPressed:(UIButton *)button {
+    
+    // Remove entry from Current Users Table
+    
+    signedOut = TRUE;
+    
+    NSString *userID = [FIRAuth auth].currentUser.uid;
+    [[[_ref child:@"current_loggedIn_users"] child:userID] removeValue];
+    
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"myViewController"];
+    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:vc animated:YES completion:NULL];
     
 }
 
@@ -154,126 +291,14 @@
 }
 
 
-- (IBAction)waitingResponseFromTapped:(id)sender {
-    
-    WaitingRespFromViewController *wrfVC =
-    [[WaitingRespFromViewController alloc] initWithNibName:@"WaitingRespFromViewController" bundle:nil];
-    
-    [self.navigationController pushViewController:wrfVC animated:YES];
-    
-    [self presentViewController:wrfVC animated:YES completion:nil];
-    
-    
-}
 
 
-- (IBAction)sendNewInviteTapped:(id)sender {
-    
-    
-    SendNewInviteViewController *sendNewVC =
-    [[SendNewInviteViewController alloc] initWithNibName:@"SendNewInviteViewController" bundle:nil];
-    
-    //hPViewController.userName  = eMailEntered;
-    [self.navigationController pushViewController:sendNewVC animated:YES];
-    
-    [self presentViewController:sendNewVC animated:YES completion:nil];
-}
 
-
-- (IBAction)prevInvRecvdTapped:(id)sender {
-    
-    
-    
-    PrevInvRecvdViewController *prevInvRecvdVC =
-    [[PrevInvRecvdViewController alloc] initWithNibName:@"PrevInvRecvdViewController" bundle:nil];
-    
-    //hPViewController.userName  = eMailEntered;
-    [self.navigationController pushViewController:prevInvRecvdVC animated:YES];
-    
-    [self presentViewController:prevInvRecvdVC animated:YES completion:nil];
-
-}
-
-- (IBAction)prevInvSentTapped:(id)sender {
-    
-    PrevInvSentViewController *prevInvSentVC =
-    [[PrevInvSentViewController alloc] initWithNibName:@"PrevInvSentViewController" bundle:nil];
-    
-    //hPViewController.userName  = eMailEntered;
-    [self.navigationController pushViewController:prevInvSentVC animated:YES];
-    
-    [self presentViewController:prevInvSentVC animated:YES completion:nil];
-    
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
-- (IBAction)awaitingMyResponseTapped:(id)sender {
-    
-    
-    AwaitMyResponseViewController *awaitresponseVC =
-    [[AwaitMyResponseViewController alloc] initWithNibName:@"AwaitMyResponseViewController" bundle:nil];
-    
-    //hPViewController.userName  = eMailEntered;
-    [self.navigationController pushViewController:awaitresponseVC animated:YES];
-    
-    [self presentViewController:awaitresponseVC animated:YES completion:nil];
-    
-}
-
-    
-
-
-
-
-- (IBAction)signOutTapped:(id)sender {
-    
-    // Remove entry from Current Users Table
-    
-    signedOut = TRUE;
-    
-    NSString *userID = [FIRAuth auth].currentUser.uid;
-    [[[_ref child:@"current_loggedIn_users"] child:userID] removeValue];
-    
-    /*
-    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
-        if (user) {
-            NSLog(@"User is signed in with uid: %@", user.uid);
-        } else {
-            NSLog(@"No user is signed in.");
-        }
-    }];
-   
-   [[FIRAuth auth] signOut:nil];
-    
-    [[NSUserDefaults standardUserDefaults] setValue:nil forKey:@"uid"];
-    
-    [[FIRAuth auth] addAuthStateDidChangeListener:^(FIRAuth * _Nonnull auth, FIRUser * _Nullable user) {
-        if (user) {
-            NSLog(@"User is signed in with uid: %@", user.uid);
-        } else {
-            NSLog(@"No user is signed in.");
-        }
-    }];
-    
-    */
-    
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-    UIViewController *vc = [sb instantiateViewControllerWithIdentifier:@"myViewController"];
-    vc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentViewController:vc animated:YES completion:NULL];
-    
-    
-   }
-
-
-
-
-
 
 
 @end
