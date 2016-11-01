@@ -11,18 +11,20 @@
 #import "FLAnimatedImage.h"
 #import "FLAnimatedImageView.h"
 #import "ViewController.h"
-
+#import "HTPressableButton.h"
+#import "UIColor+HTColor.h"
 #import "SendNewInviteViewController.h"
 #import "AwaitMyResponseViewController.h"
 #import "PrevInvRecvdViewController.h"
 #import "PrevInvSentViewController.h"
+#import "WaitingRespFromViewController.h"
 
 @import Firebase;
 @interface HomePageViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 
-
 @property (weak, nonatomic) IBOutlet UIButton *sendInviteButton;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *waitingRespButton;
 @property (weak, nonatomic) IBOutlet UIButton *prevInvRecvdButton;
@@ -58,10 +60,19 @@
     
     // Stylize the Tweet text View
     
+    /*
+    
+    // Rounded rectangular default color button
+     CGRect frame = CGRectMake(30, 230, 260, 50);
+   _sendInviteButton = [[HTPressableButton alloc] initWithFrame:frame buttonStyle:HTPressableButtonStyleRounded];
+    [_sendInviteButton setTitle:@"Send New Invite" forState:UIControlStateNormal];
+    [self.view addSubview:_sendInviteButton];
+    */
     
      self.sendInviteButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
     self.sendInviteButton.layer.cornerRadius = 10.0;
     self.sendInviteButton.layer.borderWidth = 2.0;
+
     
     self.waitingRespButton.layer.backgroundColor = [UIColor colorWithRed:0.1 green:1.0 blue:0.1 alpha:0.1].CGColor;
     self.waitingRespButton.layer.cornerRadius = 10.0;
@@ -143,9 +154,21 @@
 }
 
 
+- (IBAction)waitingResponseFromTapped:(id)sender {
+    
+    WaitingRespFromViewController *wrfVC =
+    [[WaitingRespFromViewController alloc] initWithNibName:@"WaitingRespFromViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:wrfVC animated:YES];
+    
+    [self presentViewController:wrfVC animated:YES completion:nil];
+    
+    
+}
+
+
 - (IBAction)sendNewInviteTapped:(id)sender {
     
-  
     
     SendNewInviteViewController *sendNewVC =
     [[SendNewInviteViewController alloc] initWithNibName:@"SendNewInviteViewController" bundle:nil];
@@ -154,8 +177,8 @@
     [self.navigationController pushViewController:sendNewVC animated:YES];
     
     [self presentViewController:sendNewVC animated:YES completion:nil];
-    
 }
+
 
 - (IBAction)prevInvRecvdTapped:(id)sender {
     

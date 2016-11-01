@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>HTPressableButton.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>KBContactsSelection.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,17 +32,22 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>0577177DFBA88F13CF90801EF46B25D9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>114E16E446CF5148F8AADF1ED4B98826</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2314AA095CBCD13357F2B090A7070BDB</key>
+		<key>17D25E202F7806A8C488DD9254B2C946</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>49ED29040DB51B74106B5838EDAC11CC</key>
+		<key>C57FC5040249DD53BB44394B42A2C58F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

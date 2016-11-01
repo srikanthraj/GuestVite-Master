@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'C57FC5040249DD53BB44394B42A2C58F'
-               BlueprintName = 'Pods-GuestVite'
+               BlueprintIdentifier = '17D25E202F7806A8C488DD9254B2C946'
+               BlueprintName = 'HTPressableButton'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods-GuestVite.a'>
+               BuildableName = 'libHTPressableButton.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
