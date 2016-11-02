@@ -168,7 +168,7 @@ NSArray *wrfkeys;
             NSLog(@"EMail %lu",[arr[i][@"Receiver EMail"] length]);
             
             if([currentUserEMail length] > 0 && ([arr[i][@"Sender EMail"] isEqualToString:currentUserEMail])
-               && ([loginDate compare:[self dateToFormatedDate:startDateTime]] == NSOrderedDescending) && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending) && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"])
+                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending) && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"])
             {
                 
                 NSLog(@"INSIDE EMAIL");
@@ -214,7 +214,7 @@ NSArray *wrfkeys;
             
             
             if([currentUserPhone length] > 0 && ([arr[i][@"Sender Phone"] isEqualToString:currentUserPhone])
-               && ([loginDate compare:[self dateToFormatedDate:startDateTime]] == NSOrderedDescending)&& ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending)&& [arr[i][@"Invitation Status"] isEqualToString:@"Pending"])
+               && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending)&& [arr[i][@"Invitation Status"] isEqualToString:@"Pending"])
             {
                 
                 if([arr[i][@"Receiver EMail"] length] == 0) {
@@ -294,7 +294,7 @@ NSArray *wrfkeys;
         [wrfinvitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
         [wrfinvitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
         [wrfactionTakenData addObject:[myactionTakenData objectAtIndex:i]];
-        [wrfkeyData addObject:[myactionTakenData objectAtIndex:i]];
+        [wrfkeyData addObject:[myKeyData objectAtIndex:i]];
     }
     
         NSLog(@"Guest E-Mail data is %@",wrfGuestEMailData);
@@ -369,7 +369,7 @@ NSArray *wrfkeys;
     cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
     cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
     
-    cell.userInteractionEnabled = NO;
+    //cell.userInteractionEnabled = NO;
     
     return cell;
 }
@@ -525,6 +525,7 @@ NSArray *wrfkeys;
                     // Delete button is pressed
                     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
                     NSLog(@"KEY DATA IS %@",[wrfkeyData objectAtIndex:cellIndexPath.row]);
+                    
                     [[[_ref child:@"invites"] child:[wrfkeyData objectAtIndex:cellIndexPath.row]] removeValue];
                     
                     
