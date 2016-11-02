@@ -8,6 +8,8 @@
 
 #import "WaitingRespFromViewController.h"
 #import "PrevInvSentCell.h"
+#import "CNPPopupController.h"
+#import <MessageUI/MessageUI.h>
 
 @import Firebase;
 
@@ -18,6 +20,8 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *backLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (nonatomic, strong) CNPPopupController *popupController;
 
 @end
 
@@ -332,7 +336,7 @@ NSArray *wrfkeys;
     
     [rightUtilityButtons sw_addUtilityButtonWithColor:
      [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
-                                                title:@"Delete"];
+                                                title:@"Cancel Invite"];
     
     
     cell.rightUtilityButtons = rightUtilityButtons;
@@ -375,5 +379,270 @@ NSArray *wrfkeys;
 {
     return 214;
 }
+
+#pragma mark - CNPPopupController Delegate
+
+- (void)popupController:(CNPPopupController *)controller didDismissWithButtonTitle:(NSString *)title {
+    NSLog(@"Dismissed with button title: %@", title);
+}
+
+- (void)popupControllerDidPresent:(CNPPopupController *)controller {
+    NSLog(@"Popup controller presented.");
+}
+
+- (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
+    
+    switch (index) {
+        case 0:
+            {
+                
+                NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+                paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+                paragraphStyle.alignment = NSTextAlignmentCenter;
+                
+                NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Just One Confirmation!" attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
+                NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Do You really want to Camcel this Invite?" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSParagraphStyleAttributeName : paragraphStyle}];
+                NSAttributedString *lineTwo = [[NSAttributedString alloc] initWithString:@"Once deleted, it cannot be reverted" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+                
+                CNPPopupButton *buttonGoBack = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+                [buttonGoBack setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                buttonGoBack.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+                [buttonGoBack setTitle:@"Go Back" forState:UIControlStateNormal];
+                buttonGoBack.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+                buttonGoBack.layer.cornerRadius = 4;
+                buttonGoBack.selectionHandler = ^(CNPPopupButton *buttonGoBack){
+                    [self.popupController dismissPopupControllerAnimated:YES];
+                    NSLog(@"Block for button: %@", buttonGoBack.titleLabel.text);
+                };
+                
+                CNPPopupButton *buttonCancelComm = [[CNPPopupButton alloc] initWithFrame:CGRectMake(50, 50, 200, 60)];
+                [buttonCancelComm setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                buttonCancelComm.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+                [buttonCancelComm setTitle:@"Cancel and Let My Guest Know" forState:UIControlStateNormal];
+                buttonCancelComm.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
+                buttonCancelComm.layer.cornerRadius = 4;
+                buttonCancelComm.selectionHandler = ^(CNPPopupButton *buttonDelete){
+                    // Delete button is pressed
+                    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+                    NSLog(@"KEY DATA IS %@",[wrfkeyData objectAtIndex:cellIndexPath.row]);
+                    // Send Communication
+                    
+                    if(!([[wrfGuestEMailData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
+                    {
+                        
+                        
+                        //Send Email
+                        NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+                        
+                        // Email Subject
+                        NSString *emailTitle = @"Message From GeuestVite";
+                        // Email Content
+                        NSString *messageBody = [NSString stringWithFormat:@"Hey!, I am extremely sorry that I would have to cancel this invite"];
+                        // To address
+                        NSArray *toRecipents = [NSArray arrayWithObject:[wrfGuestEMailData objectAtIndex:cellIndexPath.row]];
+                        
+                        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+                        mc.mailComposeDelegate = self;
+                        [mc setSubject:emailTitle];
+                        [mc setMessageBody:messageBody isHTML:NO];
+                        [mc setToRecipients:toRecipents];
+                        
+                        // Present mail view controller on screen
+                        [self presentViewController:mc animated:YES completion:NULL];
+                        
+                    }
+                    
+                    
+                    if(!([[wrfGuestPhoneData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
+                    {
+                        
+                        
+                        //Send SMS
+                        NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+                        
+                        if(![MFMessageComposeViewController canSendText]) {
+                            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
+                            
+                            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                            
+                            [ac addAction:aa];
+                            [self presentViewController:ac animated:YES completion:nil];
+                            return;
+                        }
+                        
+                        
+                        
+                        
+                        
+                        NSArray *recipents = [NSArray arrayWithObject:[wrfGuestPhoneData objectAtIndex:cellIndexPath.row]];
+                        
+                        
+                        NSString *message = [NSString stringWithFormat:@"Hey!, I am extremely sorry that I would have to cancel this invite"];
+                        
+                        MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+                        messageController.messageComposeDelegate = self;
+                        [messageController setRecipients:recipents];
+                        [messageController setBody:message];
+                        
+                        
+                        [self presentViewController:messageController animated:YES completion:nil];
+
+                        
+                    }
+
+                    
+                    
+                    
+                    
+                    
+                    
+                    [[[_ref child:@"invites"] child:[wrfkeyData objectAtIndex:cellIndexPath.row]] removeValue];
+                    
+                    
+                    [wrfGuestEMailData removeObjectAtIndex:cellIndexPath.row];
+                    [wrfGuestPhoneData removeObjectAtIndex:cellIndexPath.row];
+                    [wrfinvitedFromData removeObjectAtIndex:cellIndexPath.row];
+                    [wrfinvitedTillData removeObjectAtIndex:cellIndexPath.row];
+                    [wrfkeyData removeObjectAtIndex:cellIndexPath.row];
+                    
+                    [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                    
+                    [self.popupController dismissPopupControllerAnimated:YES];
+                    NSLog(@"Block for button: %@", buttonDelete.titleLabel.text);
+                    
+                    
+                };
+                
+                // Just Cancel
+                
+                CNPPopupButton *justCancel = [[CNPPopupButton alloc] initWithFrame:CGRectMake(50, 50, 200, 60)];
+                [justCancel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+                justCancel.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+                [justCancel setTitle:@"Just Cancel the Invite" forState:UIControlStateNormal];
+                justCancel.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
+                justCancel.layer.cornerRadius = 4;
+                justCancel.selectionHandler = ^(CNPPopupButton *buttonDelete){
+                    // Delete button is pressed
+                    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+                    NSLog(@"KEY DATA IS %@",[wrfkeyData objectAtIndex:cellIndexPath.row]);
+                    [[[_ref child:@"invites"] child:[wrfkeyData objectAtIndex:cellIndexPath.row]] removeValue];
+                    
+                    
+                    [wrfGuestEMailData removeObjectAtIndex:cellIndexPath.row];
+                    [wrfGuestPhoneData removeObjectAtIndex:cellIndexPath.row];
+                    [wrfinvitedFromData removeObjectAtIndex:cellIndexPath.row];
+                    [wrfinvitedTillData removeObjectAtIndex:cellIndexPath.row];
+                    [wrfkeyData removeObjectAtIndex:cellIndexPath.row];
+                    
+                    [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+                    
+                    [self.popupController dismissPopupControllerAnimated:YES];
+                    NSLog(@"Block for button: %@", buttonDelete.titleLabel.text);
+                    
+                    
+                };
+
+                
+                
+                
+                UILabel *titleLabel = [[UILabel alloc] init];
+                titleLabel.numberOfLines = 0;
+                titleLabel.attributedText = title;
+                
+                UILabel *lineOneLabel = [[UILabel alloc] init];
+                lineOneLabel.numberOfLines = 0;
+                lineOneLabel.attributedText = lineOne;
+                
+                // UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon"]];
+                
+                UILabel *lineTwoLabel = [[UILabel alloc] init];
+                lineTwoLabel.numberOfLines = 0;
+                lineTwoLabel.attributedText = lineTwo;
+                
+                
+                //UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 55)];
+                //customView.backgroundColor = [UIColor lightGrayColor];
+                
+                // UITextField *textFied = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 230, 35)];
+                // textFied.borderStyle = UITextBorderStyleRoundedRect;
+                // textFied.placeholder = @"Custom view!";
+                //[customView addSubview:textFied];
+                
+                self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel, lineTwoLabel, buttonGoBack,buttonCancelComm,justCancel]];
+                self.popupController.theme = [CNPPopupTheme defaultTheme];
+                self.popupController.theme.popupStyle = CNPPopupStyleCentered;
+                self.popupController.delegate = self;
+                [self.popupController presentPopupControllerAnimated:YES];
+                
+                
+                
+                
+                
+                break;
+
+                
+                
+                
+                
+                
+            }
+        default:
+            break;
+    }
+}
+
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to send SMS!" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+            
+            break;
+        }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            break;
+        case MFMailComposeResultSaved:
+            
+            break;
+        case MFMailComposeResultSent: {
+            break;
+        }
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
 
 @end
