@@ -337,6 +337,7 @@ NSArray *piskeys;
     PrevInvSentCell *cell = (PrevInvSentCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
     
+    /*
     // Add utility buttons
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
     
@@ -346,6 +347,7 @@ NSArray *piskeys;
     
     
     cell.rightUtilityButtons = rightUtilityButtons;
+    */
     cell.delegate = self;
     
     
@@ -375,6 +377,7 @@ NSArray *piskeys;
     cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
     cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
     
+    cell.userInteractionEnabled = NO;
     
     return cell;
 }

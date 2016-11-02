@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		368E5A3200675FE398DC7271 /* libPods-GuestVite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED20978095D751C4C7AB2EF5 /* libPods-GuestVite.a */; };
 		84267BF81DA9AB750044ACF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84267BF71DA9AB750044ACF4 /* GoogleService-Info.plist */; };
 		84267C011DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C001DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m */; };
 		84267C041DAC56D30044ACF4 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C031DAC56D30044ACF4 /* SWRevealViewController.m */; };
@@ -55,11 +56,9 @@
 		84DF6AAA1DC6525000047435 /* PrevInvSentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DF6AA81DC6525000047435 /* PrevInvSentCell.xib */; };
 		84E4E8DB1DC80E24008EF854 /* WaitingRespFromViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E4E8D91DC80E24008EF854 /* WaitingRespFromViewController.m */; };
 		84E4E8DC1DC80E24008EF854 /* WaitingRespFromViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84E4E8DA1DC80E24008EF854 /* WaitingRespFromViewController.xib */; };
-		8807A8849A35A4DFD7FB6C87 /* libPods-GuestVite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 14E4060546172690D586480F /* libPods-GuestVite.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		14E4060546172690D586480F /* libPods-GuestVite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GuestVite.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48C15378E10A7A5F7D66BCBB /* Pods-GuestVite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuestVite.release.xcconfig"; path = "Pods/Target Support Files/Pods-GuestVite/Pods-GuestVite.release.xcconfig"; sourceTree = "<group>"; };
 		84267BF71DA9AB750044ACF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		84267BFF1DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLScrollViewKeyboardSupport.h; path = "../../../../Downloads/SLScrollViewKeyboardSupport-master/SLScrollViewKeyboardSupport/SLScrollViewKeyboardSupport.h"; sourceTree = "<group>"; };
@@ -138,6 +137,7 @@
 		84E4E8D91DC80E24008EF854 /* WaitingRespFromViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaitingRespFromViewController.m; sourceTree = "<group>"; };
 		84E4E8DA1DC80E24008EF854 /* WaitingRespFromViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WaitingRespFromViewController.xib; sourceTree = "<group>"; };
 		99E7C1676E7E599B44419974 /* Pods-GuestVite.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuestVite.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GuestVite/Pods-GuestVite.debug.xcconfig"; sourceTree = "<group>"; };
+		ED20978095D751C4C7AB2EF5 /* libPods-GuestVite.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GuestVite.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,7 +148,7 @@
 				84267C281DB9B7130044ACF4 /* Foundation.framework in Frameworks */,
 				84267C261DB9B70B0044ACF4 /* UIKit.framework in Frameworks */,
 				84267C141DB04A7C0044ACF4 /* MessageUI.framework in Frameworks */,
-				8807A8849A35A4DFD7FB6C87 /* libPods-GuestVite.a in Frameworks */,
+				368E5A3200675FE398DC7271 /* libPods-GuestVite.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +170,7 @@
 				84267C271DB9B7130044ACF4 /* Foundation.framework */,
 				84267C251DB9B70B0044ACF4 /* UIKit.framework */,
 				84267C131DB04A7C0044ACF4 /* MessageUI.framework */,
-				14E4060546172690D586480F /* libPods-GuestVite.a */,
+				ED20978095D751C4C7AB2EF5 /* libPods-GuestVite.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

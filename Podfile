@@ -3,7 +3,7 @@
 
 target 'GuestVite' do
   # Uncomment this line if you're using Swift or would like to use dynamic frameworks
-  # use_frameworks!
+# use_frameworks!
 
   # Pods for GuestVite
 pod 'Firebase/Core'
@@ -12,4 +12,6 @@ pod 'Firebase/Database'
 pod 'KBContactsSelection'
 pod 'SWTableViewCell', '~> 0.3.7'
 pod 'HTPressableButton'
+pod 'JVFloatLabeledTextField'
+pod 'CNPPopupController'
 end

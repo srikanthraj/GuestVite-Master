@@ -11,7 +11,7 @@
                 <outlet property="addr2Text" destination="YLe-9M-9ay" id="n93-dd-RDw"/>
                 <outlet property="cityText" destination="Bs6-zI-wB4" id="q1M-aF-2iU"/>
                 <outlet property="emailText" destination="avc-hq-prw" id="XyK-zU-AI0"/>
-                <outlet property="fNameText" destination="kML-6e-zRh" id="76q-EI-pBd"/>
+                <outlet property="fNameText" destination="kML-6e-zRh" id="wxY-BY-e5W"/>
                 <outlet property="lNameText" destination="m9w-8B-xSZ" id="Or1-AC-Z6R"/>
                 <outlet property="passwordText" destination="PgM-zh-Ibh" id="AC7-sk-za8"/>
                 <outlet property="phoneText" destination="JBM-z2-INt" id="Bz2-J1-Bid"/>
@@ -25,7 +25,7 @@
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="412" height="588"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfS-nD-PEQ">

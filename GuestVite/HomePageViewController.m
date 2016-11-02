@@ -125,7 +125,7 @@
     self.awaitMyRespButton = [[HTPressableButton alloc] initWithFrame:frame5 buttonStyle:HTPressableButtonStyleRounded];
     [self.awaitMyRespButton setButtonColor:[UIColor ht_grassColor]];
     [self.awaitMyRespButton setShadowColor:[UIColor ht_grassDarkColor]];
-    [self.awaitMyRespButton setTitle:@"Previous Invites Received" forState:UIControlStateNormal];
+    [self.awaitMyRespButton setTitle:@"Awaiting My Response" forState:UIControlStateNormal];
     [self.awaitMyRespButton addTarget:self action:@selector(awaitMyRespButtonPressed:)
                       forControlEvents:UIControlEventTouchUpInside];
     

@@ -9,7 +9,27 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CNPPopupController.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GTMSessionFetcher.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>GoogleToolboxForMac.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>HTPressableButton.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>JVFloatLabeledTextField.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -32,7 +52,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0577177DFBA88F13CF90801EF46B25D9</key>
+		<key>0597E693453A9B9EB96A690DAEC03780</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>0CE2C5FFABAA8D2B4DF63119BB10DB40</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -47,7 +72,22 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C57FC5040249DD53BB44394B42A2C58F</key>
+		<key>266E27D897FD7FD68078059CF4D7455F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>611A56531AE8BFDB2320359150B8A900</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ABEC20541CCB88E9C276EE25B7BE1BAE</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D3F234B42353578F05BE0F2777877ADE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
