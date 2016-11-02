@@ -53,6 +53,12 @@ NSArray *keys;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    firstNameData = [[NSMutableArray alloc]init];
+    lastNameData = [[NSMutableArray alloc]init];
+    invitedFromData = [[NSMutableArray alloc]init];
+    invitedTillData = [[NSMutableArray alloc]init];
+    personalMessageData = [[NSMutableArray alloc]init];
+    keyData = [[NSMutableArray alloc]init];
     
     UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
     self.tableView.backgroundColor = background;
@@ -223,12 +229,15 @@ NSArray *keys;
     NSLog(@"Class %@",NSStringFromClass([firstNameData class]));
     
     
-    firstNameData = [myfirstNameData copy];
-    lastNameData = [mylastNameData copy];
-    invitedFromData = [myinvitedFromData copy];
-    invitedTillData = [myinvitedTillData copy];
-    personalMessageData = [myPersonalMessageData copy];
-    keyData = [myKeyData copy];
+    for(int i =0;i<[myinvitedFromData count];i++){
+        [firstNameData addObject:[myfirstNameData objectAtIndex:i]];
+        [lastNameData addObject:[mylastNameData objectAtIndex:i]];
+        [invitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
+        [invitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
+        [personalMessageData addObject:[myPersonalMessageData objectAtIndex:i]];
+        [keyData addObject:[myKeyData objectAtIndex:i]];
+    }
+
    
     NSLog(@"Key data is %@",keyData);
     
@@ -398,27 +407,29 @@ NSArray *keys;
                 //keys = [dict allKeys];
                 NSArray * arr = [dict allValues];
                 
-               
+                NSLog(@"INVITED FROM DATA %@",invitedFromData);
                 
                 for(int i=0;i<[arr count];i++){
                     
                     
                     if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:cellIndexPath.row] isEqualToString:arr[i][@"Invite For Date"]])
                        
-                    { // If status is pending  and From date in table matches the one from the table
+                    {
                         
-                        /*
-                        //Update the UI
-                        NSLog(@"GOING to REMOVE %@ , %@, %@, %@",[invitedFromData objectAtIndex:cellIndexPath.row],[invitedTillData objectAtIndex:cellIndexPath.row],[firstNameData objectAtIndex:cellIndexPath.row],[lastNameData objectAtIndex:cellIndexPath.row]);
+                       
                         
-                        [invitedFromData removeObjectAtIndex:cellIndexPath.row];
-                        [invitedTillData removeObjectAtIndex:cellIndexPath.row];
+                        NSLog(@"ARR INVITE FOR DATE %@",arr[i][@"Invite For Date"]);
+                        
                         [firstNameData removeObjectAtIndex:cellIndexPath.row];
                         [lastNameData removeObjectAtIndex:cellIndexPath.row];
+                        [invitedFromData removeObjectAtIndex:cellIndexPath.row];
+                        [invitedTillData removeObjectAtIndex:cellIndexPath.row];
+                        [personalMessageData removeObjectAtIndex:cellIndexPath.row];
+                        [keyData removeObjectAtIndex:cellIndexPath.row];
                         [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath]
                                               withRowAnimation:UITableViewRowAnimationAutomatic];
                         
-                        */
+                        
                         
                         //Update the data Model : Firebase in this case
                         
@@ -450,6 +461,7 @@ NSArray *keys;
                         
                         NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", keys[i]]: postDict};
                         [_ref updateChildValues:childUpdates];
+                        break; // When the row is deleted - No need to go through other iterations
                     }
 
                 }
@@ -463,7 +475,7 @@ NSArray *keys;
         }
         case 1:
         {
-            // Case of Invite accepted - Update the status to DECLINED
+            // Case of Invite Declined - Update the status to DECLINED
              NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
             
             [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -483,16 +495,14 @@ NSArray *keys;
                     { // If status is pending  and From date in table matches the one from the table
                         
                         
-                        //Update the UI
-                        /*
-                        [invitedFromData removeObjectAtIndex:cellIndexPath.row];
-                        [invitedTillData removeObjectAtIndex:cellIndexPath.row];
                         [firstNameData removeObjectAtIndex:cellIndexPath.row];
                         [lastNameData removeObjectAtIndex:cellIndexPath.row];
+                        [invitedFromData removeObjectAtIndex:cellIndexPath.row];
+                        [invitedTillData removeObjectAtIndex:cellIndexPath.row];
+                        [personalMessageData removeObjectAtIndex:cellIndexPath.row];
+                        [keyData removeObjectAtIndex:cellIndexPath.row];
                         [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath]
                                               withRowAnimation:UITableViewRowAnimationAutomatic];
-                        */
-                        
                         [self.tableView reloadData];
                         
                         
@@ -523,6 +533,8 @@ NSArray *keys;
                         
                         NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", keys[i]]: postDict};
                         [_ref updateChildValues:childUpdates];
+                        
+                        break; // When the row is deleted - No need to go through other iterations
                     }
                     
                 }
