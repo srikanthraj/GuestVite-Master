@@ -396,6 +396,8 @@ NSArray *keys;
     
     amrCellTapped.inviteByFirstName = [firstNameData objectAtIndex:indexPath.row];
     amrCellTapped.inviteByLastName = [lastNameData objectAtIndex:indexPath.row];
+    amrCellTapped.hostEMail = [hostEMailData objectAtIndex:indexPath.row];
+    amrCellTapped.hostPhone = [hostPhoneData objectAtIndex:indexPath.row];
     amrCellTapped.invitedOn = [invitedFromData objectAtIndex:indexPath.row];
     amrCellTapped.invitedTill = [invitedTillData objectAtIndex:indexPath.row];
     amrCellTapped.personalMessage = [personalMessageData objectAtIndex:indexPath.row];
@@ -530,9 +532,6 @@ NSArray *keys;
                 
                                 // a. Send Message
                 
-                if(!([[hostEMailData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
-                {
-                    
                     
                      //Check for SMS and Send It
                     
@@ -575,7 +574,11 @@ NSArray *keys;
 
                     
                     //Send Email
-                   
+                
+                
+                if(!([[hostEMailData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
+                {
+
                     
                     // Email Subject
                     NSString *emailTitle = @"Message From GeuestVite";
@@ -786,23 +789,7 @@ NSArray *keys;
             lineOneLabel.numberOfLines = 0;
             lineOneLabel.attributedText = lineOne;
             
-            // UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon"]];
-            
-            /*
-            UILabel *lineTwoLabel = [[UILabel alloc] init];
-            lineTwoLabel.numberOfLines = 0;
-            lineTwoLabel.attributedText = lineTwo;
-            
-            UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 55)];
-            customView.backgroundColor = [UIColor lightGrayColor];
-            
-            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 230, 35)];
-            textField.borderStyle = UITextBorderStyleRoundedRect;
-            textField.placeholder = @"Send Message Here";
-            textField.text = @"Hey Sorry, I won't be able to make it";
-            [customView addSubview:textField];
-            */
-            self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,buttonYesMessage,buttonYes,buttonNoMessage]];
+                        self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,buttonYesMessage,buttonYes,buttonNoMessage]];
             self.popupController.theme = [CNPPopupTheme defaultTheme];
             self.popupController.theme.popupStyle = CNPPopupStyleCentered;
             self.popupController.delegate = self;
@@ -812,73 +799,7 @@ NSArray *keys;
             
             
             
-            // 2. If Decline confirmed , ONLY then go ahead and delete
-            /*
-            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-            
-            [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                
-                NSDictionary *dict = snapshot.value;
-                NSArray *keys = [dict allKeys];
-                NSArray * arr = [dict allValues];
-                
-               
-                
-                for(int i=0;i<[arr count];i++){
-                    
-                    NSLog(@"CELL INDEX %ld",cellIndexPath.row);
-                    
-                    
-                    if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:cellIndexPath.row] isEqualToString:arr[i][@"Invite For Date"]])
-                    { // If status is pending  and From date in table matches the one from the table
-                        
-                        
-                        [firstNameData removeObjectAtIndex:cellIndexPath.row];
-                        [lastNameData removeObjectAtIndex:cellIndexPath.row];
-                        [invitedFromData removeObjectAtIndex:cellIndexPath.row];
-                        [invitedTillData removeObjectAtIndex:cellIndexPath.row];
-                        [personalMessageData removeObjectAtIndex:cellIndexPath.row];
-                        [keyData removeObjectAtIndex:cellIndexPath.row];
-                        [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath]
-                                              withRowAnimation:UITableViewRowAnimationAutomatic];
-                        [self.tableView reloadData];
-                        
-                        
-                        //Update the data Model : Firebase in this case
-                        NSLog(@"KEYS AT INDEX!! %@",keys[i]);
-                        
-                        arr[i][@"Invitation Status"] = @"Declined";
-                        NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
-                        
-                        NSDictionary *postDict = @{@"Sender First Name": arr[i][@"Sender First Name"],
-                                                   @"Sender Last Name": arr[i][@"Sender Last Name"],
-                                                   @"Sender EMail": arr[i][@"Sender EMail"],
-                                                   @"Sender Address1": arr[i][@"Sender Address1"],
-                                                   @"Sender Address2": arr[i][@"Sender Address2"],
-                                                   @"Sender City": arr[i][@"Sender City"],
-                                                   @"Sender Zip": arr[i][@"Sender Zip"],
-                                                   @"Sender Phone": arr[i][@"Sender Phone"],
-                                                   @"Mesage From Sender": arr[i][@"Mesage From Sender"],
-                                                   @"Receiver First Name": arr[i][@"Receiver First Name"],
-                                                   @"Receiver Last Name": arr[i][@"Receiver Last Name"],
-                                                   @"Receiver EMail": arr[i][@"Receiver EMail"],
-                                                   @"Receiver Phone": arr[i][@"Receiver Phone"],
-                                                   @"Invite For Date": arr[i][@"Invite For Date"],
-                                                   @"Invite Valid Till Date": arr[i][@"Invite Valid Till Date"],
-                                                   @"Invitation Status": arr[i][@"Invitation Status"],
-                                                   };//Dict post
-                        NSLog(@"POST DIC %@",postDict);
-                        
-                        NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", keys[i]]: postDict};
-                        [_ref updateChildValues:childUpdates];
-                        
-                        break; // When the row is deleted - No need to go through other iterations
-                    }
-                    
-                }
-            }];
-*/
-            break;
+                        break;
         }
         default:
             break;

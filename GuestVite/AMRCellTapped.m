@@ -8,6 +8,8 @@
 
 #import "AMRCellTapped.h"
 #include "AwaitMyResponseViewController.h"
+#import "CNPPopupController.h"
+#import <MessageUI/MessageUI.h>
 
 @import Firebase;
 
@@ -21,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UINavigationBar *pendingInvitationsBack;
 @property (weak, nonatomic) IBOutlet UILabel *backLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+
+@property (nonatomic, strong) CNPPopupController *popupController;
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
@@ -101,47 +105,247 @@
     
     //NSString *pkey = [NSString stringWithFormat:@"%@",[[_ref child:@"invites"] child:_key]];
     
+    // Case of Invite Declined - Update the status to DECLINED
+    
+    // 1.  First ask if the user really wants to decline or not
     
     
-    [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        NSDictionary *dict = snapshot.value;
-        
-        NSLog(@"DICT %@",dict);
-        
-        NSLog(@"Value Before decline %@" , [dict valueForKey:@"Invitation Status"]);
-        NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
-                                   @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
-                                   @"Sender EMail": [dict valueForKey:@"Sender EMail"],
-                                   @"Sender Address1": [dict valueForKey:@"Sender Address1"],
-                                   @"Sender Address2": [dict valueForKey:@"Sender Address2"],
-                                   @"Sender City": [dict valueForKey:@"Sender City"],
-                                   @"Sender Zip": [dict valueForKey:@"Sender Zip"],
-                                   @"Sender Phone": [dict valueForKey:@"Sender Phone"],
-                                   @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
-                                   @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
-                                   @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
-                                   @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
-                                   @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
-                                   @"Invite For Date": [dict valueForKey:@"Invite For Date"],
-                                   @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
-                                   @"Invitation Status": @"Declined",
-                                   };//Dict post
-        
-        NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
-        [_ref updateChildValues:childUpdates];
-        
-        NSLog(@"Value After decline %@" , [dict valueForKey:@"Invitation Status"]);
-        
-        
-    }];
+    NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    paragraphStyle.alignment = NSTextAlignmentCenter;
     
-    self.acceptOrDeclineLabel.text = @"Invitation Declined";
-    self.acceptOrDeclineLabel.textColor = [UIColor redColor];
+    NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Do You really want to Decline this Invite?" attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
+    
+    NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"If Yes, How about sending a sorry message to your Host?" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+    
+    /*
+     NSAttributedString *lineTwo = [[NSAttributedString alloc] initWithString:@"Simply delete this message if you do not want to send one" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+     */
     
     
-    [self performSelector:@selector(loadingNextView)
-               withObject:nil afterDelay:3.0f];
+    
+    // If the user wants to send a message and decline
+    
+    CNPPopupButton *buttonYesMessage = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+    [buttonYesMessage setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    buttonYesMessage.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    [buttonYesMessage setTitle:@"Decline & Message" forState:UIControlStateNormal];
+    buttonYesMessage.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
+    buttonYesMessage.layer.cornerRadius = 4;
+    buttonYesMessage.selectionHandler = ^(CNPPopupButton *buttonYesMessage){
+        
+        //NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+        
+        //NSLog(@"HOST EMAIL %@",_hostEMail);
+       // NSLog(@"HOST PHONE %@",_hostPhone);
+        
+        
+        // a. Send Message
+        
+        
+            
+            
+            //Check for SMS and Send It
+            
+            if(!([_hostPhone isEqualToString:@"Not Specified"]))
+            {
+                
+                
+                
+                
+                if(![MFMessageComposeViewController canSendText]) {
+                    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                    
+                    [ac addAction:aa];
+                    [self presentViewController:ac animated:YES completion:nil];
+                    return;
+                }
+                
+                
+                
+                
+                
+                NSArray *recipents = [NSArray arrayWithObject:_hostPhone];
+                
+                
+                NSString *message = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I would not be able to make it this time , May be next time!",_inviteByFirstName];
+                
+                MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+                messageController.messageComposeDelegate = self;
+                [messageController setRecipients:recipents];
+                [messageController setBody:message];
+                
+                
+                [self presentViewController:messageController animated:YES completion:nil];
+                
+                
+            }
+        
+        if(!([_hostEMail isEqualToString:@"Not Specified"]))
+        {
+            
+            //Send Email
+            
+            
+            // Email Subject
+            NSString *emailTitle = @"Message From GeuestVite";
+            // Email Content
+            NSString *messageBody = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I would not be able to make it this time , May be next time!",_inviteByFirstName];
+            // To address
+            NSArray *toRecipents = [NSArray arrayWithObject:_hostEMail];
+            
+            MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+            mc.mailComposeDelegate = self;
+            [mc setSubject:emailTitle];
+            [mc setMessageBody:messageBody isHTML:NO];
+            [mc setToRecipients:toRecipents];
+            
+            // Present mail view controller on screen
+            [self presentViewController:mc animated:YES completion:NULL];
+            
+        }
+        
+        
+        
+        
+        //b.  Remove the DB entry
+        
+        // If Decline confirmed , ONLY then go ahead and delete
+        
+        
+        
+        [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            
+            NSDictionary *dict = snapshot.value;
+            
+            //NSLog(@"DICT %@",dict);
+            
+            //NSLog(@"Value Before decline %@" , [dict valueForKey:@"Invitation Status"]);
+            NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
+                                       @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
+                                       @"Sender EMail": [dict valueForKey:@"Sender EMail"],
+                                       @"Sender Address1": [dict valueForKey:@"Sender Address1"],
+                                       @"Sender Address2": [dict valueForKey:@"Sender Address2"],
+                                       @"Sender City": [dict valueForKey:@"Sender City"],
+                                       @"Sender Zip": [dict valueForKey:@"Sender Zip"],
+                                       @"Sender Phone": [dict valueForKey:@"Sender Phone"],
+                                       @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
+                                       @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
+                                       @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
+                                       @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
+                                       @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
+                                       @"Invite For Date": [dict valueForKey:@"Invite For Date"],
+                                       @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
+                                       @"Invitation Status": @"Declined",
+                                       };//Dict post
+            
+            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
+            [_ref updateChildValues:childUpdates];
+            
+            //NSLog(@"Value After decline %@" , [dict valueForKey:@"Invitation Status"]);
+            
+            
+        }];
+
+        
+        
+        
+        
+        [self.popupController dismissPopupControllerAnimated:YES];
+        //NSLog(@"Block for button: %@", buttonYesMessage.titleLabel.text);
+    };
+    
+    
+    // If the user just wants to decline
+    
+    CNPPopupButton *buttonYes = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+    [buttonYes setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    buttonYes.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    [buttonYes setTitle:@"Just Decline" forState:UIControlStateNormal];
+    buttonYes.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
+    buttonYes.layer.cornerRadius = 4;
+    buttonYes.selectionHandler = ^(CNPPopupButton *buttonYes){
+        
+        // If Decline confirmed , ONLY then go ahead and delete the Db entry
+        
+        [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            
+            NSDictionary *dict = snapshot.value;
+            
+            //NSLog(@"DICT %@",dict);
+            
+            //NSLog(@"Value Before decline %@" , [dict valueForKey:@"Invitation Status"]);
+            NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
+                                       @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
+                                       @"Sender EMail": [dict valueForKey:@"Sender EMail"],
+                                       @"Sender Address1": [dict valueForKey:@"Sender Address1"],
+                                       @"Sender Address2": [dict valueForKey:@"Sender Address2"],
+                                       @"Sender City": [dict valueForKey:@"Sender City"],
+                                       @"Sender Zip": [dict valueForKey:@"Sender Zip"],
+                                       @"Sender Phone": [dict valueForKey:@"Sender Phone"],
+                                       @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
+                                       @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
+                                       @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
+                                       @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
+                                       @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
+                                       @"Invite For Date": [dict valueForKey:@"Invite For Date"],
+                                       @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
+                                       @"Invitation Status": @"Declined",
+                                       };//Dict post
+            
+            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
+            [_ref updateChildValues:childUpdates];
+            
+            //NSLog(@"Value After decline %@" , [dict valueForKey:@"Invitation Status"]);
+            
+            
+        }];
+
+        
+        
+        [self.popupController dismissPopupControllerAnimated:YES];
+        //NSLog(@"Block for button: %@", buttonYes.titleLabel.text);
+        self.acceptOrDeclineLabel.text = @"Invitation Declined";
+        self.acceptOrDeclineLabel.textColor = [UIColor redColor];
+        
+        
+        [self performSelector:@selector(loadingNextView)
+                   withObject:nil afterDelay:3.0f];
+    };
+    
+    
+    // If the user changes mind
+    
+    CNPPopupButton *buttonNoMessage = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+    [buttonNoMessage setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    buttonNoMessage.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    [buttonNoMessage setTitle:@"Go Back" forState:UIControlStateNormal];
+    buttonNoMessage.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+    buttonNoMessage.layer.cornerRadius = 4;
+    buttonNoMessage.selectionHandler = ^(CNPPopupButton *buttonNoMessage){
+        [self.popupController dismissPopupControllerAnimated:YES];
+        //NSLog(@"Block for button: %@", buttonNoMessage.titleLabel.text);
+    };
+    
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.numberOfLines = 0;
+    titleLabel.attributedText = title;
+    
+    UILabel *lineOneLabel = [[UILabel alloc] init];
+    lineOneLabel.numberOfLines = 0;
+    lineOneLabel.attributedText = lineOne;
+    
+       self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,buttonYesMessage,buttonYes,buttonNoMessage]];
+    self.popupController.theme = [CNPPopupTheme defaultTheme];
+    self.popupController.theme.popupStyle = CNPPopupStyleCentered;
+    self.popupController.delegate = self;
+    [self.popupController presentPopupControllerAnimated:YES];
+    
+    
+    
+    
 }
 
 - (IBAction)acceptTapped:(id)sender {
@@ -200,4 +404,76 @@
     
     
 }
+
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to send SMS!" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+            
+            break;
+        }
+            
+        case MessageComposeResultSent:
+        {
+            NSLog(@"SMS Sent");
+            self.acceptOrDeclineLabel.text = @"Invitation Declined";
+            self.acceptOrDeclineLabel.textColor = [UIColor redColor];
+            
+            
+            [self performSelector:@selector(loadingNextView)
+                       withObject:nil afterDelay:3.0f];
+            break;
+        }
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            break;
+        case MFMailComposeResultSaved:
+            
+            break;
+        case MFMailComposeResultSent: {
+            NSLog(@"E-Mail Sent");
+            self.acceptOrDeclineLabel.text = @"Invitation Declined";
+            self.acceptOrDeclineLabel.textColor = [UIColor redColor];
+            
+            
+            [self performSelector:@selector(loadingNextView)
+                       withObject:nil afterDelay:3.0f];
+            break;
+        }
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+
+
 @end
