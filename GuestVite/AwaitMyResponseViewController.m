@@ -59,6 +59,8 @@ NSArray *keys;
     
     firstNameData = [[NSMutableArray alloc]init];
     lastNameData = [[NSMutableArray alloc]init];
+    hostEMailData = [[NSMutableArray alloc]init];
+    hostPhoneData = [[NSMutableArray alloc]init];
     invitedFromData = [[NSMutableArray alloc]init];
     invitedTillData = [[NSMutableArray alloc]init];
     personalMessageData = [[NSMutableArray alloc]init];
@@ -520,11 +522,87 @@ NSArray *keys;
             buttonYesMessage.layer.cornerRadius = 4;
             buttonYesMessage.selectionHandler = ^(CNPPopupButton *buttonYesMessage){
                 
-                //a.  Remove the DB entry
+                NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+                
+                NSLog(@"HOST EMAIL %@",[hostEMailData objectAtIndex:cellIndexPath.row]);
+                NSLog(@"HOST PHONE %@",[hostPhoneData objectAtIndex:cellIndexPath.row]);
+                
+                
+                                // a. Send Message
+                
+                if(!([[hostEMailData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
+                {
+                    
+                    
+                     //Check for SMS and Send It
+                    
+                    if(!([[hostPhoneData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
+                    {
+                        
+                        
+                       
+                        NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+                        
+                        if(![MFMessageComposeViewController canSendText]) {
+                            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
+                            
+                            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                            
+                            [ac addAction:aa];
+                            [self presentViewController:ac animated:YES completion:nil];
+                            return;
+                        }
+                        
+                        
+                        
+                        
+                        
+                        NSArray *recipents = [NSArray arrayWithObject:[hostPhoneData objectAtIndex:cellIndexPath.row]];
+                        
+                        
+                        NSString *message = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I would not be able to make it this time , May be next time!",[firstNameData objectAtIndex:cellIndexPath.row]];
+                        
+                        MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+                        messageController.messageComposeDelegate = self;
+                        [messageController setRecipients:recipents];
+                        [messageController setBody:message];
+                        
+                        
+                        [self presentViewController:messageController animated:YES completion:nil];
+                        
+                        
+                    }
+
+                    
+                    //Send Email
+                   
+                    
+                    // Email Subject
+                    NSString *emailTitle = @"Message From GeuestVite";
+                    // Email Content
+                    NSString *messageBody = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I would not be able to make it this time , May be next time!",[firstNameData objectAtIndex:cellIndexPath.row]];
+                    // To address
+                    NSArray *toRecipents = [NSArray arrayWithObject:[hostEMailData objectAtIndex:cellIndexPath.row]];
+                    
+                    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+                    mc.mailComposeDelegate = self;
+                    [mc setSubject:emailTitle];
+                    [mc setMessageBody:messageBody isHTML:NO];
+                    [mc setToRecipients:toRecipents];
+                    
+                    // Present mail view controller on screen
+                    [self presentViewController:mc animated:YES completion:NULL];
+                    
+                }
+                
+                
+                
+                
+                //b.  Remove the DB entry
                 
                 // If Decline confirmed , ONLY then go ahead and delete
                 
-                NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+               
                 
                 [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                     
@@ -590,73 +668,7 @@ NSArray *keys;
                     }
                 }];
                 
-                // b. Sene Message
-                
-                if(!([[hostEMailData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
-                {
-                    
-                    
-                    //Send Email
-                    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-                    
-                    // Email Subject
-                    NSString *emailTitle = @"Message From GeuestVite";
-                    // Email Content
-                    NSString *messageBody = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I would not be able to make it this time , May be next time!",[firstNameData objectAtIndex:cellIndexPath.row]];
-                    // To address
-                    NSArray *toRecipents = [NSArray arrayWithObject:[hostEMailData objectAtIndex:cellIndexPath.row]];
-                    
-                    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-                    mc.mailComposeDelegate = self;
-                    [mc setSubject:emailTitle];
-                    [mc setMessageBody:messageBody isHTML:NO];
-                    [mc setToRecipients:toRecipents];
-                    
-                    // Present mail view controller on screen
-                    [self presentViewController:mc animated:YES completion:NULL];
-                    
-                }
-                
-                
-                if(!([[hostPhoneData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
-                {
-                    
-                    
-                    //Send SMS
-                    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-                    
-                    if(![MFMessageComposeViewController canSendText]) {
-                        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
-                        
-                        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                        
-                        [ac addAction:aa];
-                        [self presentViewController:ac animated:YES completion:nil];
-                        return;
-                    }
-                    
-                    
-                    
-                    
-                    
-                    NSArray *recipents = [NSArray arrayWithObject:[hostPhoneData objectAtIndex:cellIndexPath.row]];
-                    
-                    
-                    NSString *message = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I would not be able to make it this time , May be next time!",[firstNameData objectAtIndex:cellIndexPath.row]];
-                    
-                    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
-                    messageController.messageComposeDelegate = self;
-                    [messageController setRecipients:recipents];
-                    [messageController setBody:message];
-                    
-                    
-                    [self presentViewController:messageController animated:YES completion:nil];
-                    
-                    
-                }
 
-                
-                
                 
                 
                 
@@ -678,7 +690,7 @@ NSArray *keys;
             buttonYes.layer.cornerRadius = 4;
             buttonYes.selectionHandler = ^(CNPPopupButton *buttonYes){
                 
-                // If Decline confirmed , ONLY then go ahead and delete
+                // If Decline confirmed , ONLY then go ahead and delete the Db entry
                 
                  NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
                  
@@ -790,7 +802,7 @@ NSArray *keys;
             textField.text = @"Hey Sorry, I won't be able to make it";
             [customView addSubview:textField];
             */
-            self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,buttonYesMessage,buttonNoMessage]];
+            self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,buttonYesMessage,buttonYes,buttonNoMessage]];
             self.popupController.theme = [CNPPopupTheme defaultTheme];
             self.popupController.theme.popupStyle = CNPPopupStyleCentered;
             self.popupController.delegate = self;
