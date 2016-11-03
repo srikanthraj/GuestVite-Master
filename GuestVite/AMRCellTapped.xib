@@ -206,7 +206,7 @@
                 <constraint firstItem="htz-G3-ruS" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vIc-Zm-zBO"/>
                 <constraint firstItem="wsM-pL-s1G" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="zva-dy-ziB"/>
             </constraints>
-            <point key="canvasLocation" x="180" y="251"/>
+            <point key="canvasLocation" x="189" y="245"/>
         </view>
     </objects>
     <resources>

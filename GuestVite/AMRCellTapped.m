@@ -375,16 +375,69 @@
 
         NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
         [_ref updateChildValues:childUpdates];
+           }];
+        
+        // Show popup
+        
+        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+        
+        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Your Acceptance is on its way!" attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
         
         
-    }];
+        CNPPopupButton *startToHostPlaceButton = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+        [startToHostPlaceButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        startToHostPlaceButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+        [startToHostPlaceButton setTitle:[NSString stringWithFormat:@"%@'s place!",self.inviteByFirstName] forState:UIControlStateNormal];
+        startToHostPlaceButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+        startToHostPlaceButton.layer.cornerRadius = 4;
+        startToHostPlaceButton.selectionHandler = ^(CNPPopupButton *startToHostPlaceButton){
+      
+            [self.popupController dismissPopupControllerAnimated:YES];
+            NSLog(@"Block for button: %@", startToHostPlaceButton.titleLabel.text);
+            self.acceptOrDeclineLabel.text = @"Invitation Accepted";
+            self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+            
+            
+            [self performSelector:@selector(loadingNextView)
+                       withObject:nil afterDelay:3.0f];
+            
+
+        };
     
-    self.acceptOrDeclineLabel.text = @"Invitation Accepted";
-    self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+    
+    CNPPopupButton *goBackButton = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+    [goBackButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    goBackButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+    [goBackButton setTitle:@"Not Now" forState:UIControlStateNormal];
+    goBackButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+    goBackButton.layer.cornerRadius = 4;
+    goBackButton.selectionHandler = ^(CNPPopupButton *goBackButton){
+        [self.popupController dismissPopupControllerAnimated:YES];
+        NSLog(@"Block for button: %@", goBackButton.titleLabel.text);
+        self.acceptOrDeclineLabel.text = @"Invitation Accepted";
+        self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+        
+        
+        [self performSelector:@selector(loadingNextView)
+                   withObject:nil afterDelay:3.0f];
+        
+
+    };
+    
+ 
+    UILabel *titleLabel = [[UILabel alloc] init];
+    titleLabel.numberOfLines = 0;
+    titleLabel.attributedText = title;
     
     
-    [self performSelector:@selector(loadingNextView)
-               withObject:nil afterDelay:3.0f];
+    self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel,startToHostPlaceButton,goBackButton]];
+    self.popupController.theme = [CNPPopupTheme defaultTheme];
+    self.popupController.theme.popupStyle = CNPPopupStyleCentered;
+    self.popupController.delegate = self;
+    [self.popupController presentPopupControllerAnimated:YES];
+
     
     
 }
