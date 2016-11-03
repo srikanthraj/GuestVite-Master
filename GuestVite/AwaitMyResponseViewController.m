@@ -11,6 +11,7 @@
 #import "AMRCellTapped.h"
 #import "SendNewInviteViewController.h"
 #import "CNPPopupController.h"
+#import <MessageUI/MessageUI.h>
 
 @import Firebase;
 
@@ -33,6 +34,8 @@
 
  NSMutableArray *firstNameData;
  NSMutableArray *lastNameData;
+ NSMutableArray *hostEMailData;
+ NSMutableArray *hostPhoneData;
  NSMutableArray *nameData;
  NSMutableArray *invitedFromData;
  NSMutableArray *invitedTillData;
@@ -107,6 +110,8 @@ NSArray *keys;
     
     __block NSMutableArray *myfirstNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *mylastNameData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostEMailData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostPhoneData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myPersonalMessageData = [[NSMutableArray alloc] init];
@@ -172,6 +177,8 @@ NSArray *keys;
             
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
+                [myhostEMailData addObject:arr[i][@"Sender EMail"]];
+                [myhostPhoneData addObject:arr[i][@"Sender Phone"]];
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                 [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
                 [myPersonalMessageData addObject:arr[i][@"Mesage From Sender"]];
@@ -188,6 +195,8 @@ NSArray *keys;
                     
                     [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                     [mylastNameData addObject:arr[i][@"Sender Last Name"]];
+                    [myhostEMailData addObject:arr[i][@"Sender EMail"]];
+                    [myhostPhoneData addObject:arr[i][@"Sender Phone"]];
                     [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                     [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
                     [myPersonalMessageData addObject:arr[i][@"Mesage From Sender"]];
@@ -209,6 +218,8 @@ NSArray *keys;
                 {
                     [myfirstNameData addObject: @"No Invites"];
                     [mylastNameData addObject: @"No Invites"];
+                    [myhostEMailData addObject: @"No Invites"];
+                    [myhostPhoneData addObject: @"No Invites"];
                     [myinvitedFromData addObject: @"No Invites"];
                     [myinvitedTillData addObject: @"No Invites"];
                     [myPersonalMessageData addObject: @"No Invites"];
@@ -223,7 +234,7 @@ NSArray *keys;
         
     }];
     
-    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0) {
+    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
    
@@ -233,6 +244,8 @@ NSArray *keys;
     for(int i =0;i<[myinvitedFromData count];i++){
         [firstNameData addObject:[myfirstNameData objectAtIndex:i]];
         [lastNameData addObject:[mylastNameData objectAtIndex:i]];
+        [hostEMailData addObject:[myhostEMailData objectAtIndex:i]];
+        [hostPhoneData addObject:[myhostPhoneData objectAtIndex:i]];
         [invitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
         [invitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
         [personalMessageData addObject:[myPersonalMessageData objectAtIndex:i]];
@@ -423,6 +436,8 @@ NSArray *keys;
                         
                         [firstNameData removeObjectAtIndex:cellIndexPath.row];
                         [lastNameData removeObjectAtIndex:cellIndexPath.row];
+                        [hostEMailData removeObjectAtIndex:cellIndexPath.row];
+                        [hostPhoneData removeObjectAtIndex:cellIndexPath.row];
                         [invitedFromData removeObjectAtIndex:cellIndexPath.row];
                         [invitedTillData removeObjectAtIndex:cellIndexPath.row];
                         [personalMessageData removeObjectAtIndex:cellIndexPath.row];
@@ -501,13 +516,242 @@ NSArray *keys;
             [buttonYesMessage setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
             buttonYesMessage.titleLabel.font = [UIFont boldSystemFontOfSize:18];
             [buttonYesMessage setTitle:@"Decline & Message" forState:UIControlStateNormal];
-            buttonYesMessage.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+            buttonYesMessage.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
             buttonYesMessage.layer.cornerRadius = 4;
             buttonYesMessage.selectionHandler = ^(CNPPopupButton *buttonYesMessage){
+                
+                //a.  Remove the DB entry
+                
+                // If Decline confirmed , ONLY then go ahead and delete
+                
+                NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+                
+                [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                    
+                    NSDictionary *dict = snapshot.value;
+                    NSArray *keys = [dict allKeys];
+                    NSArray * arr = [dict allValues];
+                    
+                    
+                    
+                    for(int i=0;i<[arr count];i++){
+                        
+                        NSLog(@"CELL INDEX %ld",cellIndexPath.row);
+                        
+                        
+                        if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:cellIndexPath.row] isEqualToString:arr[i][@"Invite For Date"]])
+                        { // If status is pending  and From date in table matches the one from the table
+                            
+                            
+                            [firstNameData removeObjectAtIndex:cellIndexPath.row];
+                            [lastNameData removeObjectAtIndex:cellIndexPath.row];
+                            [hostEMailData removeObjectAtIndex:cellIndexPath.row];
+                            [hostPhoneData removeObjectAtIndex:cellIndexPath.row];
+                            [invitedFromData removeObjectAtIndex:cellIndexPath.row];
+                            [invitedTillData removeObjectAtIndex:cellIndexPath.row];
+                            [personalMessageData removeObjectAtIndex:cellIndexPath.row];
+                            [keyData removeObjectAtIndex:cellIndexPath.row];
+                            [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath]
+                                                  withRowAnimation:UITableViewRowAnimationAutomatic];
+                            [self.tableView reloadData];
+                            
+                            
+                            //Update the data Model : Firebase in this case
+                            NSLog(@"KEYS AT INDEX!! %@",keys[i]);
+                            
+                            arr[i][@"Invitation Status"] = @"Declined";
+                            NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
+                            
+                            NSDictionary *postDict = @{@"Sender First Name": arr[i][@"Sender First Name"],
+                                                       @"Sender Last Name": arr[i][@"Sender Last Name"],
+                                                       @"Sender EMail": arr[i][@"Sender EMail"],
+                                                       @"Sender Address1": arr[i][@"Sender Address1"],
+                                                       @"Sender Address2": arr[i][@"Sender Address2"],
+                                                       @"Sender City": arr[i][@"Sender City"],
+                                                       @"Sender Zip": arr[i][@"Sender Zip"],
+                                                       @"Sender Phone": arr[i][@"Sender Phone"],
+                                                       @"Mesage From Sender": arr[i][@"Mesage From Sender"],
+                                                       @"Receiver First Name": arr[i][@"Receiver First Name"],
+                                                       @"Receiver Last Name": arr[i][@"Receiver Last Name"],
+                                                       @"Receiver EMail": arr[i][@"Receiver EMail"],
+                                                       @"Receiver Phone": arr[i][@"Receiver Phone"],
+                                                       @"Invite For Date": arr[i][@"Invite For Date"],
+                                                       @"Invite Valid Till Date": arr[i][@"Invite Valid Till Date"],
+                                                       @"Invitation Status": arr[i][@"Invitation Status"],
+                                                       };//Dict post
+                            NSLog(@"POST DIC %@",postDict);
+                            
+                            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", keys[i]]: postDict};
+                            [_ref updateChildValues:childUpdates];
+                            
+                            break; // When the row is deleted - No need to go through other iterations
+                        }
+                        
+                    }
+                }];
+                
+                // b. Sene Message
+                
+                if(!([[hostEMailData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
+                {
+                    
+                    
+                    //Send Email
+                    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+                    
+                    // Email Subject
+                    NSString *emailTitle = @"Message From GeuestVite";
+                    // Email Content
+                    NSString *messageBody = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I would not be able to make it this time , May be next time!",[firstNameData objectAtIndex:cellIndexPath.row]];
+                    // To address
+                    NSArray *toRecipents = [NSArray arrayWithObject:[hostEMailData objectAtIndex:cellIndexPath.row]];
+                    
+                    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+                    mc.mailComposeDelegate = self;
+                    [mc setSubject:emailTitle];
+                    [mc setMessageBody:messageBody isHTML:NO];
+                    [mc setToRecipients:toRecipents];
+                    
+                    // Present mail view controller on screen
+                    [self presentViewController:mc animated:YES completion:NULL];
+                    
+                }
+                
+                
+                if(!([[hostPhoneData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
+                {
+                    
+                    
+                    //Send SMS
+                    NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+                    
+                    if(![MFMessageComposeViewController canSendText]) {
+                        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
+                        
+                        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                        
+                        [ac addAction:aa];
+                        [self presentViewController:ac animated:YES completion:nil];
+                        return;
+                    }
+                    
+                    
+                    
+                    
+                    
+                    NSArray *recipents = [NSArray arrayWithObject:[hostPhoneData objectAtIndex:cellIndexPath.row]];
+                    
+                    
+                    NSString *message = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I would not be able to make it this time , May be next time!",[firstNameData objectAtIndex:cellIndexPath.row]];
+                    
+                    MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+                    messageController.messageComposeDelegate = self;
+                    [messageController setRecipients:recipents];
+                    [messageController setBody:message];
+                    
+                    
+                    [self presentViewController:messageController animated:YES completion:nil];
+                    
+                    
+                }
+
+                
+                
+                
+                
+                
+                
+                
+                
                 [self.popupController dismissPopupControllerAnimated:YES];
                 NSLog(@"Block for button: %@", buttonYesMessage.titleLabel.text);
             };
             
+            
+            // If the user just wants to decline
+            
+            CNPPopupButton *buttonYes = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+            [buttonYes setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            buttonYes.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+            [buttonYes setTitle:@"Just Decline" forState:UIControlStateNormal];
+            buttonYes.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
+            buttonYes.layer.cornerRadius = 4;
+            buttonYes.selectionHandler = ^(CNPPopupButton *buttonYes){
+                
+                // If Decline confirmed , ONLY then go ahead and delete
+                
+                 NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+                 
+                 [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                 
+                 NSDictionary *dict = snapshot.value;
+                 NSArray *keys = [dict allKeys];
+                 NSArray * arr = [dict allValues];
+                 
+                 
+                 
+                 for(int i=0;i<[arr count];i++){
+                 
+                 NSLog(@"CELL INDEX %ld",cellIndexPath.row);
+                 
+                 
+                 if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:cellIndexPath.row] isEqualToString:arr[i][@"Invite For Date"]])
+                 { // If status is pending  and From date in table matches the one from the table
+                 
+                 
+                 [firstNameData removeObjectAtIndex:cellIndexPath.row];
+                 [lastNameData removeObjectAtIndex:cellIndexPath.row];
+                 [hostEMailData removeObjectAtIndex:cellIndexPath.row];
+                 [hostPhoneData removeObjectAtIndex:cellIndexPath.row];
+                 [invitedFromData removeObjectAtIndex:cellIndexPath.row];
+                 [invitedTillData removeObjectAtIndex:cellIndexPath.row];
+                 [personalMessageData removeObjectAtIndex:cellIndexPath.row];
+                 [keyData removeObjectAtIndex:cellIndexPath.row];
+                 [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath]
+                 withRowAnimation:UITableViewRowAnimationAutomatic];
+                 [self.tableView reloadData];
+                 
+                 
+                 //Update the data Model : Firebase in this case
+                 NSLog(@"KEYS AT INDEX!! %@",keys[i]);
+                 
+                 arr[i][@"Invitation Status"] = @"Declined";
+                 NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
+                 
+                 NSDictionary *postDict = @{@"Sender First Name": arr[i][@"Sender First Name"],
+                 @"Sender Last Name": arr[i][@"Sender Last Name"],
+                 @"Sender EMail": arr[i][@"Sender EMail"],
+                 @"Sender Address1": arr[i][@"Sender Address1"],
+                 @"Sender Address2": arr[i][@"Sender Address2"],
+                 @"Sender City": arr[i][@"Sender City"],
+                 @"Sender Zip": arr[i][@"Sender Zip"],
+                 @"Sender Phone": arr[i][@"Sender Phone"],
+                 @"Mesage From Sender": arr[i][@"Mesage From Sender"],
+                 @"Receiver First Name": arr[i][@"Receiver First Name"],
+                 @"Receiver Last Name": arr[i][@"Receiver Last Name"],
+                 @"Receiver EMail": arr[i][@"Receiver EMail"],
+                 @"Receiver Phone": arr[i][@"Receiver Phone"],
+                 @"Invite For Date": arr[i][@"Invite For Date"],
+                 @"Invite Valid Till Date": arr[i][@"Invite Valid Till Date"],
+                 @"Invitation Status": arr[i][@"Invitation Status"],
+                 };//Dict post
+                 NSLog(@"POST DIC %@",postDict);
+                 
+                 NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", keys[i]]: postDict};
+                 [_ref updateChildValues:childUpdates];
+                 
+                 break; // When the row is deleted - No need to go through other iterations
+                 }
+                 
+                 }
+                 }];
+
+                
+                
+                [self.popupController dismissPopupControllerAnimated:YES];
+                NSLog(@"Block for button: %@", buttonYes.titleLabel.text);
+            };
+
             
             // If the user changes mind
             
@@ -627,6 +871,60 @@ NSArray *keys;
         default:
             break;
     }
+}
+
+
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to send SMS!" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+            
+            break;
+        }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            break;
+        case MFMailComposeResultSaved:
+            
+            break;
+        case MFMailComposeResultSent: {
+            break;
+        }
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 
