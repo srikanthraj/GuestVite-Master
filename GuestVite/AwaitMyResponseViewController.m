@@ -10,6 +10,7 @@
 #import "SimpleTableCellTableViewCell.h"
 #import "AMRCellTapped.h"
 #import "SendNewInviteViewController.h"
+#import "CNPPopupController.h"
 
 @import Firebase;
 
@@ -24,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *backLabel;
 
-
+@property (nonatomic, strong) CNPPopupController *popupController;
 @end
 
 @implementation AwaitMyResponseViewController
@@ -476,7 +477,88 @@ NSArray *keys;
         case 1:
         {
             // Case of Invite Declined - Update the status to DECLINED
-             NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+            
+            // 1.  First ask if the user really wants to decline or not
+            
+            
+            NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            paragraphStyle.alignment = NSTextAlignmentCenter;
+            
+            NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Do You really want to Decline this Invite?" attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
+            
+            NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"If Yes, How about sending a sorry message to your Host?" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+            
+            /*
+            NSAttributedString *lineTwo = [[NSAttributedString alloc] initWithString:@"Simply delete this message if you do not want to send one" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+            */
+           
+            
+            
+            // If the user wants to send a message and decline
+            
+            CNPPopupButton *buttonYesMessage = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+            [buttonYesMessage setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            buttonYesMessage.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+            [buttonYesMessage setTitle:@"Decline & Message" forState:UIControlStateNormal];
+            buttonYesMessage.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+            buttonYesMessage.layer.cornerRadius = 4;
+            buttonYesMessage.selectionHandler = ^(CNPPopupButton *buttonYesMessage){
+                [self.popupController dismissPopupControllerAnimated:YES];
+                NSLog(@"Block for button: %@", buttonYesMessage.titleLabel.text);
+            };
+            
+            
+            // If the user changes mind
+            
+            CNPPopupButton *buttonNoMessage = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+            [buttonNoMessage setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            buttonNoMessage.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+            [buttonNoMessage setTitle:@"Go Back" forState:UIControlStateNormal];
+            buttonNoMessage.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+            buttonNoMessage.layer.cornerRadius = 4;
+            buttonNoMessage.selectionHandler = ^(CNPPopupButton *buttonNoMessage){
+                [self.popupController dismissPopupControllerAnimated:YES];
+                NSLog(@"Block for button: %@", buttonNoMessage.titleLabel.text);
+            };
+            
+            UILabel *titleLabel = [[UILabel alloc] init];
+            titleLabel.numberOfLines = 0;
+            titleLabel.attributedText = title;
+            
+            UILabel *lineOneLabel = [[UILabel alloc] init];
+            lineOneLabel.numberOfLines = 0;
+            lineOneLabel.attributedText = lineOne;
+            
+            // UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon"]];
+            
+            /*
+            UILabel *lineTwoLabel = [[UILabel alloc] init];
+            lineTwoLabel.numberOfLines = 0;
+            lineTwoLabel.attributedText = lineTwo;
+            
+            UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 55)];
+            customView.backgroundColor = [UIColor lightGrayColor];
+            
+            UITextField *textField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 230, 35)];
+            textField.borderStyle = UITextBorderStyleRoundedRect;
+            textField.placeholder = @"Send Message Here";
+            textField.text = @"Hey Sorry, I won't be able to make it";
+            [customView addSubview:textField];
+            */
+            self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,buttonYesMessage,buttonNoMessage]];
+            self.popupController.theme = [CNPPopupTheme defaultTheme];
+            self.popupController.theme.popupStyle = CNPPopupStyleCentered;
+            self.popupController.delegate = self;
+            [self.popupController presentPopupControllerAnimated:YES];
+
+            
+            
+            
+            
+            // 2. If Decline confirmed , ONLY then go ahead and delete
+            /*
+            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
             
             [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                 
@@ -539,7 +621,7 @@ NSArray *keys;
                     
                 }
             }];
-
+*/
             break;
         }
         default:
