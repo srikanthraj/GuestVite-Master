@@ -50,6 +50,8 @@
 		847340751DA979A50038C047 /* RegPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847340731DA979A50038C047 /* RegPageViewController.m */; };
 		847340761DA979A50038C047 /* RegPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847340741DA979A50038C047 /* RegPageViewController.xib */; };
 		8473407B1DA983F10038C047 /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473407A1DA983F10038C047 /* TextFieldValidator.m */; };
+		84A410B11DCC03D800216DEA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A410B01DCC03D800216DEA /* CoreLocation.framework */; };
+		84A410B31DCC071000216DEA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A410B21DCC071000216DEA /* MapKit.framework */; };
 		84DF6AA41DC650B600047435 /* PrevInvSentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DF6AA21DC650B600047435 /* PrevInvSentViewController.m */; };
 		84DF6AA51DC650B600047435 /* PrevInvSentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DF6AA31DC650B600047435 /* PrevInvSentViewController.xib */; };
 		84DF6AA91DC6525000047435 /* PrevInvSentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DF6AA71DC6525000047435 /* PrevInvSentCell.m */; };
@@ -127,6 +129,8 @@
 		847340741DA979A50038C047 /* RegPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegPageViewController.xib; sourceTree = "<group>"; };
 		847340791DA983F10038C047 /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldValidator.h; path = "../../../../Downloads/TextFieldValidator-master/TextFieldValidator/TextFieldValidator.h"; sourceTree = "<group>"; };
 		8473407A1DA983F10038C047 /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextFieldValidator.m; path = "../../../../Downloads/TextFieldValidator-master/TextFieldValidator/TextFieldValidator.m"; sourceTree = "<group>"; };
+		84A410B01DCC03D800216DEA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		84A410B21DCC071000216DEA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		84DF6AA11DC650B600047435 /* PrevInvSentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrevInvSentViewController.h; sourceTree = "<group>"; };
 		84DF6AA21DC650B600047435 /* PrevInvSentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrevInvSentViewController.m; sourceTree = "<group>"; };
 		84DF6AA31DC650B600047435 /* PrevInvSentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrevInvSentViewController.xib; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84A410B31DCC071000216DEA /* MapKit.framework in Frameworks */,
+				84A410B11DCC03D800216DEA /* CoreLocation.framework in Frameworks */,
 				84267C281DB9B7130044ACF4 /* Foundation.framework in Frameworks */,
 				84267C261DB9B70B0044ACF4 /* UIKit.framework in Frameworks */,
 				84267C141DB04A7C0044ACF4 /* MessageUI.framework in Frameworks */,
@@ -167,6 +173,8 @@
 		79FB75469F7F70C8F6489125 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84A410B21DCC071000216DEA /* MapKit.framework */,
+				84A410B01DCC03D800216DEA /* CoreLocation.framework */,
 				84267C271DB9B7130044ACF4 /* Foundation.framework */,
 				84267C251DB9B70B0044ACF4 /* UIKit.framework */,
 				84267C131DB04A7C0044ACF4 /* MessageUI.framework */,

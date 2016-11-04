@@ -10,10 +10,12 @@
 #include "AwaitMyResponseViewController.h"
 #import "CNPPopupController.h"
 #import <MessageUI/MessageUI.h>
+#import <CoreLocation/CoreLocation.h>
+#import "MapKit/MapKit.h"
 
 @import Firebase;
 
-@interface AMRCellTapped ()
+@interface AMRCellTapped () <CLLocationManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *invitedByLabel;
 @property (weak, nonatomic) IBOutlet UILabel *invitedOnLabel;
 @property (weak, nonatomic) IBOutlet UILabel *invitedTillLabel;
@@ -24,17 +26,28 @@
 @property (weak, nonatomic) IBOutlet UILabel *backLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
+@property(strong, nonatomic) CLLocationManager *locationManager;
 @property (nonatomic, strong) CNPPopupController *popupController;
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+
+
+
+
 
 @end
 
 @implementation AMRCellTapped
 
+
+float currentLatitude = 0.0;
+float currentLongitude = 0.0;
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    // Initialize the location Manager
+    self.locationManager = [[CLLocationManager alloc] init];
     
     self.pendingInvitationsBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
     
@@ -393,6 +406,52 @@
         startToHostPlaceButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
         startToHostPlaceButton.layer.cornerRadius = 4;
         startToHostPlaceButton.selectionHandler = ^(CNPPopupButton *startToHostPlaceButton){
+            
+            
+            // Open of Maps Part starts
+            
+            //Check the availability of the Google Maps app on the device
+            
+            if (![[UIApplication sharedApplication] canOpenURL:
+                 [NSURL URLWithString:@"comgooglemaps://"]]) {
+                NSLog(@"Your Device does not have Google Maps");
+            }
+            
+            else { // If device has Google Maps
+                
+                //1. Get guest's current location
+                
+                self.locationManager = [[CLLocationManager alloc]init];
+                self.locationManager.delegate = self;
+                [self.locationManager requestWhenInUseAuthorization];
+                [self.locationManager startUpdatingLocation];
+                while(currentLatitude == 0.0 && currentLongitude == 0.0){ // Wait till latitude and longitude gets populated
+                    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+                }
+                
+                
+                //Once latitude and Longitude gets populated - Stop getting location updates
+                [self.locationManager stopUpdatingLocation];
+                
+                
+                NSLog(@"LATITUDE %f",currentLatitude);
+                NSLog(@"LONGITUDE %f",currentLongitude);
+                
+                CLLocationCoordinate2D dest = [self geoCodeUsingAddress:@"1500 American Boulevard, Pennington, NJ 08534"];
+                
+                NSLog(@"Destination Latitude %f",dest.latitude);
+                NSLog(@"Destination Longitude %f",dest.longitude);
+                      
+                
+            }
+            
+            
+            
+            
+            //Open of Maps part Ends
+            
+            
+            
       
             [self.popupController dismissPopupControllerAnimated:YES];
             NSLog(@"Block for button: %@", startToHostPlaceButton.titleLabel.text);
@@ -441,6 +500,54 @@
     
     
 }
+
+
+
+
+- (CLLocationCoordinate2D) geoCodeUsingAddress:(NSString *)address
+{
+    double latitude = 0, longitude = 0;
+    NSString *esc_addr =  [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *req = [NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?sensor=false&address=%@", esc_addr];
+    NSString *result = [NSString stringWithContentsOfURL:[NSURL URLWithString:req] encoding:NSUTF8StringEncoding error:NULL];
+    
+   // NSLog(@"RESULU is %@",result);
+    if (result) {
+        NSScanner *scanner = [NSScanner scannerWithString:result];
+        if ([scanner scanUpToString:@"\"lat\" :" intoString:nil] && [scanner scanString:@"\"lat\" :" intoString:nil]) {
+            [scanner scanDouble:&latitude];
+            if ([scanner scanUpToString:@"\"lng\" :" intoString:nil] && [scanner scanString:@"\"lng\" :" intoString:nil]) {
+                [scanner scanDouble:&longitude];
+            }
+        }
+    }
+    CLLocationCoordinate2D center;
+    center.latitude = latitude;
+    center.longitude = longitude;
+    return center;
+}
+
+
+#pragma mark - CLLocationManagerDelegate
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    NSLog(@"didFailWithError: %@", error);
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
+}
+
+-(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
+    
+    currentLatitude = locations.lastObject.coordinate.latitude;
+    currentLongitude = locations.lastObject.coordinate.longitude;
+   NSLog(@"LATITUDE %f",currentLatitude);
+   NSLog(@"LONGITUDE %f",currentLongitude);
+    
+    
+}
+
 
 
 - (void)loadingNextView{
