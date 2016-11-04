@@ -441,7 +441,11 @@ float currentLongitude = 0.0;
                 
                 NSLog(@"Destination Latitude %f",dest.latitude);
                 NSLog(@"Destination Longitude %f",dest.longitude);
-                      
+                
+                NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%f,%f&directionsmode=driving",currentLatitude,currentLongitude,dest.latitude,dest.longitude];
+                
+                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
+                
                 
             }
             

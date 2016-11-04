@@ -13,6 +13,13 @@
 @property(nonatomic) NSString *inviteByLastName;
 @property(nonatomic) NSString *hostEMail;
 @property(nonatomic) NSString *hostPhone;
+
+@property(nonatomic) NSString *hostAddrLineOne;
+@property(nonatomic) NSString *hostAddrLineTwo;
+@property(nonatomic) NSString *hostAddrCity;
+@property(nonatomic) NSString *hostAddrZip;
+
+
 @property(nonatomic) NSString *invitedOn;
 @property(nonatomic) NSString *invitedTill;
 @property(nonatomic) NSString *personalMessage;
