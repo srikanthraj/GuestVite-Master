@@ -366,33 +366,8 @@ float currentLongitude = 0.0;
 
 - (IBAction)acceptTapped:(id)sender {
     
-    [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        NSDictionary *dict = snapshot.value;
-        
-        
-        NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
-                                   @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
-                                   @"Sender EMail": [dict valueForKey:@"Sender EMail"],
-                                   @"Sender Address1": [dict valueForKey:@"Sender Address1"],
-                                   @"Sender Address2": [dict valueForKey:@"Sender Address2"],
-                                   @"Sender City": [dict valueForKey:@"Sender City"],
-                                   @"Sender Zip": [dict valueForKey:@"Sender Zip"],
-                                   @"Sender Phone": [dict valueForKey:@"Sender Phone"],
-                                   @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
-                                   @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
-                                   @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
-                                   @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
-                                   @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
-                                   @"Invite For Date": [dict valueForKey:@"Invite For Date"],
-                                   @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
-                                   @"Invitation Status": @"Accepted",
-                                   };//Dict post
-
-        NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
-        [_ref updateChildValues:childUpdates];
-           }];
-        
+    
+    
         // Show popup
         
         NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
@@ -425,26 +400,39 @@ float currentLongitude = 0.0;
                 //1. Get guest's current location
                 
                 self.locationManager = [[CLLocationManager alloc]init];
+                //self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+                //self.locationManager.distanceFilter = 1000.0f;
                 self.locationManager.delegate = self;
+            
                 [self.locationManager requestWhenInUseAuthorization];
                 [self.locationManager startUpdatingLocation];
+               
                 while(currentLatitude == 0.0 && currentLongitude == 0.0){ // Wait till latitude and longitude gets populated
                     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
                 }
                 
                 
+                
+                
+
+                
+                
                 //Once latitude and Longitude gets populated - Stop getting location updates
-                [self.locationManager stopUpdatingLocation];
+                //[self.locationManager stopUpdatingLocation];
                 
                 
-                NSLog(@"LATITUDE %f",currentLatitude);
-                NSLog(@"LONGITUDE %f",currentLongitude);
+                //NSLog(@"LATITUDE %f",currentLatitude);
+                //NSLog(@"LONGITUDE %f",currentLongitude);
+                
+               // UPDATE DB WITH latitude, longuitude and ACCEPTED
+                
+                
                 
                 NSString *hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",_hostAddrLineOne,_hostAddrLineTwo,_hostAddrCity,_hostAddrZip];
                 CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
                 
-                NSLog(@"Destination Latitude %f",dest.latitude);
-                NSLog(@"Destination Longitude %f",dest.longitude);
+               // NSLog(@"Destination Latitude %f",dest.latitude);
+               // NSLog(@"Destination Longitude %f",dest.longitude);
                 
                 
                 // Below code can be used Optionally if we want to navigate using Host Addrress's Latitude and Longitude
@@ -466,13 +454,13 @@ float currentLongitude = 0.0;
                 }
                 
                 
-                NSLog(@"HOST ADDRESS LINE 1 : %@",newAddOneString);
-                NSLog(@"HOST ADDRESS LINE 2 : %@",newAddTwoString);
-                NSLog(@"HOST ADDRESS CITY : %@",newAddCityString);
-                NSLog(@"HOST ADDRESS ZIP : %@",_hostAddrZip);
+                //NSLog(@"HOST ADDRESS LINE 1 : %@",newAddOneString);
+                //NSLog(@"HOST ADDRESS LINE 2 : %@",newAddTwoString);
+                //NSLog(@"HOST ADDRESS CITY : %@",newAddCityString);
+                //NSLog(@"HOST ADDRESS ZIP : %@",_hostAddrZip);
                 
                 
-                NSLog(@"FINAL DESTINATION ADDRESS IS %@",destAddr);
+                //NSLog(@"FINAL DESTINATION ADDRESS IS %@",destAddr);
                 NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%@&directionsmode=driving",currentLatitude,currentLongitude,destAddr];
                 
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
@@ -489,7 +477,7 @@ float currentLongitude = 0.0;
             
       
             [self.popupController dismissPopupControllerAnimated:YES];
-            NSLog(@"Block for button: %@", startToHostPlaceButton.titleLabel.text);
+            //NSLog(@"Block for button: %@", startToHostPlaceButton.titleLabel.text);
             self.acceptOrDeclineLabel.text = @"Invitation Accepted";
             self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
             
@@ -509,7 +497,7 @@ float currentLongitude = 0.0;
     goBackButton.layer.cornerRadius = 4;
     goBackButton.selectionHandler = ^(CNPPopupButton *goBackButton){
         [self.popupController dismissPopupControllerAnimated:YES];
-        NSLog(@"Block for button: %@", goBackButton.titleLabel.text);
+        //NSLog(@"Block for button: %@", goBackButton.titleLabel.text);
         self.acceptOrDeclineLabel.text = @"Invitation Accepted";
         self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
         
@@ -535,7 +523,6 @@ float currentLongitude = 0.0;
     
     
 }
-
 
 
 
@@ -577,8 +564,48 @@ float currentLongitude = 0.0;
     
     currentLatitude = locations.lastObject.coordinate.latitude;
     currentLongitude = locations.lastObject.coordinate.longitude;
+    NSLog(@"Delegate called\n");
    NSLog(@"LATITUDE %f",currentLatitude);
    NSLog(@"LONGITUDE %f",currentLongitude);
+    
+    
+    // DB Updates
+    
+    [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dict = snapshot.value;
+        
+        
+        NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
+                                   @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
+                                   @"Sender EMail": [dict valueForKey:@"Sender EMail"],
+                                   @"Sender Address1": [dict valueForKey:@"Sender Address1"],
+                                   @"Sender Address2": [dict valueForKey:@"Sender Address2"],
+                                   @"Sender City": [dict valueForKey:@"Sender City"],
+                                   @"Sender Zip": [dict valueForKey:@"Sender Zip"],
+                                   @"Sender Phone": [dict valueForKey:@"Sender Phone"],
+                                   @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
+                                   @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
+                                   @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
+                                   @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
+                                   @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
+                                   @"Invite For Date": [dict valueForKey:@"Invite For Date"],
+                                   @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
+                                   @"Invitation Status": @"Accepted",
+                                   @"Guest Latitude": [NSNumber numberWithFloat:currentLatitude],
+                                   @"Guest Longitude": [NSNumber numberWithFloat:currentLongitude],
+                                   };//Dict post
+        
+        NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
+        [_ref updateChildValues:childUpdates];
+    }];
+    
+    
+    
+    
+    
+    
+    // UPDATE DB WITH latitude, longuitude and ACCEPTED ENDS
     
     
 }
