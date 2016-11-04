@@ -46,6 +46,9 @@ float currentLongitude = 0.0;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    
+    
     // Initialize the location Manager
     self.locationManager = [[CLLocationManager alloc] init];
     
@@ -437,12 +440,40 @@ float currentLongitude = 0.0;
                 NSLog(@"LATITUDE %f",currentLatitude);
                 NSLog(@"LONGITUDE %f",currentLongitude);
                 
-                CLLocationCoordinate2D dest = [self geoCodeUsingAddress:@"1500 American Boulevard, Pennington, NJ 08534"];
+                NSString *hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",_hostAddrLineOne,_hostAddrLineTwo,_hostAddrCity,_hostAddrZip];
+                CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
                 
                 NSLog(@"Destination Latitude %f",dest.latitude);
                 NSLog(@"Destination Longitude %f",dest.longitude);
                 
-                NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%f,%f&directionsmode=driving",currentLatitude,currentLongitude,dest.latitude,dest.longitude];
+                
+                // Below code can be used Optionally if we want to navigate using Host Addrress's Latitude and Longitude
+                
+                //NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%f,%f&directionsmode=driving",currentLatitude,currentLongitude,dest.latitude,dest.longitude];
+                
+                NSString *newAddOneString = [ _hostAddrLineOne stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+                NSString *newAddTwoString = [ _hostAddrLineTwo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+                NSString *newAddCityString = [ _hostAddrCity stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+                
+                NSString *destAddr = [[NSString alloc]init];
+                
+                if([_hostAddrLineTwo length] > 0) { // If address Line 2 provided
+                destAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneString,newAddTwoString,newAddCityString,_hostAddrZip];
+                }
+                
+                else { // If address Line 2 NOT provided
+                    destAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneString,newAddCityString,_hostAddrZip];
+                }
+                
+                
+                NSLog(@"HOST ADDRESS LINE 1 : %@",newAddOneString);
+                NSLog(@"HOST ADDRESS LINE 2 : %@",newAddTwoString);
+                NSLog(@"HOST ADDRESS CITY : %@",newAddCityString);
+                NSLog(@"HOST ADDRESS ZIP : %@",_hostAddrZip);
+                
+                
+                NSLog(@"FINAL DESTINATION ADDRESS IS %@",destAddr);
+                NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%@&directionsmode=driving",currentLatitude,currentLongitude,destAddr];
                 
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
                 

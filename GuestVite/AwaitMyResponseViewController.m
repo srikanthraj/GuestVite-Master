@@ -36,6 +36,14 @@
  NSMutableArray *lastNameData;
  NSMutableArray *hostEMailData;
  NSMutableArray *hostPhoneData;
+
+ NSMutableArray *hostAddLOne;
+ NSMutableArray *hostAddLTwo;
+ NSMutableArray *hostAddCity;
+ NSMutableArray *hostAddZip;
+
+
+
  NSMutableArray *nameData;
  NSMutableArray *invitedFromData;
  NSMutableArray *invitedTillData;
@@ -61,6 +69,14 @@ NSArray *keys;
     lastNameData = [[NSMutableArray alloc]init];
     hostEMailData = [[NSMutableArray alloc]init];
     hostPhoneData = [[NSMutableArray alloc]init];
+    
+    hostAddLOne = [[NSMutableArray alloc]init];
+    hostAddLTwo = [[NSMutableArray alloc]init];
+    hostAddCity = [[NSMutableArray alloc]init];
+    hostAddZip = [[NSMutableArray alloc]init];
+    
+    
+    
     invitedFromData = [[NSMutableArray alloc]init];
     invitedTillData = [[NSMutableArray alloc]init];
     personalMessageData = [[NSMutableArray alloc]init];
@@ -114,6 +130,14 @@ NSArray *keys;
     __block NSMutableArray *mylastNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myhostEMailData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myhostPhoneData = [[NSMutableArray alloc] init];
+    
+    
+    __block NSMutableArray *myhostAddLOne = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostAddLTwo = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostAddCity = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostAddZip = [[NSMutableArray alloc] init];
+    
+    
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myPersonalMessageData = [[NSMutableArray alloc] init];
@@ -181,6 +205,15 @@ NSArray *keys;
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
                 [myhostEMailData addObject:arr[i][@"Sender EMail"]];
                 [myhostPhoneData addObject:arr[i][@"Sender Phone"]];
+                
+                [myhostAddLOne addObject: arr[i][@"Sender Address1"]];
+                [myhostAddLTwo addObject:arr[i][@"Sender Address2"]];
+                [myhostAddCity addObject:arr[i][@"Sender City"]];
+                [myhostAddZip addObject:arr[i][@"Sender Zip"]];
+
+                
+                
+                
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                 [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
                 [myPersonalMessageData addObject:arr[i][@"Mesage From Sender"]];
@@ -199,6 +232,14 @@ NSArray *keys;
                     [mylastNameData addObject:arr[i][@"Sender Last Name"]];
                     [myhostEMailData addObject:arr[i][@"Sender EMail"]];
                     [myhostPhoneData addObject:arr[i][@"Sender Phone"]];
+                    
+                    
+                    [myhostAddLOne addObject: arr[i][@"Sender Address1"]];
+                    [myhostAddLTwo addObject:arr[i][@"Sender Address2"]];
+                    [myhostAddCity addObject:arr[i][@"Sender City"]];
+                    [myhostAddZip addObject:arr[i][@"Sender Zip"]];
+                    
+                    
                     [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                     [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
                     [myPersonalMessageData addObject:arr[i][@"Mesage From Sender"]];
@@ -222,6 +263,14 @@ NSArray *keys;
                     [mylastNameData addObject: @"No Invites"];
                     [myhostEMailData addObject: @"No Invites"];
                     [myhostPhoneData addObject: @"No Invites"];
+                    
+                    [myhostAddLOne addObject: @"No Invites"];
+                    [myhostAddLTwo addObject: @"No Invites"];
+                    [myhostAddCity addObject: @"No Invites"];
+                    [myhostAddZip addObject: @"No Invites"];
+                    
+                    
+                    
                     [myinvitedFromData addObject: @"No Invites"];
                     [myinvitedTillData addObject: @"No Invites"];
                     [myPersonalMessageData addObject: @"No Invites"];
@@ -236,7 +285,7 @@ NSArray *keys;
         
     }];
     
-    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0) {
+    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0  && [myhostAddLOne count]== 0 && [myhostAddCity count]== 0 && [myhostAddZip count]== 0) { // Host Address line 2 is optional and hence not required here
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
    
@@ -248,6 +297,13 @@ NSArray *keys;
         [lastNameData addObject:[mylastNameData objectAtIndex:i]];
         [hostEMailData addObject:[myhostEMailData objectAtIndex:i]];
         [hostPhoneData addObject:[myhostPhoneData objectAtIndex:i]];
+        
+        [hostAddLOne addObject:[myhostAddLOne objectAtIndex:i]];
+        [hostAddLTwo addObject:[myhostAddLTwo objectAtIndex:i]];
+        [hostAddCity addObject:[myhostAddCity objectAtIndex:i]];
+        [hostAddZip addObject:[myhostAddZip objectAtIndex:i]];
+        
+        
         [invitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
         [invitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
         [personalMessageData addObject:[myPersonalMessageData objectAtIndex:i]];
@@ -398,6 +454,13 @@ NSArray *keys;
     amrCellTapped.inviteByLastName = [lastNameData objectAtIndex:indexPath.row];
     amrCellTapped.hostEMail = [hostEMailData objectAtIndex:indexPath.row];
     amrCellTapped.hostPhone = [hostPhoneData objectAtIndex:indexPath.row];
+    
+    amrCellTapped.hostAddrLineOne = [hostAddLOne objectAtIndex:indexPath.row];
+    amrCellTapped.hostAddrLineTwo = [hostAddLTwo objectAtIndex:indexPath.row];
+    amrCellTapped.hostAddrCity = [hostAddCity objectAtIndex:indexPath.row];
+    amrCellTapped.hostAddrZip = [hostAddZip objectAtIndex:indexPath.row];
+    
+    
     amrCellTapped.invitedOn = [invitedFromData objectAtIndex:indexPath.row];
     amrCellTapped.invitedTill = [invitedTillData objectAtIndex:indexPath.row];
     amrCellTapped.personalMessage = [personalMessageData objectAtIndex:indexPath.row];
