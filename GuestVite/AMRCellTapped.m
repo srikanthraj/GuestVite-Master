@@ -404,8 +404,10 @@ float currentLongitude = 0.0;
                 //self.locationManager.distanceFilter = 1000.0f;
                 self.locationManager.delegate = self;
             
-                [self.locationManager requestWhenInUseAuthorization];
+                [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+                
                 [self.locationManager startUpdatingLocation];
+                
                
                 while(currentLatitude == 0.0 && currentLongitude == 0.0){ // Wait till latitude and longitude gets populated
                     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
@@ -562,12 +564,21 @@ float currentLongitude = 0.0;
 
 -(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
+    
+    
+    
+    
+    
     currentLatitude = locations.lastObject.coordinate.latitude;
     currentLongitude = locations.lastObject.coordinate.longitude;
     NSLog(@"Delegate called\n");
    NSLog(@"LATITUDE %f",currentLatitude);
    NSLog(@"LONGITUDE %f",currentLongitude);
     
+    
+    
+    
+  
     
     // DB Updates
     
@@ -600,15 +611,13 @@ float currentLongitude = 0.0;
         [_ref updateChildValues:childUpdates];
     }];
     
-    
-    
-    
-    
-    
+
+        
     // UPDATE DB WITH latitude, longuitude and ACCEPTED ENDS
     
     
 }
+
 
 
 

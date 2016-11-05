@@ -8,10 +8,12 @@
 
 #import "AppDelegate.h"
 
+
 @import Firebase;
 
-@interface AppDelegate ()
+@interface AppDelegate () //<CLLocationManagerDelegate>
 @property (strong, nonatomic) FIRDatabaseReference *ref;
+//@property(strong, nonatomic) CLLocationManager *locationManager;
 @end
 
 @implementation AppDelegate
@@ -37,6 +39,15 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application {
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+    /*
+    NSLog(@"In Background");
+    
+     self.locationManager = [[CLLocationManager alloc]init];
+    self.locationManager.delegate = self;
+    [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+    //[self.locationManager allowsBackgroundLocationUpdates];
+    [self.locationManager startUpdatingLocation];
+    */
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -132,5 +143,10 @@
         }
     }
 }
+
+
+
+
+
 
 @end
