@@ -12,6 +12,7 @@
 #import <MessageUI/MessageUI.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MapKit/MapKit.h"
+#import "GuestMapViewController.h"
 
 @import Firebase;
 
@@ -386,6 +387,28 @@ float currentLongitude = 0.0;
         startToHostPlaceButton.selectionHandler = ^(CNPPopupButton *startToHostPlaceButton){
             
             
+            /* -------- THIS PART IS COMMENTED TO TRY OUT ANOTHER ALTERNATIVE!!! ---------------
+             NSString *hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",_hostAddrLineOne,_hostAddrLineTwo,_hostAddrCity,_hostAddrZip];
+            
+            GuestMapViewController *guestMapVC =
+            [[GuestMapViewController alloc] initWithNibName:@"GuestMapViewController" bundle:nil];
+            
+            
+            guestMapVC.hostAddr = hostaddr;
+            
+            [self.navigationController pushViewController:guestMapVC animated:YES];
+            
+            [self presentViewController:guestMapVC animated:YES completion:nil];
+
+            
+             -------- THIS PART IS COMMENTED TO TRY OUT ANOTHER ALTERNATIVE!!! ---------------
+             
+             */
+
+            
+            
+            
+            
             // Open of Maps Part starts
             
             //Check the availability of the Google Maps app on the device
@@ -406,7 +429,7 @@ float currentLongitude = 0.0;
             
                 [self.locationManager setAllowsBackgroundLocationUpdates:YES];
                 
-                [self.locationManager startUpdatingLocation];
+                                [self.locationManager startUpdatingLocation];
                 
                
                 while(currentLatitude == 0.0 && currentLongitude == 0.0){ // Wait till latitude and longitude gets populated
@@ -430,11 +453,7 @@ float currentLongitude = 0.0;
                 
                 
                 
-                NSString *hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",_hostAddrLineOne,_hostAddrLineTwo,_hostAddrCity,_hostAddrZip];
-                CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
-                
-               // NSLog(@"Destination Latitude %f",dest.latitude);
-               // NSLog(@"Destination Longitude %f",dest.longitude);
+               
                 
                 
                 // Below code can be used Optionally if we want to navigate using Host Addrress's Latitude and Longitude
@@ -475,8 +494,7 @@ float currentLongitude = 0.0;
             
             //Open of Maps part Ends
             
-            
-            
+             
       
             [self.popupController dismissPopupControllerAnimated:YES];
             //NSLog(@"Block for button: %@", startToHostPlaceButton.titleLabel.text);
@@ -486,8 +504,7 @@ float currentLongitude = 0.0;
             
             [self performSelector:@selector(loadingNextView)
                        withObject:nil afterDelay:3.0f];
-            
-
+             
         };
     
     
@@ -565,9 +582,7 @@ float currentLongitude = 0.0;
 -(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
     
-    
-    
-    
+ 
     
     currentLatitude = locations.lastObject.coordinate.latitude;
     currentLongitude = locations.lastObject.coordinate.longitude;
@@ -575,8 +590,17 @@ float currentLongitude = 0.0;
    NSLog(@"LATITUDE %f",currentLatitude);
    NSLog(@"LONGITUDE %f",currentLongitude);
     
+    NSString *hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",_hostAddrLineOne,_hostAddrLineTwo,_hostAddrCity,_hostAddrZip];
+    CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
     
     
+    
+    NSLog(@"Destination Latitude %f",dest.latitude);
+    NSLog(@"Destination Longitude %f",dest.longitude);
+    
+    CLLocation *destLoc = [[CLLocation alloc] initWithLatitude:dest.latitude longitude:dest.longitude];
+    
+       NSLog(@"DISTANCE BETWEEN SOURCE TO DESTINATION IS %f",[locations.lastObject distanceFromLocation:destLoc]*0.000621371);
     
   
     
@@ -605,6 +629,8 @@ float currentLongitude = 0.0;
                                    @"Invitation Status": @"Accepted",
                                    @"Guest Latitude": [NSNumber numberWithFloat:currentLatitude],
                                    @"Guest Longitude": [NSNumber numberWithFloat:currentLongitude],
+                                   @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
+                                   @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                    };//Dict post
         
         NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};

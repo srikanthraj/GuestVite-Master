@@ -30,6 +30,13 @@ PODS:
   - FirebaseInstanceID (1.0.8)
   - GoogleInterchangeUtilities (1.2.2):
     - GoogleSymbolUtilities (~> 1.1)
+  - GoogleMaps (2.1.0):
+    - GoogleMaps/Maps (= 2.1.0)
+  - GoogleMaps/Base (2.1.0)
+  - GoogleMaps/Maps (2.1.0):
+    - GoogleMaps/Base (= 2.1.0)
+  - GooglePlaces (2.1.0):
+    - GoogleMaps/Base (= 2.1.0)
   - GoogleSymbolUtilities (1.1.2)
   - GoogleToolboxForMac/DebugUtils (2.1.0):
     - GoogleToolboxForMac/Defines (= 2.1.0)
@@ -55,6 +62,8 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
+  - GoogleMaps
+  - GooglePlaces
   - HTPressableButton
   - JVFloatLabeledTextField
   - KBContactsSelection
@@ -70,6 +79,8 @@ SPEC CHECKSUMS:
   FirebaseDatabase: 3ebb2edb6007c3f0f87b248f3fa212bde56a1468
   FirebaseInstanceID: ba1e640935235e5fac39dfa816fe7660e72e1a8a
   GoogleInterchangeUtilities: d5bc4d88d5b661ab72f9d70c58d02ca8c27ad1f7
+  GoogleMaps: 06589b9a38097bce0cd6e90f0fd9b5e4b4a9344c
+  GooglePlaces: 16e96266483b8010e9f275399403647978523c86
   GoogleSymbolUtilities: 631ee17048aa5e9ab133470d768ea997a5ef9b96
   GoogleToolboxForMac: 2b2596cbb7186865e98cadf2b1e262d851c2b168
   GTMSessionFetcher: a1f8ed39e4fe21c68957daed472c7afbcdf29166
@@ -78,6 +89,6 @@ SPEC CHECKSUMS:
   KBContactsSelection: f31d916d041cc7c03338d2754f8e297d705709b9
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
 
-PODFILE CHECKSUM: 3df10ad3d8563b8a0d88eccccc30825725340115
+PODFILE CHECKSUM: 740e68cafe5e4ab4cf3e109926317e6e6504477a
 
 COCOAPODS: 1.0.1

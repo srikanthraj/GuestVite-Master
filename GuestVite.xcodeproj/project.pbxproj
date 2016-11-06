@@ -52,6 +52,16 @@
 		8473407B1DA983F10038C047 /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473407A1DA983F10038C047 /* TextFieldValidator.m */; };
 		84A410B11DCC03D800216DEA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A410B01DCC03D800216DEA /* CoreLocation.framework */; };
 		84A410B31DCC071000216DEA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A410B21DCC071000216DEA /* MapKit.framework */; };
+		84D53A2E1DCE924A00FF7643 /* GuestMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D53A2C1DCE924A00FF7643 /* GuestMapViewController.m */; };
+		84D53A2F1DCE924A00FF7643 /* GuestMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D53A2D1DCE924A00FF7643 /* GuestMapViewController.xib */; };
+		84D53A311DCE94BC00FF7643 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A301DCE94BC00FF7643 /* AVFoundation.framework */; };
+		84D53A331DCE94EC00FF7643 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A321DCE94EC00FF7643 /* CoreData.framework */; };
+		84D53A351DCE94FB00FF7643 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A341DCE94FB00FF7643 /* CoreText.framework */; };
+		84D53A371DCE950B00FF7643 /* GLKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A361DCE950B00FF7643 /* GLKit.framework */; };
+		84D53A391DCE951B00FF7643 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A381DCE951B00FF7643 /* ImageIO.framework */; };
+		84D53A3B1DCE952F00FF7643 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A3A1DCE952F00FF7643 /* OpenGLES.framework */; };
+		84D53A3D1DCE953700FF7643 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A3C1DCE953700FF7643 /* QuartzCore.framework */; };
+		84D53A3F1DCE954100FF7643 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A3E1DCE954100FF7643 /* SystemConfiguration.framework */; };
 		84DF6AA41DC650B600047435 /* PrevInvSentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DF6AA21DC650B600047435 /* PrevInvSentViewController.m */; };
 		84DF6AA51DC650B600047435 /* PrevInvSentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DF6AA31DC650B600047435 /* PrevInvSentViewController.xib */; };
 		84DF6AA91DC6525000047435 /* PrevInvSentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DF6AA71DC6525000047435 /* PrevInvSentCell.m */; };
@@ -131,6 +141,17 @@
 		8473407A1DA983F10038C047 /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextFieldValidator.m; path = "../../../../Downloads/TextFieldValidator-master/TextFieldValidator/TextFieldValidator.m"; sourceTree = "<group>"; };
 		84A410B01DCC03D800216DEA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84A410B21DCC071000216DEA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		84D53A2B1DCE924A00FF7643 /* GuestMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestMapViewController.h; sourceTree = "<group>"; };
+		84D53A2C1DCE924A00FF7643 /* GuestMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestMapViewController.m; sourceTree = "<group>"; };
+		84D53A2D1DCE924A00FF7643 /* GuestMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuestMapViewController.xib; sourceTree = "<group>"; };
+		84D53A301DCE94BC00FF7643 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		84D53A321DCE94EC00FF7643 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		84D53A341DCE94FB00FF7643 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		84D53A361DCE950B00FF7643 /* GLKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLKit.framework; path = System/Library/Frameworks/GLKit.framework; sourceTree = SDKROOT; };
+		84D53A381DCE951B00FF7643 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		84D53A3A1DCE952F00FF7643 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		84D53A3C1DCE953700FF7643 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		84D53A3E1DCE954100FF7643 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		84DF6AA11DC650B600047435 /* PrevInvSentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrevInvSentViewController.h; sourceTree = "<group>"; };
 		84DF6AA21DC650B600047435 /* PrevInvSentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrevInvSentViewController.m; sourceTree = "<group>"; };
 		84DF6AA31DC650B600047435 /* PrevInvSentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrevInvSentViewController.xib; sourceTree = "<group>"; };
@@ -149,6 +170,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84D53A3F1DCE954100FF7643 /* SystemConfiguration.framework in Frameworks */,
+				84D53A3D1DCE953700FF7643 /* QuartzCore.framework in Frameworks */,
+				84D53A3B1DCE952F00FF7643 /* OpenGLES.framework in Frameworks */,
+				84D53A391DCE951B00FF7643 /* ImageIO.framework in Frameworks */,
+				84D53A371DCE950B00FF7643 /* GLKit.framework in Frameworks */,
+				84D53A351DCE94FB00FF7643 /* CoreText.framework in Frameworks */,
+				84D53A331DCE94EC00FF7643 /* CoreData.framework in Frameworks */,
+				84D53A311DCE94BC00FF7643 /* AVFoundation.framework in Frameworks */,
 				84A410B31DCC071000216DEA /* MapKit.framework in Frameworks */,
 				84A410B11DCC03D800216DEA /* CoreLocation.framework in Frameworks */,
 				84267C281DB9B7130044ACF4 /* Foundation.framework in Frameworks */,
@@ -173,6 +202,14 @@
 		79FB75469F7F70C8F6489125 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84D53A3E1DCE954100FF7643 /* SystemConfiguration.framework */,
+				84D53A3C1DCE953700FF7643 /* QuartzCore.framework */,
+				84D53A3A1DCE952F00FF7643 /* OpenGLES.framework */,
+				84D53A381DCE951B00FF7643 /* ImageIO.framework */,
+				84D53A361DCE950B00FF7643 /* GLKit.framework */,
+				84D53A341DCE94FB00FF7643 /* CoreText.framework */,
+				84D53A321DCE94EC00FF7643 /* CoreData.framework */,
+				84D53A301DCE94BC00FF7643 /* AVFoundation.framework */,
 				84A410B21DCC071000216DEA /* MapKit.framework */,
 				84A410B01DCC03D800216DEA /* CoreLocation.framework */,
 				84267C271DB9B7130044ACF4 /* Foundation.framework */,
@@ -256,6 +293,9 @@
 				84E4E8D81DC80E24008EF854 /* WaitingRespFromViewController.h */,
 				84E4E8D91DC80E24008EF854 /* WaitingRespFromViewController.m */,
 				84E4E8DA1DC80E24008EF854 /* WaitingRespFromViewController.xib */,
+				84D53A2B1DCE924A00FF7643 /* GuestMapViewController.h */,
+				84D53A2C1DCE924A00FF7643 /* GuestMapViewController.m */,
+				84D53A2D1DCE924A00FF7643 /* GuestMapViewController.xib */,
 			);
 			path = GuestVite;
 			sourceTree = "<group>";
@@ -353,6 +393,7 @@
 				8473405A1DA937680038C047 /* LaunchScreen.storyboard in Resources */,
 				84267C341DBBBF1C0044ACF4 /* DMLazyScrollView in Resources */,
 				84267C721DC2C9590044ACF4 /* PrevInvRecvdCell.xib in Resources */,
+				84D53A2F1DCE924A00FF7643 /* GuestMapViewController.xib in Resources */,
 				847340711DA977CD0038C047 /* HomePageViewController.xib in Resources */,
 				84DF6AA51DC650B600047435 /* PrevInvSentViewController.xib in Resources */,
 				84E4E8DC1DC80E24008EF854 /* WaitingRespFromViewController.xib in Resources */,
@@ -440,6 +481,7 @@
 				847340551DA937680038C047 /* GuestVite.xcdatamodeld in Sources */,
 				84267C041DAC56D30044ACF4 /* SWRevealViewController.m in Sources */,
 				84DF6AA91DC6525000047435 /* PrevInvSentCell.m in Sources */,
+				84D53A2E1DCE924A00FF7643 /* GuestMapViewController.m in Sources */,
 				847340751DA979A50038C047 /* RegPageViewController.m in Sources */,
 				84267C0A1DAC6DC10044ACF4 /* FLAnimatedImageView.m in Sources */,
 				84E4E8DB1DC80E24008EF854 /* WaitingRespFromViewController.m in Sources */,

@@ -6,10 +6,15 @@
 //  Copyright © 2016 admin. All rights reserved.
 //
 
+
+// AIzaSyB7VO2twlrdlQZU-zlz5XDSSbtrFrCDkek
+
 #import "AppDelegate.h"
 
 
 @import Firebase;
+@import GoogleMaps;
+@import GooglePlaces;
 
 @interface AppDelegate () //<CLLocationManagerDelegate>
 @property (strong, nonatomic) FIRDatabaseReference *ref;
@@ -24,8 +29,10 @@
    
     
     [FIRApp configure];
+   
+    [GMSServices provideAPIKey:@"AIzaSyB7VO2twlrdlQZU-zlz5XDSSbtrFrCDkek"];
     
-    
+    [GMSPlacesClient provideAPIKey:@"AIzaSyB7VO2twlrdlQZU-zlz5XDSSbtrFrCDkek"];
 
    
     return YES;

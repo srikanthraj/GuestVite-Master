@@ -14,4 +14,6 @@ pod 'SWTableViewCell', '~> 0.3.7'
 pod 'HTPressableButton'
 pod 'JVFloatLabeledTextField'
 pod 'CNPPopupController'
+pod 'GoogleMaps'
+pod 'GooglePlaces'
 end
