@@ -8,6 +8,8 @@
 
 #import "TrackMyGuestsViewController.h"
 #import "AcceptedGuestsCellTapped.h"
+#import "TrackMyGuestsCellTapped.h"
+
 @import Firebase;
 
 @interface TrackMyGuestsViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -371,6 +373,24 @@ NSArray *tmgkeys;
     
     return cell;
 }
+
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+    
+    
+    
+    TrackMyGuestsCellTapped *tmgCellTapped =
+    [[TrackMyGuestsCellTapped alloc] initWithNibName:@"TrackMyGuestsCellTapped" bundle:nil];
+    
+
+    [self.navigationController pushViewController:tmgCellTapped animated:YES];
+    
+    [self presentViewController:tmgCellTapped animated:YES completion:nil];
+    
+}
+
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

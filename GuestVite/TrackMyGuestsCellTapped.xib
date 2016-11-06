@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TrackMyGuestsCellTapped">
+            <connections>
+                <outlet property="backButton" destination="CU6-SH-f5i" id="gli-FM-9Jm"/>
+                <outlet property="backLabel" destination="aw5-O5-Pgo" id="CZb-8i-oSG"/>
+                <outlet property="mapView" destination="XeW-vm-c3p" id="Cdl-MT-aGn"/>
+                <outlet property="myGuestsLocationBack" destination="uuV-vf-Voi" id="GUv-ax-Zqb"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuV-vf-Voi">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <items>
+                        <navigationItem title="My Guest's Location" id="K2o-f4-4rB">
+                            <barButtonItem key="backBarButtonItem" title="Back" id="M4h-7c-HOc"/>
+                            <barButtonItem key="leftBarButtonItem" image="button_back" id="CU6-SH-f5i">
+                                <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="Back" destination="-1" id="AHB-Cy-FWC"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aw5-O5-Pgo">
+                    <rect key="frame" x="27" y="11" width="38" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XeW-vm-c3p">
+                    <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="xFV-EX-Vqh"/>
+                    </connections>
+                </mapView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="XeW-vm-c3p" secondAttribute="trailing" id="1C7-SZ-yJT"/>
+                <constraint firstItem="uuV-vf-Voi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CBg-7b-hHe"/>
+                <constraint firstItem="XeW-vm-c3p" firstAttribute="top" secondItem="uuV-vf-Voi" secondAttribute="bottom" id="IDQ-N9-xj8"/>
+                <constraint firstAttribute="bottom" secondItem="XeW-vm-c3p" secondAttribute="bottom" id="TnW-gB-EHS"/>
+                <constraint firstItem="XeW-vm-c3p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bRm-Ys-I3q"/>
+                <constraint firstItem="uuV-vf-Voi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kbz-M6-wk2"/>
+                <constraint firstAttribute="trailing" secondItem="uuV-vf-Voi" secondAttribute="trailing" id="sUb-cV-TkI"/>
+            </constraints>
+            <point key="canvasLocation" x="139" y="371"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="button_back" width="50" height="30"/>
+    </resources>
+</document>
