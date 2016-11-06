@@ -62,6 +62,10 @@
 		84D53A3B1DCE952F00FF7643 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A3A1DCE952F00FF7643 /* OpenGLES.framework */; };
 		84D53A3D1DCE953700FF7643 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A3C1DCE953700FF7643 /* QuartzCore.framework */; };
 		84D53A3F1DCE954100FF7643 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A3E1DCE954100FF7643 /* SystemConfiguration.framework */; };
+		84D53A431DCF702300FF7643 /* TrackMyGuestsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D53A411DCF702300FF7643 /* TrackMyGuestsViewController.m */; };
+		84D53A441DCF702300FF7643 /* TrackMyGuestsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D53A421DCF702300FF7643 /* TrackMyGuestsViewController.xib */; };
+		84D53A481DCF791200FF7643 /* AcceptedGuestsCellTapped.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D53A461DCF791200FF7643 /* AcceptedGuestsCellTapped.m */; };
+		84D53A491DCF791200FF7643 /* AcceptedGuestsCellTapped.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D53A471DCF791200FF7643 /* AcceptedGuestsCellTapped.xib */; };
 		84DF6AA41DC650B600047435 /* PrevInvSentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DF6AA21DC650B600047435 /* PrevInvSentViewController.m */; };
 		84DF6AA51DC650B600047435 /* PrevInvSentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84DF6AA31DC650B600047435 /* PrevInvSentViewController.xib */; };
 		84DF6AA91DC6525000047435 /* PrevInvSentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84DF6AA71DC6525000047435 /* PrevInvSentCell.m */; };
@@ -152,6 +156,12 @@
 		84D53A3A1DCE952F00FF7643 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		84D53A3C1DCE953700FF7643 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		84D53A3E1DCE954100FF7643 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		84D53A401DCF702300FF7643 /* TrackMyGuestsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrackMyGuestsViewController.h; sourceTree = "<group>"; };
+		84D53A411DCF702300FF7643 /* TrackMyGuestsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrackMyGuestsViewController.m; sourceTree = "<group>"; };
+		84D53A421DCF702300FF7643 /* TrackMyGuestsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TrackMyGuestsViewController.xib; sourceTree = "<group>"; };
+		84D53A451DCF791200FF7643 /* AcceptedGuestsCellTapped.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcceptedGuestsCellTapped.h; sourceTree = "<group>"; };
+		84D53A461DCF791200FF7643 /* AcceptedGuestsCellTapped.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcceptedGuestsCellTapped.m; sourceTree = "<group>"; };
+		84D53A471DCF791200FF7643 /* AcceptedGuestsCellTapped.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AcceptedGuestsCellTapped.xib; sourceTree = "<group>"; };
 		84DF6AA11DC650B600047435 /* PrevInvSentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrevInvSentViewController.h; sourceTree = "<group>"; };
 		84DF6AA21DC650B600047435 /* PrevInvSentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrevInvSentViewController.m; sourceTree = "<group>"; };
 		84DF6AA31DC650B600047435 /* PrevInvSentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrevInvSentViewController.xib; sourceTree = "<group>"; };
@@ -296,6 +306,12 @@
 				84D53A2B1DCE924A00FF7643 /* GuestMapViewController.h */,
 				84D53A2C1DCE924A00FF7643 /* GuestMapViewController.m */,
 				84D53A2D1DCE924A00FF7643 /* GuestMapViewController.xib */,
+				84D53A401DCF702300FF7643 /* TrackMyGuestsViewController.h */,
+				84D53A411DCF702300FF7643 /* TrackMyGuestsViewController.m */,
+				84D53A421DCF702300FF7643 /* TrackMyGuestsViewController.xib */,
+				84D53A451DCF791200FF7643 /* AcceptedGuestsCellTapped.h */,
+				84D53A461DCF791200FF7643 /* AcceptedGuestsCellTapped.m */,
+				84D53A471DCF791200FF7643 /* AcceptedGuestsCellTapped.xib */,
 			);
 			path = GuestVite;
 			sourceTree = "<group>";
@@ -389,6 +405,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84D53A441DCF702300FF7643 /* TrackMyGuestsViewController.xib in Resources */,
 				84267C681DC180A90044ACF4 /* AMRCellTapped.xib in Resources */,
 				8473405A1DA937680038C047 /* LaunchScreen.storyboard in Resources */,
 				84267C341DBBBF1C0044ACF4 /* DMLazyScrollView in Resources */,
@@ -405,6 +422,7 @@
 				84267C5B1DBEE2430044ACF4 /* SimpleTableCell.xib in Resources */,
 				8473406C1DA96F180038C047 /* Main.storyboard in Resources */,
 				84267C6D1DC2C1600044ACF4 /* PrevInvRecvdViewController.xib in Resources */,
+				84D53A491DCF791200FF7643 /* AcceptedGuestsCellTapped.xib in Resources */,
 				84267C591DBEDF4F0044ACF4 /* AwaitMyResponseViewController.xib in Resources */,
 				84267C0C1DAC708B0044ACF4 /* Hello.gif in Resources */,
 				84267BF81DA9AB750044ACF4 /* GoogleService-Info.plist in Resources */,
@@ -492,8 +510,10 @@
 				84267C101DAD9CF10044ACF4 /* SendNewInviteViewController.m in Sources */,
 				84267C711DC2C9590044ACF4 /* PrevInvRecvdCell.m in Sources */,
 				84267C361DBBBF1C0044ACF4 /* SACalendarCell.m in Sources */,
+				84D53A431DCF702300FF7643 /* TrackMyGuestsViewController.m in Sources */,
 				84267C011DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m in Sources */,
 				84267C671DC180A90044ACF4 /* AMRCellTapped.m in Sources */,
+				84D53A481DCF791200FF7643 /* AcceptedGuestsCellTapped.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

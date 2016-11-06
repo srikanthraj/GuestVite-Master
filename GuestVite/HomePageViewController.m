@@ -18,6 +18,7 @@
 #import "PrevInvRecvdViewController.h"
 #import "PrevInvSentViewController.h"
 #import "WaitingRespFromViewController.h"
+#import "TrackMyGuestsViewController.h"
 
 @import Firebase;
 @interface HomePageViewController ()
@@ -117,6 +118,8 @@
     [self.trackButton setShadowColor:[UIColor ht_grassDarkColor]];
     [self.trackButton setTitle:@"Track My Guests" forState:UIControlStateNormal];
     
+    [self.trackButton addTarget:self action:@selector(trackButtonPressed:)
+                     forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.trackButton];
     
     
@@ -205,6 +208,17 @@ PrevInvRecvdViewController *prevInvRecvdVC =
 
 }
 
+- (void)trackButtonPressed:(UIButton *)button {
+    
+    TrackMyGuestsViewController *trackGuestsVC =
+    [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:trackGuestsVC animated:YES];
+    
+    [self presentViewController:trackGuestsVC animated:YES completion:nil];
+    
+}
 
 
 
