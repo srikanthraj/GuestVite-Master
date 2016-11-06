@@ -384,6 +384,8 @@ NSArray *tmgkeys;
     TrackMyGuestsCellTapped *tmgCellTapped =
     [[TrackMyGuestsCellTapped alloc] initWithNibName:@"TrackMyGuestsCellTapped" bundle:nil];
     
+    tmgCellTapped.key = [tmgkeyData objectAtIndex:indexPath.row];
+    
 
     [self.navigationController pushViewController:tmgCellTapped animated:YES];
     

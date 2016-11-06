@@ -10,4 +10,6 @@
 
 @interface TrackMyGuestsCellTapped : UIViewController
 
+@property(nonatomic) NSString *key;
+
 @end
