@@ -44,11 +44,7 @@ NSMutableString *guestLongitude;
 }
 
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
-    
-    self.mapIsMoving  = NO;
+-(void)refreshLocation {
     
     hostLatitude = [[NSMutableString alloc]init];
     hostLongitude = [[NSMutableString alloc]init];
@@ -64,10 +60,10 @@ NSMutableString *guestLongitude;
     __block NSMutableString *myGuestLongitude = [[NSMutableString alloc]init];;
     
     
-     self.ref = [[FIRDatabase database] reference];
+    self.ref = [[FIRDatabase database] reference];
     
-    NSLog(@"KEY PASSED IS %@",_key);
    
+    
     [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSDictionary *dict = snapshot.value;
@@ -83,7 +79,7 @@ NSMutableString *guestLongitude;
     } withCancelBlock:^(NSError * _Nonnull error) {
         NSLog(@"%@", error.localizedDescription);
     }];
-
+    
     
     while([myHostLatitude floatValue] == 0.0 && [myHostLongitude floatValue] == 0.0 && [myGuestLatitude floatValue] == 0.0 && [myGuestLongitude floatValue] == 0.0) {
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
@@ -96,10 +92,32 @@ NSMutableString *guestLongitude;
     
     
     
-   [self addAnnotations];
+    [self addAnnotations];
     
-    [self centerMap:self.guestLocationAnno];
+    [self.mapView showAnnotations:self.mapView.annotations animated:YES];
     
+    
+    /*
+    MKMapRect zoomRect = MKMapRectNull;
+    for (id <MKAnnotation> annotation in self.mapView.annotations)
+    {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0.1, 0.1);
+        zoomRect = MKMapRectUnion(zoomRect, pointRect);
+    }
+    [self.mapView setVisibleMapRect:zoomRect animated:YES];
+    */
+    //[self centerMap:self.guestLocationAnno];
+}
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    
+    self.mapIsMoving  = NO;
+    self.mapView.camera.altitude *= 1.4;
+    
+    [self refreshLocation];
     
     self.myGuestsLocationBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
     
@@ -129,6 +147,8 @@ NSMutableString *guestLongitude;
     self.navigationItem.leftBarButtonItem = _backButton;
     
     [self.view addSubview:_myGuestsLocationBack];
+    
+    [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(refreshLocation) userInfo:nil repeats:YES];
 }
 
 
@@ -141,8 +161,7 @@ NSMutableString *guestLongitude;
 -(void) addAnnotations {
     
     
-    NSLog(@"HOST LATITIDE %f",[hostLatitude floatValue]);
-    NSLog(@"HOST LONGITUDE %f",[hostLongitude floatValue]);
+   
     NSLog(@"GUEST LATITIDE %f",[guestLatitude floatValue]);
     NSLog(@"GUEST LONGITUDE %f",[guestLongitude floatValue]);
     
@@ -173,14 +192,6 @@ NSMutableString *guestLongitude;
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

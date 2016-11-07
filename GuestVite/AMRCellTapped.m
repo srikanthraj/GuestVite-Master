@@ -12,6 +12,7 @@
 #import <MessageUI/MessageUI.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MapKit/MapKit.h"
+#import "GeoFire/GeoFire.h"
 #import "GuestMapViewController.h"
 
 @import Firebase;
@@ -31,7 +32,7 @@
 @property (nonatomic, strong) CNPPopupController *popupController;
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
-
+//@property (strong, nonatomic) FIRDatabaseReference *geofireRef;
 
 
 
@@ -41,11 +42,18 @@
 @implementation AMRCellTapped
 
 
+
+
 float currentLatitude = 0.0;
 float currentLongitude = 0.0;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+   // FIRDatabaseRef *geofireRef = [[FIRDatabase database] reference];
+   // GeoFire *geoFire = [[GeoFire alloc] initWithFirebaseRef:geofireRef];
+    
+    
     
     
     
@@ -482,6 +490,30 @@ float currentLongitude = 0.0;
                 
                 
                 //NSLog(@"FINAL DESTINATION ADDRESS IS %@",destAddr);
+                
+                /*
+                // GEO FIRE DATA
+                
+                self.geofireRef = [[FIRDatabase database] reference];
+                GeoFire *geoFire = [[GeoFire alloc] initWithFirebaseRef:self.geofireRef];
+                
+                [geoFire setLocation:[[CLLocation alloc] initWithLatitude:currentLatitude longitude:currentLongitude]
+                              forKey:_key
+                 withCompletionBlock:^(NSError *error) {
+                                  if (error != nil) {
+                                      NSLog(@"An error occurred: %@", error);
+                                  } else {
+                                      NSLog(@"  GEO FIRE Saved location successfully!");
+                                  }
+                              }];
+                
+                
+                FIRDatabaseHandle queryHandle = [query observeEventType:GFEventTypeKeyMoved withBlock:^(NSString *key, CLLocation *location) {
+                    NSLog(@"Key '%@' entered the search area and is at location '%@'", key, location);
+                }];
+                
+                 */
+                
                 NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%@&directionsmode=driving",currentLatitude,currentLongitude,destAddr];
                 
                 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
@@ -582,6 +614,9 @@ float currentLongitude = 0.0;
 -(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations {
     
     
+    
+
+    //GeoFire *geoFire = [[GeoFire alloc] initWithFirebaseRef:geofireRef];
  
     
     currentLatitude = locations.lastObject.coordinate.latitude;
@@ -603,6 +638,7 @@ float currentLongitude = 0.0;
        NSLog(@"DISTANCE BETWEEN SOURCE TO DESTINATION IS %f",[locations.lastObject distanceFromLocation:destLoc]*0.000621371);
     
   
+
     
     // DB Updates
     
