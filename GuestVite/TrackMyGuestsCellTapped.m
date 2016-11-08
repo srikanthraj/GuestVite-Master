@@ -127,6 +127,9 @@ NSMutableString *guestLongitude;
         
         NSDictionary *dict = snapshot.value;
         
+        NSLog(@"KEY is %@",_key);
+        NSLog(@"GUEST STATUS IS %@",[dict valueForKey:@"Guest Location Status"]);
+        
         if([[dict valueForKey:@"Guest Location Status"] isEqualToString:@"NOT_STARTED"])
         {
             
@@ -139,16 +142,6 @@ NSMutableString *guestLongitude;
             NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"How about checking back in some time?" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
             
             
-            CNPPopupButton *gotItButton = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
-            [gotItButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            gotItButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-            [gotItButton setTitle:@"OK , Got it!" forState:UIControlStateNormal];
-            gotItButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
-            gotItButton.layer.cornerRadius = 4;
-            gotItButton.selectionHandler = ^(CNPPopupButton *gotItButton){
-                [self.popupController dismissPopupControllerAnimated:YES];
-                
-            };
             
             CNPPopupButton *reminderButton = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
             [reminderButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -225,6 +218,16 @@ NSMutableString *guestLongitude;
                     
                 }
                 
+               else {
+                   
+                   UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Does not have a valid E-Mail or Phone" preferredStyle:UIAlertControllerStyleAlert];
+                   
+                   UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                   
+                   [ac addAction:aa];
+                   [self presentViewController:ac animated:YES completion:nil];
+               }
+
                 
                 
                 [self.popupController dismissPopupControllerAnimated:YES];
@@ -232,7 +235,17 @@ NSMutableString *guestLongitude;
             };
             
             
-            
+            CNPPopupButton *gotItButton = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+            [gotItButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            gotItButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+            [gotItButton setTitle:@"OK , Got it!" forState:UIControlStateNormal];
+            gotItButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+            gotItButton.layer.cornerRadius = 4;
+            gotItButton.selectionHandler = ^(CNPPopupButton *gotItButton){
+                [self.popupController dismissPopupControllerAnimated:YES];
+                
+            };
+
             
             UILabel *titleLabel = [[UILabel alloc] init];
             titleLabel.numberOfLines = 0;
@@ -242,17 +255,68 @@ NSMutableString *guestLongitude;
             lineOneLabel.numberOfLines = 0;
             lineOneLabel.attributedText = lineOne;
             
-            self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,buttonYesMessage,buttonYes,buttonNoMessage]];
+            self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,reminderButton,gotItButton]];
             self.popupController.theme = [CNPPopupTheme defaultTheme];
             self.popupController.theme.popupStyle = CNPPopupStyleCentered;
             self.popupController.delegate = self;
             [self.popupController presentPopupControllerAnimated:YES];
             
             
+        }
+        
+        else if([[dict valueForKey:@"Guest Location Status"] isEqualToString:@"REACHED"])
+        {
+        
             
+            NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+            paragraphStyle.alignment = NSTextAlignmentCenter;
+            
+            NSAttributedString *title = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Looks Like %@ has reached your place or is very close to your place",[dict valueForKey:@"Receiver First Name"]] attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
+            
+            NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Enjoy your time with your Guest!" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+            
+            
+            CNPPopupButton *gotItButton = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+            [gotItButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+            gotItButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+            [gotItButton setTitle:@"OK , Got it!" forState:UIControlStateNormal];
+            gotItButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+            gotItButton.layer.cornerRadius = 4;
+            gotItButton.selectionHandler = ^(CNPPopupButton *gotItButton){
+                [self.popupController dismissPopupControllerAnimated:YES];
+                
+            };
+            
+
+            UILabel *titleLabel = [[UILabel alloc] init];
+            titleLabel.numberOfLines = 0;
+            titleLabel.attributedText = title;
+            
+            UILabel *lineOneLabel = [[UILabel alloc] init];
+            lineOneLabel.numberOfLines = 0;
+            lineOneLabel.attributedText = lineOne;
+            
+            self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,gotItButton]];
+            self.popupController.theme = [CNPPopupTheme defaultTheme];
+            self.popupController.theme.popupStyle = CNPPopupStyleCentered;
+            self.popupController.delegate = self;
+            [self.popupController presentPopupControllerAnimated:YES];
             
             
         }
+        
+        
+        else if([[dict valueForKey:@"Guest Location Status"] isEqualToString:@"IN_TRANSIT"])
+        {
+        
+            
+            self.mapIsMoving  = NO;
+            self.mapView.camera.altitude *= 1.4;
+            [self refreshLocation];
+            
+        }
+        
         
         
         
@@ -265,9 +329,7 @@ NSMutableString *guestLongitude;
     
     //----------------------------
     
-    self.mapIsMoving  = NO;
-    self.mapView.camera.altitude *= 1.4;
-    [self refreshLocation];
+    
     
     self.myGuestsLocationBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
     
@@ -340,6 +402,66 @@ NSMutableString *guestLongitude;
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
+{
+    switch (result) {
+        case MessageComposeResultCancelled:
+            break;
+            
+        case MessageComposeResultFailed:
+        {
+            
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to send SMS!" preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+            
+            break;
+        }
+            
+        case MessageComposeResultSent:
+            break;
+            
+        default:
+            break;
+    }
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+
+- (void) mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    switch (result)
+    {
+        case MFMailComposeResultCancelled:
+            NSLog(@"Mail cancelled");
+            break;
+        case MFMailComposeResultSaved:
+            NSLog(@"Mail saved");
+            break;
+        case MFMailComposeResultSent: {
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Success" message:[NSString stringWithFormat:@"E-Mail sent successfully"] preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+            break;
+        }
+        case MFMailComposeResultFailed:
+            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            break;
+        default:
+            break;
+    }
+    
+    // Close the Mail Interface
+    [self dismissViewControllerAnimated:YES completion:NULL];
 }
 
 
