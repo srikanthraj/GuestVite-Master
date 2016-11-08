@@ -120,7 +120,7 @@ NSArray *keys;
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     // or @"yyyy-MM-dd hh:mm:ss a" if you prefer the time with AM/PM
-    NSLog(@"DATE IS %@",[NSDate date]);
+    //NSLog(@"DATE IS %@",[NSDate date]);
     
     
     NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
@@ -170,8 +170,8 @@ NSArray *keys;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
-    NSLog(@"Current User Email %@",currentUserEMail);
-    NSLog(@"Current User Phone %@",currentUserPhone);
+   // NSLog(@"Current User Email %@",currentUserEMail);
+   // NSLog(@"Current User Phone %@",currentUserPhone);
 
 
     [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -183,7 +183,7 @@ NSArray *keys;
         keys = [dict allKeys];
         //NSLog(@"Array %@",arr[0][@"Sender First Name"]);
         
-        NSLog(@"Login date is %@",loginDate);
+       // NSLog(@"Login date is %@",loginDate);
         
         inviteTableLength = [arr count];
         //NSLog(@"ARR count %lu",(unsigned long)[arr count]);
@@ -193,13 +193,13 @@ NSArray *keys;
             
             endDateTime = arr[i][@"Invite Valid Till Date"];
             
-            NSLog(@"PESONAl MESSAGE at iteattion %d IS %@",i,arr[i][@"Mesage From Sender"]);
+            //NSLog(@"PESONAl MESSAGE at iteattion %d IS %@",i,arr[i][@"Mesage From Sender"]);
                 
             if([currentUserEMail length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail])
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
             {
                 
-                NSLog(@"INSIDE EMAIL");
+                //NSLog(@"INSIDE EMAIL");
             
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
@@ -256,7 +256,7 @@ NSArray *keys;
             if(i == ([arr count]-1)){ // Check in case of last iteration and Add "No Invites" Only if no data is added to invites list
                 
                 
-                    NSLog(@"Last Iteration");
+                    //NSLog(@"Last Iteration");
                 if([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0)
                 {
                     [myfirstNameData addObject: @"No Invites"];
@@ -289,7 +289,7 @@ NSArray *keys;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
    
-    NSLog(@"Class %@",NSStringFromClass([firstNameData class]));
+   // NSLog(@"Class %@",NSStringFromClass([firstNameData class]));
     
     
     for(int i =0;i<[myinvitedFromData count];i++){
@@ -311,7 +311,7 @@ NSArray *keys;
     }
 
    
-    NSLog(@"Key data is %@",keyData);
+   // NSLog(@"Key data is %@",keyData);
     
     // Do any additional setup after loading the view from its nib.
     
@@ -488,7 +488,7 @@ NSArray *keys;
                 //keys = [dict allKeys];
                 NSArray * arr = [dict allValues];
                 
-                NSLog(@"INVITED FROM DATA %@",invitedFromData);
+               // NSLog(@"INVITED FROM DATA %@",invitedFromData);
                 
                 for(int i=0;i<[arr count];i++){
                     
@@ -499,7 +499,7 @@ NSArray *keys;
                         
                        
                         
-                        NSLog(@"ARR INVITE FOR DATE %@",arr[i][@"Invite For Date"]);
+                      //  NSLog(@"ARR INVITE FOR DATE %@",arr[i][@"Invite For Date"]);
                         
                         [firstNameData removeObjectAtIndex:cellIndexPath.row];
                         [lastNameData removeObjectAtIndex:cellIndexPath.row];
@@ -518,10 +518,10 @@ NSArray *keys;
                         
                         [self.tableView reloadData];
                         
-                         NSLog(@"KEYS AT INDEX!! %@",keys[i]);
+                      //   NSLog(@"KEYS AT INDEX!! %@",keys[i]);
                         
                     arr[i][@"Invitation Status"] = @"Accepted";
-                        NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
+                      //  NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
                         
                         NSDictionary *postDict = @{@"Sender First Name": arr[i][@"Sender First Name"],
                                                    @"Sender Last Name": arr[i][@"Sender Last Name"],
@@ -540,7 +540,7 @@ NSArray *keys;
                                                    @"Invite Valid Till Date": arr[i][@"Invite Valid Till Date"],
                                                    @"Invitation Status": arr[i][@"Invitation Status"],
                                                    };//Dict post
-                        NSLog(@"POST DIC %@",postDict);
+                       // NSLog(@"POST DIC %@",postDict);
                         
                         NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", keys[i]]: postDict};
                         [_ref updateChildValues:childUpdates];
@@ -589,8 +589,8 @@ NSArray *keys;
                 
                 NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
                 
-                NSLog(@"HOST EMAIL %@",[hostEMailData objectAtIndex:cellIndexPath.row]);
-                NSLog(@"HOST PHONE %@",[hostPhoneData objectAtIndex:cellIndexPath.row]);
+               // NSLog(@"HOST EMAIL %@",[hostEMailData objectAtIndex:cellIndexPath.row]);
+              //  NSLog(@"HOST PHONE %@",[hostPhoneData objectAtIndex:cellIndexPath.row]);
                 
                 
                                 // a. Send Message
@@ -680,7 +680,7 @@ NSArray *keys;
                     
                     for(int i=0;i<[arr count];i++){
                         
-                        NSLog(@"CELL INDEX %ld",cellIndexPath.row);
+                      //  NSLog(@"CELL INDEX %ld",cellIndexPath.row);
                         
                         
                         if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:cellIndexPath.row] isEqualToString:arr[i][@"Invite For Date"]])
@@ -701,10 +701,10 @@ NSArray *keys;
                             
                             
                             //Update the data Model : Firebase in this case
-                            NSLog(@"KEYS AT INDEX!! %@",keys[i]);
+                         //   NSLog(@"KEYS AT INDEX!! %@",keys[i]);
                             
                             arr[i][@"Invitation Status"] = @"Declined";
-                            NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
+                         //   NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
                             
                             NSDictionary *postDict = @{@"Sender First Name": arr[i][@"Sender First Name"],
                                                        @"Sender Last Name": arr[i][@"Sender Last Name"],
@@ -723,7 +723,7 @@ NSArray *keys;
                                                        @"Invite Valid Till Date": arr[i][@"Invite Valid Till Date"],
                                                        @"Invitation Status": arr[i][@"Invitation Status"],
                                                        };//Dict post
-                            NSLog(@"POST DIC %@",postDict);
+                        //    NSLog(@"POST DIC %@",postDict);
                             
                             NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", keys[i]]: postDict};
                             [_ref updateChildValues:childUpdates];
@@ -742,7 +742,7 @@ NSArray *keys;
                 
                 
                 [self.popupController dismissPopupControllerAnimated:YES];
-                NSLog(@"Block for button: %@", buttonYesMessage.titleLabel.text);
+               // NSLog(@"Block for button: %@", buttonYesMessage.titleLabel.text);
             };
             
             
@@ -770,7 +770,7 @@ NSArray *keys;
                  
                  for(int i=0;i<[arr count];i++){
                  
-                 NSLog(@"CELL INDEX %ld",cellIndexPath.row);
+                // NSLog(@"CELL INDEX %ld",cellIndexPath.row);
                  
                  
                  if([arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && [[invitedFromData objectAtIndex:cellIndexPath.row] isEqualToString:arr[i][@"Invite For Date"]])
@@ -791,10 +791,10 @@ NSArray *keys;
                  
                  
                  //Update the data Model : Firebase in this case
-                 NSLog(@"KEYS AT INDEX!! %@",keys[i]);
+               //  NSLog(@"KEYS AT INDEX!! %@",keys[i]);
                  
                  arr[i][@"Invitation Status"] = @"Declined";
-                 NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
+                // NSLog(@"Status Changed %@", arr[i][@"Invitation Status"]);
                  
                  NSDictionary *postDict = @{@"Sender First Name": arr[i][@"Sender First Name"],
                  @"Sender Last Name": arr[i][@"Sender Last Name"],
@@ -813,7 +813,7 @@ NSArray *keys;
                  @"Invite Valid Till Date": arr[i][@"Invite Valid Till Date"],
                  @"Invitation Status": arr[i][@"Invitation Status"],
                  };//Dict post
-                 NSLog(@"POST DIC %@",postDict);
+              //   NSLog(@"POST DIC %@",postDict);
                  
                  NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", keys[i]]: postDict};
                  [_ref updateChildValues:childUpdates];
@@ -827,7 +827,7 @@ NSArray *keys;
                 
                 
                 [self.popupController dismissPopupControllerAnimated:YES];
-                NSLog(@"Block for button: %@", buttonYes.titleLabel.text);
+               // NSLog(@"Block for button: %@", buttonYes.titleLabel.text);
             };
 
             
@@ -841,7 +841,7 @@ NSArray *keys;
             buttonNoMessage.layer.cornerRadius = 4;
             buttonNoMessage.selectionHandler = ^(CNPPopupButton *buttonNoMessage){
                 [self.popupController dismissPopupControllerAnimated:YES];
-                NSLog(@"Block for button: %@", buttonNoMessage.titleLabel.text);
+              //  NSLog(@"Block for button: %@", buttonNoMessage.titleLabel.text);
             };
             
             UILabel *titleLabel = [[UILabel alloc] init];

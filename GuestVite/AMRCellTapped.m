@@ -447,7 +447,7 @@ float currentLongitude = 0.0;
                 
                 
                 
-
+            
                 
                 
                 //Once latitude and Longitude gets populated - Stop getting location updates
@@ -482,37 +482,6 @@ float currentLongitude = 0.0;
                     destAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneString,newAddCityString,_hostAddrZip];
                 }
                 
-                
-                //NSLog(@"HOST ADDRESS LINE 1 : %@",newAddOneString);
-                //NSLog(@"HOST ADDRESS LINE 2 : %@",newAddTwoString);
-                //NSLog(@"HOST ADDRESS CITY : %@",newAddCityString);
-                //NSLog(@"HOST ADDRESS ZIP : %@",_hostAddrZip);
-                
-                
-                //NSLog(@"FINAL DESTINATION ADDRESS IS %@",destAddr);
-                
-                /*
-                // GEO FIRE DATA
-                
-                self.geofireRef = [[FIRDatabase database] reference];
-                GeoFire *geoFire = [[GeoFire alloc] initWithFirebaseRef:self.geofireRef];
-                
-                [geoFire setLocation:[[CLLocation alloc] initWithLatitude:currentLatitude longitude:currentLongitude]
-                              forKey:_key
-                 withCompletionBlock:^(NSError *error) {
-                                  if (error != nil) {
-                                      NSLog(@"An error occurred: %@", error);
-                                  } else {
-                                      NSLog(@"  GEO FIRE Saved location successfully!");
-                                  }
-                              }];
-                
-                
-                FIRDatabaseHandle queryHandle = [query observeEventType:GFEventTypeKeyMoved withBlock:^(NSString *key, CLLocation *location) {
-                    NSLog(@"Key '%@' entered the search area and is at location '%@'", key, location);
-                }];
-                
-                 */
                 
                 NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%@&directionsmode=driving",currentLatitude,currentLongitude,destAddr];
                 
@@ -615,23 +584,17 @@ float currentLongitude = 0.0;
     
     
     
-
-    //GeoFire *geoFire = [[GeoFire alloc] initWithFirebaseRef:geofireRef];
  
-    
     currentLatitude = locations.lastObject.coordinate.latitude;
     currentLongitude = locations.lastObject.coordinate.longitude;
-    NSLog(@"Delegate called\n");
-   NSLog(@"LATITUDE %f",currentLatitude);
-   NSLog(@"LONGITUDE %f",currentLongitude);
+    
     
     NSString *hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",_hostAddrLineOne,_hostAddrLineTwo,_hostAddrCity,_hostAddrZip];
     CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
     
     
     
-    NSLog(@"Destination Latitude %f",dest.latitude);
-    NSLog(@"Destination Longitude %f",dest.longitude);
+    
     
     CLLocation *destLoc = [[CLLocation alloc] initWithLatitude:dest.latitude longitude:dest.longitude];
     
@@ -640,43 +603,93 @@ float currentLongitude = 0.0;
   
 
     
-    // DB Updates
-    
-    [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        NSDictionary *dict = snapshot.value;
-        
-        
-        NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
-                                   @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
-                                   @"Sender EMail": [dict valueForKey:@"Sender EMail"],
-                                   @"Sender Address1": [dict valueForKey:@"Sender Address1"],
-                                   @"Sender Address2": [dict valueForKey:@"Sender Address2"],
-                                   @"Sender City": [dict valueForKey:@"Sender City"],
-                                   @"Sender Zip": [dict valueForKey:@"Sender Zip"],
-                                   @"Sender Phone": [dict valueForKey:@"Sender Phone"],
-                                   @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
-                                   @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
-                                   @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
-                                   @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
-                                   @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
-                                   @"Invite For Date": [dict valueForKey:@"Invite For Date"],
-                                   @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
-                                   @"Invitation Status": @"Accepted",
-                                   @"Guest Latitude": [NSNumber numberWithFloat:currentLatitude],
-                                   @"Guest Longitude": [NSNumber numberWithFloat:currentLongitude],
-                                   @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
-                                   @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
-                                   };//Dict post
-        
-        NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
-        [_ref updateChildValues:childUpdates];
-    }];
-    
 
         
     // UPDATE DB WITH latitude, longuitude and ACCEPTED ENDS
     
+    // IF the GUEST AND HOST DISTANCE < 0.1 MILE  THE STOP UPDATING LOCATION AND BREAK THE FUNCTION
+    
+    if([locations.lastObject distanceFromLocation:destLoc]*0.000621371 < 0.5){
+        
+        [self.locationManager stopUpdatingLocation];
+        
+        // DB Updates to REACHED
+        
+        [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            
+            NSDictionary *dict = snapshot.value;
+            
+            
+            NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
+                                       @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
+                                       @"Sender EMail": [dict valueForKey:@"Sender EMail"],
+                                       @"Sender Address1": [dict valueForKey:@"Sender Address1"],
+                                       @"Sender Address2": [dict valueForKey:@"Sender Address2"],
+                                       @"Sender City": [dict valueForKey:@"Sender City"],
+                                       @"Sender Zip": [dict valueForKey:@"Sender Zip"],
+                                       @"Sender Phone": [dict valueForKey:@"Sender Phone"],
+                                       @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
+                                       @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
+                                       @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
+                                       @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
+                                       @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
+                                       @"Invite For Date": [dict valueForKey:@"Invite For Date"],
+                                       @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
+                                       @"Invitation Status": @"Accepted",
+                                       @"Guest Latitude": [NSNumber numberWithFloat:currentLatitude],
+                                       @"Guest Longitude": [NSNumber numberWithFloat:currentLongitude],
+                                       @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
+                                       @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
+                                       @"Guest Location Status" : @"REACHED",
+                                       };//Dict post
+            
+            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
+            [_ref updateChildValues:childUpdates];
+            
+        }];
+
+        NSLog(@"GUEST REACHED");
+    }
+    
+    
+    else
+    {
+    
+        // DB Updates if distance more than 0.1 mile
+        
+        [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            
+            NSDictionary *dict = snapshot.value;
+            
+            
+            NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
+                                       @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
+                                       @"Sender EMail": [dict valueForKey:@"Sender EMail"],
+                                       @"Sender Address1": [dict valueForKey:@"Sender Address1"],
+                                       @"Sender Address2": [dict valueForKey:@"Sender Address2"],
+                                       @"Sender City": [dict valueForKey:@"Sender City"],
+                                       @"Sender Zip": [dict valueForKey:@"Sender Zip"],
+                                       @"Sender Phone": [dict valueForKey:@"Sender Phone"],
+                                       @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
+                                       @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
+                                       @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
+                                       @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
+                                       @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
+                                       @"Invite For Date": [dict valueForKey:@"Invite For Date"],
+                                       @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
+                                       @"Invitation Status": @"Accepted",
+                                       @"Guest Latitude": [NSNumber numberWithFloat:currentLatitude],
+                                       @"Guest Longitude": [NSNumber numberWithFloat:currentLongitude],
+                                       @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
+                                       @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
+                                       @"Guest Location Status" : @"IN_TRANSIT",
+                                       };//Dict post
+            
+            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
+            [_ref updateChildValues:childUpdates];
+        }];
+
+    }
     
 }
 
@@ -719,7 +732,7 @@ float currentLongitude = 0.0;
             
         case MessageComposeResultSent:
         {
-            NSLog(@"SMS Sent");
+            //NSLog(@"SMS Sent");
             self.acceptOrDeclineLabel.text = @"Invitation Declined";
             self.acceptOrDeclineLabel.textColor = [UIColor redColor];
             
@@ -747,7 +760,7 @@ float currentLongitude = 0.0;
             
             break;
         case MFMailComposeResultSent: {
-            NSLog(@"E-Mail Sent");
+           // NSLog(@"E-Mail Sent");
             self.acceptOrDeclineLabel.text = @"Invitation Declined";
             self.acceptOrDeclineLabel.textColor = [UIColor redColor];
             

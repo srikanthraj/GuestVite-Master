@@ -381,6 +381,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
                                    @"Invite For Date": startDateTime,
                                    @"Invite Valid Till Date": endDateTime,
                                    @"Invitation Status": @"Pending",
+                                   @"Guest Location Status" : @"NOT_STARTED",
                                    };
             
             

@@ -434,6 +434,7 @@
                                            @"Invite For Date": startDateTime,
                                            @"Invite Valid Till Date": endDateTime,
                                            @"Invitation Status": @"Pending",
+                                           @"Guest Location Status" : @"NOT_STARTED",
                                            };//Dict post
                     
                     
@@ -637,6 +638,7 @@
                                            @"Invite For Date": startDateTime,
                                            @"Invite Valid Till Date": endDateTime,
                                            @"Invitation Status": @"Pending",
+                                           @"Guest Location Status" : @"NOT_STARTED",
                                            };
                     
                     

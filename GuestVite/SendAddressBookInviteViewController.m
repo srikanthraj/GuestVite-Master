@@ -742,6 +742,7 @@
                                        @"Invite For Date": startDateTime,
                                        @"Invite Valid Till Date": endDateTime,
                                        @"Invitation Status": @"Pending",
+                                       @"Guest Location Status" : @"NOT_STARTED",
                                        };//Dict post
                 
                 
@@ -880,6 +881,7 @@
                                        @"Invite For Date": startDateTime,
                                        @"Invite Valid Till Date": endDateTime,
                                        @"Invitation Status": @"Pending",
+                                       @"Guest Location Status" : @"NOT_STARTED",
                                        };
                 NSTimeInterval timeInSeconds = [[NSDate date] timeIntervalSince1970];
                 NSString *intervalString = [NSString stringWithFormat:@"%f", timeInSeconds];
