@@ -7,6 +7,8 @@
 //
 
 #import "TrackMyGuestsCellTapped.h"
+#import "HomePageViewController.h"
+#import "TrackMyGuestsViewController.h"
 #import "MapKit/MapKit.h"
 #import "CNPPopupController.h"
 #import <MessageUI/MessageUI.h>
@@ -42,6 +44,7 @@ NSMutableString *hostLatitude;
 NSMutableString *hostLongitude;
 NSMutableString *guestLatitude;
 NSMutableString *guestLongitude;
+NSMutableString *guestStatus;
 
 -(void) viewWillAppear{
     [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.view.frame.size.width,80.0)];
@@ -54,6 +57,7 @@ NSMutableString *guestLongitude;
     hostLongitude = [[NSMutableString alloc]init];
     guestLatitude = [[NSMutableString alloc]init];
     guestLongitude = [[NSMutableString alloc]init];
+    guestStatus = [[NSMutableString alloc]init];
     
     __block NSMutableString *myHostLatitude = [[NSMutableString alloc]init];
     
@@ -61,7 +65,9 @@ NSMutableString *guestLongitude;
     
     __block NSMutableString *myGuestLatitude = [[NSMutableString alloc]init];;
     
-    __block NSMutableString *myGuestLongitude = [[NSMutableString alloc]init];;
+    __block NSMutableString *myGuestLongitude = [[NSMutableString alloc]init];
+    
+    __block NSMutableString *myGuestStatus = [[NSMutableString alloc]init];
     
     
     self.ref = [[FIRDatabase database] reference];
@@ -78,6 +84,7 @@ NSMutableString *guestLongitude;
         myHostLongitude = [NSMutableString stringWithFormat:@"%@",[dict valueForKey:@"Host Longitude"]];
         myGuestLatitude = [NSMutableString stringWithFormat:@"%@",[dict valueForKey:@"Guest Latitude"]];
         myGuestLongitude = [NSMutableString stringWithFormat:@"%@",[dict valueForKey:@"Guest Longitude"]];
+        myGuestStatus = [NSMutableString stringWithFormat:@"%@",[dict valueForKey:@"Guest Location Status"]];
         
         
     } withCancelBlock:^(NSError * _Nonnull error) {
@@ -93,13 +100,14 @@ NSMutableString *guestLongitude;
     hostLongitude = myHostLongitude;
     guestLatitude = myGuestLatitude;
     guestLongitude = myGuestLongitude;
+    guestStatus = myGuestStatus;
     
     
-    
+    if([guestStatus isEqualToString:@"IN_TRANSIT"]){
     [self addAnnotations];
     
     [self.mapView showAnnotations:self.mapView.annotations animated:YES];
-    
+    }
     
     /*
     MKMapRect zoomRect = MKMapRectNull;
@@ -232,6 +240,15 @@ NSMutableString *guestLongitude;
                 
                 [self.popupController dismissPopupControllerAnimated:YES];
                 
+                TrackMyGuestsViewController *trackGuestsVC =
+                [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+                
+                //hPViewController.userName  = eMailEntered;
+                [self.navigationController pushViewController:trackGuestsVC animated:YES];
+                
+                [self presentViewController:trackGuestsVC animated:YES completion:nil];
+                
+                
             };
             
             
@@ -242,7 +259,15 @@ NSMutableString *guestLongitude;
             gotItButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
             gotItButton.layer.cornerRadius = 4;
             gotItButton.selectionHandler = ^(CNPPopupButton *gotItButton){
-                [self.popupController dismissPopupControllerAnimated:YES];
+                
+                TrackMyGuestsViewController *trackGuestsVC =
+                [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+                
+                //hPViewController.userName  = eMailEntered;
+                [self.navigationController pushViewController:trackGuestsVC animated:YES];
+                
+                [self presentViewController:trackGuestsVC animated:YES completion:nil];
+
                 
             };
 
@@ -284,7 +309,15 @@ NSMutableString *guestLongitude;
             gotItButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
             gotItButton.layer.cornerRadius = 4;
             gotItButton.selectionHandler = ^(CNPPopupButton *gotItButton){
-                [self.popupController dismissPopupControllerAnimated:YES];
+                
+                TrackMyGuestsViewController *trackGuestsVC =
+                [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+                
+                //hPViewController.userName  = eMailEntered;
+                [self.navigationController pushViewController:trackGuestsVC animated:YES];
+                
+                [self presentViewController:trackGuestsVC animated:YES completion:nil];
+                
                 
             };
             
@@ -360,7 +393,11 @@ NSMutableString *guestLongitude;
     
     [self.view addSubview:_myGuestsLocationBack];
     
+    
+     if([guestStatus isEqualToString:@"IN_TRANSIT"]){
+    
     [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(refreshLocation) userInfo:nil repeats:YES];
+     }
 }
 
 
@@ -396,7 +433,14 @@ NSMutableString *guestLongitude;
 
 - (IBAction)Back
 {
-    [self dismissViewControllerAnimated:YES completion:nil]; // ios 6
+    HomePageViewController *homePageVC =
+    [[HomePageViewController alloc] initWithNibName:@"HomePageViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:homePageVC animated:YES];
+    
+    [self presentViewController:homePageVC animated:YES completion:nil];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -408,8 +452,19 @@ NSMutableString *guestLongitude;
 {
     switch (result) {
         case MessageComposeResultCancelled:
-            break;
+        {
             
+            TrackMyGuestsViewController *trackGuestsVC =
+            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+            
+            //hPViewController.userName  = eMailEntered;
+            [self.navigationController pushViewController:trackGuestsVC animated:YES];
+            
+            [self presentViewController:trackGuestsVC animated:YES completion:nil];
+
+            
+            break;
+        }
         case MessageComposeResultFailed:
         {
             
@@ -418,14 +473,35 @@ NSMutableString *guestLongitude;
             UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             
             [ac addAction:aa];
-            [self presentViewController:ac animated:YES completion:nil];
+            [self presentViewController:ac animated:YES completion:^{
+                
+                TrackMyGuestsViewController *trackGuestsVC =
+                [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+                
+                //hPViewController.userName  = eMailEntered;
+                [self.navigationController pushViewController:trackGuestsVC animated:YES];
+                
+                [self presentViewController:trackGuestsVC animated:YES completion:nil];
+
+            }];
             
             break;
         }
             
         case MessageComposeResultSent:
-            break;
+        {
+            TrackMyGuestsViewController *trackGuestsVC =
+            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
             
+            //hPViewController.userName  = eMailEntered;
+            [self.navigationController pushViewController:trackGuestsVC animated:YES];
+            
+            [self presentViewController:trackGuestsVC animated:YES completion:nil];
+
+            
+            break;
+         
+        }
         default:
             break;
     }
@@ -438,24 +514,67 @@ NSMutableString *guestLongitude;
 {
     switch (result)
     {
-        case MFMailComposeResultCancelled:
+        case MFMailComposeResultCancelled:{
+            
+            TrackMyGuestsViewController *trackGuestsVC =
+            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+            
+            //hPViewController.userName  = eMailEntered;
+            [self.navigationController pushViewController:trackGuestsVC animated:YES];
+            
+            [self presentViewController:trackGuestsVC animated:YES completion:nil];
+
+            
             NSLog(@"Mail cancelled");
             break;
-        case MFMailComposeResultSaved:
+        }
+        case MFMailComposeResultSaved: {
+           
+            TrackMyGuestsViewController *trackGuestsVC =
+            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+            
+            //hPViewController.userName  = eMailEntered;
+            [self.navigationController pushViewController:trackGuestsVC animated:YES];
+            
+            [self presentViewController:trackGuestsVC animated:YES completion:nil];
+
+            
             NSLog(@"Mail saved");
             break;
+        }
         case MFMailComposeResultSent: {
             UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Success" message:[NSString stringWithFormat:@"E-Mail sent successfully"] preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             
             [ac addAction:aa];
-            [self presentViewController:ac animated:YES completion:nil];
+            [self presentViewController:ac animated:YES completion:^{
+                
+                TrackMyGuestsViewController *trackGuestsVC =
+                [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+                
+                //hPViewController.userName  = eMailEntered;
+                [self.navigationController pushViewController:trackGuestsVC animated:YES];
+                
+                [self presentViewController:trackGuestsVC animated:YES completion:nil];
+
+            }];
             break;
         }
-        case MFMailComposeResultFailed:
+        case MFMailComposeResultFailed:{
+            
+            TrackMyGuestsViewController *trackGuestsVC =
+            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+            
+            //hPViewController.userName  = eMailEntered;
+            [self.navigationController pushViewController:trackGuestsVC animated:YES];
+            
+            [self presentViewController:trackGuestsVC animated:YES completion:nil];
+
+            
             NSLog(@"Mail sent failure: %@", [error localizedDescription]);
             break;
+        }
         default:
             break;
     }

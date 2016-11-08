@@ -264,6 +264,7 @@ float currentLongitude = 0.0;
                                        @"Invite For Date": [dict valueForKey:@"Invite For Date"],
                                        @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
                                        @"Invitation Status": @"Declined",
+                                       @"Guest Location Status" : @"NOT_STARTED",
                                        };//Dict post
             
             NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
@@ -318,6 +319,7 @@ float currentLongitude = 0.0;
                                        @"Invite For Date": [dict valueForKey:@"Invite For Date"],
                                        @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
                                        @"Invitation Status": @"Declined",
+                                       @"Guest Location Status" : @"NOT_STARTED",
                                        };//Dict post
             
             NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
@@ -516,6 +518,48 @@ float currentLongitude = 0.0;
     goBackButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
     goBackButton.layer.cornerRadius = 4;
     goBackButton.selectionHandler = ^(CNPPopupButton *goBackButton){
+        
+        
+        
+        // Update DB to Accepted
+        
+        [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            
+            NSDictionary *dict = snapshot.value;
+            
+            //NSLog(@"DICT %@",dict);
+            
+            //NSLog(@"Value Before decline %@" , [dict valueForKey:@"Invitation Status"]);
+            NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
+                                       @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
+                                       @"Sender EMail": [dict valueForKey:@"Sender EMail"],
+                                       @"Sender Address1": [dict valueForKey:@"Sender Address1"],
+                                       @"Sender Address2": [dict valueForKey:@"Sender Address2"],
+                                       @"Sender City": [dict valueForKey:@"Sender City"],
+                                       @"Sender Zip": [dict valueForKey:@"Sender Zip"],
+                                       @"Sender Phone": [dict valueForKey:@"Sender Phone"],
+                                       @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
+                                       @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
+                                       @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
+                                       @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
+                                       @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
+                                       @"Invite For Date": [dict valueForKey:@"Invite For Date"],
+                                       @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
+                                       @"Invitation Status": @"Accepted",
+                                       @"Guest Location Status" : @"NOT_STARTED",
+                                       };//Dict post
+            
+            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
+            [_ref updateChildValues:childUpdates];
+            
+            //NSLog(@"Value After decline %@" , [dict valueForKey:@"Invitation Status"]);
+            
+            
+        }];
+
+        
+        
+        
         [self.popupController dismissPopupControllerAnimated:YES];
         //NSLog(@"Block for button: %@", goBackButton.titleLabel.text);
         self.acceptOrDeclineLabel.text = @"Invitation Accepted";
