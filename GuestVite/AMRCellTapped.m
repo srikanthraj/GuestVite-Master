@@ -651,9 +651,9 @@ float currentLongitude = 0.0;
         
     // UPDATE DB WITH latitude, longuitude and ACCEPTED ENDS
     
-    // IF the GUEST AND HOST DISTANCE < 0.1 MILE  THE STOP UPDATING LOCATION AND BREAK THE FUNCTION
+    // IF the GUEST AND HOST DISTANCE < 0.2 MILE  THE STOP UPDATING LOCATION AND BREAK THE FUNCTION
     
-    if([locations.lastObject distanceFromLocation:destLoc]*0.000621371 < 0.5){
+    if([locations.lastObject distanceFromLocation:destLoc]*0.000621371 < 0.2){
         
         [self.locationManager stopUpdatingLocation];
         
