@@ -49,6 +49,7 @@ NSMutableString *guestFirstName;
 NSMutableString *hostFirstName;
 NSMutableString *hostLastName;
 
+NSTimer *newTimer;
 float totalDistance;
 
 -(void) viewDidAppear:(BOOL)animated{
@@ -76,21 +77,23 @@ float totalDistance;
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
         [ac addAction:aa];
-        [self presentViewController:ac animated:YES completion:^{
-            
-            
-            TrackMyGuestsViewController *trackVC =
-            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
-            
-            [self.navigationController pushViewController:trackVC animated:YES];
-            
-            [self presentViewController:trackVC animated:YES completion:nil];
-            
-        }];
-        
+        [self presentViewController:ac animated:YES completion:nil];
     }
 
+    
+    // IF GUEST IN TRANSIT
+    
+    else if([guestStatus isEqualToString:@"IN_TRANSIT"]){
+        
+        self.mapIsMoving  = NO;
+        self.mapView.camera.altitude *= 1.4;
+        
+        newTimer =  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(refreshLocation) userInfo:nil repeats:YES];
+        
+            }
 
+    
+    
     
     NSLog(@"View Did apperar");
     [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.view.frame.size.width,80.0)];
@@ -152,10 +155,21 @@ float totalDistance;
     [self addAnnotations];
     
     [self.mapView showAnnotations:self.mapView.annotations animated:YES];
-    
+   
+    NSLog(@"Guest Status inside refresh Location is %@",guestStatus);
     if([guestStatus isEqualToString:@"REACHED"]){
         
-        return;
+        NSLog(@"Going inside here");
+        //return;
+        [newTimer invalidate];
+        newTimer = nil;
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy yout time!"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
     }
     
     }
@@ -293,46 +307,12 @@ float totalDistance;
     
     // Call calculate Total Distance
     
-[self findTotalDist];
+    [self findTotalDist];
     
     // IF NOT STARTED
     
     
     
-    // IF GUEST IN TRANSIT
-    
-    if([guestStatus isEqualToString:@"IN_TRANSIT"]){
-        
-        self.mapIsMoving  = NO;
-        self.mapView.camera.altitude *= 1.4;
-        
-       NSTimer *newTimer =  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(refreshLocation) userInfo:nil repeats:YES];
-        
-        if([guestStatus isEqualToString:@"REACHED"]) {
-            
-            [newTimer invalidate];
-            newTimer = nil;
-            
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy yout time!"preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-            
-            [ac addAction:aa];
-            [self presentViewController:ac animated:YES completion:^{
-                
-                
-                TrackMyGuestsViewController *trackVC =
-                [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
-                
-                [self.navigationController pushViewController:trackVC animated:YES];
-                
-                [self presentViewController:trackVC animated:YES completion:nil];
-                
-            }];
-            
-        }
-        
-    }
     
     
     
