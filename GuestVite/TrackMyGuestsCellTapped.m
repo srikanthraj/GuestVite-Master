@@ -26,10 +26,8 @@
 
 @property (strong,nonatomic) MKPointAnnotation *yourLocationAnno;
 
-@property (nonatomic, strong) CNPPopupController *popupController;
 
-
-@property (strong, nonatomic) IBOutlet UINavigationBar *myGuestsLocationBack;
+@property (weak, nonatomic) IBOutlet UINavigationBar *myGuestsLocationBack;
 
 @property(nonatomic,assign) BOOL mapIsMoving;
 
@@ -53,9 +51,48 @@ NSMutableString *hostLastName;
 
 float totalDistance;
 
--(void) viewWillAppear{
+-(void) viewDidAppear:(BOOL)animated{
     
-    NSLog(@"View Will apperar");
+    
+    if ([guestStatus isEqualToString:@"REACHED"]) {
+        
+        
+        NSLog(@"SHOW THIS!!");
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy yout time!"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+        
+    }
+    
+    
+    else if([guestStatus isEqualToString:@"NOT_STARTED"]){
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Not started yet"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:^{
+            
+            
+            TrackMyGuestsViewController *trackVC =
+            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+            
+            [self.navigationController pushViewController:trackVC animated:YES];
+            
+            [self presentViewController:trackVC animated:YES completion:nil];
+            
+        }];
+        
+    }
+
+
+    
+    NSLog(@"View Did apperar");
     [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.view.frame.size.width,80.0)];
 }
 
@@ -128,6 +165,8 @@ float totalDistance;
 
 -(void) findTotalDist {
     
+    
+    
     guestFirstName = [[NSMutableString alloc]init];
     hostFirstName =  [[NSMutableString alloc]init];
     hostLastName = [[NSMutableString alloc]init];
@@ -154,12 +193,15 @@ float totalDistance;
     
     __block NSMutableString *myHostLastName = [[NSMutableString alloc]init];
     
+    NSLog(@"KEY %@",_key);
     
+    self.ref = [[FIRDatabase database] reference];
+   
     [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSDictionary *dict = snapshot.value;
         
-        //NSLog(@"DICT %@",dict);
+        NSLog(@"DICT %@",dict);
         
         myHostLatitude = [NSMutableString stringWithFormat:@"%@",[dict valueForKey:@"Host Latitude"]];
         myHostLongitude = [NSMutableString stringWithFormat:@"%@",[dict valueForKey:@"Host Longitude"]];
@@ -202,6 +244,9 @@ float totalDistance;
     NSLog(@"Total Distance is %f",totalDistance);
     NSLog(@"Guest Satus is %@",guestStatus);
     
+    
+    
+    NSLog(@"TOTAL DIST");
 }
 
 
@@ -243,37 +288,20 @@ float totalDistance;
     [self.view addSubview:_myGuestsLocationBack];
     
     
+    
+    
+    
     // Call calculate Total Distance
     
-    [self findTotalDist];
+[self findTotalDist];
     
     // IF NOT STARTED
     
-    if([guestStatus isEqualToString:@"NOT_STARTED"]){
-        
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Not started yet"preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        
-        [ac addAction:aa];
-        [self presentViewController:ac animated:YES completion:^{
-            
-            
-            TrackMyGuestsViewController *trackVC =
-            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
-            
-            [self.navigationController pushViewController:trackVC animated:YES];
-            
-            [self presentViewController:trackVC animated:YES completion:nil];
-            
-        }];
-        
-    }
-        
+    
     
     // IF GUEST IN TRANSIT
     
-    else if([guestStatus isEqualToString:@"IN_TRANSIT"]){
+    if([guestStatus isEqualToString:@"IN_TRANSIT"]){
         
         self.mapIsMoving  = NO;
         self.mapView.camera.altitude *= 1.4;
@@ -307,28 +335,6 @@ float totalDistance;
     }
     
     
-    else if ([guestStatus isEqualToString:@"REACHED"]) {
-        
-        
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy yout time!"preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        
-        [ac addAction:aa];
-        [self presentViewController:ac animated:YES completion:^{
-            
-            
-            TrackMyGuestsViewController *trackVC =
-            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
-            
-            [self.navigationController pushViewController:trackVC animated:YES];
-            
-            [self presentViewController:trackVC animated:YES completion:nil];
-            
-        }];
-
-        
-    }
     
     
 }
