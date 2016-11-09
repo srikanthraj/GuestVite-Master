@@ -379,7 +379,7 @@ NSArray *tmgkeys;
 {
     
     
-    
+    NSLog(@"Cell Tapped");
     
     TrackMyGuestsCellTapped *tmgCellTapped =
     [[TrackMyGuestsCellTapped alloc] initWithNibName:@"TrackMyGuestsCellTapped" bundle:nil];
