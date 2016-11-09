@@ -56,6 +56,21 @@
     [super viewDidLoad];
     
 
+    // Set the current date and time as date
+    
+    
+    NSDateFormatter *currentDateFormatter = [[NSDateFormatter alloc] init];
+    [currentDateFormatter setDateFormat:@"hh:mm a"];
+    NSString *currentTime = [currentDateFormatter stringFromDate:[NSDate date]];
+    
+    self.startTime = currentTime;
+    NSLog(@"Start Time on load %@", self.startTime);
+
+    self.endTime = currentTime;
+    
+    NSLog(@"End Time on load %@", self.endTime);
+    
+    
     
     
     self.sendNewInviteBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
