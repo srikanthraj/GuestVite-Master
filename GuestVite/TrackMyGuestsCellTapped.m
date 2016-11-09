@@ -88,7 +88,7 @@ float totalDistance;
         self.mapIsMoving  = NO;
         self.mapView.camera.altitude *= 1.4;
         
-        newTimer =  [NSTimer scheduledTimerWithTimeInterval:5.0 target:self selector:@selector(refreshLocation) userInfo:nil repeats:YES];
+        newTimer =  [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(refreshLocation) userInfo:nil repeats:YES];
         
             }
 
