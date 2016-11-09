@@ -157,6 +157,25 @@ float totalDistance;
     [self.mapView showAnnotations:self.mapView.annotations animated:YES];
    
     NSLog(@"Guest Status inside refresh Location is %@",guestStatus);
+    
+    
+    // If Guest nearing - Remaining Distance < 10% of Total Distance
+    
+    if([[[CLLocation alloc] initWithLatitude:[hostLatitude floatValue] longitude:[hostLongitude floatValue]] distanceFromLocation:[[CLLocation alloc] initWithLatitude:[guestLatitude floatValue] longitude:[guestLongitude floatValue]]] < 0.1 * totalDistance){
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Guest is nearing your place, Enjoy your time!"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+        
+    }
+    
+    
+    
+    // If Guest reached Destination
+    
     if([guestStatus isEqualToString:@"REACHED"]){
         
         NSLog(@"Going inside here");
@@ -164,7 +183,7 @@ float totalDistance;
         [newTimer invalidate];
         newTimer = nil;
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy yout time!"preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy your time!"preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
@@ -249,9 +268,9 @@ float totalDistance;
     hostLastName = myHostLastName;
 
     
-     CLLocation *hostLoc = [[CLLocation alloc] initWithLatitude:[guestLatitude floatValue] longitude:[guestLongitude floatValue]];
+     CLLocation *hostLoc = [[CLLocation alloc] initWithLatitude:[hostLatitude floatValue] longitude:[hostLongitude floatValue]];
     
-     CLLocation *guestLoc = [[CLLocation alloc] initWithLatitude:[hostLatitude floatValue] longitude:[hostLongitude floatValue]];
+     CLLocation *guestLoc = [[CLLocation alloc] initWithLatitude:[guestLatitude floatValue] longitude:[guestLongitude floatValue]];
     
     totalDistance = [guestLoc distanceFromLocation:hostLoc]*0.000621371;
     
