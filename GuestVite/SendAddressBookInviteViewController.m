@@ -11,7 +11,7 @@
 #import "SendBulkInviteViewController.h"
 #import "SendNewInviteViewController.h"
 #import "HomePageViewController.h"
-
+#import "MapKit/MapKit.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
 
@@ -200,6 +200,29 @@
     [self presentViewController:homePageVC animated:YES completion:nil];
 }
 
+
+- (CLLocationCoordinate2D) geoCodeUsingAddress:(NSString *)address
+{
+    double latitude = 0, longitude = 0;
+    NSString *esc_addr =  [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *req = [NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?sensor=false&address=%@", esc_addr];
+    NSString *result = [NSString stringWithContentsOfURL:[NSURL URLWithString:req] encoding:NSUTF8StringEncoding error:NULL];
+    
+    // NSLog(@"RESULU is %@",result);
+    if (result) {
+        NSScanner *scanner = [NSScanner scannerWithString:result];
+        if ([scanner scanUpToString:@"\"lat\" :" intoString:nil] && [scanner scanString:@"\"lat\" :" intoString:nil]) {
+            [scanner scanDouble:&latitude];
+            if ([scanner scanUpToString:@"\"lng\" :" intoString:nil] && [scanner scanString:@"\"lng\" :" intoString:nil]) {
+                [scanner scanDouble:&longitude];
+            }
+        }
+    }
+    CLLocationCoordinate2D center;
+    center.latitude = latitude;
+    center.longitude = longitude;
+    return center;
+}
 
 
 
@@ -726,6 +749,19 @@
             NSDictionary *dict = snapshot.value;
             for(NSString *address in self.phoneContactsData){
                 
+                NSString *hostaddr = [[NSString alloc]init];
+                
+                if([[dict valueForKey:@"Address2"] length] > 0)
+                {
+                    hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",[dict valueForKey:@"Address1"],[dict valueForKey:@"Address2"],[dict valueForKey:@"City"],[dict valueForKey:@"Zip"]];
+                }
+                
+                else {
+                    hostaddr = [NSString stringWithFormat:@"%@,%@,%@",[dict valueForKey:@"Address1"],[dict valueForKey:@"City"],[dict valueForKey:@"Zip"]];
+                }
+                
+                CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
+                
                 NSDictionary *post = @{@"Sender First Name": [dict valueForKey:@"First Name"],
                                        @"Sender Last Name": [dict valueForKey:@"Last Name"],
                                        @"Sender EMail": [dict valueForKey:@"EMail"],
@@ -742,6 +778,8 @@
                                        @"Invite For Date": startDateTime,
                                        @"Invite Valid Till Date": endDateTime,
                                        @"Invitation Status": @"Pending",
+                                       @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
+                                       @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"NOT_STARTED",
                                        };//Dict post
                 
@@ -865,6 +903,19 @@
 
             for(NSString *address in self.emailContactsData){
                 
+                NSString *hostaddr = [[NSString alloc]init];
+                
+                if([[dict valueForKey:@"Address2"] length] > 0)
+                {
+                    hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",[dict valueForKey:@"Address1"],[dict valueForKey:@"Address2"],[dict valueForKey:@"City"],[dict valueForKey:@"Zip"]];
+                }
+                
+                else {
+                    hostaddr = [NSString stringWithFormat:@"%@,%@,%@",[dict valueForKey:@"Address1"],[dict valueForKey:@"City"],[dict valueForKey:@"Zip"]];
+                }
+                
+                CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
+                
                 NSDictionary *post = @{@"Sender First Name": [dict valueForKey:@"First Name"],
                                        @"Sender Last Name": [dict valueForKey:@"Last Name"],
                                        @"Sender EMail": [dict valueForKey:@"EMail"],
@@ -881,6 +932,8 @@
                                        @"Invite For Date": startDateTime,
                                        @"Invite Valid Till Date": endDateTime,
                                        @"Invitation Status": @"Pending",
+                                       @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
+                                       @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"NOT_STARTED",
                                        };
                 NSTimeInterval timeInSeconds = [[NSDate date] timeIntervalSince1970];

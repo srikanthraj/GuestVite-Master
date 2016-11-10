@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/SendNewInviteViewController.m"
-            timestampString = "500355764.812083"
+            timestampString = "500437941.136895"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "447"
-            endingLineNumber = "447"
+            startingLineNumber = "491"
+            endingLineNumber = "491"
             landmarkName = "-sendInviteTapped:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/SendBulkInviteViewController.m"
-            timestampString = "500255480.09646"
+            timestampString = "500439497.713311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "450"
-            endingLineNumber = "450"
+            startingLineNumber = "493"
+            endingLineNumber = "493"
             landmarkName = "-sendSMSTapped:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,29 +74,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/SendBulkInviteViewController.m"
-            timestampString = "499577103.970519"
+            timestampString = "500439497.713311"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "GuestVite/AwaitMyResponseViewController.m"
-            timestampString = "499825652.921984"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "32"
-            endingLineNumber = "32"
-            landmarkName = "@implementation AwaitMyResponseViewController"
-            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -121,13 +105,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GuestVite/AwaitMyResponseViewController.m"
-            timestampString = "499918129.587469"
+            filePath = "GuestVite/AMRCellTapped.m"
+            timestampString = "500449157.444855"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "633"
+            endingLineNumber = "633"
+            landmarkName = "-locationManager:didUpdateLocations:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
