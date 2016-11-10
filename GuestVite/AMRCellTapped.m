@@ -144,10 +144,6 @@ float currentLongitude = 0.0;
     
     NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"If Yes, How about sending a sorry message to your Host?" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
     
-    /*
-     NSAttributedString *lineTwo = [[NSAttributedString alloc] initWithString:@"Simply delete this message if you do not want to send one" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
-     */
-    
     
     
     // If the user wants to send a message and decline
@@ -159,11 +155,6 @@ float currentLongitude = 0.0;
     buttonYesMessage.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
     buttonYesMessage.layer.cornerRadius = 4;
     buttonYesMessage.selectionHandler = ^(CNPPopupButton *buttonYesMessage){
-        
-        //NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-        
-        //NSLog(@"HOST EMAIL %@",_hostEMail);
-       // NSLog(@"HOST PHONE %@",_hostPhone);
         
         
         // a. Send Message
@@ -240,48 +231,11 @@ float currentLongitude = 0.0;
         
         // If Decline confirmed , ONLY then go ahead and delete
         
-        
-        
-        [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-            
-            NSDictionary *dict = snapshot.value;
-            
-            //NSLog(@"DICT %@",dict);
-            
-            //NSLog(@"Value Before decline %@" , [dict valueForKey:@"Invitation Status"]);
-            NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
-                                       @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
-                                       @"Sender EMail": [dict valueForKey:@"Sender EMail"],
-                                       @"Sender Address1": [dict valueForKey:@"Sender Address1"],
-                                       @"Sender Address2": [dict valueForKey:@"Sender Address2"],
-                                       @"Sender City": [dict valueForKey:@"Sender City"],
-                                       @"Sender Zip": [dict valueForKey:@"Sender Zip"],
-                                       @"Sender Phone": [dict valueForKey:@"Sender Phone"],
-                                       @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
-                                       @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
-                                       @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
-                                       @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
-                                       @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
-                                       @"Invite For Date": [dict valueForKey:@"Invite For Date"],
-                                       @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
-                                       @"Invitation Status": @"Declined",
-                                       @"Guest Location Status" : @"NOT_STARTED",
-                                       };//Dict post
-            
-            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
-            [_ref updateChildValues:childUpdates];
-            
-            //NSLog(@"Value After decline %@" , [dict valueForKey:@"Invitation Status"]);
-            
-            
-        }];
-
-        
-        
+        [self updateDB:@"NOT_STARTED" withPermission:@"NO" withInvitationStatus:@"Declined"];
         
         
         [self.popupController dismissPopupControllerAnimated:YES];
-        //NSLog(@"Block for button: %@", buttonYesMessage.titleLabel.text);
+        
     };
     
     
@@ -297,44 +251,11 @@ float currentLongitude = 0.0;
         
         // If Decline confirmed , ONLY then go ahead and delete the Db entry
         
-        [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-            
-            NSDictionary *dict = snapshot.value;
-            
-            //NSLog(@"DICT %@",dict);
-            
-            //NSLog(@"Value Before decline %@" , [dict valueForKey:@"Invitation Status"]);
-            NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
-                                       @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
-                                       @"Sender EMail": [dict valueForKey:@"Sender EMail"],
-                                       @"Sender Address1": [dict valueForKey:@"Sender Address1"],
-                                       @"Sender Address2": [dict valueForKey:@"Sender Address2"],
-                                       @"Sender City": [dict valueForKey:@"Sender City"],
-                                       @"Sender Zip": [dict valueForKey:@"Sender Zip"],
-                                       @"Sender Phone": [dict valueForKey:@"Sender Phone"],
-                                       @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
-                                       @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
-                                       @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
-                                       @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
-                                       @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
-                                       @"Invite For Date": [dict valueForKey:@"Invite For Date"],
-                                       @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
-                                       @"Invitation Status": @"Declined",
-                                       @"Guest Location Status" : @"NOT_STARTED",
-                                       };//Dict post
-            
-            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
-            [_ref updateChildValues:childUpdates];
-            
-            //NSLog(@"Value After decline %@" , [dict valueForKey:@"Invitation Status"]);
-            
-            
-        }];
-
+        [self updateDB:@"NOT_STARTED" withPermission:@"NO" withInvitationStatus:@"Declined"];
         
         
         [self.popupController dismissPopupControllerAnimated:YES];
-        //NSLog(@"Block for button: %@", buttonYes.titleLabel.text);
+       
         self.acceptOrDeclineLabel.text = @"Invitation Declined";
         self.acceptOrDeclineLabel.textColor = [UIColor redColor];
         
@@ -354,7 +275,7 @@ float currentLongitude = 0.0;
     buttonNoMessage.layer.cornerRadius = 4;
     buttonNoMessage.selectionHandler = ^(CNPPopupButton *buttonNoMessage){
         [self.popupController dismissPopupControllerAnimated:YES];
-        //NSLog(@"Block for button: %@", buttonNoMessage.titleLabel.text);
+        
     };
     
     UILabel *titleLabel = [[UILabel alloc] init];
@@ -404,7 +325,7 @@ float currentLongitude = 0.0;
             
             CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
             
-            if(status ==  kCLAuthorizationStatusAuthorizedAlways) {
+            if (status == kCLAuthorizationStatusAuthorizedAlways) {
                 
                 // Open of Maps Part starts
                 
@@ -458,7 +379,6 @@ float currentLongitude = 0.0;
                 
                 
                 [self.popupController dismissPopupControllerAnimated:YES];
-                //NSLog(@"Block for button: %@", startToHostPlaceButton.titleLabel.text);
                 self.acceptOrDeclineLabel.text = @"Invitation Accepted";
                 self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
                 
@@ -488,14 +408,19 @@ float currentLongitude = 0.0;
     goBackButton.layer.cornerRadius = 4;
     goBackButton.selectionHandler = ^(CNPPopupButton *goBackButton){
         
+        CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
         
+        if ((status == kCLAuthorizationStatusAuthorizedAlways) || (status == kCLAuthorizationStatusDenied)) {
+            [self updateDB:@"NOT_STARTED" withPermission:@"YES" withInvitationStatus:@"Accepted"];
+        }
         
-        [self updateDBToAccepted:@"NOT_STARTED"];
+        else {
+            [self updateDB:@"NOT_STARTED" withPermission:@"NO" withInvitationStatus:@"Accepted"];
+        }
         
         
         
         [self.popupController dismissPopupControllerAnimated:YES];
-        //NSLog(@"Block for button: %@", goBackButton.titleLabel.text);
         self.acceptOrDeclineLabel.text = @"Invitation Accepted";
         self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
         
@@ -525,7 +450,8 @@ float currentLongitude = 0.0;
 
 
 
--(void)updateDBToAccepted :(NSString *)guestLocationStatus
+-(void)updateDB :(NSString *)guestLocationStatus  withPermission:(NSString *)permissionAsked
+withInvitationStatus:(NSString *)guestReply
 {
 
 // Update DB to Accepted
@@ -564,10 +490,11 @@ float currentLongitude = 0.0;
                                @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
                                @"Invite For Date": [dict valueForKey:@"Invite For Date"],
                                @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
-                               @"Invitation Status": @"Accepted",
+                               @"Invitation Status": guestReply,
                                @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                @"Guest Location Status" : guestLocationStatus,
+                               @"Guest Location Permission Asked" : permissionAsked,
                                };//Dict post
     
     NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
@@ -611,11 +538,27 @@ float currentLongitude = 0.0;
     NSLog(@"PERMISSION DENIED");
 }
 
+-(NSString*) didAskPermission:(NSString *)key{
+    
+    __block NSMutableString *result = [[NSMutableString alloc]init];
+    
+    [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dict = snapshot.value;
+        [result setString:[dict valueForKey:@"Guest Location Permission Asked"]];
+        
+    }];
+    
+    NSLog(@"RESULT FROM didAskPermission %@",result);
+    return result;
+    
+}
+
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     
     
      if (status == kCLAuthorizationStatusDenied) {
-         [self updateDBToAccepted:@"NOT_PERMITTED"];
+         [self updateDB:@"NOT_PERMITTED" withPermission:@"YES" withInvitationStatus:@"Accepted"];
          [self.popupController dismissPopupControllerAnimated:YES];
          self.acceptOrDeclineLabel.text = @"Invitation Accepted";
          self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
@@ -625,8 +568,79 @@ float currentLongitude = 0.0;
     }
     
     
+    else if ((status == kCLAuthorizationStatusAuthorizedAlways) && [[self didAskPermission:_key] isEqualToString:@"NO"]) {
+        
+        [self updateDB:@"IN_TRANSIT" withPermission:@"YES" withInvitationStatus:@"Accepted"];
+        
+        // Open of Maps Part starts
+        
+        //Check the availability of the Google Maps app on the device
+        
+        if (![[UIApplication sharedApplication] canOpenURL:
+              [NSURL URLWithString:@"comgooglemaps://"]]) {
+            NSLog(@"Your Device does not have Google Maps");
+        }
+        
+        else { // If device has Google Maps
+            
+            //1. Get guest's current location
+            
+            
+            [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+            
+            [self.locationManager startUpdatingLocation];
+            
+            
+            
+            while(currentLatitude == 0.0 && currentLongitude == 0.0){ // Wait till latitude and longitude gets populated
+                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+            }
+            
+            NSLog(@"Current Latitude is %f",currentLatitude);
+            NSLog(@"Current Longitude is %f",currentLongitude);
+            
+            
+            NSString *newAddOneString = [ _hostAddrLineOne stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+            NSString *newAddTwoString = [ _hostAddrLineTwo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+            NSString *newAddCityString = [ _hostAddrCity stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+            
+            NSString *destAddr = [[NSString alloc]init];
+            
+            if([_hostAddrLineTwo length] > 0) { // If address Line 2 provided
+                destAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneString,newAddTwoString,newAddCityString,_hostAddrZip];
+            }
+            
+            else { // If address Line 2 NOT provided
+                destAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneString,newAddCityString,_hostAddrZip];
+            }
+            
+            
+            NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%@&directionsmode=driving",currentLatitude,currentLongitude,destAddr];
+            
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
+            
+            
+        }
+        
+        
+        [self.popupController dismissPopupControllerAnimated:YES];
+        self.acceptOrDeclineLabel.text = @"Invitation Accepted";
+        self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+        
+        
+        [self performSelector:@selector(loadingNextView)
+                   withObject:nil afterDelay:3.0f];
+        
+        
+        //Open of Maps part Ends
     
     
+    }
+
+
+
+
+
 }
 
 
@@ -693,6 +707,7 @@ float currentLongitude = 0.0;
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"REACHED",
+                                       @"Guest Location Permission Asked" : @"YES",
                                        };//Dict post
             
             NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
@@ -700,7 +715,7 @@ float currentLongitude = 0.0;
             
         }];
 
-        NSLog(@"GUEST REACHED");
+       // NSLog(@"GUEST REACHED");
     }
     
     
@@ -735,6 +750,7 @@ float currentLongitude = 0.0;
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"IN_TRANSIT",
+                                       @"Guest Location Permission Asked" : @"YES",
                                        };//Dict post
             
             NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};

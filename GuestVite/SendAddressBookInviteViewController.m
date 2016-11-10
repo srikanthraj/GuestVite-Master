@@ -781,6 +781,7 @@
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"NOT_STARTED",
+                                       @"Guest Location Permission Asked" : @"NO",
                                        };//Dict post
                 
                 
@@ -935,6 +936,7 @@
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"NOT_STARTED",
+                                       @"Guest Location Permission Asked" : @"NO",
                                        };
                 NSTimeInterval timeInSeconds = [[NSDate date] timeIntervalSince1970];
                 NSString *intervalString = [NSString stringWithFormat:@"%f", timeInSeconds];
