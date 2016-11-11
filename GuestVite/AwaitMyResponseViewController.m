@@ -329,7 +329,8 @@ NSArray *keys;
     //hPViewController.userName  = eMailEntered;
     [self.navigationController pushViewController:homePageVC animated:YES];
     
-    [self presentViewController:homePageVC animated:YES completion:nil];}
+    [self presentViewController:homePageVC animated:YES completion:nil];
+}
 
 
 - (void)didReceiveMemoryWarning {

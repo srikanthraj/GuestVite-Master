@@ -338,21 +338,55 @@ float currentLongitude = 0.0;
             if (status == kCLAuthorizationStatusDenied) {
                 
                 NSLog(@"Denied location when start to Host tapped");
-               // [self updateDB:@"NOT_PERMITTED" withInvitationStatus:@"Accepted"];
+               
+                __block NSMutableString *guestAddr1 = [[NSMutableString alloc]init];
+                __block NSMutableString *guestAddr2 = [[NSMutableString alloc]init];
+                __block NSMutableString *guestCity = [[NSMutableString alloc]init];
+                __block NSMutableString *guestZip = [[NSMutableString alloc]init];
                 
-                UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Location Off, turn on from Settings" preferredStyle:UIAlertControllerStyleAlert];
+                [self updateDB:@"NOT_PERMITTED" withInvitationStatus:@"Accepted"];
                 
-                UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
-                    [self startNavigation];
+    
+                
+                
+        
+                    
+                    NSString *userID = [FIRAuth auth].currentUser.uid;
+                    [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                        
+                        NSDictionary *dict = snapshot.value;
+                        
+                        
+                        
+                        
+                        
+                        
+                        [guestAddr1 setString:[dict valueForKey:@"Address1"]];
+                        [guestAddr2 setString:[dict valueForKey:@"Address2"]];
+                        [guestCity setString:[dict valueForKey:@"City"]];
+                        [guestZip setString:[dict valueForKey:@"Zip"]];
+                        
+                        
+                        
+                        
+                        
+                    }];
+                    while([guestAddr1 length]== 0 && [guestCity length] ==0 && [guestZip length] ==0) {
+                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+                    }
+                    
+                    NSLog(@"Addre1 %@",guestAddr1);
+                    NSLog(@"Addre2 %@",guestAddr2);
+                    NSLog(@"City %@",guestCity);
+                    NSLog(@"Zip %@",guestZip);
+                    
+                    [self startNavigationWithoutLocationTracking:guestAddr1 line2:guestAddr2 city:guestCity zip:guestZip];
                     [self.popupController dismissPopupControllerAnimated:YES];
-                }];
-                
-                [ac addAction:aa];
-                [self presentViewController:ac animated:YES completion:nil];
-                
-                
-            }
+                    
+
             
+            
+            }
             
              
         };
@@ -399,6 +433,81 @@ float currentLongitude = 0.0;
     
 }
 
+
+
+
+-(void)startNavigationWithoutLocationTracking :(NSString *)guestAddressLine1 line2:(NSString *)guestAddressLine2 city:(NSString *)guestAddressCity zip:(NSString *)guestAddressZip {
+    
+    
+    // Open of Maps Part starts
+    
+    //Check the availability of the Google Maps app on the device
+    
+    if (![[UIApplication sharedApplication] canOpenURL:
+          [NSURL URLWithString:@"comgooglemaps://"]]) {
+        NSLog(@"Your Device does not have Google Maps");
+    }
+    
+    else { // If device has Google Maps
+        
+        
+        // Getting GUEST Address
+        NSString *newAddOneGuestString = [ guestAddressLine1 stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        NSString *newAddTwoGuestString = [ guestAddressLine2 stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        NSString *newAddCityGuestString = [ guestAddressCity stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        
+        NSString *sourceAddr = [[NSString alloc]init];
+        
+        if([guestAddressLine2 length] > 0) { // If address Line 2 provided
+            sourceAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneGuestString,newAddTwoGuestString,newAddCityGuestString,guestAddressZip];
+        }
+        
+        else { // If address Line 2 NOT provided
+            sourceAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneGuestString,newAddCityGuestString,guestAddressZip];
+        }
+        
+
+        
+        
+        // Getting HOST Address
+        NSString *newAddOneHostString = [ _hostAddrLineOne stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        NSString *newAddTwoHostString = [ _hostAddrLineTwo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        NSString *newAddCityHostString = [ _hostAddrCity stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        
+        NSString *destAddr = [[NSString alloc]init];
+        
+        if([_hostAddrLineTwo length] > 0) { // If address Line 2 provided
+            destAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneHostString,newAddTwoHostString,newAddCityHostString,_hostAddrZip];
+        }
+        
+        else { // If address Line 2 NOT provided
+            destAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneHostString,newAddCityHostString,_hostAddrZip];
+        }
+        
+        
+        NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%@&daddr=%@&directionsmode=driving",sourceAddr,destAddr];
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
+        
+        
+    }
+    
+    
+    [self.popupController dismissPopupControllerAnimated:YES];
+    //NSLog(@"Block for button: %@", startToHostPlaceButton.titleLabel.text);
+    self.acceptOrDeclineLabel.text = @"Invitation Accepted";
+    self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+    
+    
+    [self performSelector:@selector(loadingNextView)
+               withObject:nil afterDelay:3.0f];
+    
+    
+    //Open of Maps part Ends
+
+ 
+    
+}
 
 -(void)startNavigation {
     
@@ -554,6 +663,7 @@ float currentLongitude = 0.0;
     NSLog(@"PERMISSION DENIED");
 }
 
+/*
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     
@@ -567,6 +677,7 @@ float currentLongitude = 0.0;
 
 
 }
+ */
 
 
 -(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{

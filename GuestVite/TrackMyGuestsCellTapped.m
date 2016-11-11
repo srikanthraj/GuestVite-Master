@@ -70,6 +70,21 @@ float totalDistance;
     }
     
     
+    else if ([guestStatus isEqualToString:@"NOT_PERMITTED"]) {
+        
+        
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Looks Like the Guest has not given thrie permission to show their location, Sorry About that!"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+        
+    }
+
+    
+    
+    
     else if([guestStatus isEqualToString:@"NOT_STARTED"]){
         
         UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Not started yet"preferredStyle:UIAlertControllerStyleAlert];
@@ -371,13 +386,13 @@ float totalDistance;
 
 - (IBAction)Back
 {
-    HomePageViewController *homePageVC =
-    [[HomePageViewController alloc] initWithNibName:@"HomePageViewController" bundle:nil];
+    TrackMyGuestsViewController *trackGuestsVC =
+    [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
     
     //hPViewController.userName  = eMailEntered;
-    [self.navigationController pushViewController:homePageVC animated:YES];
+    [self.navigationController pushViewController:trackGuestsVC animated:YES];
     
-    [self presentViewController:homePageVC animated:YES completion:nil];
+    [self presentViewController:trackGuestsVC animated:YES completion:nil];
 
 }
 
