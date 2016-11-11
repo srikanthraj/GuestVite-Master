@@ -14,7 +14,7 @@
 		<true/>
 	</dict>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>GuestVite Needs to know your location</string>
+	<string>GuestVite Needs to know your location for your Host to track wher you reached. Location updates will be turned Off as soon as you reach your Host&apos;s place.</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>googlechromes</string>

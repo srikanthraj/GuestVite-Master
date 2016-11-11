@@ -441,7 +441,6 @@ if(self.segmentControl.selectedSegmentIndex ==1){
                                    @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                    @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                    @"Guest Location Status" : @"NOT_STARTED",
-                                   @"Guest Location Permission Asked" : @"NO",
                                    };
             
             

@@ -231,7 +231,7 @@ float currentLongitude = 0.0;
         
         // If Decline confirmed , ONLY then go ahead and delete
         
-        [self updateDB:@"NOT_STARTED" withPermission:@"NO" withInvitationStatus:@"Declined"];
+        [self updateDB:@"NOT_STARTED" withInvitationStatus:@"Declined"];
         
         
         [self.popupController dismissPopupControllerAnimated:YES];
@@ -251,7 +251,7 @@ float currentLongitude = 0.0;
         
         // If Decline confirmed , ONLY then go ahead and delete the Db entry
         
-        [self updateDB:@"NOT_STARTED" withPermission:@"NO" withInvitationStatus:@"Declined"];
+        [self updateDB:@"NOT_STARTED" withInvitationStatus:@"Declined"];
         
         
         [self.popupController dismissPopupControllerAnimated:YES];
@@ -327,73 +327,31 @@ float currentLongitude = 0.0;
             
             if (status == kCLAuthorizationStatusAuthorizedAlways) {
                 
-                // Open of Maps Part starts
+                NSLog(@"Authorized location when start to Host tapped");
                 
-                //Check the availability of the Google Maps app on the device
+                //[self updateDB:@"IN_TRANSIT" withInvitationStatus:@"Accepted"];
+                [self startNavigation];
                 
-                if (![[UIApplication sharedApplication] canOpenURL:
-                      [NSURL URLWithString:@"comgooglemaps://"]]) {
-                    NSLog(@"Your Device does not have Google Maps");
-                }
-                
-                else { // If device has Google Maps
-                    
-                    //1. Get guest's current location
-                    
-                    
-                    [self.locationManager setAllowsBackgroundLocationUpdates:YES];
-                    
-                    [self.locationManager startUpdatingLocation];
-                    
-                    
-                    
-                    while(currentLatitude == 0.0 && currentLongitude == 0.0){ // Wait till latitude and longitude gets populated
-                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-                    }
-                    
-                    NSLog(@"Current Latitude is %f",currentLatitude);
-                    NSLog(@"Current Longitude is %f",currentLongitude);
-                    
-                    
-                    NSString *newAddOneString = [ _hostAddrLineOne stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-                    NSString *newAddTwoString = [ _hostAddrLineTwo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-                    NSString *newAddCityString = [ _hostAddrCity stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-                    
-                    NSString *destAddr = [[NSString alloc]init];
-                    
-                    if([_hostAddrLineTwo length] > 0) { // If address Line 2 provided
-                        destAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneString,newAddTwoString,newAddCityString,_hostAddrZip];
-                    }
-                    
-                    else { // If address Line 2 NOT provided
-                        destAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneString,newAddCityString,_hostAddrZip];
-                    }
-                    
-                    
-                    NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%@&directionsmode=driving",currentLatitude,currentLongitude,destAddr];
-                    
-                    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
-                    
-                    
-                }
-                
-                
-                [self.popupController dismissPopupControllerAnimated:YES];
-                self.acceptOrDeclineLabel.text = @"Invitation Accepted";
-                self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
-                
-                
-                [self performSelector:@selector(loadingNextView)
-                           withObject:nil afterDelay:3.0f];
-
-                
-                //Open of Maps part Ends
+               
             }
             
-            
+            if (status == kCLAuthorizationStatusDenied) {
                 
-            
-
+                NSLog(@"Denied location when start to Host tapped");
+               // [self updateDB:@"NOT_PERMITTED" withInvitationStatus:@"Accepted"];
+                
+                UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Location Off, turn on from Settings" preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * action){
+                    [self startNavigation];
+                    [self.popupController dismissPopupControllerAnimated:YES];
+                }];
+                
+                [ac addAction:aa];
+                [self presentViewController:ac animated:YES completion:nil];
+                
+                
+            }
             
             
              
@@ -408,15 +366,9 @@ float currentLongitude = 0.0;
     goBackButton.layer.cornerRadius = 4;
     goBackButton.selectionHandler = ^(CNPPopupButton *goBackButton){
         
-        CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-        
-        if ((status == kCLAuthorizationStatusAuthorizedAlways) || (status == kCLAuthorizationStatusDenied)) {
-            [self updateDB:@"NOT_STARTED" withPermission:@"YES" withInvitationStatus:@"Accepted"];
-        }
-        
-        else {
-            [self updateDB:@"NOT_STARTED" withPermission:@"NO" withInvitationStatus:@"Accepted"];
-        }
+       
+            [self updateDB:@"NOT_STARTED" withInvitationStatus:@"Accepted"];
+       
         
         
         
@@ -448,10 +400,75 @@ float currentLongitude = 0.0;
 }
 
 
+-(void)startNavigation {
+    
+    // Open of Maps Part starts
+    
+    //Check the availability of the Google Maps app on the device
+    
+    if (![[UIApplication sharedApplication] canOpenURL:
+          [NSURL URLWithString:@"comgooglemaps://"]]) {
+        NSLog(@"Your Device does not have Google Maps");
+    }
+    
+    else { // If device has Google Maps
+        
+        //1. Get guest's current location
+        
+        
+        [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+        
+        [self.locationManager startUpdatingLocation];
+        
+        
+        
+        while(currentLatitude == 0.0 && currentLongitude == 0.0){ // Wait till latitude and longitude gets populated
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        }
+        
+        NSLog(@"Current Latitude is %f",currentLatitude);
+        NSLog(@"Current Longitude is %f",currentLongitude);
+        
+        
+        NSString *newAddOneString = [ _hostAddrLineOne stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        NSString *newAddTwoString = [ _hostAddrLineTwo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        NSString *newAddCityString = [ _hostAddrCity stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        
+        NSString *destAddr = [[NSString alloc]init];
+        
+        if([_hostAddrLineTwo length] > 0) { // If address Line 2 provided
+            destAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneString,newAddTwoString,newAddCityString,_hostAddrZip];
+        }
+        
+        else { // If address Line 2 NOT provided
+            destAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneString,newAddCityString,_hostAddrZip];
+        }
+        
+        
+        NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%@&directionsmode=driving",currentLatitude,currentLongitude,destAddr];
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
+        
+        
+    }
+    
+    
+    [self.popupController dismissPopupControllerAnimated:YES];
+    //NSLog(@"Block for button: %@", startToHostPlaceButton.titleLabel.text);
+    self.acceptOrDeclineLabel.text = @"Invitation Accepted";
+    self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+    
+    
+    [self performSelector:@selector(loadingNextView)
+               withObject:nil afterDelay:3.0f];
+    
+    
+    //Open of Maps part Ends
+    
+}
 
 
--(void)updateDB :(NSString *)guestLocationStatus  withPermission:(NSString *)permissionAsked
-withInvitationStatus:(NSString *)guestReply
+-(void)updateDB :(NSString *)guestLocationStatus withInvitationStatus:(NSString *)guestReply
 {
 
 // Update DB to Accepted
@@ -494,7 +511,6 @@ withInvitationStatus:(NSString *)guestReply
                                @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                @"Guest Location Status" : guestLocationStatus,
-                               @"Guest Location Permission Asked" : permissionAsked,
                                };//Dict post
     
     NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
@@ -538,107 +554,16 @@ withInvitationStatus:(NSString *)guestReply
     NSLog(@"PERMISSION DENIED");
 }
 
--(NSString*) didAskPermission:(NSString *)key{
-    
-    __block NSMutableString *result = [[NSMutableString alloc]init];
-    
-    [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        NSDictionary *dict = snapshot.value;
-        [result setString:[dict valueForKey:@"Guest Location Permission Asked"]];
-        
-    }];
-    
-    NSLog(@"RESULT FROM didAskPermission %@",result);
-    return result;
-    
-}
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
     
     
      if (status == kCLAuthorizationStatusDenied) {
-         [self updateDB:@"NOT_PERMITTED" withPermission:@"YES" withInvitationStatus:@"Accepted"];
+         
+       NSLog(@"Denied location from delegate");
          [self.popupController dismissPopupControllerAnimated:YES];
-         self.acceptOrDeclineLabel.text = @"Invitation Accepted";
-         self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
-         [self performSelector:@selector(loadingNextView)
-                    withObject:nil afterDelay:3.0f];
-       
     }
     
-    
-    else if ((status == kCLAuthorizationStatusAuthorizedAlways) && [[self didAskPermission:_key] isEqualToString:@"NO"]) {
-        
-        [self updateDB:@"IN_TRANSIT" withPermission:@"YES" withInvitationStatus:@"Accepted"];
-        
-        // Open of Maps Part starts
-        
-        //Check the availability of the Google Maps app on the device
-        
-        if (![[UIApplication sharedApplication] canOpenURL:
-              [NSURL URLWithString:@"comgooglemaps://"]]) {
-            NSLog(@"Your Device does not have Google Maps");
-        }
-        
-        else { // If device has Google Maps
-            
-            //1. Get guest's current location
-            
-            
-            [self.locationManager setAllowsBackgroundLocationUpdates:YES];
-            
-            [self.locationManager startUpdatingLocation];
-            
-            
-            
-            while(currentLatitude == 0.0 && currentLongitude == 0.0){ // Wait till latitude and longitude gets populated
-                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-            }
-            
-            NSLog(@"Current Latitude is %f",currentLatitude);
-            NSLog(@"Current Longitude is %f",currentLongitude);
-            
-            
-            NSString *newAddOneString = [ _hostAddrLineOne stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-            NSString *newAddTwoString = [ _hostAddrLineTwo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-            NSString *newAddCityString = [ _hostAddrCity stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-            
-            NSString *destAddr = [[NSString alloc]init];
-            
-            if([_hostAddrLineTwo length] > 0) { // If address Line 2 provided
-                destAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneString,newAddTwoString,newAddCityString,_hostAddrZip];
-            }
-            
-            else { // If address Line 2 NOT provided
-                destAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneString,newAddCityString,_hostAddrZip];
-            }
-            
-            
-            NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%@&directionsmode=driving",currentLatitude,currentLongitude,destAddr];
-            
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
-            
-            
-        }
-        
-        
-        [self.popupController dismissPopupControllerAnimated:YES];
-        self.acceptOrDeclineLabel.text = @"Invitation Accepted";
-        self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
-        
-        
-        [self performSelector:@selector(loadingNextView)
-                   withObject:nil afterDelay:3.0f];
-        
-        
-        //Open of Maps part Ends
-    
-    
-    }
-
-
-
 
 
 }
@@ -707,7 +632,6 @@ withInvitationStatus:(NSString *)guestReply
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"REACHED",
-                                       @"Guest Location Permission Asked" : @"YES",
                                        };//Dict post
             
             NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
@@ -750,7 +674,6 @@ withInvitationStatus:(NSString *)guestReply
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"IN_TRANSIT",
-                                       @"Guest Location Permission Asked" : @"YES",
                                        };//Dict post
             
             NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};

@@ -86,6 +86,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    // Set the current date and time as date
+    
+    
+    NSDateFormatter *currentDateFormatter = [[NSDateFormatter alloc] init];
+    [currentDateFormatter setDateFormat:@"hh:mm a"];
+    NSString *currentTime = [currentDateFormatter stringFromDate:[NSDate date]];
+    
+    self.startTime = currentTime;
+    NSLog(@"Start Time on load %@", self.startTime);
+    
+    self.endTime = currentTime;
+    
+    NSLog(@"End Time on load %@", self.endTime);
+    
     
     self.sendAddressBookInviteBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
     
@@ -781,7 +795,6 @@
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"NOT_STARTED",
-                                       @"Guest Location Permission Asked" : @"NO",
                                        };//Dict post
                 
                 
@@ -936,7 +949,6 @@
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"NOT_STARTED",
-                                       @"Guest Location Permission Asked" : @"NO",
                                        };
                 NSTimeInterval timeInSeconds = [[NSDate date] timeIntervalSince1970];
                 NSString *intervalString = [NSString stringWithFormat:@"%f", timeInSeconds];

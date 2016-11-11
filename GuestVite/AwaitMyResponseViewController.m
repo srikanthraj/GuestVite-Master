@@ -12,6 +12,7 @@
 #import "SendNewInviteViewController.h"
 #import "CNPPopupController.h"
 #import <MessageUI/MessageUI.h>
+#import "HomePageViewController.h"
 
 @import Firebase;
 
@@ -322,8 +323,13 @@ NSArray *keys;
 
 - (IBAction)Back
 {
-    [self dismissViewControllerAnimated:YES completion:nil]; // ios 6
-}
+    HomePageViewController *homePageVC =
+    [[HomePageViewController alloc] initWithNibName:@"HomePageViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:homePageVC animated:YES];
+    
+    [self presentViewController:homePageVC animated:YES completion:nil];}
 
 
 - (void)didReceiveMemoryWarning {

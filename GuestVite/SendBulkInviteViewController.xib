@@ -102,19 +102,6 @@
                         <!--2016-10-24 00:58:38 +0000-->
                     </date>
                 </datePicker>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invite For Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qVX-FB-pyw">
-                    <rect key="frame" x="14" y="269" width="148" height="40"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="141" id="G4W-fC-zCu"/>
-                        <constraint firstAttribute="height" constant="40" id="qTR-Lx-nMd"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
-                    <connections>
-                        <action selector="forDateBeginEdit:" destination="-1" eventType="touchDown" id="MEa-XA-EyK"/>
-                        <outlet property="delegate" destination="-1" id="KTA-Fy-IuU"/>
-                    </connections>
-                </textField>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invitation valid till Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xco-US-HjC">
                     <rect key="frame" x="14" y="317" width="148" height="40"/>
                     <constraints>
@@ -158,6 +145,19 @@
                         <action selector="segmentTapped:" destination="-1" eventType="valueChanged" id="yw9-KP-Rbb"/>
                     </connections>
                 </segmentedControl>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Invite For Date" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qVX-FB-pyw">
+                    <rect key="frame" x="14" y="269" width="148" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="141" id="G4W-fC-zCu"/>
+                        <constraint firstAttribute="height" constant="40" id="qTR-Lx-nMd"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <action selector="forDateBeginEdit:" destination="-1" eventType="touchDown" id="MEa-XA-EyK"/>
+                        <outlet property="delegate" destination="-1" id="KTA-Fy-IuU"/>
+                    </connections>
+                </textField>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
