@@ -53,6 +53,8 @@
 
 @implementation SendNewInviteViewController
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -280,6 +282,14 @@
 }
 
 
+//Utility Function to convert String to ONLY date without time
+
+-(NSDate *)dateToFormatedDateValidate:(NSString *)dateStr {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
+    return [dateFormatter dateFromString:dateStr];
+}
+
 
 // Prints out the month and year displaying on the calendar
 -(void) SACalendar:(SACalendar *)calendar didDisplayCalendarForMonth:(int)month year:(int)year{
@@ -287,7 +297,157 @@
 }
 
 
+-(BOOL) checkDuplicateInvite{
+    
 
+   // NSLog(@"INVITE FOR DATE in CHK DUPLICATE %@",self.inviteForDateText.text);
+    //NSLog(@"INVITE TILL DATE in CHK DUPLICATE %@",self.inviteExpireDateText.text);
+    
+    
+    // Get Current Logged in Users E- Mail and phone
+    
+    __block NSMutableString *currentUserEMail = [[NSMutableString alloc]init];
+    __block NSMutableString *currentUserPhone = [[NSMutableString alloc]init];
+    __block BOOL isDuplicateInvite = FALSE;
+    __block NSMutableArray *arr = [[NSMutableArray alloc]init];
+    
+    __block NSUInteger length =0;
+    
+     __block NSMutableArray *myfirstNameData = [[NSMutableArray alloc] init];
+    
+    
+    
+    NSString *startDateTime = [[NSString alloc] init];
+    NSString *endDateTime = [[NSString alloc] init];
+    
+    NSString *userID = [FIRAuth auth].currentUser.uid;
+    
+    [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dict = snapshot.value;
+        [currentUserEMail setString: [dict valueForKey:@"EMail"]];
+         [currentUserPhone setString: [dict valueForKey:@"Phone"]];
+         
+    }];
+    
+    while([currentUserEMail length] == 0 && [currentUserPhone length] == 0){
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+    
+    
+    
+    
+    [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dict = snapshot.value;
+        
+        
+        NSArray * arr1 = [dict allValues];
+       arr = [arr initWithArray:arr1];
+        
+ }];
+    
+    NSLog(@"ARR is %@",arr);
+    
+    /*
+        length = [arr count];
+        for(int i=0;i < [arr count];i++)
+        {
+            
+            [myfirstNameData addObject: arr[i][@"Sender First Name"]];
+            startDateTime = arr[i][@"Invite For Date"];
+            endDateTime = arr[i][@"Invite Valid Till Date"];
+            
+            NSLog(@"Printing Guest em entered %@",self.guestEMailText.text);
+            NSLog(@"Printing Receiver em in DB %@",arr[i][@"Receiver EMail"]);
+            
+            NSLog(@"Printing Guest ph entered %@",self.guestPhoneText.text);
+            NSLog(@"Printing Receiver ph in DB %@",arr[i][@"Receiver Phone"]);
+            
+            NSLog(@"Printing Host logged in em  %@",currentUserEMail);
+            NSLog(@"Printing Host em in DB %@",arr[i][@"Sender EMail"]);
+            
+            NSLog(@"Printing Host logged in  ph  %@",currentUserPhone);
+            NSLog(@"Printing Host ph in DB %@",arr[i][@"Sender Phone"]);
+            
+            
+            
+            NSLog(@"Printing current invite for date %@",[[startDateTime componentsSeparatedByString:@" "]objectAtIndex:0]);
+            
+            NSLog(@"Printing current invite To date %@",[[endDateTime componentsSeparatedByString:@" "]objectAtIndex:0]);
+            
+            
+            // IF 1 : Check if Dates Match
+            
+            if(([self.inviteForDateText.text isEqualToString:[[startDateTime componentsSeparatedByString:@" "]objectAtIndex:0]]) && ([self.inviteExpireDateText.text isEqualToString:[[endDateTime componentsSeparatedByString:@" "]objectAtIndex:0]]))
+            {
+            
+                NSLog(@"Dates Match");
+                
+            if([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"]){ // IF2 E-Mail BULK , check only phone
+                
+                if([self.guestPhoneText.text isEqualToString:arr[i][@"Receiver Phone"]] && [currentUserEMail isEqualToString:arr[i][@"Sender EMail"]] && [currentUserPhone isEqualToString:arr[i][@"Sender Phone"]])
+                    
+                {
+                    NSLog(@"E_Mail bulk - Rest all matches");
+                    isDuplicateInvite = TRUE;
+                    NSLog(isDuplicateInvite ? @"Yes" : @"No");
+                    break;
+                
+                }
+            
+            }
+            
+            else if([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"]){ //IF2  Phone BULK , check only E-Mail
+                
+                if([self.guestEMailText.text isEqualToString:arr[i][@"Receiver EMail"]] && [currentUserEMail isEqualToString:arr[i][@"Sender EMail"]] && [currentUserPhone isEqualToString:arr[i][@"Sender Phone"]])
+                    
+                {
+                    NSLog(@"Phone bulk - Rest all matches");
+                    isDuplicateInvite = TRUE;
+                    NSLog(isDuplicateInvite ? @"Yes" : @"No");
+                    break;
+                }
+                
+                
+            }
+            
+            ////IF2 Both NOT Bulk
+            else if(![arr[i][@"Receiver EMail"] isEqualToString:@"BULK"] && ![arr[i][@"Receiver Phone"] isEqualToString:@"BULK"]){
+                
+                if([self.guestEMailText.text isEqualToString:arr[i][@"Receiver EMail"]] && [self.guestPhoneText.text isEqualToString:arr[i][@"Receiver Phone"]] && [currentUserEMail isEqualToString:arr[i][@"Sender EMail"]] && [currentUserPhone isEqualToString:arr[i][@"Sender Phone"]])
+                    
+                {
+                    
+                    NSLog(@"Rest all matches");
+                    
+                    isDuplicateInvite = TRUE;
+                    NSLog(isDuplicateInvite ? @"Yes" : @"No");
+                    break;
+                    
+                }
+                
+            } // IF2 Ends
+            
+   
+            
+            
+            
+            } //IF1 Ends
+            
+           
+        }
+        NSLog(isDuplicateInvite ? @"Yes" : @"No");
+   
+    
+    while([myfirstNameData count]< length) {
+        NSLog(@"Looping");
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+     */
+    
+    return isDuplicateInvite;
+}
 
 - (IBAction)segmentTapped:(id)sender {
 
@@ -390,9 +550,11 @@ if(self.segmentControl.selectedSegmentIndex ==1){
     
     else{
         
+        
         if([fromDate compare:toDate] == NSOrderedAscending) // ONLY if from is earlier
         {
-        
+            NSLog(@"IN MAIN CALLING PLACE %@",[self checkDuplicateInvite] ? @"Yes" : @"No");
+            
         self.ref = [[FIRDatabase database] reference];
         
     
