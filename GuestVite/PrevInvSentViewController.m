@@ -167,8 +167,8 @@ NSArray *piskeys;
             endDateTime = arr[i][@"Invite Valid Till Date"];
             NSLog(@"END DATE TIME %@",endDateTime);
             
-            if([currentUserEMail length] > 0 && ([arr[i][@"Sender EMail"] isEqualToString:currentUserEMail])
-               && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
+            if([currentUserEMail length] > 0 && ([arr[i][@"Sender EMail"] isEqualToString:currentUserEMail]))
+               //&& ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
             {
                 
                 NSLog(@"INSIDE EMAIL");
@@ -207,8 +207,8 @@ NSArray *piskeys;
             
             
             
-            if([currentUserPhone length] > 0 && ([arr[i][@"Sender Phone"] isEqualToString:currentUserPhone])
-               && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
+            if([currentUserPhone length] > 0 && ([arr[i][@"Sender Phone"] isEqualToString:currentUserPhone]))
+               //&& ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
             {
                 
                 if([arr[i][@"Receiver EMail"] length] == 0) {
@@ -351,13 +351,13 @@ NSArray *piskeys;
     cell.delegate = self;
     
     
+    
     if(!([[pisGuestEMailData objectAtIndex:indexPath.row] isEqualToString:@"Not Specified"])) {
     cell.guestEMailLabel.text = [pisGuestEMailData objectAtIndex:indexPath.row];
     }
     
     else {
-        [cell.guestEMailLabel setHidden:TRUE];
-        [cell.guestEMail setHidden:TRUE];
+        cell.guestEMailLabel.text = @"Not Specified";
     }
     
     if(!([[pisGuestPhoneData objectAtIndex:indexPath.row] isEqualToString:@"Not Specified"])) {
@@ -365,8 +365,7 @@ NSArray *piskeys;
     }
     
     else {
-        [cell.guestPhoneLabel setHidden:TRUE];
-        [cell.guestPhone setHidden:TRUE];
+        cell.guestPhoneLabel.text = @"Not Specified";
     }
     
     
