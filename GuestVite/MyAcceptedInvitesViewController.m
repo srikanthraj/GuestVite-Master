@@ -42,7 +42,7 @@ NSMutableArray *maifirstNameData;
 NSMutableArray *mailastNameData;
 NSMutableArray *maihostEMailData;
 NSMutableArray *maihostPhoneData;
-
+NSMutableArray *maiGuestLocationStatusData;
 NSMutableArray *maihostAddLOne;
 NSMutableArray *maihostAddLTwo;
 NSMutableArray *maihostAddCity;
@@ -83,7 +83,7 @@ NSString *myAcceptedInviteSelcetedKey;
     mailastNameData = [[NSMutableArray alloc]init];
     maihostEMailData = [[NSMutableArray alloc]init];
     maihostPhoneData = [[NSMutableArray alloc]init];
-    
+    maiGuestLocationStatusData = [[NSMutableArray alloc]init];
     maihostAddLOne = [[NSMutableArray alloc]init];
     maihostAddLTwo = [[NSMutableArray alloc]init];
     maihostAddCity = [[NSMutableArray alloc]init];
@@ -145,7 +145,7 @@ NSString *myAcceptedInviteSelcetedKey;
     __block NSMutableArray *mylastNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myhostEMailData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myhostPhoneData = [[NSMutableArray alloc] init];
-    
+    __block NSMutableArray *myGuestLocationStatusData = [[NSMutableArray alloc] init];
     
     __block NSMutableArray *myhostAddLOne = [[NSMutableArray alloc] init];
     __block NSMutableArray *myhostAddLTwo = [[NSMutableArray alloc] init];
@@ -219,7 +219,7 @@ NSString *myAcceptedInviteSelcetedKey;
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
                 [myhostEMailData addObject:arr[i][@"Sender EMail"]];
                 [myhostPhoneData addObject:arr[i][@"Sender Phone"]];
-                
+                [myGuestLocationStatusData addObject:arr[i][@"Guest Location Status"]];
                 [myhostAddLOne addObject: arr[i][@"Sender Address1"]];
                 [myhostAddLTwo addObject:arr[i][@"Sender Address2"]];
                 [myhostAddCity addObject:arr[i][@"Sender City"]];
@@ -246,7 +246,7 @@ NSString *myAcceptedInviteSelcetedKey;
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
                 [myhostEMailData addObject:arr[i][@"Sender EMail"]];
                 [myhostPhoneData addObject:arr[i][@"Sender Phone"]];
-                
+                [myGuestLocationStatusData addObject:arr[i][@"Guest Location Status"]];
                 
                 [myhostAddLOne addObject: arr[i][@"Sender Address1"]];
                 [myhostAddLTwo addObject:arr[i][@"Sender Address2"]];
@@ -277,6 +277,7 @@ NSString *myAcceptedInviteSelcetedKey;
                     [mylastNameData addObject: @"No Invites"];
                     [myhostEMailData addObject: @"No Invites"];
                     [myhostPhoneData addObject: @"No Invites"];
+                    [myGuestLocationStatusData addObject: @"No Invites"];
                     
                     [myhostAddLOne addObject: @"No Invites"];
                     [myhostAddLTwo addObject: @"No Invites"];
@@ -299,7 +300,7 @@ NSString *myAcceptedInviteSelcetedKey;
         
     }];
     
-    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0  && [myhostAddLOne count]== 0 && [myhostAddCity count]== 0 && [myhostAddZip count]== 0) { // Host Address line 2 is optional and hence not required here
+    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0 && [myGuestLocationStatusData count]== 0 && [myhostAddLOne count]== 0 && [myhostAddCity count]== 0 && [myhostAddZip count]== 0) { // Host Address line 2 is optional and hence not required here
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
@@ -311,7 +312,7 @@ NSString *myAcceptedInviteSelcetedKey;
         [mailastNameData addObject:[mylastNameData objectAtIndex:i]];
         [maihostEMailData addObject:[myhostEMailData objectAtIndex:i]];
         [maihostPhoneData addObject:[myhostPhoneData objectAtIndex:i]];
-        
+        [maiGuestLocationStatusData addObject:[myGuestLocationStatusData objectAtIndex:i]];
         [maihostAddLOne addObject:[myhostAddLOne objectAtIndex:i]];
         [maihostAddLTwo addObject:[myhostAddLTwo objectAtIndex:i]];
         [maihostAddCity addObject:[myhostAddCity objectAtIndex:i]];
@@ -432,6 +433,19 @@ NSString *myAcceptedInviteSelcetedKey;
     NSLog(@"MY SELECTED KEY %@",myAcceptedInviteSelcetedKey);
     
     NSLog(@"MY SELECTED ROW NUMBER %ld",(long)mySelectedRowNumber);
+    
+    if([[maiGuestLocationStatusData objectAtIndex:mySelectedRowNumber] isEqualToString:@"REACHED"]) {
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Looks like you have already reached this Host's Location" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+    }
+    
+   else
+   {
     
     // Show popup
     
@@ -651,6 +665,8 @@ NSString *myAcceptedInviteSelcetedKey;
     self.popupController.theme.popupStyle = CNPPopupStyleCentered;
     self.popupController.delegate = self;
     [self.popupController presentPopupControllerAnimated:YES];
+       
+   }// MAIN ELSE ENDS
 
     
 }
