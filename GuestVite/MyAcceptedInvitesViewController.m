@@ -1,0 +1,347 @@
+//
+//  MyAcceptedInvitesViewController.m
+//  GuestVite
+//
+//  Created by admin on 2016-11-12.
+//  Copyright © 2016 admin. All rights reserved.
+//
+
+#import "MyAcceptedInvitesViewController.h"
+#import "SimpleTableCellTableViewCell.h"
+#import "CNPPopupController.h"
+#import "HomePageViewController.h"
+
+@import Firebase;
+
+@interface MyAcceptedInvitesViewController () <UITableViewDelegate, UITableViewDataSource>
+
+@property (strong, nonatomic) FIRDatabaseReference *ref;
+
+@property (strong, nonatomic) IBOutlet UITableView *tableView;
+@property (strong, nonatomic) IBOutlet UINavigationBar *myAcceptedInvitesBack;
+@property (strong, nonatomic) IBOutlet UILabel *backLabel;
+@property (strong, nonatomic) IBOutlet UIBarButtonItem *backButton;
+
+@property (nonatomic, strong) CNPPopupController *popupController;
+
+@end
+
+@implementation MyAcceptedInvitesViewController
+
+
+NSMutableArray *firstNameData;
+NSMutableArray *lastNameData;
+NSMutableArray *hostEMailData;
+NSMutableArray *hostPhoneData;
+
+NSMutableArray *hostAddLOne;
+NSMutableArray *hostAddLTwo;
+NSMutableArray *hostAddCity;
+NSMutableArray *hostAddZip;
+
+
+
+NSMutableArray *nameData;
+NSMutableArray *invitedFromData;
+NSMutableArray *invitedTillData;
+NSMutableArray *personalMessageData;
+NSMutableArray *keyData;
+
+NSArray *keys;
+
+-(NSDate *)dateToFormatedDate:(NSString *)dateStr {
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
+    NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+    
+    [dateFormatter setTimeZone:timeZone];
+    return [dateFormatter dateFromString:dateStr];
+}
+
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
+    
+    firstNameData = [[NSMutableArray alloc]init];
+    lastNameData = [[NSMutableArray alloc]init];
+    hostEMailData = [[NSMutableArray alloc]init];
+    hostPhoneData = [[NSMutableArray alloc]init];
+    
+    hostAddLOne = [[NSMutableArray alloc]init];
+    hostAddLTwo = [[NSMutableArray alloc]init];
+    hostAddCity = [[NSMutableArray alloc]init];
+    hostAddZip = [[NSMutableArray alloc]init];
+    
+    
+    
+    invitedFromData = [[NSMutableArray alloc]init];
+    invitedTillData = [[NSMutableArray alloc]init];
+    personalMessageData = [[NSMutableArray alloc]init];
+    keyData = [[NSMutableArray alloc]init];
+    
+    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
+    self.tableView.backgroundColor = background;
+    
+    
+    self.myAcceptedInvitesBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
+    
+    [self.myAcceptedInvitesBack setFrame:CGRectMake(0, 0, 400, 64)];
+    
+    self.myAcceptedInvitesBack.translucent = YES;
+    
+    
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
+    [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    
+    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
+                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
+    
+    
+    
+    
+    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
+    self.backLabel.textColor = [UIColor whiteColor];
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    
+    
+    
+    self.navigationItem.leftBarButtonItem = _backButton;
+    
+    [self.view addSubview:_myAcceptedInvitesBack];
+    
+    keys = [[NSArray alloc]init];
+    
+    NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
+    // or @"yyyy-MM-dd hh:mm:ss a" if you prefer the time with AM/PM
+    //NSLog(@"DATE IS %@",[NSDate date]);
+    
+    
+    NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
+    
+    
+    __block NSMutableArray *myfirstNameData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *mylastNameData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostEMailData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostPhoneData = [[NSMutableArray alloc] init];
+    
+    
+    __block NSMutableArray *myhostAddLOne = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostAddLTwo = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostAddCity = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostAddZip = [[NSMutableArray alloc] init];
+    
+    
+    __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myPersonalMessageData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myKeyData = [[NSMutableArray alloc] init];
+    
+    
+    __block NSString *currentUserEMail = [[NSString alloc] init];
+    __block NSString *currentUserPhone = [[NSString alloc] init];
+    
+    __block NSUInteger inviteTableIterator;
+    
+    __block NSUInteger inviteTableLength;
+    
+    self.ref = [[FIRDatabase database] reference];
+    
+    NSString *userID = [FIRAuth auth].currentUser.uid;
+    
+    [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dictUser = snapshot.value;
+        NSArray * arrUser = [dictUser allValues];
+        //NSLog(@"ARR USER %@",arrUser);
+        
+        currentUserEMail =  [NSString stringWithFormat:@"%@",arrUser[0]];
+        currentUserPhone  = [NSString stringWithFormat:@"%@",arrUser[3]];
+        
+        
+    }];
+    while([currentUserEMail length]== 0 || [currentUserPhone length] ==0) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+    
+    // NSLog(@"Current User Email %@",currentUserEMail);
+    // NSLog(@"Current User Phone %@",currentUserPhone);
+    
+    
+    [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dict = snapshot.value;
+        //NSString *startDateTime  = [[NSString alloc] init];
+        NSString *endDateTime = [[NSString alloc] init];
+        NSArray * arr = [dict allValues];
+        keys = [dict allKeys];
+        //NSLog(@"Array %@",arr[0][@"Sender First Name"]);
+        
+        // NSLog(@"Login date is %@",loginDate);
+        
+        inviteTableLength = [arr count];
+        //NSLog(@"ARR count %lu",(unsigned long)[arr count]);
+        
+        for(int i=0;i < [arr count];i++)
+        {
+            
+            endDateTime = arr[i][@"Invite Valid Till Date"];
+            
+            //NSLog(@"PESONAl MESSAGE at iteattion %d IS %@",i,arr[i][@"Mesage From Sender"]);
+            
+            if([currentUserEMail length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Accepted"] && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail])
+               && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
+            {
+                
+                //NSLog(@"INSIDE EMAIL");
+                
+                [myfirstNameData addObject: arr[i][@"Sender First Name"]];
+                [mylastNameData addObject:arr[i][@"Sender Last Name"]];
+                [myhostEMailData addObject:arr[i][@"Sender EMail"]];
+                [myhostPhoneData addObject:arr[i][@"Sender Phone"]];
+                
+                [myhostAddLOne addObject: arr[i][@"Sender Address1"]];
+                [myhostAddLTwo addObject:arr[i][@"Sender Address2"]];
+                [myhostAddCity addObject:arr[i][@"Sender City"]];
+                [myhostAddZip addObject:arr[i][@"Sender Zip"]];
+                
+                
+                
+                
+                [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
+                [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
+                [myPersonalMessageData addObject:arr[i][@"Mesage From Sender"]];
+                [myKeyData addObject:keys[i]];
+                continue;
+                
+            }
+            
+            
+            
+            if([currentUserPhone length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Accepted"] && ([arr[i][@"Receiver Phone"] isEqualToString:currentUserPhone])
+               && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
+            {
+                
+                [myfirstNameData addObject: arr[i][@"Sender First Name"]];
+                [mylastNameData addObject:arr[i][@"Sender Last Name"]];
+                [myhostEMailData addObject:arr[i][@"Sender EMail"]];
+                [myhostPhoneData addObject:arr[i][@"Sender Phone"]];
+                
+                
+                [myhostAddLOne addObject: arr[i][@"Sender Address1"]];
+                [myhostAddLTwo addObject:arr[i][@"Sender Address2"]];
+                [myhostAddCity addObject:arr[i][@"Sender City"]];
+                [myhostAddZip addObject:arr[i][@"Sender Zip"]];
+                
+                
+                [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
+                [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
+                [myPersonalMessageData addObject:arr[i][@"Mesage From Sender"]];
+                [myKeyData addObject:keys[i]];
+                
+                continue;
+                
+            }
+            
+            
+            
+            
+            
+            if(i == ([arr count]-1)){ // Check in case of last iteration and Add "No Invites" Only if no data is added to invites list
+                
+                
+                //NSLog(@"Last Iteration");
+                if([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0)
+                {
+                    [myfirstNameData addObject: @"No Invites"];
+                    [mylastNameData addObject: @"No Invites"];
+                    [myhostEMailData addObject: @"No Invites"];
+                    [myhostPhoneData addObject: @"No Invites"];
+                    
+                    [myhostAddLOne addObject: @"No Invites"];
+                    [myhostAddLTwo addObject: @"No Invites"];
+                    [myhostAddCity addObject: @"No Invites"];
+                    [myhostAddZip addObject: @"No Invites"];
+                    
+                    
+                    
+                    [myinvitedFromData addObject: @"No Invites"];
+                    [myinvitedTillData addObject: @"No Invites"];
+                    [myPersonalMessageData addObject: @"No Invites"];
+                    [myKeyData addObject:@"-1"];
+                }
+                
+            }
+            
+            inviteTableIterator = i;
+            
+        }
+        
+    }];
+    
+    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0  && [myhostAddLOne count]== 0 && [myhostAddCity count]== 0 && [myhostAddZip count]== 0) { // Host Address line 2 is optional and hence not required here
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+    
+    // NSLog(@"Class %@",NSStringFromClass([firstNameData class]));
+    
+    
+    for(int i =0;i<[myinvitedFromData count];i++){
+        [firstNameData addObject:[myfirstNameData objectAtIndex:i]];
+        [lastNameData addObject:[mylastNameData objectAtIndex:i]];
+        [hostEMailData addObject:[myhostEMailData objectAtIndex:i]];
+        [hostPhoneData addObject:[myhostPhoneData objectAtIndex:i]];
+        
+        [hostAddLOne addObject:[myhostAddLOne objectAtIndex:i]];
+        [hostAddLTwo addObject:[myhostAddLTwo objectAtIndex:i]];
+        [hostAddCity addObject:[myhostAddCity objectAtIndex:i]];
+        [hostAddZip addObject:[myhostAddZip objectAtIndex:i]];
+        
+        
+        [invitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
+        [invitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
+        [personalMessageData addObject:[myPersonalMessageData objectAtIndex:i]];
+        [keyData addObject:[myKeyData objectAtIndex:i]];
+    }
+    
+    
+    // NSLog(@"Key data is %@",keyData);
+    
+    // Do any additional setup after loading the view from its nib.
+        
+    
+}
+
+- (IBAction)Back
+{
+    HomePageViewController *homePageVC =
+    [[HomePageViewController alloc] initWithNibName:@"HomePageViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:homePageVC animated:YES];
+    
+    [self presentViewController:homePageVC animated:YES completion:nil];
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

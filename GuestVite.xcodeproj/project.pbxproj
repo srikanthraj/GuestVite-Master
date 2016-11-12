@@ -38,6 +38,8 @@
 		84267C6D1DC2C1600044ACF4 /* PrevInvRecvdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C6B1DC2C1600044ACF4 /* PrevInvRecvdViewController.xib */; };
 		84267C711DC2C9590044ACF4 /* PrevInvRecvdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C6F1DC2C9590044ACF4 /* PrevInvRecvdCell.m */; };
 		84267C721DC2C9590044ACF4 /* PrevInvRecvdCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C701DC2C9590044ACF4 /* PrevInvRecvdCell.xib */; };
+		8462B1521DD772EF003F553F /* MyAcceptedInvitesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8462B1501DD772EF003F553F /* MyAcceptedInvitesViewController.m */; };
+		8462B1531DD772EF003F553F /* MyAcceptedInvitesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8462B1511DD772EF003F553F /* MyAcceptedInvitesViewController.xib */; };
 		847340491DA937670038C047 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 847340481DA937670038C047 /* main.m */; };
 		8473404C1DA937670038C047 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473404B1DA937670038C047 /* AppDelegate.m */; };
 		8473404F1DA937670038C047 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473404E1DA937670038C047 /* ViewController.m */; };
@@ -126,6 +128,9 @@
 		84267C6E1DC2C9590044ACF4 /* PrevInvRecvdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrevInvRecvdCell.h; sourceTree = "<group>"; };
 		84267C6F1DC2C9590044ACF4 /* PrevInvRecvdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrevInvRecvdCell.m; sourceTree = "<group>"; };
 		84267C701DC2C9590044ACF4 /* PrevInvRecvdCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrevInvRecvdCell.xib; sourceTree = "<group>"; };
+		8462B14F1DD772EF003F553F /* MyAcceptedInvitesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAcceptedInvitesViewController.h; sourceTree = "<group>"; };
+		8462B1501DD772EF003F553F /* MyAcceptedInvitesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAcceptedInvitesViewController.m; sourceTree = "<group>"; };
+		8462B1511DD772EF003F553F /* MyAcceptedInvitesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAcceptedInvitesViewController.xib; sourceTree = "<group>"; };
 		847340441DA937670038C047 /* GuestVite.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuestVite.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		847340481DA937670038C047 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8473404A1DA937670038C047 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -320,6 +325,9 @@
 				84D53A4A1DCF8C8400FF7643 /* TrackMyGuestsCellTapped.h */,
 				84D53A4B1DCF8C8400FF7643 /* TrackMyGuestsCellTapped.m */,
 				84D53A4C1DCF8C8400FF7643 /* TrackMyGuestsCellTapped.xib */,
+				8462B14F1DD772EF003F553F /* MyAcceptedInvitesViewController.h */,
+				8462B1501DD772EF003F553F /* MyAcceptedInvitesViewController.m */,
+				8462B1511DD772EF003F553F /* MyAcceptedInvitesViewController.xib */,
 			);
 			path = GuestVite;
 			sourceTree = "<group>";
@@ -417,6 +425,7 @@
 				84267C681DC180A90044ACF4 /* AMRCellTapped.xib in Resources */,
 				8473405A1DA937680038C047 /* LaunchScreen.storyboard in Resources */,
 				84267C341DBBBF1C0044ACF4 /* DMLazyScrollView in Resources */,
+				8462B1531DD772EF003F553F /* MyAcceptedInvitesViewController.xib in Resources */,
 				84267C721DC2C9590044ACF4 /* PrevInvRecvdCell.xib in Resources */,
 				84D53A2F1DCE924A00FF7643 /* GuestMapViewController.xib in Resources */,
 				847340711DA977CD0038C047 /* HomePageViewController.xib in Resources */,
@@ -503,6 +512,7 @@
 				84D53A4D1DCF8C8400FF7643 /* TrackMyGuestsCellTapped.m in Sources */,
 				84267C6C1DC2C1600044ACF4 /* PrevInvRecvdViewController.m in Sources */,
 				8473407B1DA983F10038C047 /* TextFieldValidator.m in Sources */,
+				8462B1521DD772EF003F553F /* MyAcceptedInvitesViewController.m in Sources */,
 				84267C351DBBBF1C0044ACF4 /* SACalendar.m in Sources */,
 				847340701DA977CD0038C047 /* HomePageViewController.m in Sources */,
 				84267C331DBBBF1C0044ACF4 /* DateUtil.m in Sources */,

@@ -19,6 +19,7 @@
 #import "PrevInvSentViewController.h"
 #import "WaitingRespFromViewController.h"
 #import "TrackMyGuestsViewController.h"
+#import "MyAcceptedInvitesViewController.h"
 
 @import Firebase;
 @interface HomePageViewController ()
@@ -36,7 +37,7 @@
 
 @property (strong, nonatomic) IBOutlet HTPressableButton *awaitMyRespButton;
 
-@property (strong, nonatomic) IBOutlet HTPressableButton *settingsButton;
+@property (strong, nonatomic) IBOutlet HTPressableButton *myAcceptedInvitesButton;
 
 @property (strong, nonatomic) IBOutlet HTPressableButton *signOutButton;
 
@@ -136,12 +137,13 @@
     
     
     CGRect frame6 = CGRectMake(14, 449, 294, 30);
-    self.settingsButton = [[HTPressableButton alloc] initWithFrame:frame6 buttonStyle:HTPressableButtonStyleRounded];
-    [self.settingsButton setButtonColor:[UIColor ht_grassColor]];
-    [self.settingsButton setShadowColor:[UIColor ht_grassDarkColor]];
-    [self.settingsButton setTitle:@"Settings" forState:UIControlStateNormal];
-    
-    [self.view addSubview:self.settingsButton];
+    self.myAcceptedInvitesButton = [[HTPressableButton alloc] initWithFrame:frame6 buttonStyle:HTPressableButtonStyleRounded];
+    [self.myAcceptedInvitesButton setButtonColor:[UIColor ht_grassColor]];
+    [self.myAcceptedInvitesButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.myAcceptedInvitesButton setTitle:@"My Accepted Invites" forState:UIControlStateNormal];
+    [self.myAcceptedInvitesButton addTarget:self action:@selector(myAcceptedInvitesButtonPressed:)
+                     forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.myAcceptedInvitesButton];
 
 
     
@@ -238,6 +240,17 @@ PrevInvRecvdViewController *prevInvRecvdVC =
 
 
 
+- (void)myAcceptedInvitesButtonPressed:(UIButton *)button {
+    
+    MyAcceptedInvitesViewController *myaccinvVC =
+    [[MyAcceptedInvitesViewController alloc] initWithNibName:@"MyAcceptedInvitesViewController" bundle:nil];
+    
+    //hPViewController.userName  = eMailEntered;
+    [self.navigationController pushViewController:myaccinvVC animated:YES];
+    
+    [self presentViewController:myaccinvVC animated:YES completion:nil];
+    
+}
 
 - (void)signOutButtonPressed:(UIButton *)button {
     

@@ -355,8 +355,7 @@ NSArray *tmgkeys;
     }
     
     else {
-        [cell.guestEMailLabel setHidden:TRUE];
-        [cell.guestEMail setHidden:TRUE];
+       cell.guestEMailLabel.text = @"Not Specified";
     }
     
     if(!([[tmgGuestPhoneData objectAtIndex:indexPath.row] isEqualToString:@"Not Specified"])) {
@@ -364,8 +363,7 @@ NSArray *tmgkeys;
     }
     
     else {
-        [cell.guestPhoneLabel setHidden:TRUE];
-        [cell.guestPhone setHidden:TRUE];
+        cell.guestPhoneLabel.text = @"Not Specified";
     }
     
     

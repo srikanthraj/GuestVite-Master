@@ -8,10 +8,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomePageViewController">
             <connections>
                 <outlet property="awaitMyRespButton" destination="cWv-Kp-17W" id="nn0-o6-T2S"/>
+                <outlet property="myAcceptedInvitesButton" destination="r52-6m-HPl" id="upm-BE-wGZ"/>
                 <outlet property="prevInvRecvdButton" destination="UgB-TD-N5f" id="Qqk-Fr-MlM"/>
                 <outlet property="prevInvSentButton" destination="kBJ-8O-XXG" id="JHV-bC-SyG"/>
                 <outlet property="sendNewInviteButton" destination="SwP-p9-HOv" id="OEA-Bv-i2j"/>
-                <outlet property="settingsButton" destination="r52-6m-HPl" id="jP4-7f-7O5"/>
                 <outlet property="signOutButton" destination="DBC-ok-4aA" id="bDt-DX-B7D"/>
                 <outlet property="trackButton" destination="PQC-2U-kLg" id="sHJ-Y3-nZB"/>
                 <outlet property="view" destination="6Os-1W-6tf" id="9b7-L3-PxE"/>
