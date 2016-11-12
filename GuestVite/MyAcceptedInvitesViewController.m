@@ -20,10 +20,10 @@
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
-@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (strong, nonatomic) IBOutlet UINavigationBar *myAcceptedInvitesBack;
-@property (strong, nonatomic) IBOutlet UILabel *backLabel;
-@property (strong, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UINavigationBar *myAcceptedInvitesBack;
+@property (weak, nonatomic) IBOutlet UILabel *backLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
 @property(strong, nonatomic) CLLocationManager *locationManager;
 
@@ -536,6 +536,11 @@ NSString *myAcceptedInviteSelcetedKey;
     buttonDeclineMessage.layer.cornerRadius = 4;
     buttonDeclineMessage.selectionHandler = ^(CNPPopupButton *buttonDeclineMessage){
         
+        
+        
+        // Stop Updating Location Manager if user is already in Transit
+        
+        [self.locationManager stopUpdatingLocation];
         
         // a. Send Message
         
