@@ -297,157 +297,6 @@
 }
 
 
--(BOOL) checkDuplicateInvite{
-    
-
-   // NSLog(@"INVITE FOR DATE in CHK DUPLICATE %@",self.inviteForDateText.text);
-    //NSLog(@"INVITE TILL DATE in CHK DUPLICATE %@",self.inviteExpireDateText.text);
-    
-    
-    // Get Current Logged in Users E- Mail and phone
-    
-    __block NSMutableString *currentUserEMail = [[NSMutableString alloc]init];
-    __block NSMutableString *currentUserPhone = [[NSMutableString alloc]init];
-    __block BOOL isDuplicateInvite = FALSE;
-    __block NSMutableArray *arr = [[NSMutableArray alloc]init];
-    
-    __block NSUInteger length =0;
-    
-     __block NSMutableArray *myfirstNameData = [[NSMutableArray alloc] init];
-    
-    
-    
-    NSString *startDateTime = [[NSString alloc] init];
-    NSString *endDateTime = [[NSString alloc] init];
-    
-    NSString *userID = [FIRAuth auth].currentUser.uid;
-    
-    [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        NSDictionary *dict = snapshot.value;
-        [currentUserEMail setString: [dict valueForKey:@"EMail"]];
-         [currentUserPhone setString: [dict valueForKey:@"Phone"]];
-         
-    }];
-    
-    while([currentUserEMail length] == 0 && [currentUserPhone length] == 0){
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-    }
-    
-    
-    
-    
-    [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-        
-        NSDictionary *dict = snapshot.value;
-        
-        
-        NSArray * arr1 = [dict allValues];
-       arr = [arr initWithArray:arr1];
-        
- }];
-    
-    NSLog(@"ARR is %@",arr);
-    
-    /*
-        length = [arr count];
-        for(int i=0;i < [arr count];i++)
-        {
-            
-            [myfirstNameData addObject: arr[i][@"Sender First Name"]];
-            startDateTime = arr[i][@"Invite For Date"];
-            endDateTime = arr[i][@"Invite Valid Till Date"];
-            
-            NSLog(@"Printing Guest em entered %@",self.guestEMailText.text);
-            NSLog(@"Printing Receiver em in DB %@",arr[i][@"Receiver EMail"]);
-            
-            NSLog(@"Printing Guest ph entered %@",self.guestPhoneText.text);
-            NSLog(@"Printing Receiver ph in DB %@",arr[i][@"Receiver Phone"]);
-            
-            NSLog(@"Printing Host logged in em  %@",currentUserEMail);
-            NSLog(@"Printing Host em in DB %@",arr[i][@"Sender EMail"]);
-            
-            NSLog(@"Printing Host logged in  ph  %@",currentUserPhone);
-            NSLog(@"Printing Host ph in DB %@",arr[i][@"Sender Phone"]);
-            
-            
-            
-            NSLog(@"Printing current invite for date %@",[[startDateTime componentsSeparatedByString:@" "]objectAtIndex:0]);
-            
-            NSLog(@"Printing current invite To date %@",[[endDateTime componentsSeparatedByString:@" "]objectAtIndex:0]);
-            
-            
-            // IF 1 : Check if Dates Match
-            
-            if(([self.inviteForDateText.text isEqualToString:[[startDateTime componentsSeparatedByString:@" "]objectAtIndex:0]]) && ([self.inviteExpireDateText.text isEqualToString:[[endDateTime componentsSeparatedByString:@" "]objectAtIndex:0]]))
-            {
-            
-                NSLog(@"Dates Match");
-                
-            if([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"]){ // IF2 E-Mail BULK , check only phone
-                
-                if([self.guestPhoneText.text isEqualToString:arr[i][@"Receiver Phone"]] && [currentUserEMail isEqualToString:arr[i][@"Sender EMail"]] && [currentUserPhone isEqualToString:arr[i][@"Sender Phone"]])
-                    
-                {
-                    NSLog(@"E_Mail bulk - Rest all matches");
-                    isDuplicateInvite = TRUE;
-                    NSLog(isDuplicateInvite ? @"Yes" : @"No");
-                    break;
-                
-                }
-            
-            }
-            
-            else if([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"]){ //IF2  Phone BULK , check only E-Mail
-                
-                if([self.guestEMailText.text isEqualToString:arr[i][@"Receiver EMail"]] && [currentUserEMail isEqualToString:arr[i][@"Sender EMail"]] && [currentUserPhone isEqualToString:arr[i][@"Sender Phone"]])
-                    
-                {
-                    NSLog(@"Phone bulk - Rest all matches");
-                    isDuplicateInvite = TRUE;
-                    NSLog(isDuplicateInvite ? @"Yes" : @"No");
-                    break;
-                }
-                
-                
-            }
-            
-            ////IF2 Both NOT Bulk
-            else if(![arr[i][@"Receiver EMail"] isEqualToString:@"BULK"] && ![arr[i][@"Receiver Phone"] isEqualToString:@"BULK"]){
-                
-                if([self.guestEMailText.text isEqualToString:arr[i][@"Receiver EMail"]] && [self.guestPhoneText.text isEqualToString:arr[i][@"Receiver Phone"]] && [currentUserEMail isEqualToString:arr[i][@"Sender EMail"]] && [currentUserPhone isEqualToString:arr[i][@"Sender Phone"]])
-                    
-                {
-                    
-                    NSLog(@"Rest all matches");
-                    
-                    isDuplicateInvite = TRUE;
-                    NSLog(isDuplicateInvite ? @"Yes" : @"No");
-                    break;
-                    
-                }
-                
-            } // IF2 Ends
-            
-   
-            
-            
-            
-            } //IF1 Ends
-            
-           
-        }
-        NSLog(isDuplicateInvite ? @"Yes" : @"No");
-   
-    
-    while([myfirstNameData count]< length) {
-        NSLog(@"Looping");
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-    }
-     */
-    
-    return isDuplicateInvite;
-}
 
 - (IBAction)segmentTapped:(id)sender {
 
@@ -504,7 +353,6 @@ if(self.segmentControl.selectedSegmentIndex ==1){
 
 
 
-
 - (IBAction)sendInviteTapped:(id)sender {
     
     // Get the invite Row
@@ -553,7 +401,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         
         if([fromDate compare:toDate] == NSOrderedAscending) // ONLY if from is earlier
         {
-            NSLog(@"IN MAIN CALLING PLACE %@",[self checkDuplicateInvite] ? @"Yes" : @"No");
+            
             
         self.ref = [[FIRDatabase database] reference];
         
@@ -570,6 +418,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
             NSArray * arr = [self.guestNameText.text componentsSeparatedByString:@" "];
             
             NSString *hostaddr = [[NSString alloc]init];
+            NSDictionary *post = [[NSDictionary alloc] init];
             
             if([[dict valueForKey:@"Address2"] length] > 0)
             {
@@ -581,10 +430,13 @@ if(self.segmentControl.selectedSegmentIndex ==1){
             }
             
             CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
-
+            NSLog(@"Guest Name is %@",self.guestNameText.text);
+            NSLog(@"ARR is %@",arr);
+            NSLog(@"Name field Length is %lu",(unsigned long)[arr count]);
     
-            
-            NSDictionary *post = @{@"Sender First Name": [dict valueForKey:@"First Name"],
+            if([arr count] > 1) // If Last Name present
+                {
+                            post = @{@"Sender First Name": [dict valueForKey:@"First Name"],
                                    @"Sender Last Name": [dict valueForKey:@"Last Name"],
                                    @"Sender EMail": [dict valueForKey:@"EMail"],
                                    @"Sender Address1": [dict valueForKey:@"Address1"],
@@ -605,8 +457,43 @@ if(self.segmentControl.selectedSegmentIndex ==1){
                                    @"Guest Location Status" : @"NOT_STARTED",
                                    };
             
+                }
+                
+            else if([arr count] == 1 && ![[arr objectAtIndex:0]isEqualToString:@""]){ // No last Name
+                
+                
+                                post = @{@"Sender First Name": [dict valueForKey:@"First Name"],
+                                       @"Sender Last Name": [dict valueForKey:@"Last Name"],
+                                       @"Sender EMail": [dict valueForKey:@"EMail"],
+                                       @"Sender Address1": [dict valueForKey:@"Address1"],
+                                       @"Sender Address2": [dict valueForKey:@"Address2"],
+                                       @"Sender City": [dict valueForKey:@"City"],
+                                       @"Sender Zip": [dict valueForKey:@"Zip"],
+                                       @"Sender Phone": [dict valueForKey:@"Phone"],
+                                       @"Mesage From Sender": self.messageText.text,
+                                       @"Receiver First Name": [arr objectAtIndex:0],
+                                       @"Receiver Last Name": @"",
+                                       @"Receiver EMail": self.guestEMailText.text,
+                                       @"Receiver Phone": self.guestPhoneText.text,
+                                       @"Invite For Date": startDateTime,
+                                       @"Invite Valid Till Date": endDateTime,
+                                       @"Invitation Status": @"Pending",
+                                       @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
+                                       @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
+                                       @"Guest Location Status" : @"NOT_STARTED",
+                                       };
+
+            }
             
-            
+            else {
+                
+                UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Name of the Guest is needed" preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                
+                [ac addAction:aa];
+                [self presentViewController:ac animated:YES completion:nil];
+            }
            
             
             NSTimeInterval timeInSeconds = [[NSDate date] timeIntervalSince1970];
@@ -723,8 +610,10 @@ if(self.segmentControl.selectedSegmentIndex ==1){
             break;
         }
             
-        case MessageComposeResultSent:
+        case MessageComposeResultSent: {
+            NSLog(@"SMS Sent");
             break;
+        }
             
         default:
             break;
