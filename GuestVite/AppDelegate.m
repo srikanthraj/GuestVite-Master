@@ -34,6 +34,8 @@
     
     [GMSPlacesClient provideAPIKey:@"AIzaSyB7VO2twlrdlQZU-zlz5XDSSbtrFrCDkek"];
 
+    [application setStatusBarHidden:NO];
+    [application setStatusBarStyle:UIStatusBarStyleLightContent];
    
     return YES;
 }

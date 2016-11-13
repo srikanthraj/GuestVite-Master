@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PrevInvSentViewController">
             <connections>
                 <outlet property="backButton" destination="tPQ-sL-gr9" id="Ipt-B0-xP2"/>
-                <outlet property="backLabel" destination="oqg-tW-z0P" id="WTo-hJ-w6r"/>
                 <outlet property="prevInvSentBack" destination="TcV-bQ-GJZ" id="z3g-Mf-hjz"/>
                 <outlet property="tableView" destination="7nZ-g5-ofm" id="Dhp-yu-CDv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -19,21 +18,22 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7nZ-g5-ofm">
-                    <rect key="frame" x="0.0" y="44" width="320" height="524"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="om5-S2-UxE"/>
-                        <outlet property="delegate" destination="-1" id="jub-fn-VxE"/>
-                    </connections>
-                </tableView>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TcV-bQ-GJZ">
+                <navigationBar contentMode="scaleToFill" misplaced="YES" backIndicatorImage="Back" translatesAutoresizingMaskIntoConstraints="NO" id="TcV-bQ-GJZ">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.16217732574494009" green="0.10530995178242862" blue="0.21904469970745155" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="yj2-5m-4hY"/>
+                    </constraints>
+                    <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="barTintColor" red="0.57904257550335569" green="0.27542994970000001" blue="0.63032973561812078" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </textAttributes>
                     <items>
                         <navigationItem title="Previous Invites Sent" id="GCP-Aj-QbL">
-                            <barButtonItem key="backBarButtonItem" title="Back" image="button_back" id="mwv-8W-4K6"/>
-                            <barButtonItem key="leftBarButtonItem" image="button_back" id="tPQ-sL-gr9">
-                                <color key="tintColor" red="0.090157443786422889" green="0.23058894230769234" blue="0.089826690417998442" alpha="1" colorSpace="calibratedRGB"/>
+                            <barButtonItem key="backBarButtonItem" image="Back" id="mwv-8W-4K6"/>
+                            <barButtonItem key="leftBarButtonItem" image="Back" id="tPQ-sL-gr9">
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="Back" destination="-1" id="6kj-bP-Hpb"/>
                                 </connections>
@@ -41,30 +41,29 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oqg-tW-z0P">
-                    <rect key="frame" x="29" y="11" width="34" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7nZ-g5-ofm">
+                    <rect key="frame" x="0.0" y="66" width="320" height="502"/>
+                    <color key="backgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="sectionIndexBackgroundColor" red="0.75294117647058822" green="0.37647058823529411" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="om5-S2-UxE"/>
+                        <outlet property="delegate" destination="-1" id="jub-fn-VxE"/>
+                    </connections>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="7nZ-g5-ofm" firstAttribute="top" secondItem="TcV-bQ-GJZ" secondAttribute="bottom" constant="10" id="Ppb-Y9-Qxa"/>
-                <constraint firstItem="7nZ-g5-ofm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="XRM-eK-AqL"/>
-                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Xbb-XQ-KfW"/>
-                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bYe-H5-jl5"/>
-                <constraint firstAttribute="trailing" secondItem="7nZ-g5-ofm" secondAttribute="trailing" id="cyb-xy-qDq"/>
-                <constraint firstAttribute="bottom" secondItem="7nZ-g5-ofm" secondAttribute="bottom" id="eBk-Sc-oRp"/>
-                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qSU-w7-fu5"/>
-                <constraint firstAttribute="trailing" secondItem="TcV-bQ-GJZ" secondAttribute="trailing" id="svw-e4-RTq"/>
-                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="tto-5S-8CN"/>
-                <constraint firstAttribute="trailing" secondItem="TcV-bQ-GJZ" secondAttribute="trailing" id="uX3-MH-qt5"/>
+                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="STw-dh-lvd"/>
+                <constraint firstItem="7nZ-g5-ofm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ai5-Wm-r7O"/>
+                <constraint firstItem="7nZ-g5-ofm" firstAttribute="top" secondItem="TcV-bQ-GJZ" secondAttribute="bottom" id="db2-f0-iv1"/>
+                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="gPt-VQ-4ai"/>
+                <constraint firstAttribute="trailing" secondItem="TcV-bQ-GJZ" secondAttribute="trailing" id="hte-PM-RbW"/>
+                <constraint firstAttribute="trailing" secondItem="7nZ-g5-ofm" secondAttribute="trailing" id="jjR-9U-MLH"/>
             </constraints>
             <point key="canvasLocation" x="200" y="384"/>
         </view>
     </objects>
     <resources>
-        <image name="button_back" width="50" height="30"/>
+        <image name="Back" width="32" height="30"/>
     </resources>
 </document>

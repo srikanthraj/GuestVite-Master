@@ -17,10 +17,11 @@
 
 @interface TrackMyGuestsCellTapped () <MKMapViewDelegate>
 
+@property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 @property (weak, nonatomic) IBOutlet UILabel *backLabel;
-@property (strong, nonatomic) IBOutlet MKMapView *mapView;
+@property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (strong,nonatomic) MKPointAnnotation *guestLocationAnno;
 
@@ -31,7 +32,7 @@
 
 @property(nonatomic,assign) BOOL mapIsMoving;
 
-@property (strong, nonatomic) FIRDatabaseReference *ref;
+
 
 
 @end
@@ -60,7 +61,7 @@ float totalDistance;
         
         NSLog(@"SHOW THIS!!");
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy yout time!"preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy your time!"preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
@@ -74,7 +75,7 @@ float totalDistance;
         
         
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Looks Like the Guest has not given thrie permission to show their location, Sorry About that!"preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Looks Like the Guest has not given their permission to show their location, Sorry About that!"preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         [ac addAction:aa];

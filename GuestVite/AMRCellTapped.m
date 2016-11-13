@@ -684,7 +684,7 @@ float currentLongitude = 0.0;
     
     
     
-
+    
  
     currentLatitude = locations.lastObject.coordinate.latitude;
     currentLongitude = locations.lastObject.coordinate.longitude;
@@ -700,18 +700,29 @@ float currentLongitude = 0.0;
     
     CLLocation *destLoc = [[CLLocation alloc] initWithLatitude:dest.latitude longitude:dest.longitude];
     
+    NSLog(@"The total distance between source to destination is %f",[locations.firstObject distanceFromLocation:destLoc]*0.000621371);
+    
        NSLog(@"DISTANCE BETWEEN SOURCE TO DESTINATION IS %f",[locations.lastObject distanceFromLocation:destLoc]*0.000621371);
     
   
+    // Give an alert to Host to say that the Guest is nearby
+    
+    /*
+     
+     
+     1. If Total Distance >50 miles , Then alert when Distnace <  5 miles
+     
+     2. If Total Distance < 50 miles , Then alert when Distance < 10% of distance
+     */
 
     
 
         
     // UPDATE DB WITH latitude, longuitude and ACCEPTED ENDS
     
-    // IF the GUEST AND HOST DISTANCE < 0.2 MILE  THE STOP UPDATING LOCATION AND BREAK THE FUNCTION
+    // IF the GUEST AND HOST DISTANCE < 0.1 MILE  THE STOP UPDATING LOCATION AND BREAK THE FUNCTION
     
-    if([locations.lastObject distanceFromLocation:destLoc]*0.000621371 < 0.2){
+    if([locations.lastObject distanceFromLocation:destLoc]*0.000621371 < 0.1){
         
         [self.locationManager stopUpdatingLocation];
         

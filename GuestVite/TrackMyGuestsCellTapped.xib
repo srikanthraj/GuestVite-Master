@@ -19,11 +19,10 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar alpha="0.10000000000000001" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuV-vf-Voi">
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuV-vf-Voi">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <items>
                         <navigationItem title="My Guest's Location" id="K2o-f4-4rB">
-                            <barButtonItem key="backBarButtonItem" title="Back" id="M4h-7c-HOc"/>
                             <barButtonItem key="leftBarButtonItem" image="button_back" id="CU6-SH-f5i">
                                 <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>

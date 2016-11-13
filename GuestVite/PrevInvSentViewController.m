@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UINavigationBar *prevInvSentBack;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
-@property (weak, nonatomic) IBOutlet UILabel *backLabel;
+
 
 @end
 
@@ -51,6 +51,7 @@ NSArray *piskeys;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setNeedsStatusBarAppearanceUpdate];
     pisGuestEMailData = [[NSMutableArray alloc]init];
     pisGuestPhoneData = [[NSMutableArray alloc]init];
     pisinvitedFromData = [[NSMutableArray alloc]init];
@@ -59,30 +60,29 @@ NSArray *piskeys;
     piskeyData = [[NSMutableArray alloc]init];
     
     
-    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
-    self.tableView.backgroundColor = background;
+    //UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
+   
     
 
     
-    self.prevInvSentBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
+    //self.prevInvSentBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
     
-    [self.prevInvSentBack setFrame:CGRectMake(0, 0, 400, 64)];
+   // [self.prevInvSentBack setFrame:CGRectMake(0, 0, 400, 64)];
     
-    self.prevInvSentBack.translucent = YES;
+    //self.prevInvSentBack.translucent = YES;
     
     
-    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
     
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
+   // [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
+                                                           //NSForegroundColorAttributeName,
+                                           //              [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
     
     
     
     
-    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
-    self.backLabel.textColor = [UIColor whiteColor];
+   
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
     [[self navigationItem] setBackBarButtonItem:backButton];
@@ -286,26 +286,15 @@ NSArray *piskeys;
         [piskeyData addObject:[myactionTakenData objectAtIndex:i]];
     }
     
-    /*
-    [pisGuestEMailData addObject:nil];
-    [pisGuestPhoneData addObject:nil];
-    [pisinvitedFromData addObject:nil];
-    [pisinvitedTillData addObject:nil];
-    [pisactionTakenData addObject:nil];
-    [piskeyData addObject:nil];
-    
-    
-    pisGuestEMailData = [myGuestEMailData copy];
-    pisGuestPhoneData = [myGuestPhoneData copy];
-    pisinvitedFromData = [myinvitedFromData copy];
-    pisinvitedTillData = [myinvitedTillData copy];
-    pisactionTakenData = [myactionTakenData copy];
-    piskeyData = [myKeyData copy];
-    */
-    NSLog(@"Key data is %@",piskeyData);
+       NSLog(@"Key data is %@",piskeyData);
 
     
 }
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 
 - (IBAction)Back
 {
@@ -325,9 +314,14 @@ NSArray *piskeys;
     return [pisinvitedFromData count];
 }
 
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    
+    
+
     [tableView registerNib:[UINib nibWithNibName:@"PrevInvSentCell" bundle:nil] forCellReuseIdentifier:@"PrevInvSentCell"];
     
     static NSString *cellIdentifier = @"PrevInvSentCell";
@@ -336,6 +330,7 @@ NSArray *piskeys;
     
     PrevInvSentCell *cell = (PrevInvSentCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
+
     
     /*
     // Add utility buttons
@@ -373,8 +368,27 @@ NSArray *piskeys;
     cell.invitedTillDateLabel.text = [pisinvitedTillData objectAtIndex:indexPath.row];
     cell.actionTakenLabel.text = [pisactionTakenData objectAtIndex:indexPath.row];
     
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    
+    if (indexPath.row % 2 == 0)
+    {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    }
+   
+    else
+        {
+        
+            
+            cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+            cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+
+
+    }
+
+    
+    
+
+    
     
     cell.userInteractionEnabled = NO;
     
