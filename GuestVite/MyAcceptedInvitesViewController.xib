@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MyAcceptedInvitesViewController">
             <connections>
                 <outlet property="backButton" destination="dOI-jG-GrB" id="L3M-PD-vf0"/>
-                <outlet property="backLabel" destination="HuQ-fp-M8l" id="yT5-Je-Ku3"/>
                 <outlet property="myAcceptedInvitesBack" destination="lYp-ro-v18" id="xIs-h8-B26"/>
                 <outlet property="tableView" destination="YLS-3E-i8J" id="KID-0X-hxV"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -19,12 +18,30 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lYp-ro-v18">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YLS-3E-i8J">
+                    <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                    <color key="backgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="sectionIndexBackgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="hcj-nr-7Z2"/>
+                        <outlet property="delegate" destination="-1" id="Dmq-kP-KLV"/>
+                    </connections>
+                </tableView>
+                <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lYp-ro-v18">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.16078431369999999" green="0.1058823529" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="Sn1-Bn-qYD"/>
+                    </constraints>
+                    <color key="tintColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </textAttributes>
                     <items>
                         <navigationItem title="My Accepted Invites" id="7Ck-vv-F69">
-                            <barButtonItem key="leftBarButtonItem" image="button_back" id="dOI-jG-GrB">
-                                <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <barButtonItem key="leftBarButtonItem" image="Back" id="dOI-jG-GrB">
+                                <color key="tintColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="Back" destination="-1" id="drC-4z-rRd"/>
                                 </connections>
@@ -32,35 +49,21 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HuQ-fp-M8l">
-                    <rect key="frame" x="28" y="11" width="38" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="YLS-3E-i8J">
-                    <rect key="frame" x="0.0" y="44" width="320" height="524"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="hcj-nr-7Z2"/>
-                        <outlet property="delegate" destination="-1" id="Dmq-kP-KLV"/>
-                    </connections>
-                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="lYp-ro-v18" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="9Rc-hA-QRw"/>
-                <constraint firstAttribute="trailing" secondItem="YLS-3E-i8J" secondAttribute="trailing" id="LaD-6L-soW"/>
-                <constraint firstAttribute="bottom" secondItem="YLS-3E-i8J" secondAttribute="bottom" id="atj-Wj-W1m"/>
-                <constraint firstAttribute="trailing" secondItem="lYp-ro-v18" secondAttribute="trailing" id="eBg-27-ugq"/>
-                <constraint firstItem="YLS-3E-i8J" firstAttribute="top" secondItem="lYp-ro-v18" secondAttribute="bottom" id="hLZ-5h-oJ5"/>
-                <constraint firstItem="YLS-3E-i8J" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="mpJ-k8-6Gf"/>
-                <constraint firstItem="lYp-ro-v18" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="xd8-Uj-WyK"/>
+                <constraint firstItem="YLS-3E-i8J" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FNK-fY-c8R"/>
+                <constraint firstAttribute="bottom" secondItem="YLS-3E-i8J" secondAttribute="bottom" id="FOl-Bt-Tua"/>
+                <constraint firstAttribute="trailing" secondItem="lYp-ro-v18" secondAttribute="trailing" id="McN-TI-K3h"/>
+                <constraint firstItem="YLS-3E-i8J" firstAttribute="top" secondItem="lYp-ro-v18" secondAttribute="bottom" id="XXc-9x-1v1"/>
+                <constraint firstItem="lYp-ro-v18" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kNk-9A-N8V"/>
+                <constraint firstAttribute="trailing" secondItem="YLS-3E-i8J" secondAttribute="trailing" id="ntN-xo-dQj"/>
+                <constraint firstItem="lYp-ro-v18" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="odI-wB-TmE"/>
             </constraints>
             <point key="canvasLocation" x="252" y="385"/>
         </view>
     </objects>
     <resources>
-        <image name="button_back" width="50" height="30"/>
+        <image name="Back" width="32" height="30"/>
     </resources>
 </document>

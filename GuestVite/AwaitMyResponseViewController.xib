@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="awaitMyResponseBack" destination="vbJ-XX-kxg" id="vL7-Fq-egb"/>
                 <outlet property="backButton" destination="U9a-kn-Bjp" id="eft-qd-aEk"/>
-                <outlet property="backLabel" destination="rhj-cb-FXz" id="OWz-YG-Htm"/>
                 <outlet property="tableView" destination="qCQ-xp-sYM" id="xGO-eL-bR8"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -19,20 +18,29 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qCQ-xp-sYM">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="qCQ-xp-sYM">
                     <rect key="frame" x="8" y="44" width="296" height="502"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="sectionIndexBackgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="iYv-VG-Py9"/>
                         <outlet property="delegate" destination="-1" id="Y9f-lA-vON"/>
                     </connections>
                 </tableView>
-                <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vbJ-XX-kxg">
+                <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vbJ-XX-kxg">
                     <rect key="frame" x="-4" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.16217732570000001" green="0.1053099518" blue="0.21904469970000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="rji-mf-ePs"/>
+                    </constraints>
+                    <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </textAttributes>
                     <items>
                         <navigationItem title="Awaiting My Response" id="8Eq-c5-qfu">
-                            <barButtonItem key="leftBarButtonItem" image="button_back" id="U9a-kn-Bjp">
-                                <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <barButtonItem key="leftBarButtonItem" image="Back" id="U9a-kn-Bjp">
+                                <color key="tintColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="Back" destination="-1" id="C5J-Vm-fiz"/>
                                 </connections>
@@ -40,24 +48,21 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rhj-cb-FXz">
-                    <rect key="frame" x="24" y="11" width="38" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="qCQ-xp-sYM" secondAttribute="bottom" id="RMY-Rw-6LH"/>
-                <constraint firstItem="qCQ-xp-sYM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="VWN-85-PCP"/>
-                <constraint firstAttribute="trailing" secondItem="qCQ-xp-sYM" secondAttribute="trailing" id="mbw-On-gPz"/>
-                <constraint firstItem="qCQ-xp-sYM" firstAttribute="top" secondItem="vbJ-XX-kxg" secondAttribute="bottom" id="vM3-gV-mXC"/>
+                <constraint firstItem="qCQ-xp-sYM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CeG-Yy-SOZ"/>
+                <constraint firstAttribute="trailing" secondItem="qCQ-xp-sYM" secondAttribute="trailing" id="UW6-3s-AdE"/>
+                <constraint firstItem="vbJ-XX-kxg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="dyz-xS-AYK"/>
+                <constraint firstItem="qCQ-xp-sYM" firstAttribute="top" secondItem="vbJ-XX-kxg" secondAttribute="bottom" id="f2U-hN-8wc"/>
+                <constraint firstAttribute="trailing" secondItem="vbJ-XX-kxg" secondAttribute="trailing" id="qTO-x3-PSj"/>
+                <constraint firstAttribute="bottom" secondItem="qCQ-xp-sYM" secondAttribute="bottom" id="rJL-72-NL4"/>
+                <constraint firstItem="vbJ-XX-kxg" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ypp-c2-bIU"/>
             </constraints>
             <point key="canvasLocation" x="195" y="248"/>
         </view>
     </objects>
     <resources>
-        <image name="button_back" width="50" height="30"/>
+        <image name="Back" width="32" height="30"/>
     </resources>
 </document>

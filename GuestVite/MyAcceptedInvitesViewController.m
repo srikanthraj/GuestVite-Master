@@ -22,7 +22,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UINavigationBar *myAcceptedInvitesBack;
-@property (weak, nonatomic) IBOutlet UILabel *backLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
 @property(strong, nonatomic) CLLocationManager *locationManager;
@@ -73,6 +72,7 @@ NSString *myAcceptedInviteSelcetedKey;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setNeedsStatusBarAppearanceUpdate];
     // Do any additional setup after loading the view from its nib.
     
     // Initialize the location Manager
@@ -97,29 +97,8 @@ NSString *myAcceptedInviteSelcetedKey;
     
     myAcceptedInviteSelcetedKey = [[NSString alloc]init];
     
-    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
-    self.tableView.backgroundColor = background;
-    
-    
-    self.myAcceptedInvitesBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
-    
-    [self.myAcceptedInvitesBack setFrame:CGRectMake(0, 0, 400, 64)];
-    
-    self.myAcceptedInvitesBack.translucent = YES;
-    
-    
-    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
-    
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
-    
-    
-    
-    
-    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
-    self.backLabel.textColor = [UIColor whiteColor];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
     [[self navigationItem] setBackBarButtonItem:backButton];
@@ -332,6 +311,11 @@ NSString *myAcceptedInviteSelcetedKey;
     
 }
 
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 - (IBAction)Back
 {
     HomePageViewController *homePageVC =
@@ -376,6 +360,24 @@ NSString *myAcceptedInviteSelcetedKey;
     cell.invitedFromDateLabel.text = [maiinvitedFromData objectAtIndex:indexPath.row];
     cell.invitedTillDateLabel.text = [maiinvitedTillData objectAtIndex:indexPath.row];
     
+    if (indexPath.row % 2 == 0)
+    {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    }
+    
+    else
+    {
+        
+        
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        
+        
+    }
+
+    
+    
     if([[maikeyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
         
         
@@ -395,23 +397,34 @@ NSString *myAcceptedInviteSelcetedKey;
         cell.userInteractionEnabled = NO;
         self.tableView.hidden = YES;
         
-        UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
+        UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"]];
         
         self.view.backgroundColor = background;
         
         CGRect labelFrame = CGRectMake( 10, 200, 500, 30 );
         UILabel* label = [[UILabel alloc] initWithFrame: labelFrame];
-        [label setText: @"Sorry,There are No invitations in this criteria."];
-        [label setTextColor: [UIColor orangeColor]];
+        [label setText: @"Sorry,No invitations in this criteria."];
+        [label setTextColor: [UIColor whiteColor]];
         [self.view addSubview: label];
         
         
     }
     
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    if (indexPath.row % 2 == 0)
+    {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    }
     
-    
+    else
+    {
+        
+        
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        
+        
+    }
     
     return cell;
 }

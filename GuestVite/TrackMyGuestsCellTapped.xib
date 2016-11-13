@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TrackMyGuestsCellTapped">
             <connections>
                 <outlet property="backButton" destination="CU6-SH-f5i" id="gli-FM-9Jm"/>
-                <outlet property="backLabel" destination="aw5-O5-Pgo" id="CZb-8i-oSG"/>
                 <outlet property="mapView" destination="XeW-vm-c3p" id="Cdl-MT-aGn"/>
                 <outlet property="myGuestsLocationBack" destination="uuV-vf-Voi" id="GUv-ax-Zqb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -19,12 +18,20 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuV-vf-Voi">
+                <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uuV-vf-Voi">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.16217732570000001" green="0.1053099518" blue="0.21904469970000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="K1c-YO-tG4"/>
+                    </constraints>
+                    <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </textAttributes>
                     <items>
                         <navigationItem title="My Guest's Location" id="K2o-f4-4rB">
-                            <barButtonItem key="leftBarButtonItem" image="button_back" id="CU6-SH-f5i">
-                                <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <barButtonItem key="leftBarButtonItem" image="Back" id="CU6-SH-f5i">
+                                <color key="tintColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="Back" destination="-1" id="AHB-Cy-FWC"/>
                                 </connections>
@@ -32,13 +39,7 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aw5-O5-Pgo">
-                    <rect key="frame" x="27" y="11" width="38" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XeW-vm-c3p">
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XeW-vm-c3p">
                     <rect key="frame" x="0.0" y="44" width="320" height="524"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="xFV-EX-Vqh"/>
@@ -47,18 +48,18 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="XeW-vm-c3p" secondAttribute="trailing" id="1C7-SZ-yJT"/>
-                <constraint firstItem="uuV-vf-Voi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="CBg-7b-hHe"/>
-                <constraint firstItem="XeW-vm-c3p" firstAttribute="top" secondItem="uuV-vf-Voi" secondAttribute="bottom" id="IDQ-N9-xj8"/>
-                <constraint firstAttribute="bottom" secondItem="XeW-vm-c3p" secondAttribute="bottom" id="TnW-gB-EHS"/>
-                <constraint firstItem="XeW-vm-c3p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bRm-Ys-I3q"/>
-                <constraint firstItem="uuV-vf-Voi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="kbz-M6-wk2"/>
-                <constraint firstAttribute="trailing" secondItem="uuV-vf-Voi" secondAttribute="trailing" id="sUb-cV-TkI"/>
+                <constraint firstItem="XeW-vm-c3p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="B48-uZ-uKk"/>
+                <constraint firstItem="uuV-vf-Voi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="HWv-vn-8m1"/>
+                <constraint firstItem="uuV-vf-Voi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="O0r-F4-etk"/>
+                <constraint firstItem="XeW-vm-c3p" firstAttribute="top" secondItem="uuV-vf-Voi" secondAttribute="bottom" id="RWo-00-VRK"/>
+                <constraint firstAttribute="bottom" secondItem="XeW-vm-c3p" secondAttribute="bottom" id="av9-VU-GPM"/>
+                <constraint firstAttribute="trailing" secondItem="XeW-vm-c3p" secondAttribute="trailing" id="gwt-Q9-Caw"/>
+                <constraint firstAttribute="trailing" secondItem="uuV-vf-Voi" secondAttribute="trailing" id="k3Y-ki-dGu"/>
             </constraints>
             <point key="canvasLocation" x="139" y="371"/>
         </view>
     </objects>
     <resources>
-        <image name="button_back" width="50" height="30"/>
+        <image name="Back" width="32" height="30"/>
     </resources>
 </document>

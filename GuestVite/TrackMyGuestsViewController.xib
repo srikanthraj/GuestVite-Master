@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TrackMyGuestsViewController">
             <connections>
                 <outlet property="backButton" destination="Wz4-LX-Agk" id="Hgs-bx-LDy"/>
-                <outlet property="backLabel" destination="q0k-PW-C2e" id="ATZ-0M-zA2"/>
                 <outlet property="tableView" destination="56C-aX-p1L" id="7ze-fQ-hJI"/>
                 <outlet property="trackMyGuestsBack" destination="NUd-wV-DiP" id="8Eh-2o-4wK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -21,19 +20,27 @@
             <subviews>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="56C-aX-p1L">
                     <rect key="frame" x="0.0" y="44" width="320" height="524"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="sectionIndexBackgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="JLD-kd-rgq"/>
                         <outlet property="delegate" destination="-1" id="uwX-jW-Mah"/>
                     </connections>
                 </tableView>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NUd-wV-DiP">
+                <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NUd-wV-DiP">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.16078431369999999" green="0.1058823529" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="moT-ht-8tV"/>
+                    </constraints>
+                    <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </textAttributes>
                     <items>
                         <navigationItem title="Track My Guests" id="vM0-5c-5rH">
-                            <barButtonItem key="backBarButtonItem" title="Back" id="c2m-rD-b5c"/>
-                            <barButtonItem key="leftBarButtonItem" image="button_back" id="Wz4-LX-Agk">
-                                <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <barButtonItem key="leftBarButtonItem" image="Back" id="Wz4-LX-Agk">
+                                <color key="tintColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="Back" destination="-1" id="IOn-0N-fc0"/>
                                 </connections>
@@ -41,27 +48,21 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0k-PW-C2e">
-                    <rect key="frame" x="28" y="11" width="38" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="NUd-wV-DiP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="7y4-LB-IKv"/>
-                <constraint firstAttribute="bottom" secondItem="56C-aX-p1L" secondAttribute="bottom" id="8WO-QM-wUv"/>
-                <constraint firstAttribute="trailing" secondItem="56C-aX-p1L" secondAttribute="trailing" id="HOk-uo-BBE"/>
-                <constraint firstItem="56C-aX-p1L" firstAttribute="top" secondItem="NUd-wV-DiP" secondAttribute="bottom" constant="10" id="Xz3-bC-hIs"/>
-                <constraint firstItem="NUd-wV-DiP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="acy-5N-IOd"/>
-                <constraint firstAttribute="trailing" secondItem="NUd-wV-DiP" secondAttribute="trailing" id="grj-Ts-gdk"/>
-                <constraint firstItem="56C-aX-p1L" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="pBz-ig-2GG"/>
+                <constraint firstItem="56C-aX-p1L" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="850-Wa-GCE"/>
+                <constraint firstItem="56C-aX-p1L" firstAttribute="top" secondItem="NUd-wV-DiP" secondAttribute="bottom" id="CCs-Re-n1N"/>
+                <constraint firstItem="NUd-wV-DiP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ayt-cL-RUB"/>
+                <constraint firstAttribute="trailing" secondItem="56C-aX-p1L" secondAttribute="trailing" id="d6N-SL-ZDT"/>
+                <constraint firstItem="NUd-wV-DiP" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="glz-J1-fZz"/>
+                <constraint firstAttribute="bottom" secondItem="56C-aX-p1L" secondAttribute="bottom" id="idf-hx-XPZ"/>
+                <constraint firstAttribute="trailing" secondItem="NUd-wV-DiP" secondAttribute="trailing" id="tX3-Mj-mwN"/>
             </constraints>
             <point key="canvasLocation" x="178" y="418"/>
         </view>
     </objects>
     <resources>
-        <image name="button_back" width="50" height="30"/>
+        <image name="Back" width="32" height="30"/>
     </resources>
 </document>

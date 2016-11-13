@@ -20,7 +20,7 @@
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
-@property (weak, nonatomic) IBOutlet UILabel *backLabel;
+
 @property (weak, nonatomic) IBOutlet MKMapView *mapView;
 
 @property (strong,nonatomic) MKPointAnnotation *guestLocationAnno;
@@ -302,30 +302,17 @@ float totalDistance;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setNeedsStatusBarAppearanceUpdate];
     // Do any additional setup after loading the view from its nib.
     
     // Create Navigation BAR
     
     
-    self.myGuestsLocationBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
     
-    [self.myGuestsLocationBack setFrame:CGRectMake(0, 0, 400, 64)];
-    
-    self.myGuestsLocationBack.translucent = YES;
-    
-    
-    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
     
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
     
-    
-    
-    
-    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
-    self.backLabel.textColor = [UIColor whiteColor];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
     [[self navigationItem] setBackBarButtonItem:backButton];
@@ -384,6 +371,11 @@ float totalDistance;
     [self.mapView addAnnotations:@[self.yourLocationAnno,self.guestLocationAnno]];
     
 }
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
 
 - (IBAction)Back
 {

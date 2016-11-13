@@ -50,6 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    [self setNeedsStatusBarAppearanceUpdate];
     
     
     self.ref = [[FIRDatabase database] reference];
@@ -61,6 +62,9 @@
   
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 
 - (void) configureButtons {
     
@@ -72,8 +76,8 @@
     CGRect frame = CGRectMake(14, 55, 294, 30);
     self.sendNewInviteButton = [[HTPressableButton alloc] initWithFrame:frame buttonStyle:HTPressableButtonStyleRounded];
     
-    [self.sendNewInviteButton setButtonColor:[UIColor ht_grassColor]];
-    [self.sendNewInviteButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.sendNewInviteButton setButtonColor:[UIColor ht_amethystColor]];
+    [self.sendNewInviteButton setShadowColor:[UIColor ht_wisteriaColor]];
     [self.sendNewInviteButton setTitle:@"Send New Invite" forState:UIControlStateNormal];
     [self.sendNewInviteButton addTarget:self action:@selector(buttonPressed:)
      forControlEvents:UIControlEventTouchUpInside];
@@ -84,8 +88,8 @@
     CGRect frame1 = CGRectMake(14, 119, 294, 30);
     self.waitingRespButton = [[HTPressableButton alloc] initWithFrame:frame1 buttonStyle:HTPressableButtonStyleRounded];
     
-    [self.waitingRespButton setButtonColor:[UIColor ht_grassColor]];
-    [self.waitingRespButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.waitingRespButton setButtonColor:[UIColor ht_amethystColor]];
+    [self.waitingRespButton setShadowColor:[UIColor ht_wisteriaColor]];
     [self.waitingRespButton setTitle:@"Waiting Responses From:" forState:UIControlStateNormal];
     [self.waitingRespButton addTarget:self action:@selector(waitingRespButtonPressed:)
                        forControlEvents:UIControlEventTouchUpInside];
@@ -94,8 +98,8 @@
     
     CGRect frame2 = CGRectMake(14, 195, 294, 30);
     self.prevInvSentButton = [[HTPressableButton alloc] initWithFrame:frame2 buttonStyle:HTPressableButtonStyleRounded];
-    [self.prevInvSentButton setButtonColor:[UIColor ht_grassColor]];
-    [self.prevInvSentButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.prevInvSentButton setButtonColor:[UIColor ht_amethystColor]];
+    [self.prevInvSentButton setShadowColor:[UIColor ht_wisteriaColor]];
     [self.prevInvSentButton setTitle:@"Previous Invites Sent" forState:UIControlStateNormal];
     [self.prevInvSentButton addTarget:self action:@selector(prevInvSentButtonPressed:)
                      forControlEvents:UIControlEventTouchUpInside];
@@ -104,8 +108,8 @@
     
     CGRect frame3 = CGRectMake(14, 255, 294, 30);
     self.prevInvRecvdButton = [[HTPressableButton alloc] initWithFrame:frame3 buttonStyle:HTPressableButtonStyleRounded];
-    [self.prevInvRecvdButton setButtonColor:[UIColor ht_grassColor]];
-    [self.prevInvRecvdButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.prevInvRecvdButton setButtonColor:[UIColor ht_amethystColor]];
+    [self.prevInvRecvdButton setShadowColor:[UIColor ht_wisteriaColor]];
     [self.prevInvRecvdButton setTitle:@"Previous Invites Received" forState:UIControlStateNormal];
     [self.prevInvRecvdButton addTarget:self action:@selector(prevInvRecvdButtonPressed:)
                      forControlEvents:UIControlEventTouchUpInside];
@@ -115,8 +119,8 @@
     
     CGRect frame4 = CGRectMake(14, 315, 294, 30);
     self.trackButton = [[HTPressableButton alloc] initWithFrame:frame4 buttonStyle:HTPressableButtonStyleRounded];
-    [self.trackButton setButtonColor:[UIColor ht_grassColor]];
-    [self.trackButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.trackButton setButtonColor:[UIColor ht_amethystColor]];
+    [self.trackButton setShadowColor:[UIColor ht_wisteriaColor]];
     [self.trackButton setTitle:@"Track My Guests" forState:UIControlStateNormal];
     
     [self.trackButton addTarget:self action:@selector(trackButtonPressed:)
@@ -127,8 +131,8 @@
     
     CGRect frame5 = CGRectMake(14, 389, 294, 30);
     self.awaitMyRespButton = [[HTPressableButton alloc] initWithFrame:frame5 buttonStyle:HTPressableButtonStyleRounded];
-    [self.awaitMyRespButton setButtonColor:[UIColor ht_grassColor]];
-    [self.awaitMyRespButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.awaitMyRespButton setButtonColor:[UIColor ht_amethystColor]];
+    [self.awaitMyRespButton setShadowColor:[UIColor ht_wisteriaColor]];
     [self.awaitMyRespButton setTitle:@"Awaiting My Response" forState:UIControlStateNormal];
     [self.awaitMyRespButton addTarget:self action:@selector(awaitMyRespButtonPressed:)
                       forControlEvents:UIControlEventTouchUpInside];
@@ -138,8 +142,8 @@
     
     CGRect frame6 = CGRectMake(14, 449, 294, 30);
     self.myAcceptedInvitesButton = [[HTPressableButton alloc] initWithFrame:frame6 buttonStyle:HTPressableButtonStyleRounded];
-    [self.myAcceptedInvitesButton setButtonColor:[UIColor ht_grassColor]];
-    [self.myAcceptedInvitesButton setShadowColor:[UIColor ht_grassDarkColor]];
+    [self.myAcceptedInvitesButton setButtonColor:[UIColor ht_amethystColor]];
+    [self.myAcceptedInvitesButton setShadowColor:[UIColor ht_wisteriaColor]];
     [self.myAcceptedInvitesButton setTitle:@"My Accepted Invites" forState:UIControlStateNormal];
     [self.myAcceptedInvitesButton addTarget:self action:@selector(myAcceptedInvitesButtonPressed:)
                      forControlEvents:UIControlEventTouchUpInside];

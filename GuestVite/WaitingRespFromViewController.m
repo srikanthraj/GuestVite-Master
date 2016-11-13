@@ -50,6 +50,7 @@ NSArray *wrfkeys;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setNeedsStatusBarAppearanceUpdate];
     
     wrfGuestEMailData = [[NSMutableArray alloc]init];
     wrfGuestPhoneData = [[NSMutableArray alloc]init];

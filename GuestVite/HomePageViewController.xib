@@ -24,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="BlackBack" translatesAutoresizingMaskIntoConstraints="NO" id="Vgq-Mn-Zjh">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="blue-orange-backgrounds-wallpaper" translatesAutoresizingMaskIntoConstraints="NO" id="Vgq-Mn-Zjh">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEH-6O-8Os">
@@ -147,6 +147,6 @@
         </view>
     </objects>
     <resources>
-        <image name="BlackBack" width="2560" height="1600"/>
+        <image name="blue-orange-backgrounds-wallpaper" width="1680" height="1050"/>
     </resources>
 </document>

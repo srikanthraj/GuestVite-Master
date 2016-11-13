@@ -25,7 +25,7 @@
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *awaitMyResponseBack;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
-@property (weak, nonatomic) IBOutlet UILabel *backLabel;
+
 
 @property (nonatomic, strong) CNPPopupController *popupController;
 @end
@@ -65,6 +65,8 @@ NSArray *keys;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setNeedsStatusBarAppearanceUpdate];
+    
     
     firstNameData = [[NSMutableArray alloc]init];
     lastNameData = [[NSMutableArray alloc]init];
@@ -83,29 +85,15 @@ NSArray *keys;
     personalMessageData = [[NSMutableArray alloc]init];
     keyData = [[NSMutableArray alloc]init];
     
-    UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
-    self.tableView.backgroundColor = background;
     
     
-    self.awaitMyResponseBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
     
-    [self.awaitMyResponseBack setFrame:CGRectMake(0, 0, 400, 64)];
-    
-    self.awaitMyResponseBack.translucent = YES;
-    
-    
-    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
     
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
     
     
     
-    
-    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
-    self.backLabel.textColor = [UIColor whiteColor];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
     [[self navigationItem] setBackBarButtonItem:backButton];
@@ -321,6 +309,12 @@ NSArray *keys;
 }
 
 
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+
+
 - (IBAction)Back
 {
     HomePageViewController *homePageVC =
@@ -384,7 +378,7 @@ NSArray *keys;
         cell.userInteractionEnabled = NO;
         self.tableView.hidden = YES;
         
-        UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
+        UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"]];
         
         self.view.backgroundColor = background;
         
@@ -412,8 +406,22 @@ NSArray *keys;
         
     }
     
-    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"Black_BG"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    if (indexPath.row % 2 == 0)
+    {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    }
+    
+    else
+    {
+        
+        
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        
+        
+    }
+
     
     
     
