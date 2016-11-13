@@ -31,7 +31,6 @@
                     </textAttributes>
                     <items>
                         <navigationItem title="Previous Invites Sent" id="GCP-Aj-QbL">
-                            <barButtonItem key="backBarButtonItem" image="Back" id="mwv-8W-4K6"/>
                             <barButtonItem key="leftBarButtonItem" image="Back" id="tPQ-sL-gr9">
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
