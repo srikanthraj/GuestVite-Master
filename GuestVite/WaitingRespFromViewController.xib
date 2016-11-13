@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="WaitingRespFromViewController">
             <connections>
                 <outlet property="backButton" destination="Ngd-mV-qnc" id="xdB-rm-g7s"/>
-                <outlet property="backLabel" destination="PbD-2d-2QI" id="Cr6-gH-1SC"/>
                 <outlet property="tableView" destination="tWt-C3-O4J" id="Ge5-u8-DVL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="waitingRespFromBack" destination="Hkf-m3-VUk" id="J1t-vM-vrK"/>
@@ -19,20 +18,20 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tWt-C3-O4J">
-                    <rect key="frame" x="0.0" y="56" width="320" height="512"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="Dxp-Rv-t57"/>
-                        <outlet property="delegate" destination="-1" id="o6v-CQ-K0Y"/>
-                    </connections>
-                </tableView>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hkf-m3-VUk">
+                <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hkf-m3-VUk">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.16078431369999999" green="0.1058823529" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="C1T-mf-ni3"/>
+                    </constraints>
+                    <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
+                    </textAttributes>
                     <items>
                         <navigationItem title="Pending Responses from " id="dY4-bq-UvO">
-                            <barButtonItem key="leftBarButtonItem" image="button_back" id="Ngd-mV-qnc">
-                                <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <barButtonItem key="leftBarButtonItem" image="Back" id="Ngd-mV-qnc">
+                                <color key="tintColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <action selector="Back" destination="-1" id="DN5-Ls-TVD"/>
                                 </connections>
@@ -40,27 +39,30 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PbD-2d-2QI">
-                    <rect key="frame" x="28" y="11" width="38" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tWt-C3-O4J">
+                    <rect key="frame" x="0.0" y="56" width="320" height="512"/>
+                    <color key="backgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="sectionIndexBackgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Dxp-Rv-t57"/>
+                        <outlet property="delegate" destination="-1" id="o6v-CQ-K0Y"/>
+                    </connections>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="tWt-C3-O4J" secondAttribute="trailing" id="0za-q2-sHS"/>
-                <constraint firstItem="Hkf-m3-VUk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="MR4-um-pb0"/>
-                <constraint firstItem="Hkf-m3-VUk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="WlG-lj-XdX"/>
-                <constraint firstAttribute="trailing" secondItem="Hkf-m3-VUk" secondAttribute="trailing" id="bn6-v3-HLN"/>
-                <constraint firstAttribute="bottom" secondItem="tWt-C3-O4J" secondAttribute="bottom" id="kwM-X3-FxT"/>
-                <constraint firstItem="tWt-C3-O4J" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qrc-Y3-0Z6"/>
-                <constraint firstItem="tWt-C3-O4J" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="y6P-Ei-zmI"/>
+                <constraint firstItem="tWt-C3-O4J" firstAttribute="top" secondItem="Hkf-m3-VUk" secondAttribute="bottom" id="MD4-6C-e92"/>
+                <constraint firstItem="Hkf-m3-VUk" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eJU-83-UlQ"/>
+                <constraint firstAttribute="trailing" secondItem="Hkf-m3-VUk" secondAttribute="trailing" id="n9t-0T-XuU"/>
+                <constraint firstItem="Hkf-m3-VUk" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qb5-Km-Z0D"/>
+                <constraint firstItem="tWt-C3-O4J" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vf7-L7-3ts"/>
+                <constraint firstAttribute="trailing" secondItem="tWt-C3-O4J" secondAttribute="trailing" id="x9U-hx-tDU"/>
+                <constraint firstAttribute="bottom" secondItem="tWt-C3-O4J" secondAttribute="bottom" id="zzs-EC-kRj"/>
             </constraints>
             <point key="canvasLocation" x="217" y="370"/>
         </view>
     </objects>
     <resources>
-        <image name="button_back" width="50" height="30"/>
+        <image name="Back" width="32" height="30"/>
     </resources>
 </document>
