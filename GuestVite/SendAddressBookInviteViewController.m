@@ -84,6 +84,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
+   //[self loadPhoneContacts];
+    
+    
+    
     // Do any additional setup after loading the view from its nib.
     
     // Set the current date and time as date
@@ -202,6 +209,70 @@
     
     
 }
+
+
+/*
+-(void)loadPhoneContacts{
+    
+    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
+    
+    
+    
+    
+    
+    if (status == kABAuthorizationStatusDenied) {
+        NSLog(@"STATUS IS DENIED");
+        
+        [[[UIAlertView alloc] initWithTitle:nil message:@"This app requires access to your contacts to function properly. Please visit to the \"Privacy\" section in the iPhone Settings app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        return;
+    }
+    
+    CFErrorRef error = NULL;
+    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
+    
+    if (error) {
+        NSLog(@"ABAddressBookCreateWithOptions error: %@", CFBridgingRelease(error));
+        if (addressBook) CFRelease(addressBook);
+        return;
+    }
+    
+    if (status == kABAuthorizationStatusNotDetermined) {
+        NSLog(@"STATUS IS NOT DETERMINED");
+        // present the user the UI that requests permission to contacts ...
+        
+        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
+            if (error) {
+                NSLog(@"ABAddressBookRequestAccessWithCompletion error: %@", CFBridgingRelease(error));
+            }
+            
+            if (granted) {
+                // if they gave you permission, then just carry on
+                NSLog(@"STATUS IS NOT Granted Permission");
+            } else {
+                
+                NSLog(@"STATUS IS Granted Permission");
+                // however, if they didn't give you permission, handle it gracefully, for example...
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // BTW, this is not on the main thread, so dispatch UI updates back to the main queue
+                    
+                    [[[UIAlertView alloc] initWithTitle:nil message:@"This app requires access to your contacts to function properly. Please visit to the \"Privacy\" section in the iPhone Settings app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+                });
+            }
+            
+            if (addressBook) CFRelease(addressBook);
+        });
+        
+    } else if (status == kABAuthorizationStatusAuthorized) {
+        NSLog(@"Authorized");
+        if (addressBook) CFRelease(addressBook);
+    }
+}
+
+
+*/
+
+
 
 - (IBAction)Back
 {
@@ -577,8 +648,39 @@
 - (IBAction)addressButtonTapped:(id)sender {
     
     
+    if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusDenied ||
+        ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusRestricted){
+        //1
+        NSLog(@"Denied");
+        UIAlertView *cantAddContactAlert = [[UIAlertView alloc] initWithTitle: @"Cannot Add Contact" message: @"You must give the app permission to add the contact first." delegate:nil cancelButtonTitle: @"OK" otherButtonTitles: nil];
+        [cantAddContactAlert show];
+    } else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized){
+        //2
+        NSLog(@"Authorized");
+        [self showAddressBook];
+    } else{ //ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined
+        //3
+        NSLog(@"Not determined");
+        ABAddressBookRequestAccessWithCompletion(ABAddressBookCreateWithOptions(NULL, nil), ^(bool granted, CFErrorRef error) {
+            if (!granted){
+                //4
+                NSLog(@"Just denied");
+                UIAlertView *cantAddContactAlert = [[UIAlertView alloc] initWithTitle: @"Cannot Add Contact" message: @"You must give the app permission to add the contact first." delegate:nil cancelButtonTitle: @"OK" otherButtonTitles: nil];
+                [cantAddContactAlert show];
+                return;
+            }
+            else{
+            //5
+            NSLog(@"Just authorized");
+                [self showAddressBook];
+            }
+        });
+        
+    }
+    
+    
     //[self selectContactData];
-    [self showAddressBook];
+    
     //[self populateContactData];
     
     
