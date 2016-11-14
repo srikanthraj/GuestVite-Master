@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendNewInviteViewController">
             <connections>
                 <outlet property="backButton" destination="Ft3-Ob-IJd" id="bAi-tS-0O2"/>
-                <outlet property="backLabel" destination="FEY-Gs-yaC" id="zbg-9X-duk"/>
                 <outlet property="datePicker" destination="9Qm-nN-LMf" id="Ecq-pZ-y9G"/>
                 <outlet property="datePickerExpire" destination="Isq-eC-Uvf" id="xDf-5Q-KA5"/>
                 <outlet property="guestEMailText" destination="lu0-GX-0hT" id="UeG-VY-XM7"/>
@@ -29,7 +28,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Black_BG" translatesAutoresizingMaskIntoConstraints="NO" id="dFe-Z6-Ztw">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="purple" translatesAutoresizingMaskIntoConstraints="NO" id="dFe-Z6-Ztw">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="634"/>
                 </imageView>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Guest's E-Mail" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lu0-GX-0hT">
@@ -85,24 +84,16 @@
                 </textView>
                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZg-4A-ZCf">
                     <rect key="frame" x="113" y="514" width="76" height="30"/>
-                    <state key="normal" title="Send Invite"/>
+                    <state key="normal" title="Send Invite">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
                         <action selector="sendInviteTapped:" destination="-1" eventType="touchUpInside" id="eno-4h-DE2"/>
                     </connections>
                 </button>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1i7-PI-nRC">
-                    <rect key="frame" x="0.0" y="52" width="320" height="29"/>
-                    <segments>
-                        <segment title="One Guest"/>
-                        <segment title="Many Guests"/>
-                        <segment title="Address Book"/>
-                    </segments>
-                    <connections>
-                        <action selector="segmentTapped:" destination="-1" eventType="valueChanged" id="lZX-8b-nbg"/>
-                    </connections>
-                </segmentedControl>
                 <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="9Qm-nN-LMf">
                     <rect key="frame" x="180" y="265" width="86" height="37"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="htl-iC-G2R"/>
                         <constraint firstAttribute="width" constant="143" id="pGU-nX-JXL"/>
@@ -113,6 +104,7 @@
                 </datePicker>
                 <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Isq-eC-Uvf">
                     <rect key="frame" x="180" y="316" width="86" height="37"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="JiL-EX-K5W"/>
                         <constraint firstAttribute="width" constant="143" id="in6-kk-iQw"/>
@@ -121,12 +113,20 @@
                         <!--2016-10-24 02:49:34 +0000-->
                     </date>
                 </datePicker>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OlN-Nr-JvH">
+                <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OlN-Nr-JvH">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.16078431369999999" green="0.1058823529" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="b4c-3A-k3n"/>
+                    </constraints>
+                    <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </textAttributes>
                     <items>
                         <navigationItem title="Send Single Invite" id="Pyc-Wq-Bzh">
-                            <barButtonItem key="leftBarButtonItem" image="button_back" id="Ft3-Ob-IJd">
-                                <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <barButtonItem key="leftBarButtonItem" image="Back" id="Ft3-Ob-IJd">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="Back" destination="-1" id="fw0-Fg-TfA"/>
                                 </connections>
@@ -134,12 +134,6 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FEY-Gs-yaC">
-                    <rect key="frame" x="24" y="11" width="38" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Guest's First,Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IjT-JN-3rF">
                     <rect key="frame" x="20" y="106" width="208" height="30"/>
                     <constraints>
@@ -149,39 +143,48 @@
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits"/>
                 </textField>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="1i7-PI-nRC">
+                    <rect key="frame" x="0.0" y="60" width="320" height="29"/>
+                    <segments>
+                        <segment title="One Guest"/>
+                        <segment title="Many Guests"/>
+                        <segment title="Address Book"/>
+                    </segments>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <action selector="segmentTapped:" destination="-1" eventType="valueChanged" id="lZX-8b-nbg"/>
+                    </connections>
+                </segmentedControl>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="fyq-c0-mTe" firstAttribute="top" secondItem="Isq-eC-Uvf" secondAttribute="bottom" constant="17" id="05N-sT-aqn"/>
+                <constraint firstItem="OlN-Nr-JvH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="07p-J1-uDV"/>
                 <constraint firstItem="FLY-oL-FLt" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="1uM-No-Lb0"/>
-                <constraint firstItem="1i7-PI-nRC" firstAttribute="top" secondItem="OlN-Nr-JvH" secondAttribute="bottom" constant="8" id="8dZ-yW-GYH"/>
-                <constraint firstItem="OlN-Nr-JvH" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Fx1-Mr-GSZ"/>
+                <constraint firstItem="1i7-PI-nRC" firstAttribute="top" secondItem="OlN-Nr-JvH" secondAttribute="bottom" id="4SH-ni-DAh"/>
+                <constraint firstItem="1i7-PI-nRC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6O6-k4-c1x"/>
                 <constraint firstItem="9Qm-nN-LMf" firstAttribute="leading" secondItem="gD5-1N-zEG" secondAttribute="trailing" constant="18" id="GnV-4u-3xg"/>
-                <constraint firstAttribute="trailing" secondItem="1i7-PI-nRC" secondAttribute="trailing" id="H1f-eP-XpN"/>
-                <constraint firstItem="OlN-Nr-JvH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="NMd-Dl-o1T"/>
+                <constraint firstAttribute="trailing" secondItem="OlN-Nr-JvH" secondAttribute="trailing" id="KZp-Q4-7Y9"/>
                 <constraint firstAttribute="bottom" secondItem="AZg-4A-ZCf" secondAttribute="bottom" id="Rur-JS-QX0"/>
-                <constraint firstItem="1i7-PI-nRC" firstAttribute="top" secondItem="OlN-Nr-JvH" secondAttribute="bottom" constant="8" id="Y4X-6n-ieJ"/>
                 <constraint firstItem="dFe-Z6-Ztw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="YyZ-W6-dCU"/>
-                <constraint firstItem="1i7-PI-nRC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ZLI-uy-r3h"/>
-                <constraint firstItem="1i7-PI-nRC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="eSv-iX-N7i"/>
+                <constraint firstItem="OlN-Nr-JvH" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="aHa-nV-nZc"/>
                 <constraint firstAttribute="bottom" secondItem="dFe-Z6-Ztw" secondAttribute="bottom" id="g6t-6g-S2X"/>
+                <constraint firstAttribute="trailing" secondItem="1i7-PI-nRC" secondAttribute="trailing" id="iRP-3b-8Ba"/>
                 <constraint firstItem="gD5-1N-zEG" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="lWP-qS-mn3"/>
                 <constraint firstItem="lu0-GX-0hT" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="njh-m5-b7i"/>
                 <constraint firstItem="AZg-4A-ZCf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="113" id="nvA-lC-14X"/>
                 <constraint firstItem="Isq-eC-Uvf" firstAttribute="leading" secondItem="aZj-ve-yuD" secondAttribute="trailing" constant="18" id="o7T-Fb-1bd"/>
                 <constraint firstAttribute="trailing" secondItem="dFe-Z6-Ztw" secondAttribute="trailing" id="pAZ-Rn-0Sx"/>
-                <constraint firstAttribute="trailing" secondItem="1i7-PI-nRC" secondAttribute="trailing" id="pdI-jB-DHz"/>
                 <constraint firstItem="fyq-c0-mTe" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="qJW-qg-asF"/>
                 <constraint firstItem="dFe-Z6-Ztw" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qQl-Ct-CQb"/>
                 <constraint firstItem="IjT-JN-3rF" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="rc3-Th-eVs"/>
                 <constraint firstItem="aZj-ve-yuD" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="vnC-Br-w69"/>
-                <constraint firstAttribute="trailing" secondItem="OlN-Nr-JvH" secondAttribute="trailing" id="zzF-Fd-n1z"/>
             </constraints>
             <point key="canvasLocation" x="285" y="380"/>
         </view>
     </objects>
     <resources>
-        <image name="Black_BG" width="640" height="410"/>
-        <image name="button_back" width="50" height="30"/>
+        <image name="Back" width="32" height="30"/>
+        <image name="purple" width="336" height="280"/>
     </resources>
 </document>

@@ -91,7 +91,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    [self setNeedsStatusBarAppearanceUpdate];
     
    //[self loadPhoneContacts];
     
@@ -114,25 +114,8 @@
     NSLog(@"End Time on load %@", self.endTime);
     
     
-    self.sendAddressBookInviteBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
-    
-    [self.sendAddressBookInviteBack setFrame:CGRectMake(0, 0, 400, 64)];
-    
-    self.sendAddressBookInviteBack.translucent = YES;
-    
-    
-    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
-    
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
-    
-    
-    
-    
-    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
-    self.backLabel.textColor = [UIColor whiteColor];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
     [[self navigationItem] setBackBarButtonItem:backButton];
@@ -220,7 +203,9 @@
 }
 
 
-
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 
 - (IBAction)Back
 {

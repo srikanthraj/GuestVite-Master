@@ -9,7 +9,6 @@
             <connections>
                 <outlet property="addressBookButton" destination="prT-sT-nTm" id="X33-gG-iXI"/>
                 <outlet property="backButton" destination="cOJ-ch-lym" id="heZ-ZP-2gM"/>
-                <outlet property="backLabel" destination="chS-ol-lAe" id="Cby-3H-NR0"/>
                 <outlet property="datePicker" destination="UzK-56-Yfg" id="OW7-ee-eqV"/>
                 <outlet property="datePickerExpire" destination="mrI-hF-LRo" id="KhH-tg-SxG"/>
                 <outlet property="eMailguestList" destination="JoZ-u9-g4e" id="KIt-hQ-WPe"/>
@@ -27,7 +26,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Black_BG" translatesAutoresizingMaskIntoConstraints="NO" id="vGK-jm-uev">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="purple" translatesAutoresizingMaskIntoConstraints="NO" id="vGK-jm-uev">
                     <rect key="frame" x="0.0" y="0.0" width="401" height="568"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prT-sT-nTm">
@@ -36,7 +35,9 @@
                         <constraint firstAttribute="width" constant="184" id="8JR-BB-pnK"/>
                         <constraint firstAttribute="height" constant="30" id="zBp-lw-n8k"/>
                     </constraints>
-                    <state key="normal" title="Import From Address Book"/>
+                    <state key="normal" title="Import From Address Book">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
                         <action selector="addressButtonTapped:" destination="-1" eventType="touchUpInside" id="A1Y-aM-Owa"/>
                     </connections>
@@ -73,7 +74,9 @@
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="71" id="Rqj-eH-Vie"/>
                         <constraint firstAttribute="height" constant="30" id="Wmg-Yh-ODf"/>
                     </constraints>
-                    <state key="normal" title="Send SMS"/>
+                    <state key="normal" title="Send SMS">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
                         <action selector="sendSMSTapped:" destination="-1" eventType="touchUpInside" id="wdE-Rm-bR9"/>
                     </connections>
@@ -86,7 +89,9 @@
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="hn1-Cf-xiM"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="83" id="xYq-bn-NN4"/>
                     </constraints>
-                    <state key="normal" title="Send E-Mail"/>
+                    <state key="normal" title="Send E-Mail">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
                         <action selector="sendEMailTapped:" destination="-1" eventType="touchUpInside" id="xsd-fd-X0a"/>
                     </connections>
@@ -151,12 +156,20 @@
                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="light"/>
                 </textView>
-                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Xb-9T-bBu">
+                <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Xb-9T-bBu">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.16078431369999999" green="0.1058823529" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="rQr-C7-8ia"/>
+                    </constraints>
+                    <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </textAttributes>
                     <items>
                         <navigationItem title="Invite From Address Book" id="KSQ-VD-7nL">
-                            <barButtonItem key="leftBarButtonItem" image="button_back" id="cOJ-ch-lym">
-                                <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <barButtonItem key="leftBarButtonItem" image="Back" id="cOJ-ch-lym">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="Back" destination="-1" id="aGY-fA-0Pw"/>
                                 </connections>
@@ -164,12 +177,6 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="chS-ol-lAe">
-                    <rect key="frame" x="25" y="11" width="38" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-Ax-8XR">
                     <rect key="frame" x="0.0" y="44" width="320" height="29"/>
                     <segments>
@@ -177,6 +184,7 @@
                         <segment title="Many Guests"/>
                         <segment title="Address Book"/>
                     </segments>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <action selector="segmentTapped:" destination="-1" eventType="valueChanged" id="1HH-1u-5YK"/>
                     </connections>
@@ -184,35 +192,35 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="1t1-Ax-8XR" firstAttribute="top" secondItem="0Xb-9T-bBu" secondAttribute="bottom" constant="8" id="0SK-dP-8iP"/>
-                <constraint firstItem="1t1-Ax-8XR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="238-Lk-Xb6"/>
                 <constraint firstItem="5aG-fg-HnV" firstAttribute="width" secondItem="wFG-W4-Qj1" secondAttribute="width" id="2zH-Gl-mfQ"/>
                 <constraint firstItem="vGK-jm-uev" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="3uy-a1-2Bx"/>
                 <constraint firstItem="JoZ-u9-g4e" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="54Z-Lp-scL"/>
                 <constraint firstAttribute="trailing" secondItem="mrI-hF-LRo" secondAttribute="trailing" constant="14" id="6Ii-8C-hZe"/>
-                <constraint firstItem="0Xb-9T-bBu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="BEP-hz-Giq"/>
+                <constraint firstAttribute="trailing" secondItem="0Xb-9T-bBu" secondAttribute="trailing" id="Aji-y7-IJY"/>
                 <constraint firstAttribute="bottom" secondItem="vGK-jm-uev" secondAttribute="bottom" id="BZc-kV-Zxw"/>
-                <constraint firstAttribute="trailing" secondItem="1t1-Ax-8XR" secondAttribute="trailing" id="Bdg-iY-HBc"/>
                 <constraint firstItem="tkJ-5u-rDf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="CVx-Rj-7zi"/>
+                <constraint firstItem="1t1-Ax-8XR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="FFP-Wv-QWF"/>
+                <constraint firstItem="1t1-Ax-8XR" firstAttribute="top" secondItem="0Xb-9T-bBu" secondAttribute="bottom" id="FZA-fI-m9S"/>
                 <constraint firstAttribute="trailing" secondItem="prT-sT-nTm" secondAttribute="trailing" constant="81" id="G14-k4-rfa"/>
                 <constraint firstItem="wFG-W4-Qj1" firstAttribute="top" secondItem="tkJ-5u-rDf" secondAttribute="bottom" constant="35" id="IZ4-VO-eGH"/>
                 <constraint firstAttribute="trailing" secondItem="2ZU-nA-Chb" secondAttribute="trailing" constant="10" id="MGU-kQ-4g3"/>
                 <constraint firstItem="uPZ-JO-7D7" firstAttribute="top" secondItem="vGK-jm-uev" secondAttribute="bottom" constant="-38" id="P4e-uS-2YE"/>
                 <constraint firstItem="tkJ-5u-rDf" firstAttribute="top" secondItem="JoZ-u9-g4e" secondAttribute="bottom" constant="8" id="TUa-Zr-Qif"/>
+                <constraint firstAttribute="trailing" secondItem="1t1-Ax-8XR" secondAttribute="trailing" id="Tyg-UW-AyD"/>
                 <constraint firstItem="2ZU-nA-Chb" firstAttribute="top" secondItem="mrI-hF-LRo" secondAttribute="bottom" constant="20" id="Tzj-BV-gMk"/>
-                <constraint firstItem="0Xb-9T-bBu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="UY4-Dh-3AL"/>
                 <constraint firstAttribute="bottom" secondItem="vGK-jm-uev" secondAttribute="bottom" constant="10" id="WQ0-5E-Aif"/>
                 <constraint firstAttribute="trailing" secondItem="tkJ-5u-rDf" secondAttribute="trailing" constant="14" id="Xgx-8c-F38"/>
                 <constraint firstItem="JoZ-u9-g4e" firstAttribute="top" secondItem="prT-sT-nTm" secondAttribute="bottom" constant="8" id="YSv-bm-cp7"/>
                 <constraint firstItem="prT-sT-nTm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="55" id="ZeR-1B-3Kq"/>
                 <constraint firstItem="tkJ-5u-rDf" firstAttribute="height" secondItem="JoZ-u9-g4e" secondAttribute="height" id="ZpF-fZ-44s"/>
-                <constraint firstAttribute="trailing" secondItem="0Xb-9T-bBu" secondAttribute="trailing" id="ceW-pY-Abd"/>
                 <constraint firstItem="tkJ-5u-rDf" firstAttribute="top" secondItem="JoZ-u9-g4e" secondAttribute="bottom" constant="8" id="cjG-J1-eoA"/>
                 <constraint firstItem="5aG-fg-HnV" firstAttribute="height" secondItem="wFG-W4-Qj1" secondAttribute="height" id="dMf-W7-0bs"/>
                 <constraint firstItem="vGK-jm-uev" firstAttribute="leading" secondItem="uPZ-JO-7D7" secondAttribute="trailing" constant="-105" id="ej3-Tn-mKv"/>
+                <constraint firstItem="0Xb-9T-bBu" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="f4q-d1-gYy"/>
                 <constraint firstItem="2ZU-nA-Chb" firstAttribute="top" secondItem="5aG-fg-HnV" secondAttribute="bottom" constant="20" id="iFF-qu-psn"/>
                 <constraint firstItem="SPX-eZ-XDR" firstAttribute="top" secondItem="vGK-jm-uev" secondAttribute="bottom" constant="-38" id="iaS-GS-mdx"/>
                 <constraint firstAttribute="trailing" secondItem="UzK-56-Yfg" secondAttribute="trailing" constant="14" id="kbJ-dW-xBf"/>
+                <constraint firstItem="0Xb-9T-bBu" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="oh8-R9-UAm"/>
                 <constraint firstItem="UzK-56-Yfg" firstAttribute="top" secondItem="tkJ-5u-rDf" secondAttribute="bottom" constant="35" id="p9e-F2-bUX"/>
                 <constraint firstAttribute="trailing" secondItem="JoZ-u9-g4e" secondAttribute="trailing" constant="14" id="sfR-3y-kaG"/>
                 <constraint firstItem="2ZU-nA-Chb" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="shh-gX-xFI"/>
@@ -227,7 +235,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Black_BG" width="640" height="410"/>
-        <image name="button_back" width="50" height="30"/>
+        <image name="Back" width="32" height="30"/>
+        <image name="purple" width="336" height="280"/>
     </resources>
 </document>

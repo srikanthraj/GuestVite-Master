@@ -22,6 +22,7 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                     <color key="backgroundColor" red="0.16217732574494009" green="0.10530995178242862" blue="0.21904469970745155" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="hVj-Zx-5gI"/>
                         <constraint firstAttribute="height" constant="60" id="yj2-5m-4hY"/>
                     </constraints>
                     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -52,12 +53,15 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9t9-hS-1m2"/>
+                <constraint firstItem="TcV-bQ-GJZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Rwd-D5-srC"/>
                 <constraint firstItem="TcV-bQ-GJZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="STw-dh-lvd"/>
                 <constraint firstItem="7nZ-g5-ofm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ai5-Wm-r7O"/>
                 <constraint firstItem="7nZ-g5-ofm" firstAttribute="top" secondItem="TcV-bQ-GJZ" secondAttribute="bottom" id="db2-f0-iv1"/>
                 <constraint firstItem="TcV-bQ-GJZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="gPt-VQ-4ai"/>
                 <constraint firstAttribute="trailing" secondItem="TcV-bQ-GJZ" secondAttribute="trailing" id="hte-PM-RbW"/>
                 <constraint firstAttribute="trailing" secondItem="7nZ-g5-ofm" secondAttribute="trailing" id="jjR-9U-MLH"/>
+                <constraint firstAttribute="trailing" secondItem="TcV-bQ-GJZ" secondAttribute="trailing" id="mWy-eU-8ed"/>
             </constraints>
             <point key="canvasLocation" x="200" y="384"/>
         </view>

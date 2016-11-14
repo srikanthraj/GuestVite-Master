@@ -57,7 +57,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setNeedsStatusBarAppearanceUpdate];
 
     // Set the current date and time as date
     
@@ -75,26 +75,8 @@
     
     
     
-    
-    self.sendNewInviteBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
-    
-    [self.sendNewInviteBack setFrame:CGRectMake(0, 0, 400, 64)];
-    
-    self.sendNewInviteBack.translucent = YES;
-    
-    
-    UIImage *navBackgroundImage = [UIImage imageNamed:@"navbar_bg"];
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
-    
-    [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           [UIColor colorWithRed:245.0/255.0 green:245.0/255.0 blue:245.0/255.0 alpha:1.0], NSForegroundColorAttributeName,
-                                                           [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
-    
-    
-    
-    
-    self.backLabel.font = [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:10.0];
-    self.backLabel.textColor = [UIColor whiteColor];
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
     [[self navigationItem] setBackBarButtonItem:backButton];
@@ -168,6 +150,10 @@
     [self.datePickerExpire  addTarget:self action:@selector(dateChangedExpire:) forControlEvents:UIControlEventValueChanged];
     
     
+}
+
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 

@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendBulkInviteViewController">
             <connections>
                 <outlet property="backButton" destination="1vs-93-LIr" id="zoP-3T-bBO"/>
-                <outlet property="backLabel" destination="nq9-iO-ODg" id="efI-YE-edQ"/>
                 <outlet property="datePicker" destination="lnx-qD-85g" id="2G6-H8-pc8"/>
                 <outlet property="datePickerExpire" destination="C4u-RJ-0eS" id="TMK-7a-iAa"/>
                 <outlet property="eMailguestList" destination="PwQ-Pf-6fp" id="kNg-lU-0Yi"/>
@@ -26,7 +25,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="Black_BG" translatesAutoresizingMaskIntoConstraints="NO" id="nzy-GK-eRd">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="purple" translatesAutoresizingMaskIntoConstraints="NO" id="nzy-GK-eRd">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                 </imageView>
                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Personalized Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d8o-w3-8EW">
@@ -56,7 +55,9 @@
                         <constraint firstAttribute="height" constant="30" id="CS5-wl-fhU"/>
                         <constraint firstAttribute="width" constant="71" id="Xl8-gC-Ksm"/>
                     </constraints>
-                    <state key="normal" title="Send SMS"/>
+                    <state key="normal" title="Send SMS">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
                         <action selector="sendSMSTapped:" destination="-1" eventType="touchUpInside" id="mj4-eo-XiU"/>
                     </connections>
@@ -77,7 +78,9 @@
                         <constraint firstAttribute="height" constant="30" id="5hK-vX-EFd"/>
                         <constraint firstAttribute="width" constant="83" id="VVc-7N-Ejy"/>
                     </constraints>
-                    <state key="normal" title="Send E-Mail"/>
+                    <state key="normal" title="Send E-Mail">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
                     <connections>
                         <action selector="sendEMailTapped:" destination="-1" eventType="touchUpInside" id="Haf-jJ-33a"/>
                     </connections>
@@ -115,12 +118,18 @@
                         <outlet property="delegate" destination="-1" id="fG5-x0-7Fx"/>
                     </connections>
                 </textField>
-                <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Yt-rp-LaL">
+                <navigationBar contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Yt-rp-LaL">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                    <color key="backgroundColor" red="0.16078431369999999" green="0.1058823529" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </textAttributes>
                     <items>
                         <navigationItem title="Send Bulk Invite" id="tP0-VZ-V8b">
-                            <barButtonItem key="leftBarButtonItem" image="button_back" id="1vs-93-LIr">
-                                <color key="tintColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
+                            <barButtonItem key="leftBarButtonItem" image="Back" id="1vs-93-LIr">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <action selector="Back" destination="-1" id="jM3-Vl-KCf"/>
                                 </connections>
@@ -128,19 +137,14 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Back" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nq9-iO-ODg">
-                    <rect key="frame" x="28" y="11" width="38" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="h8w-Wn-c9c">
+                <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="1" translatesAutoresizingMaskIntoConstraints="NO" id="h8w-Wn-c9c">
                     <rect key="frame" x="1" y="50" width="320" height="29"/>
                     <segments>
                         <segment title="One Guest"/>
                         <segment title="Many Guests"/>
                         <segment title="Address Book"/>
                     </segments>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
                         <action selector="segmentTapped:" destination="-1" eventType="valueChanged" id="yw9-KP-Rbb"/>
                     </connections>
@@ -163,6 +167,8 @@
             <constraints>
                 <constraint firstItem="nzy-GK-eRd" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1Y9-CM-Q8A"/>
                 <constraint firstItem="lnx-qD-85g" firstAttribute="top" secondItem="O6g-N8-VRL" secondAttribute="bottom" constant="10" id="78X-jQ-vb4"/>
+                <constraint firstItem="h8w-Wn-c9c" firstAttribute="top" secondItem="2Yt-rp-LaL" secondAttribute="bottom" id="B39-vD-n98"/>
+                <constraint firstItem="h8w-Wn-c9c" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Dct-Ka-wb8"/>
                 <constraint firstItem="Xco-US-HjC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="HeM-3c-anJ"/>
                 <constraint firstItem="Xco-US-HjC" firstAttribute="width" secondItem="qVX-FB-pyw" secondAttribute="width" id="Hk7-8o-7Dn"/>
                 <constraint firstItem="AMa-Mo-OYU" firstAttribute="top" secondItem="nzy-GK-eRd" secondAttribute="bottom" constant="-58" id="J3V-2i-ouN"/>
@@ -171,6 +177,7 @@
                 <constraint firstItem="Xco-US-HjC" firstAttribute="height" secondItem="qVX-FB-pyw" secondAttribute="height" id="QpT-2b-e21"/>
                 <constraint firstItem="d8o-w3-8EW" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="RDW-x8-JMB"/>
                 <constraint firstItem="qVX-FB-pyw" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="Y3I-XI-503"/>
+                <constraint firstAttribute="trailing" secondItem="h8w-Wn-c9c" secondAttribute="trailing" id="fnO-fA-oks"/>
                 <constraint firstItem="PwQ-Pf-6fp" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="fsV-Zg-W1j"/>
                 <constraint firstAttribute="bottom" secondItem="nzy-GK-eRd" secondAttribute="bottom" id="gv4-8W-OxG"/>
                 <constraint firstItem="O6g-N8-VRL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="jmh-8v-fsw"/>
@@ -186,7 +193,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Black_BG" width="640" height="410"/>
-        <image name="button_back" width="50" height="30"/>
+        <image name="Back" width="32" height="30"/>
+        <image name="purple" width="336" height="280"/>
     </resources>
 </document>
