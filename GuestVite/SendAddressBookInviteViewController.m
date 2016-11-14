@@ -42,7 +42,13 @@
 
 @property (nonatomic, strong) NSMutableArray *emailContactsData;
 
+@property (nonatomic, strong) NSMutableArray *firstNameEmailContactsData;
+@property (nonatomic, strong) NSMutableArray *lastNameEmailContactsData;
+
 @property (nonatomic, strong) NSMutableArray *phoneContactsData;
+
+@property (nonatomic, strong) NSMutableArray *firstNamePhoneContactsData;
+@property (nonatomic, strong) NSMutableArray *lastNamePhoneContactsData;
 
 @property (nonatomic, strong) NSDictionary *dictContactDetails;
 
@@ -183,7 +189,10 @@
     
     self.phoneContactsData = [[NSMutableArray alloc]init];
     self.emailContactsData = [[NSMutableArray alloc]init];
-    
+    self.firstNamePhoneContactsData = [[NSMutableArray alloc]init];
+    self.lastNamePhoneContactsData = [[NSMutableArray alloc]init];
+    self.firstNameEmailContactsData = [[NSMutableArray alloc]init];
+    self.lastNameEmailContactsData = [[NSMutableArray alloc]init];
     
     
     self.datePicker.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
@@ -210,67 +219,6 @@
     
 }
 
-
-/*
--(void)loadPhoneContacts{
-    
-    ABAuthorizationStatus status = ABAddressBookGetAuthorizationStatus();
-    
-    
-    
-    
-    
-    if (status == kABAuthorizationStatusDenied) {
-        NSLog(@"STATUS IS DENIED");
-        
-        [[[UIAlertView alloc] initWithTitle:nil message:@"This app requires access to your contacts to function properly. Please visit to the \"Privacy\" section in the iPhone Settings app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-        return;
-    }
-    
-    CFErrorRef error = NULL;
-    ABAddressBookRef addressBook = ABAddressBookCreateWithOptions(NULL, &error);
-    
-    if (error) {
-        NSLog(@"ABAddressBookCreateWithOptions error: %@", CFBridgingRelease(error));
-        if (addressBook) CFRelease(addressBook);
-        return;
-    }
-    
-    if (status == kABAuthorizationStatusNotDetermined) {
-        NSLog(@"STATUS IS NOT DETERMINED");
-        // present the user the UI that requests permission to contacts ...
-        
-        ABAddressBookRequestAccessWithCompletion(addressBook, ^(bool granted, CFErrorRef error) {
-            if (error) {
-                NSLog(@"ABAddressBookRequestAccessWithCompletion error: %@", CFBridgingRelease(error));
-            }
-            
-            if (granted) {
-                // if they gave you permission, then just carry on
-                NSLog(@"STATUS IS NOT Granted Permission");
-            } else {
-                
-                NSLog(@"STATUS IS Granted Permission");
-                // however, if they didn't give you permission, handle it gracefully, for example...
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    // BTW, this is not on the main thread, so dispatch UI updates back to the main queue
-                    
-                    [[[UIAlertView alloc] initWithTitle:nil message:@"This app requires access to your contacts to function properly. Please visit to the \"Privacy\" section in the iPhone Settings app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-                });
-            }
-            
-            if (addressBook) CFRelease(addressBook);
-        });
-        
-    } else if (status == kABAuthorizationStatusAuthorized) {
-        NSLog(@"Authorized");
-        if (addressBook) CFRelease(addressBook);
-    }
-}
-
-
-*/
 
 
 
@@ -316,7 +264,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm a"];
     NSString *currentTime = [dateFormatter stringFromDate:self.datePicker.date];
-    NSLog(@"Time For %@", currentTime);
+    //NSLog(@"Time For %@", currentTime);
     self.startTime = currentTime;
 }
 
@@ -325,7 +273,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"hh:mm a"];
     NSString *currentTime = [dateFormatter stringFromDate:self.datePickerExpire.date];
-    NSLog(@"Time Expire%@", currentTime);
+   // NSLog(@"Time Expire%@", currentTime);
     self.endTime = currentTime;
 }
 
@@ -481,7 +429,19 @@
     if(([[contactInfoDict objectForKey:@"mobileNumber"] length] !=0))
     {
         
+        //Below Code Login to Remove the Extra Space When Last Name is not present
+        if([[contactInfoDict objectForKey:@"lastName"] length] > 0) {
         tempo = [NSString stringWithFormat:@"%@ %@: %@",[contactInfoDict objectForKey:@"firstName"],[contactInfoDict objectForKey:@"lastName"],[contactInfoDict objectForKey:@"mobileNumber"]];
+            [self.lastNamePhoneContactsData addObject:[contactInfoDict objectForKey:@"lastName"]];
+        }
+        
+        else {
+            tempo = [NSString stringWithFormat:@"%@: %@",[contactInfoDict objectForKey:@"firstName"],[contactInfoDict objectForKey:@"mobileNumber"]];
+            
+            [self.lastNamePhoneContactsData addObject:@"Not Specified"];
+        }
+        
+        [self.firstNamePhoneContactsData addObject:[contactInfoDict objectForKey:@"firstName"]];
         [self.phoneContactsData addObject:[contactInfoDict objectForKey:@"mobileNumber"]];
     
         //NSLog(@"PHONE CONTACTS DATA %@",[contactInfoDict objectForKey:@"mobileNumber"]);
@@ -499,13 +459,25 @@
     
     }
     
-    // Take Home Number If Mobile Number is ot there
+    // Take Home Number If Mobile Number is Not there
     
     else if(([[contactInfoDict objectForKey:@"homeNumber"] length] !=0))
     {
-        
+        //Below Code Login to Remove the Extra Space When Last Name is not present
+        if([[contactInfoDict objectForKey:@"lastName"] length] > 0) {
         tempo = [NSString stringWithFormat:@"%@ %@: %@",[contactInfoDict objectForKey:@"firstName"],[contactInfoDict objectForKey:@"lastName"],[contactInfoDict objectForKey:@"homeNumber"]];
+            
+            [self.lastNamePhoneContactsData addObject:[contactInfoDict objectForKey:@"lastName"]];
+            
+        }
         
+        else {
+            tempo = [NSString stringWithFormat:@"%@: %@",[contactInfoDict objectForKey:@"firstName"],[contactInfoDict objectForKey:@"homeNumber"]];
+            
+            [self.lastNamePhoneContactsData addObject:@"Not Specified"];
+        }
+        
+        [self.firstNamePhoneContactsData addObject:[contactInfoDict objectForKey:@"firstName"]];
         [self.phoneContactsData addObject:[contactInfoDict objectForKey:@"homeNumber"]];
         
         //NSLog(@"PHONE CONTACTS DATA %@",[contactInfoDict objectForKey:@"homeNumber"]);
@@ -528,8 +500,20 @@
     
     if([[contactInfoDict objectForKey:@"EMail"] length] !=0)
     {
-        tempoEMail = [NSString stringWithFormat:@"%@ %@: %@",[contactInfoDict objectForKey:@"firstName"],[contactInfoDict objectForKey:@"lastName"],[contactInfoDict objectForKey:@"EMail"]];
         
+        //Below Code Login to Remove the Extra Space When Last Name is not present
+        if([[contactInfoDict objectForKey:@"lastName"] length] > 0) {
+        tempoEMail = [NSString stringWithFormat:@"%@ %@: %@",[contactInfoDict objectForKey:@"firstName"],[contactInfoDict objectForKey:@"lastName"],[contactInfoDict objectForKey:@"EMail"]];
+            
+            [self.lastNameEmailContactsData addObject:[contactInfoDict objectForKey:@"lastName"]];
+        }
+        
+        else {
+            tempoEMail = [NSString stringWithFormat:@"%@: %@",[contactInfoDict objectForKey:@"firstName"],[contactInfoDict objectForKey:@"EMail"]];
+            [self.lastNameEmailContactsData addObject:@"Not Specified"];
+        }
+        
+        [self.firstNameEmailContactsData addObject:[contactInfoDict objectForKey:@"firstName"]];
         [self.emailContactsData addObject:[contactInfoDict objectForKey:@"EMail"]];
         
         
@@ -642,7 +626,7 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     NSString *test = contact.givenName;
-    NSLog(@"NAME IS  %@",test);
+    //NSLog(@"NAME IS  %@",test);
 }
 
 - (IBAction)addressButtonTapped:(id)sender {
@@ -817,11 +801,11 @@
     
     NSDate *toDate = [self dateToFormatedDate:endDateTime];
     
-    NSLog(@"FROM DATE %@",fromDate);
+    //NSLog(@"FROM DATE %@",fromDate);
     
-    NSLog(@"TO DATE %@",toDate);
+    //NSLog(@"TO DATE %@",toDate);
     
-    NSLog(@"SMS LIST %@", self.phoneContactsData);
+    //NSLog(@"SMS LIST %@", self.phoneContactsData);
     
     
    
@@ -865,6 +849,25 @@
             NSDictionary *dict = snapshot.value;
             for(NSString *address in self.phoneContactsData){
                 
+                //NSLog(@"PRINTING Phone contacts Data %@", address);
+                
+                NSString *lastNameTemp = [[NSString alloc]init];
+                NSString *phoneTemp = [[NSString alloc]init];
+                
+                NSLog(@"Phone Data First Name %@",[self.firstNamePhoneContactsData objectAtIndex:[self.phoneContactsData indexOfObject:address]]);
+                
+                if(![[self.lastNamePhoneContactsData objectAtIndex:[self.phoneContactsData indexOfObject:address]] isEqualToString:@"Not Specified"]){
+                    
+                    lastNameTemp = [self.lastNamePhoneContactsData objectAtIndex:[self.phoneContactsData indexOfObject:address]];
+                }
+                
+                else {
+                    lastNameTemp = @"BULK";
+                }
+                
+                
+                phoneTemp = [[address componentsSeparatedByCharactersInSet:[[NSCharacterSet decimalDigitCharacterSet] invertedSet]]componentsJoinedByString:@""];
+                
                 NSString *hostaddr = [[NSString alloc]init];
                 
                 if([[dict valueForKey:@"Address2"] length] > 0)
@@ -887,10 +890,12 @@
                                        @"Sender Zip": [dict valueForKey:@"Zip"],
                                        @"Sender Phone": [dict valueForKey:@"Phone"],
                                        @"Mesage From Sender": self.inviteMessage.text,
-                                       @"Receiver First Name": @"BULK",
-                                       @"Receiver Last Name": @"BULK",
+                                       @"Receiver First Name": [self.firstNamePhoneContactsData objectAtIndex:[self.phoneContactsData indexOfObject:address]],
+                                       
+                                       @"Receiver Last Name": lastNameTemp,
+                                       
                                        @"Receiver EMail": @"BULK",
-                                       @"Receiver Phone": address,
+                                       @"Receiver Phone": [phoneTemp substringFromIndex:[phoneTemp length]-10],
                                        @"Invite For Date": startDateTime,
                                        @"Invite Valid Till Date": endDateTime,
                                        @"Invitation Status": @"Pending",
@@ -987,7 +992,7 @@
     NSDate *toDate = [self dateToFormatedDate:endDateTime];
 
     
-    NSLog(@"E- Mail LIST %@", self.emailContactsData);
+    //NSLog(@"E- Mail LIST %@", self.emailContactsData);
     
     if([self.emailContactsData count] ==0) {
         
@@ -1019,6 +1024,21 @@
 
             for(NSString *address in self.emailContactsData){
                 
+                
+                NSString *lastNameTemp = [[NSString alloc]init];
+                
+                NSLog(@"EMail Data First Name %@",[self.firstNameEmailContactsData objectAtIndex:[self.emailContactsData indexOfObject:address]]);
+                
+                if(![[self.lastNameEmailContactsData objectAtIndex:[self.emailContactsData indexOfObject:address]] isEqualToString:@"Not Specified"]){
+                    
+                    lastNameTemp = [self.lastNameEmailContactsData objectAtIndex:[self.emailContactsData indexOfObject:address]];
+                }
+                
+                else {
+                    lastNameTemp = @"BULK";
+                }
+
+                
                 NSString *hostaddr = [[NSString alloc]init];
                 
                 if([[dict valueForKey:@"Address2"] length] > 0)
@@ -1041,8 +1061,8 @@
                                        @"Sender Zip": [dict valueForKey:@"Zip"],
                                        @"Sender Phone": [dict valueForKey:@"Phone"],
                                        @"Mesage From Sender": self.inviteMessage.text,
-                                       @"Receiver First Name": @"BULK",
-                                       @"Receiver Last Name": @"BULK",
+                                       @"Receiver First Name": [self.firstNameEmailContactsData objectAtIndex:[self.emailContactsData indexOfObject:address]],
+                                       @"Receiver Last Name": lastNameTemp,
                                        @"Receiver EMail": address,
                                        @"Receiver Phone": @"BULK",
                                        @"Invite For Date": startDateTime,
