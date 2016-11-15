@@ -19,7 +19,7 @@
 
 @interface ViewController () <UIPageViewControllerDataSource>
 
-@property (weak, nonatomic) IBOutlet UIButton *startWalkthrough;
+
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (strong, nonatomic) NSArray *pageTitles;
@@ -42,25 +42,51 @@
 
 @implementation ViewController
 
+NSArray *viewControllers;
+
+NSUInteger currIndex;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    
     self.pageTitles = @[@"Track the Status of your Guests", @"One Click Invite", @"Alerts when your Guest is near your place", @"Free Regular Update"];
     self.pageImages = @[@"background.png", @"orange-1.png", @"purple.png", @"guests.png"];
     
     
-    // Create page view controller
-    self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    currIndex = 0;
+    
+    //Try
     self.pageViewController.dataSource = self;
     
-    PageContentViewController *startingViewController = [self viewControllerAtIndex:0];
+    [NSTimer scheduledTimerWithTimeInterval:2.0
+                                     target:self
+                                   selector:@selector(changeController:)
+                                   userInfo:nil
+                                    repeats:YES];
+    
+
+    
+  
+    // Create page view controller
+    self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    
+    
+    
+    PageContentViewController *startingViewController = [self viewControllerAtIndex:currIndex];
     NSArray *viewControllers = @[startingViewController];
+    
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+  
+    //Try
+    
+    
+    
+    
     
     // Change the size of page view controller
-    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 450);
+    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (self.view.frame.size.height - 200));
     
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];
@@ -126,6 +152,31 @@
     
     
 }
+
+//Try
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
+{
+    return currIndex;
+}
+
+- (void) changeController:(NSTimer*)timer
+{
+    
+    PageContentViewController *nextViewController = [self viewControllerAtIndex:currIndex++];
+    if (nextViewController == nil) {
+        
+        currIndex = 0;
+        nextViewController = [self viewControllerAtIndex:currIndex];
+    }
+    
+    [self.pageViewController setViewControllers:@[nextViewController]
+                   direction:UIPageViewControllerNavigationDirectionForward
+                    animated:YES
+                  completion:nil];
+    
+}
+
 
 -(void) viewWillLayoutSubviews{
     
@@ -283,6 +334,7 @@
     }
 }
 
+
 - (PageContentViewController *)viewControllerAtIndex:(NSUInteger)index
 {
     if (([self.pageTitles count] == 0) || (index >= [self.pageTitles count])) {
@@ -303,9 +355,6 @@
     return [self.pageTitles count];
 }
 
-- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
-{
-    return 0;
-}
+
 
 @end
