@@ -11,12 +11,20 @@
 #import "HomePageViewController.h"
 #import "RegPageViewController.h"
 #import "TextFieldValidator.h"
+#import "PageContentViewController.h"
 
 #import "SignOut.h"
 
 @import Firebase;
 
-@interface ViewController ()
+@interface ViewController () <UIPageViewControllerDataSource>
+
+@property (weak, nonatomic) IBOutlet UIButton *startWalkthrough;
+
+@property (strong, nonatomic) UIPageViewController *pageViewController;
+@property (strong, nonatomic) NSArray *pageTitles;
+@property (strong, nonatomic) NSArray *pageImages;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet TextFieldValidator *emailField;
@@ -38,6 +46,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    self.pageTitles = @[@"Over 200 Tips and Tricks", @"Discover Hidden Features", @"Bookmark Favorite Tip", @"Free Regular Update"];
+    self.pageImages = @[@"background.png", @"orange-1.png", @"purple.png", @"guests.png"];
+    
+    
+    // Create page view controller
+    self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    self.pageViewController.dataSource = self;
+    
+    PageContentViewController *startingViewController = [self viewControllerAtIndex:0];
+    NSArray *viewControllers = @[startingViewController];
+    [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    // Change the size of page view controller
+    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30);
+    
+    [self addChildViewController:_pageViewController];
+    [self.view addSubview:_pageViewController.view];
+    [self.pageViewController didMoveToParentViewController:self];
     
 
     self.ref = [[FIRDatabase database] reference];
@@ -219,6 +246,66 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - Page View Controller Data Source
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController
+{
+    NSUInteger index = ((PageContentViewController*) viewController).pageIndex;
+    
+    if ((index == 0) || (index == NSNotFound)) {
+        return [self viewControllerAtIndex:[self.pageTitles count]];
+    }
+    
+    else {
+    index--;
+    return [self viewControllerAtIndex:index];
+    }
+}
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController
+{
+    NSUInteger index = ((PageContentViewController*) viewController).pageIndex;
+    
+    if (index == NSNotFound) {
+        return nil;
+    }
+    
+    if (index == [self.pageTitles count]) {
+        return [self viewControllerAtIndex:0];
+    }
+    
+    else {
+    index++;
+    
+    return [self viewControllerAtIndex:index];
+    }
+}
+
+- (PageContentViewController *)viewControllerAtIndex:(NSUInteger)index
+{
+    if (([self.pageTitles count] == 0) || (index >= [self.pageTitles count])) {
+        return nil;
+    }
+    
+    // Create a new view controller and pass suitable data.
+    PageContentViewController *pageContentViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageContentController"];
+    pageContentViewController.imageFile = self.pageImages[index];
+    pageContentViewController.titleText = self.pageTitles[index];
+    pageContentViewController.pageIndex = index;
+    
+    return pageContentViewController;
+}
+
+- (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
+{
+    return [self.pageTitles count];
+}
+
+- (NSInteger)presentationIndexForPageViewController:(UIPageViewController *)pageViewController
+{
+    return 0;
 }
 
 @end
