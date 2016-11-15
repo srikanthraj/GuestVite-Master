@@ -47,7 +47,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-    self.pageTitles = @[@"Over 200 Tips and Tricks", @"Discover Hidden Features", @"Bookmark Favorite Tip", @"Free Regular Update"];
+    self.pageTitles = @[@"Track the Status of your Guests", @"One Click Invite", @"Alerts when your Guest is near your place", @"Free Regular Update"];
     self.pageImages = @[@"background.png", @"orange-1.png", @"purple.png", @"guests.png"];
     
     
@@ -60,7 +60,7 @@
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
     // Change the size of page view controller
-    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 30);
+    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 450);
     
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];

@@ -55,7 +55,7 @@
     
     self.ref = [[FIRDatabase database] reference];
     
-    [self addFirstName];
+   // [self addFirstName];
     
      [self configureButtons];
     
