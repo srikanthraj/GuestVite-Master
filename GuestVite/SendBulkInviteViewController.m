@@ -114,6 +114,7 @@
     self.inviteMessage.textColor = [UIColor lightGrayColor];
     self.inviteMessage.layer.cornerRadius = 10.0;
     self.inviteMessage.layer.borderWidth = 1.0;
+    self.inviteMessage.delegate = self;
     
     UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
     [keyboardDoneButtonView sizeToFit];
@@ -243,36 +244,78 @@
 
 - (void) textViewDidBeginEditing:(UITextView *)textView
 {
+    
     if(self.eMailguestList.isFirstResponder)
     {
         if([self.eMailguestList.text isEqualToString:@"Enter Email Addressses here"]) {
-    self.eMailguestList.text = @"";
-    self.eMailguestList.textColor = [UIColor blackColor];
+            self.eMailguestList.text = @"";
+            self.eMailguestList.textColor = [UIColor blackColor];
         }
         
+        if([self.smsGuestList.text isEqualToString:@""]) {
+            self.smsGuestList.text = @"Enter Phone Numbers here";
+            self.smsGuestList.textColor = [UIColor grayColor];
         }
+        
+        if([self.inviteMessage.text isEqualToString:@""]) {
+            self.inviteMessage.text = @"Personalized Message";
+            self.inviteMessage.textColor = [UIColor grayColor];
+        }
+        
+        
+    }
     
     if(self.smsGuestList.isFirstResponder)
     {
         if([self.smsGuestList.text isEqualToString:@"Enter Phone Numbers here"]) {
-        self.smsGuestList.text = @"";
-        self.smsGuestList.textColor = [UIColor blackColor];
+            self.smsGuestList.text = @"";
+            self.smsGuestList.textColor = [UIColor blackColor];
+        }
+        
+        if([self.eMailguestList.text isEqualToString:@""]) {
+            self.eMailguestList.text = @"Enter Email Addressses here";
+            self.eMailguestList.textColor = [UIColor grayColor];
+        }
+        
+        if([self.inviteMessage.text isEqualToString:@""]) {
+            self.inviteMessage.text = @"Personalized Message";
+            self.inviteMessage.textColor = [UIColor grayColor];
+        }
+        
     }
+    
+    if(self.inviteMessage.isFirstResponder)
+    {
+        if([self.inviteMessage.text isEqualToString:@"Personalized Message"]) {
+            self.inviteMessage.text = @"";
+            self.inviteMessage.textColor = [UIColor blackColor];
+        }
+        
+        if([self.eMailguestList.text isEqualToString:@""]) {
+            self.eMailguestList.text = @"Enter Email Addressses here";
+            self.eMailguestList.textColor = [UIColor grayColor];
+        }
+        
+        if([self.smsGuestList.text isEqualToString:@""]) {
+            self.smsGuestList.text = @"Enter Phone Numbers here";
+            self.smsGuestList.textColor = [UIColor grayColor];
+        }
+        
     }
+
     
 }
 
 -(void) textViewDidChangeSelection:(UITextView *)textView
 {
     
-    
     if(!self.eMailguestList.isFirstResponder)
-        {
-                if(self.eMailguestList.text.length == 0){
-                    self.eMailguestList.textColor = [UIColor lightGrayColor];
-                    self.eMailguestList.text = @"Enter Email Addressses here";
-                    [self.eMailguestList resignFirstResponder];
-                }
+    {
+        if(self.eMailguestList.text.length == 0){
+            self.eMailguestList.textColor = [UIColor lightGrayColor];
+            self.eMailguestList.text = @"Enter Email Addressses here";
+            [self.eMailguestList resignFirstResponder];
+        }
     }
     
     
@@ -285,7 +328,27 @@
         }
     }
     
+    if(!self.inviteMessage.isFirstResponder)
+    {
+        if(self.inviteMessage.text.length == 0){
+            self.inviteMessage.textColor = [UIColor lightGrayColor];
+            self.inviteMessage.text = @"Personalized Message";
+            [self.inviteMessage resignFirstResponder];
+        }
+    }
     
+    
+}
+
+-(void) clearFields {
+    self.smsGuestList.text = @"Enter Phone Numbers here";
+    self.smsGuestList.textColor = [UIColor lightGrayColor];
+    
+    self.eMailguestList.text = @"Enter Email Addresses here";
+    self.eMailguestList.textColor = [UIColor lightGrayColor];
+    
+    self.inviteMessage.text = @"Personalized Message";
+    self.inviteMessage.textColor = [UIColor lightGrayColor];
     
 }
 
@@ -936,9 +999,10 @@
             break;
         }
             
-        case MessageComposeResultSent:
+        case MessageComposeResultSent: {
+            [self clearFields];
             break;
-            
+        }
             
             
         default:
@@ -962,7 +1026,7 @@
            // NSLog(@"Mail saved");
             break;
         case MFMailComposeResultSent: {
-            //NSLog(@"Mail SENT!!!");
+            [self clearFields];
             
             break;
         }

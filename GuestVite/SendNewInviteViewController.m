@@ -21,7 +21,7 @@
 
 @import Firebase;
 
-@interface SendNewInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UIScrollViewDelegate,SACalendarDelegate>
+@interface SendNewInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UIScrollViewDelegate,UITextViewDelegate,SACalendarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *guestNameText;
 @property (weak, nonatomic) IBOutlet UITextField *guestEMailText;
@@ -110,8 +110,8 @@
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
     
-    //Set delegate of Text View
-    self.messageText.delegate = (id)self;
+   
+   
 
     // Set the current date and time as date
     
@@ -165,6 +165,7 @@
     self.messageText.textColor = [UIColor lightGrayColor];
     self.messageText.layer.cornerRadius = 10.0;
     self.messageText.layer.borderWidth = 1.0;
+    self.messageText.delegate = self;
     
     
     UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
@@ -338,19 +339,26 @@
 
 - (void) textViewDidBeginEditing:(UITextView *) textView{
     
-    //if([textView.text isEqualToString:@"Personalized Message"])
-    NSLog(@"textViewDidBeginEditing");
-    [textView setText:@""];
+    if(self.messageText.isFirstResponder)
+    {
+        if([self.messageText.text isEqualToString:@"Personalized Message"]) {
+            self.messageText.text = @"";
+            self.messageText.textColor = [UIColor blackColor];
+        }
+    }
 }
 
--(void) textFieldDidEndEditing:(UITextView *) textView{
-    
-    if([textView.text length] == 0) {
-        
-        textView.text = @"Personalized Message";
-        textView.textColor = [UIColor lightGrayColor];
+-(void) textViewDidChangeSelection:(UITextView *)textView
+{
+    if(!self.messageText.isFirstResponder)
+    {
+        if(self.messageText.text.length == 0){
+            self.messageText.textColor = [UIColor lightGrayColor];
+            self.messageText.text = @"Personalized Message";
+            [self.messageText resignFirstResponder];
+        }
     }
-        
+
 }
 
 
