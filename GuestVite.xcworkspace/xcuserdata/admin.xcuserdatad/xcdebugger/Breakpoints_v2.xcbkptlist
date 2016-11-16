@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/SendNewInviteViewController.m"
-            timestampString = "500616424.098768"
+            timestampString = "500955321.380604"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "540"
-            endingLineNumber = "540"
+            startingLineNumber = "634"
+            endingLineNumber = "634"
             landmarkName = "-sendInviteTapped:"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/SendBulkInviteViewController.m"
-            timestampString = "500517282.563303"
+            timestampString = "500956556.707412"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "509"
-            endingLineNumber = "509"
+            startingLineNumber = "560"
+            endingLineNumber = "560"
             landmarkName = "-sendSMSTapped:"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/SendBulkInviteViewController.m"
-            timestampString = "500517282.563303"
+            timestampString = "500956556.707412"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "111"
-            endingLineNumber = "111"
+            startingLineNumber = "116"
+            endingLineNumber = "116"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/SendNewInviteViewController.m"
-            timestampString = "500616424.098768"
+            timestampString = "500955321.380604"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "435"
-            endingLineNumber = "435"
+            startingLineNumber = "529"
+            endingLineNumber = "529"
             landmarkName = "-sendInviteTapped:"
             landmarkType = "5">
          </BreakpointContent>

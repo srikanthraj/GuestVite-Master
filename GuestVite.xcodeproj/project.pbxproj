@@ -38,6 +38,7 @@
 		84267C6D1DC2C1600044ACF4 /* PrevInvRecvdViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C6B1DC2C1600044ACF4 /* PrevInvRecvdViewController.xib */; };
 		84267C711DC2C9590044ACF4 /* PrevInvRecvdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C6F1DC2C9590044ACF4 /* PrevInvRecvdCell.m */; };
 		84267C721DC2C9590044ACF4 /* PrevInvRecvdCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C701DC2C9590044ACF4 /* PrevInvRecvdCell.xib */; };
+		845E1A041DDBCFE1008EDC62 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E1A031DDBCFE1008EDC62 /* Reachability.m */; };
 		8462B1521DD772EF003F553F /* MyAcceptedInvitesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8462B1501DD772EF003F553F /* MyAcceptedInvitesViewController.m */; };
 		8462B1531DD772EF003F553F /* MyAcceptedInvitesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8462B1511DD772EF003F553F /* MyAcceptedInvitesViewController.xib */; };
 		847340491DA937670038C047 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 847340481DA937670038C047 /* main.m */; };
@@ -129,6 +130,8 @@
 		84267C6E1DC2C9590044ACF4 /* PrevInvRecvdCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PrevInvRecvdCell.h; sourceTree = "<group>"; };
 		84267C6F1DC2C9590044ACF4 /* PrevInvRecvdCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PrevInvRecvdCell.m; sourceTree = "<group>"; };
 		84267C701DC2C9590044ACF4 /* PrevInvRecvdCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrevInvRecvdCell.xib; sourceTree = "<group>"; };
+		845E19FF1DDBCF83008EDC62 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		845E1A031DDBCFE1008EDC62 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../Reachability.m; sourceTree = "<group>"; };
 		8462B14F1DD772EF003F553F /* MyAcceptedInvitesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAcceptedInvitesViewController.h; sourceTree = "<group>"; };
 		8462B1501DD772EF003F553F /* MyAcceptedInvitesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAcceptedInvitesViewController.m; sourceTree = "<group>"; };
 		8462B1511DD772EF003F553F /* MyAcceptedInvitesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAcceptedInvitesViewController.xib; sourceTree = "<group>"; };
@@ -333,6 +336,8 @@
 				8462B14F1DD772EF003F553F /* MyAcceptedInvitesViewController.h */,
 				8462B1501DD772EF003F553F /* MyAcceptedInvitesViewController.m */,
 				8462B1511DD772EF003F553F /* MyAcceptedInvitesViewController.xib */,
+				845E19FF1DDBCF83008EDC62 /* Reachability.h */,
+				845E1A031DDBCFE1008EDC62 /* Reachability.m */,
 			);
 			path = GuestVite;
 			sourceTree = "<group>";
@@ -533,6 +538,7 @@
 				84267C1D1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.m in Sources */,
 				84DF6AA41DC650B600047435 /* PrevInvSentViewController.m in Sources */,
 				84267C581DBEDF4F0044ACF4 /* AwaitMyResponseViewController.m in Sources */,
+				845E1A041DDBCFE1008EDC62 /* Reachability.m in Sources */,
 				84267C101DAD9CF10044ACF4 /* SendNewInviteViewController.m in Sources */,
 				84267C711DC2C9590044ACF4 /* PrevInvRecvdCell.m in Sources */,
 				84267C361DBBBF1C0044ACF4 /* SACalendarCell.m in Sources */,

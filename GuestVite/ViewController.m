@@ -58,9 +58,9 @@ NSUInteger currIndex;
     currIndex = 0;
     
     //Try
-    self.pageViewController.dataSource = self;
+   
     
-    [NSTimer scheduledTimerWithTimeInterval:2.0
+    [NSTimer scheduledTimerWithTimeInterval:5.0
                                      target:self
                                    selector:@selector(changeController:)
                                    userInfo:nil
@@ -71,10 +71,10 @@ NSUInteger currIndex;
   
     // Create page view controller
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+     self.pageViewController.dataSource = self;
     
     
-    
-    PageContentViewController *startingViewController = [self viewControllerAtIndex:currIndex];
+    PageContentViewController *startingViewController = [self viewControllerAtIndex:0];
     NSArray *viewControllers = @[startingViewController];
     
     [self.pageViewController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];

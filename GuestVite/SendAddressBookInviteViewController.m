@@ -20,6 +20,11 @@
 #import <ContactsUI/ContactsUI.h>
 #import "SACalendar.h"
 
+#import "Reachability.h"
+#import "UIViewController+Reachability.m"
+#import "CNPPopupController.h"
+
+
 @import Firebase;
 
 @interface SendAddressBookInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate, CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate,SACalendarDelegate,UITextFieldDelegate>
@@ -51,11 +56,11 @@
 @property (nonatomic, strong) NSMutableArray *lastNamePhoneContactsData;
 
 @property (nonatomic, strong) NSDictionary *dictContactDetails;
-
+@property (nonatomic, strong) CNPPopupController *popupController;
 
 @property (weak, nonatomic) IBOutlet UINavigationBar *sendAddressBookInviteBack;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
-@property (weak, nonatomic) IBOutlet UILabel *backLabel;
+
 
 
 @property (nonatomic, strong) UITextField *currentTextField;
@@ -763,6 +768,56 @@
 
 - (IBAction)sendSMSTapped:(id)sender {
     
+    
+    // Check Internet Connectivity
+    
+    Reachability *kCFHostReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
+    NSLog(@"Netwrok Status %ld",(long)networkStatus);
+    if (networkStatus == NotReachable) {
+        
+        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+        
+        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"We are Sorry " attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
+        
+        NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Looks like there's poor Internet connectivity, your data could not be saved " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+        
+        CNPPopupButton *button = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+        [button setTitle:@"Okay, Got it!" forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+        button.layer.cornerRadius = 4;
+        button.selectionHandler = ^(CNPPopupButton *button){
+            [self.popupController dismissPopupControllerAnimated:YES];
+        };
+        
+        UILabel *titleLabel = [[UILabel alloc] init];
+        titleLabel.numberOfLines = 0;
+        titleLabel.attributedText = title;
+        
+        UILabel *lineOneLabel = [[UILabel alloc] init];
+        lineOneLabel.numberOfLines = 0;
+        lineOneLabel.attributedText = lineOne;
+        
+        // UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sad-smiley"]];
+        
+        self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,button]];
+        self.popupController.theme = [CNPPopupTheme defaultTheme];
+        self.popupController.theme.popupStyle = CNPPopupStyleCentered;
+        self.popupController.delegate = self;
+        [self.popupController presentPopupControllerAnimated:YES];
+        
+    }
+
+    
+    else {
+        
+        
+        // Get the invite Row
+    
     __block NSMutableString *rowValue = [[NSMutableString alloc] init];
     
     __block NSMutableString *senderName = [[NSMutableString alloc] init];
@@ -776,25 +831,13 @@
     
     endDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteExpireDateText.text,self.endTime];
     
-    //startDateTime = [self.inviteForDateText.text self.startTime];
-    
-    //endDateTime = [self.inviteExpireDateText.text stringByAppendingString:self.endTime];
-    
-    
+   
     
     NSDate *fromDate = [self dateToFormatedDate:startDateTime];
     
     NSDate *toDate = [self dateToFormatedDate:endDateTime];
     
-    //NSLog(@"FROM DATE %@",fromDate);
     
-    //NSLog(@"TO DATE %@",toDate);
-    
-    //NSLog(@"SMS LIST %@", self.phoneContactsData);
-    
-    
-   
-   // NSComparisonResult result = [fromDate compare:toDate];
     
     if([self.phoneContactsData count] ==0) {
         
@@ -805,18 +848,8 @@
         [ac addAction:aa];
         [self presentViewController:ac animated:YES completion:nil];
     }
-    /*
-    else if(result != NSOrderedDescending) {
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"To Date cannot be earlier than FROM Date"preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        
-        [ac addAction:aa];
-        [self presentViewController:ac animated:YES completion:nil];
-    }
-*/
-    else{
+        else{
         
         if([fromDate compare:toDate] == NSOrderedAscending) // ONLY if from is earlier
         {
@@ -947,12 +980,59 @@
             [self presentViewController:ac animated:YES completion:nil];
         }
         }//Main else ends
-    
+    }// Internet connectivity else ends
     
     
 }
 
 - (IBAction)sendEMailTapped:(id)sender {
+    
+    // Check Internet Connectivity
+    
+    Reachability *kCFHostReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
+    NSLog(@"Netwrok Status %ld",(long)networkStatus);
+    if (networkStatus == NotReachable) {
+        
+        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+        
+        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"We are Sorry " attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
+        
+        NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Looks like there's poor Internet connectivity, your data could not be saved " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+        
+        CNPPopupButton *button = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+        [button setTitle:@"Okay, Got it!" forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+        button.layer.cornerRadius = 4;
+        button.selectionHandler = ^(CNPPopupButton *button){
+            [self.popupController dismissPopupControllerAnimated:YES];
+        };
+        
+        UILabel *titleLabel = [[UILabel alloc] init];
+        titleLabel.numberOfLines = 0;
+        titleLabel.attributedText = title;
+        
+        UILabel *lineOneLabel = [[UILabel alloc] init];
+        lineOneLabel.numberOfLines = 0;
+        lineOneLabel.attributedText = lineOne;
+        
+        // UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sad-smiley"]];
+        
+        self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,button]];
+        self.popupController.theme = [CNPPopupTheme defaultTheme];
+        self.popupController.theme.popupStyle = CNPPopupStyleCentered;
+        self.popupController.delegate = self;
+        [self.popupController presentPopupControllerAnimated:YES];
+        
+    }
+
+    else {
+        // Get the invite Row
+    
     
     __block NSMutableString *rowValue = [[NSMutableString alloc] init];
     
@@ -1119,6 +1199,7 @@
         
         }// Main else ends
     
+        }// Network connectivity else ends
     
     
 }

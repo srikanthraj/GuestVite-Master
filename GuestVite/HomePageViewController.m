@@ -20,6 +20,10 @@
 #import "WaitingRespFromViewController.h"
 #import "TrackMyGuestsViewController.h"
 #import "MyAcceptedInvitesViewController.h"
+#import "Reachability.h"
+#import "UIViewController+Reachability.m"
+#import "CNPPopupController.h"
+
 
 @import Firebase;
 @interface HomePageViewController ()
@@ -41,15 +45,104 @@
 
 @property (strong, nonatomic) IBOutlet HTPressableButton *signOutButton;
 
+@property (nonatomic, strong) CNPPopupController *popupController;
+
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @end
 
 @implementation HomePageViewController
 
+-(void)viewDidAppear:(BOOL)animated {
+    
+    Reachability *kCFHostReachability = [Reachability reachabilityForInternetConnection];
+    NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
+    NSLog(@"Netwrok Status %ld",(long)networkStatus);
+    if (networkStatus == NotReachable) {
+        
+        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+        
+        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"We are Sorry " attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
+        
+        NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Looks like there's poor Internet connectivity, because of which you might not be able to use some of our features " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+        
+        CNPPopupButton *button = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+        [button setTitle:@"Okay, Got it!" forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+        button.layer.cornerRadius = 4;
+        button.selectionHandler = ^(CNPPopupButton *button){
+            [self.popupController dismissPopupControllerAnimated:YES];
+        };
+        
+        UILabel *titleLabel = [[UILabel alloc] init];
+        titleLabel.numberOfLines = 0;
+        titleLabel.attributedText = title;
+        
+        UILabel *lineOneLabel = [[UILabel alloc] init];
+        lineOneLabel.numberOfLines = 0;
+        lineOneLabel.attributedText = lineOne;
+        
+       // UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sad-smiley"]];
+        
+        self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,button]];
+        self.popupController.theme = [CNPPopupTheme defaultTheme];
+        self.popupController.theme.popupStyle = CNPPopupStyleCentered;
+        self.popupController.delegate = self;
+        [self.popupController presentPopupControllerAnimated:YES];
+
+    }
+
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+  
+    
+        /*
+        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
+        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+        paragraphStyle.alignment = NSTextAlignmentCenter;
+        
+        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"We are Sorry " attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
+        
+        NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Looks like there's poor Internet connectivity, because of which you might not be able to use some of our features " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+        
+        CNPPopupButton *button = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
+        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+        [button setTitle:@"Okay, Got it!" forState:UIControlStateNormal];
+        button.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
+        button.layer.cornerRadius = 4;
+        button.selectionHandler = ^(CNPPopupButton *button){
+            [self.popupController dismissPopupControllerAnimated:YES];
+        };
+        
+        UILabel *titleLabel = [[UILabel alloc] init];
+        titleLabel.numberOfLines = 0;
+        titleLabel.attributedText = title;
+        
+        UILabel *lineOneLabel = [[UILabel alloc] init];
+        lineOneLabel.numberOfLines = 0;
+        lineOneLabel.attributedText = lineOne;
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sad-smiley"]];
+        
+        self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,imageView,button]];
+        self.popupController.theme = [CNPPopupTheme defaultTheme];
+        self.popupController.theme.popupStyle = CNPPopupStyleCentered;
+        self.popupController.delegate = self;
+        [self.popupController presentPopupControllerAnimated:YES];
+     
+        
+    }
+        */
+    
     [self setNeedsStatusBarAppearanceUpdate];
     
     
@@ -70,6 +163,9 @@
     
     // Stylize the Tweet text View
     
+    Reachability *kCFHostReachability = [Reachability reachabilityForInternetConnection];
+    
+     NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
     
     
     // Rounded rectangular default color button
@@ -162,11 +258,24 @@
     [self.view addSubview:self.signOutButton];
 
     
+    
+    if (networkStatus == NotReachable) {
+        
+        self.waitingRespButton.enabled = NO;
+        self.prevInvRecvdButton.enabled = NO;
+        self.prevInvSentButton.enabled = NO;
+        self.awaitMyRespButton.enabled = NO;
+        self.myAcceptedInvitesButton.enabled = NO;
+        self.trackButton.enabled = NO;
+    }
+    
 }
 
 
 
 - (void)buttonPressed:(UIButton *)button {
+    
+    
     SendNewInviteViewController *sendNewVC =
     [[SendNewInviteViewController alloc] initWithNibName:@"SendNewInviteViewController" bundle:nil];
     
@@ -178,6 +287,9 @@
 
 
 - (void)waitingRespButtonPressed:(UIButton *)button {
+    
+    
+    
     WaitingRespFromViewController *wrfVC =
     [[WaitingRespFromViewController alloc] initWithNibName:@"WaitingRespFromViewController" bundle:nil];
     

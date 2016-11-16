@@ -34,6 +34,7 @@ NSMutableArray *piskeyData;
 
 NSArray *piskeys;
 
+UIActivityIndicatorView *activityIndicator;
 
 -(NSDate *)dateToFormatedDate:(NSString *)dateStr {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -48,8 +49,36 @@ NSArray *piskeys;
 -(void) viewWillAppear{
     [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.view.frame.size.width,80.0)];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    //Test
+    
+    // Main thread
+    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    [activityIndicator setCenter:CGPointMake(self.view.frame.size.width/4, self.view.frame.size.height/4)];
+    [self.view addSubview:activityIndicator];
+    [activityIndicator startAnimating];
+    
+    // create a queue
+    dispatch_queue_t queue = dispatch_queue_create("data_process", 0);
+    
+    // send a block to the queue - Not in Main thread
+    dispatch_async(queue, ^{
+        // data processing
+        
+        // Interaction with User Interface - Main thread
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [activityIndicator stopAnimating];
+            activityIndicator.hidden = YES;
+        });
+    });
+    
+    
+    
+    //Test
     
     [self setNeedsStatusBarAppearanceUpdate];
     pisGuestEMailData = [[NSMutableArray alloc]init];
