@@ -773,7 +773,7 @@
     
     Reachability *kCFHostReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
-    NSLog(@"Netwrok Status %ld",(long)networkStatus);
+   // NSLog(@"Netwrok Status %ld",(long)networkStatus);
     if (networkStatus == NotReachable) {
         
         NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
@@ -991,7 +991,7 @@
     
     Reachability *kCFHostReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
-    NSLog(@"Netwrok Status %ld",(long)networkStatus);
+    //NSLog(@"Netwrok Status %ld",(long)networkStatus);
     if (networkStatus == NotReachable) {
         
         NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;

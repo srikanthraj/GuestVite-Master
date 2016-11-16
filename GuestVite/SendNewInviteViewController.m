@@ -63,7 +63,7 @@
     
     Reachability *kCFHostReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
-    NSLog(@"Netwrok Status %ld",(long)networkStatus);
+   // NSLog(@"Netwrok Status %ld",(long)networkStatus);
     if (networkStatus == NotReachable) {
         
         NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
@@ -109,6 +109,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    //Set delegate of Text View
+    self.messageText.delegate = (id)self;
 
     // Set the current date and time as date
     
@@ -333,6 +336,22 @@
     [self.view endEditing:YES];
 }
 
+- (void) textViewDidBeginEditing:(UITextView *) textView{
+    
+    //if([textView.text isEqualToString:@"Personalized Message"])
+    NSLog(@"textViewDidBeginEditing");
+    [textView setText:@""];
+}
+
+-(void) textFieldDidEndEditing:(UITextView *) textView{
+    
+    if([textView.text length] == 0) {
+        
+        textView.text = @"Personalized Message";
+        textView.textColor = [UIColor lightGrayColor];
+    }
+        
+}
 
 
 - (IBAction)segmentTapped:(id)sender {
@@ -396,7 +415,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
     
     Reachability *kCFHostReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
-    NSLog(@"Netwrok Status %ld",(long)networkStatus);
+    //NSLog(@"Netwrok Status %ld",(long)networkStatus);
     if (networkStatus == NotReachable) {
         
         NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
@@ -673,6 +692,19 @@ if(self.segmentControl.selectedSegmentIndex ==1){
 }
 
 
+
+
+-(void) clearFields {
+self.guestNameText.text = @"";
+self.guestEMailText.text = @"";
+self.guestPhoneText.text = @"";
+self.messageText.text = @"Personalized Message";
+self.messageText.textColor = [UIColor lightGrayColor];
+    
+}
+
+
+
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
 {
     switch (result) {
@@ -693,7 +725,10 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         }
             
         case MessageComposeResultSent: {
-            NSLog(@"SMS Sent");
+            
+                [self clearFields];
+                
+
             break;
         }
             
@@ -716,12 +751,10 @@ if(self.segmentControl.selectedSegmentIndex ==1){
             NSLog(@"Mail saved");
             break;
         case MFMailComposeResultSent: {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Success" message:[NSString stringWithFormat:@"E-Mail sent successfully to %@",self.guestNameText.text]preferredStyle:UIAlertControllerStyleAlert];
+                
+                [self clearFields];
             
-            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-            
-            [ac addAction:aa];
-            [self presentViewController:ac animated:YES completion:nil];
+       
             break;
         }
         case MFMailComposeResultFailed:
