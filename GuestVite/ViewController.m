@@ -202,7 +202,6 @@ NSUInteger currIndex;
 }
 -(void)doneClicked:(id)sender
 {
-    NSLog(@"Done Clicked.");
     [self.view endEditing:YES];
 }
 - (IBAction)forgotPasswordTapped:(id)sender {

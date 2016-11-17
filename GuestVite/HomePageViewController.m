@@ -20,6 +20,7 @@
 #import "WaitingRespFromViewController.h"
 #import "TrackMyGuestsViewController.h"
 #import "MyAcceptedInvitesViewController.h"
+#import "UpdateInfoViewController.h"
 #import "Reachability.h"
 #import "UIViewController+Reachability.m"
 #import "CNPPopupController.h"
@@ -54,6 +55,8 @@
 @end
 
 @implementation HomePageViewController
+
+NSMutableString *fName;
 
 -(void)viewDidAppear:(BOOL)animated {
     
@@ -105,6 +108,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    
     //Test
     
     //create you UIScrollView
@@ -123,7 +127,7 @@
     
     self.ref = [[FIRDatabase database] reference];
     
-   // [self addFirstName];
+  // [self addFirstName];
     
      [self configureButtons];
     
@@ -366,6 +370,14 @@ PrevInvRecvdViewController *prevInvRecvdVC =
 
 - (void) updateInfoButtonPressed:(UIButton *)button {
     
+    NSLog(@"Button Pressed");
+    
+    
+    UpdateInfoViewController *updateInfoVC = [[UpdateInfoViewController alloc] initWithNibName:@"UpdateInfoViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:updateInfoVC animated:YES];
+    
+    [self presentViewController:updateInfoVC animated:YES completion:nil];
     
     
 }
@@ -392,6 +404,11 @@ PrevInvRecvdViewController *prevInvRecvdVC =
 -(void) addFirstName {
     
     
+    fName = [[NSMutableString alloc]init];
+    __block NSMutableString *myFName = [[NSMutableString alloc]init];
+    
+    self.ref = [[FIRDatabase database] reference];
+    
     NSString *userID = [FIRAuth auth].currentUser.uid;
     
     NSLog(@"Home Page : user ID is %@",userID);
@@ -401,10 +418,9 @@ PrevInvRecvdViewController *prevInvRecvdVC =
     [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSDictionary *dict = snapshot.value;
-        NSString *firstName = [dict valueForKey:@"First Name"];
+        myFName = [dict valueForKey:@"First Name"];
        // NSLog(@"First Name is %@" , firstName);
         
-        self.welcomeLabel.text = [self.welcomeLabel.text stringByAppendingFormat:@" %@"  ,firstName];
         
         
         NSDictionary *post = @{@"uid" : [dict valueForKey:@"uid"],
@@ -431,7 +447,14 @@ PrevInvRecvdViewController *prevInvRecvdVC =
               } withCancelBlock:^(NSError * _Nonnull error) {
                   NSLog(@"%@", error.localizedDescription);
               }];
-
+    
+    while([myFName length] ==0) {
+        NSLog(@"Chod");
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+    
+    [fName setString:myFName];
+    self.welcomeLabel.text = [self.welcomeLabel.text stringByAppendingFormat:@" %@"  ,fName];
     
 }
 

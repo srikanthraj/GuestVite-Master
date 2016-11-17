@@ -7,6 +7,7 @@
 //
 
 #import "UpdateInfoViewController.h"
+#import "HomePageViewController.h"
 @import Firebase;
 
 @interface UpdateInfoViewController ()
@@ -14,8 +15,7 @@
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
 @property (strong, nonatomic) IBOutlet UITextField *emailField;
-@property (strong, nonatomic) IBOutlet UITextField *firstNameField;
-@property (strong, nonatomic) IBOutlet UITextField *lastNameField;
+@property (strong, nonatomic) IBOutlet UITextField *nameField;
 @property (strong, nonatomic) IBOutlet UITextField *phoneField;
 @property (strong, nonatomic) IBOutlet UITextField *addrLine1Field;
 
@@ -31,8 +31,7 @@
 
 @implementation UpdateInfoViewController
 
-NSMutableString *fName;
-NSMutableString *lName;
+NSMutableString *name;
 NSMutableString *email;
 NSMutableString *phone;
 NSMutableString *addr1;
@@ -46,8 +45,8 @@ NSMutableString *zip;
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    fName = [[NSMutableString alloc]init];
-    lName = [[NSMutableString alloc]init];
+    self.resultField.hidden = YES;
+    name = [[NSMutableString alloc]init];
     email = [[NSMutableString alloc]init];
     phone = [[NSMutableString alloc]init];
     addr1 = [[NSMutableString alloc]init];
@@ -81,8 +80,26 @@ NSMutableString *zip;
     [self.view addSubview:_updateInfoBack];
 
     
+    UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
+    [keyboardDoneButtonView sizeToFit];
+    UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
+                                                                   style:UIBarButtonItemStyleBordered target:self
+                                                                  action:@selector(doneClicked:)];
+    
+    
+    [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
+    
+    self.emailField.inputAccessoryView = keyboardDoneButtonView;
+    self.nameField.inputAccessoryView = keyboardDoneButtonView;
+    self.phoneField.inputAccessoryView = keyboardDoneButtonView;
+    self.addrLine1Field.inputAccessoryView = keyboardDoneButtonView;
+    self.addrLine2Field.inputAccessoryView = keyboardDoneButtonView;
+    self.cityField.inputAccessoryView = keyboardDoneButtonView;
+    self.zipField.inputAccessoryView = keyboardDoneButtonView;
     
     //Get the user Info
+    
+    self.ref = [[FIRDatabase database] reference];
     
      NSString *userID = [FIRAuth auth].currentUser.uid;
     
@@ -104,8 +121,7 @@ NSMutableString *zip;
         
     }
     
-    [fName setString:myFName];
-    [lName setString:myLName];
+    [name setString:[NSString stringWithFormat:@"%@ %@",myFName,myLName]];
     [email setString:myEmail];
     [phone setString:myPhone];
     [addr1 setString:myAddr1];
@@ -117,8 +133,7 @@ NSMutableString *zip;
     
     self.emailField.text = email;
     self.emailField.enabled = NO;
-    self.firstNameField.text = fName;
-    self.lastNameField.text = lName;
+    self.nameField.text = name;
     self.phoneField.text = phone;
     self.addrLine1Field.text = addr1;
     self.addrLine2Field.text = addr2;
@@ -128,19 +143,104 @@ NSMutableString *zip;
     
 }
 
+
+-(void)doneClicked:(id)sender
+{
+    NSLog(@"Done Clicked.");
+    [self.view endEditing:YES];
+}
+
+- (IBAction)Back
+{
+    [self dismissViewControllerAnimated:YES completion:nil]; // ios 6
+}
+
+
+- (void)loadingNextView{
+    
+    
+    HomePageViewController *homePageVC =
+    [[HomePageViewController alloc] initWithNibName:@"HomePageViewController" bundle:nil];
+    
+    [self.navigationController pushViewController:homePageVC animated:YES];
+    
+    [self presentViewController:homePageVC animated:YES completion:nil];
+    
+    
+    
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (IBAction)updateTapped:(id)sender {
+    
+    // First Check if any updates to any of the fields have been made
+    
+    if([self.nameField.text isEqualToString:name] && [self.phoneField.text isEqualToString:phone]&& [self.addrLine1Field.text isEqualToString:addr1] && [self.addrLine2Field.text isEqualToString:addr2] && [self.cityField.text isEqualToString:city] && [self.zipField.text isEqualToString:zip]) {
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"No Information has been edited to update" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+        
+    }
+    
+    
+    else {
+        
+        
+        
+        self.ref = [[FIRDatabase database] reference];
+        
+        NSArray *tempNames  = [self.nameField.text componentsSeparatedByString:@" "];
+        
+        NSMutableString *fName = [tempNames objectAtIndex:0];
+        NSMutableString *lName = [[NSMutableString alloc]init];
+        
+        for(int i=1;i<[tempNames count];i++){
+        
+            if(i ==1)
+            lName = [NSMutableString stringWithFormat:@"%@",[tempNames objectAtIndex:i]];
+            else
+                [lName appendString:[NSString stringWithFormat:@" %@",[tempNames objectAtIndex:i]]];
+        }
+        
+        NSString *userID = [FIRAuth auth].currentUser.uid;
+        
+        [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            
+            NSDictionary *post = @{@"uid" : userID,
+                                   @"First Name": fName,
+                                   @"Last Name": lName,
+                                   @"EMail": self.emailField.text,
+                                   @"Address1": self.addrLine1Field.text,
+                                   @"Address2": self.addrLine2Field.text,
+                                   @"City": self.cityField.text,
+                                   @"Zip": self.zipField.text,
+                                   @"Phone": self.phoneField.text,
+                                   
+                                   };
+            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/users/%@/", userID]: post};
+            [_ref updateChildValues:childUpdates];
+            
+        }];
+        
+        self.resultField.hidden = NO;
+        self.resultField.text = @"Changes updated Successfully";
+        self.resultField.textColor = [UIColor greenColor];
+        
+        
+        [self performSelector:@selector(loadingNextView)
+                   withObject:nil afterDelay:3.0f];
+        
+    }
+    
 }
-*/
+
 
 @end

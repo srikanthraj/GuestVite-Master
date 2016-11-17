@@ -27,7 +27,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2zg-cx-hiD">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2zg-cx-hiD">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blue-orange-backgrounds-wallpaper" translatesAutoresizingMaskIntoConstraints="NO" id="Vgq-Mn-Zjh">
@@ -54,12 +54,6 @@
                         <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ioc-hq-eBl" customClass="HTPressableButton">
                             <rect key="frame" x="126" y="270" width="68" height="29"/>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEH-6O-8Os">
-                            <rect key="frame" x="64" y="274" width="191" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cWv-Kp-17W" customClass="HTPressableButton">
                             <rect key="frame" x="67" y="269" width="186" height="30"/>
                             <constraints>
@@ -100,12 +94,8 @@
                                 <color key="titleColor" red="0.19912616960000001" green="0.57725339980000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBJ-8O-XXG" customClass="HTPressableButton">
-                            <rect key="frame" x="67" y="269" width="186" height="30"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="304" id="UHa-F7-xTh"/>
-                                <constraint firstAttribute="height" constant="59" id="Ufa-zU-yRT"/>
-                            </constraints>
+                        <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kBJ-8O-XXG" customClass="HTPressableButton">
+                            <rect key="frame" x="67" y="259" width="194" height="40"/>
                             <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="15"/>
                             <state key="normal">
                                 <color key="titleColor" red="0.19912616960000001" green="0.57725339980000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -122,7 +112,17 @@
                                 <color key="titleColor" red="0.19912616960000001" green="0.57725339980000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Welcome" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GEH-6O-8Os">
+                            <rect key="frame" x="13" y="8" width="114" height="19"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
+                    <constraints>
+                        <constraint firstItem="GEH-6O-8Os" firstAttribute="leading" secondItem="2zg-cx-hiD" secondAttribute="leading" constant="5" id="Mm2-j8-NyF"/>
+                        <constraint firstItem="GEH-6O-8Os" firstAttribute="top" secondItem="2zg-cx-hiD" secondAttribute="top" constant="5" id="yb7-xD-jB0"/>
+                    </constraints>
                     <connections>
                         <outlet property="delegate" destination="-1" id="Cvo-Kn-sWb"/>
                     </connections>
