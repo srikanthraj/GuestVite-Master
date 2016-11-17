@@ -13,6 +13,7 @@
 #import <MessageUI/MessageUI.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MapKit/MapKit.h"
+#import "EmptyViewController.h"
 
 @import Firebase;
 
@@ -32,11 +33,13 @@
 
 @implementation MyAcceptedInvitesViewController
 
+
 float maicurrentLatitude = 0.0;
 float maicurrentLongitude = 0.0;
 
 NSInteger mySelectedRowNumber = 0;
 
+EmptyViewController *maiEmptyView;
 NSMutableArray *maifirstNameData;
 NSMutableArray *mailastNameData;
 NSMutableArray *maihostEMailData;
@@ -79,6 +82,8 @@ NSString *myAcceptedInviteSelcetedKey;
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate =self;
     
+    
+    maiEmptyView = [[EmptyViewController alloc]init];
     maifirstNameData = [[NSMutableArray alloc]init];
     mailastNameData = [[NSMutableArray alloc]init];
     maihostEMailData = [[NSMutableArray alloc]init];
@@ -382,11 +387,9 @@ NSString *myAcceptedInviteSelcetedKey;
         
         
         
-        cell.inviteFromLabel.text = @"Sorry,There are No invitations in this criteria.";
-        
         
         [cell.firstNameLabel setHidden:YES];
-        
+        [cell.inviteFromLabel setHidden:YES];
         [cell.lastNameLabel setHidden:YES];
         [cell.invitedFromLabel setHidden:YES];
         [cell.invitedFromDateLabel setHidden:YES];
@@ -397,34 +400,11 @@ NSString *myAcceptedInviteSelcetedKey;
         cell.userInteractionEnabled = NO;
         self.tableView.hidden = YES;
         
-        UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"]];
-        
-        self.view.backgroundColor = background;
-        
-        CGRect labelFrame = CGRectMake( 10, 200, 500, 30 );
-        UILabel* label = [[UILabel alloc] initWithFrame: labelFrame];
-        [label setText: @"Sorry,No invitations in this criteria."];
-        [label setTextColor: [UIColor whiteColor]];
-        [self.view addSubview: label];
+       [self.view addSubview:maiEmptyView.view];
         
         
     }
     
-    if (indexPath.row % 2 == 0)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    }
-    
-    else
-    {
-        
-        
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        
-        
-    }
     
     return cell;
 }

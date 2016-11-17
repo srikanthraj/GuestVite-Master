@@ -13,6 +13,7 @@
 #import "CNPPopupController.h"
 #import <MessageUI/MessageUI.h>
 #import "HomePageViewController.h"
+#import "EmptyViewController.h"
 
 @import Firebase;
 
@@ -33,6 +34,7 @@
 @implementation AwaitMyResponseViewController
 
 
+EmptyViewController *amrEmptyView;
 NSMutableArray *firstNameData;
 NSMutableArray *lastNameData;
 NSMutableArray *hostEMailData;
@@ -65,9 +67,11 @@ NSArray *keys;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Do any additional setup after loading the view from its nib.
     [self setNeedsStatusBarAppearanceUpdate];
     
     
+    amrEmptyView = [[EmptyViewController alloc]init];
     firstNameData = [[NSMutableArray alloc]init];
     lastNameData = [[NSMutableArray alloc]init];
     hostEMailData = [[NSMutableArray alloc]init];
@@ -359,52 +363,6 @@ NSArray *keys;
     cell.invitedFromDateLabel.text = [invitedFromData objectAtIndex:indexPath.row];
     cell.invitedTillDateLabel.text = [invitedTillData objectAtIndex:indexPath.row];
     
-    if([[keyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
-        
-        
-        
-        cell.inviteFromLabel.text = @"No Invitations are awaiting your response";
-        
-        
-        [cell.firstNameLabel setHidden:YES];
-        
-        [cell.lastNameLabel setHidden:YES];
-        [cell.invitedFromLabel setHidden:YES];
-        [cell.invitedFromDateLabel setHidden:YES];
-        [cell.invitedTillLabel setHidden:YES];
-        [cell.invitedTillDateLabel setHidden:YES];
-        
-        
-        cell.userInteractionEnabled = NO;
-        self.tableView.hidden = YES;
-        
-        UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"]];
-        
-        self.view.backgroundColor = background;
-        
-        CGRect labelFrame = CGRectMake( 10, 200, 500, 30 );
-        UILabel* label = [[UILabel alloc] initWithFrame: labelFrame];
-        [label setText: @"No Invitations are awaiting your response"];
-        [label setTextColor: [UIColor orangeColor]];
-        [self.view addSubview: label];
-        
-        CGRect labelFrame1 = CGRectMake( 10, 250, 500, 30 );
-        UILabel* label1 = [[UILabel alloc] initWithFrame: labelFrame1];
-        [label1 setText: @"Want to Invite SomeOne?, Send Invite Now!"];
-        [label1 setTextColor: [UIColor orangeColor]];
-        [self.view addSubview: label1];
-        
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeSystem];
-        [button setTitle:@"Send new Invite" forState:UIControlStateNormal];
-        [button sizeToFit];
-        button.center = CGPointMake(320/2, 300);
-        
-        [button addTarget:self action:@selector(buttonPressed:)
-         forControlEvents:UIControlEventTouchUpInside];
-        
-        [self.view addSubview:button];
-        
-    }
     
     if (indexPath.row % 2 == 0)
     {
@@ -419,7 +377,23 @@ NSArray *keys;
         cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         
+    }
+
+    if([[keyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
         
+        [cell.firstNameLabel setHidden:YES];
+        [cell.lastNameLabel setHidden:YES];
+        [cell.invitedFromDateLabel setHidden:YES];
+        [cell.invitedTillDateLabel setHidden:YES];
+        [cell.inviteFromLabel setHidden:YES];
+        [cell.invitedFromLabel setHidden:YES];
+        [cell.invitedTillLabel setHidden:YES];
+        
+        
+        cell.userInteractionEnabled = NO;
+        self.tableView.hidden = YES;
+        
+        [self.view addSubview:amrEmptyView.view];
     }
 
     

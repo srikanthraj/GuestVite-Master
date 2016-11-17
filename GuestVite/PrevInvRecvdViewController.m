@@ -11,6 +11,8 @@
 #import "PrevInvRecvdCell.h"
 #import "CNPPopupController.h"
 #import <MessageUI/MessageUI.h>
+#import "EmptyViewController.h"
+
 
 @import Firebase;
 
@@ -29,6 +31,7 @@
 
 @implementation PrevInvRecvdViewController
 
+EmptyViewController *pirEmptyView;
 NSMutableArray *pirfirstNameData;
 NSMutableArray *pirlastNameData;
 NSMutableArray *pirinvitedFromData;
@@ -55,8 +58,9 @@ NSArray *pirkeys;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    pirEmptyView = [[EmptyViewController alloc]init];
     pirfirstNameData = [[NSMutableArray alloc]init];
     pirlastNameData = [[NSMutableArray alloc]init];
     pirinvitedFromData = [[NSMutableArray alloc]init];
@@ -211,6 +215,7 @@ NSArray *pirkeys;
                 NSLog(@"Last Iteration");
                 if([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0)
                 {
+                    
                     [myfirstNameData addObject: @"No Invites"];
                     [mylastNameData addObject: @"No Invites"];
                     [myinvitedFromData addObject: @"No Invites"];
@@ -219,6 +224,10 @@ NSArray *pirkeys;
                     [mysenderEMailData addObject: @"No Invites"];
                     [myactionTakenData addObject: @"No Invites"];
                     [myKeyData addObject:@"-1"];
+                    
+                    
+                    
+
                 }
                 
             }
@@ -321,6 +330,9 @@ NSArray *pirkeys;
         cell.userInteractionEnabled = NO;
     }
     
+    
+    
+    
     if (indexPath.row % 2 == 0)
     {
         cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
@@ -337,7 +349,20 @@ NSArray *pirkeys;
         
     }
 
-    
+    if([[pirkeyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
+
+        [cell.firstNameLabel setHidden:YES];
+        [cell.lastNameLabel setHidden:YES];
+        [cell.invitedFromDateLabel setHidden:YES];
+        [cell.invitedTillDateLabel setHidden:YES];
+        [cell.actionTakenLabel setHidden:YES];
+        
+        
+        cell.userInteractionEnabled = NO;
+        self.tableView.hidden = YES;
+
+        [self.view addSubview:pirEmptyView.view];
+    }
     
     
     return cell;
@@ -438,97 +463,7 @@ NSArray *pirkeys;
             break;
         }
          
-            /*
-        case 2: // Delete
-        {
-            
-            
-            
-            NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
-            paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-            paragraphStyle.alignment = NSTextAlignmentCenter;
-            
-            NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Just One Confirmation!" attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
-            NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Do You really want to delete this Invite?" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSParagraphStyleAttributeName : paragraphStyle}];
-            NSAttributedString *lineTwo = [[NSAttributedString alloc] initWithString:@"Once deleted, it cannot be reverted" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
-            
-            CNPPopupButton *buttonGoBack = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
-            [buttonGoBack setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            buttonGoBack.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-            [buttonGoBack setTitle:@"Go Back" forState:UIControlStateNormal];
-            buttonGoBack.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
-            buttonGoBack.layer.cornerRadius = 4;
-            buttonGoBack.selectionHandler = ^(CNPPopupButton *buttonGoBack){
-                [self.popupController dismissPopupControllerAnimated:YES];
-                NSLog(@"Block for button: %@", buttonGoBack.titleLabel.text);
-            };
-            
-            CNPPopupButton *buttonDelete = [[CNPPopupButton alloc] initWithFrame:CGRectMake(50, 50, 200, 60)];
-            [buttonDelete setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-            buttonDelete.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-            [buttonDelete setTitle:@"Delete" forState:UIControlStateNormal];
-            buttonDelete.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
-            buttonDelete.layer.cornerRadius = 4;
-            buttonDelete.selectionHandler = ^(CNPPopupButton *buttonDelete){
-                // Delete button is pressed
-                NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-                NSLog(@"KEY DATA IS %@",[pirkeyData objectAtIndex:cellIndexPath.row]);
-               // [[[_ref child:@"invites"] child:[pirkeyData objectAtIndex:cellIndexPath.row]] removeValue];
-        
-                [pirfirstNameData removeObjectAtIndex:cellIndexPath.row];
-                [pirlastNameData removeObjectAtIndex:cellIndexPath.row];
-                [pirinvitedFromData removeObjectAtIndex:cellIndexPath.row];
-                [pirinvitedTillData removeObjectAtIndex:cellIndexPath.row];
-                [pirsenderPhoneData removeObjectAtIndex:cellIndexPath.row];
-                [pirsenderEMailData removeObjectAtIndex:cellIndexPath.row];
-                [piractionTakenData removeObjectAtIndex:cellIndexPath.row];
-                [pirkeyData removeObjectAtIndex:cellIndexPath.row];
-                
-                [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
-                
-                [self.popupController dismissPopupControllerAnimated:YES];
-                NSLog(@"Block for button: %@", buttonDelete.titleLabel.text);
-            };
-            
-            UILabel *titleLabel = [[UILabel alloc] init];
-            titleLabel.numberOfLines = 0;
-            titleLabel.attributedText = title;
-            
-            UILabel *lineOneLabel = [[UILabel alloc] init];
-            lineOneLabel.numberOfLines = 0;
-            lineOneLabel.attributedText = lineOne;
-            
-            // UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon"]];
-            
-            UILabel *lineTwoLabel = [[UILabel alloc] init];
-            lineTwoLabel.numberOfLines = 0;
-            lineTwoLabel.attributedText = lineTwo;
-            
-            
-            //UIView *customView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 250, 55)];
-            //customView.backgroundColor = [UIColor lightGrayColor];
-            
-            // UITextField *textFied = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 230, 35)];
-            // textFied.borderStyle = UITextBorderStyleRoundedRect;
-            // textFied.placeholder = @"Custom view!";
-            //[customView addSubview:textFied];
-            
-            self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel, lineTwoLabel, buttonGoBack,buttonDelete]];
-            self.popupController.theme = [CNPPopupTheme defaultTheme];
-            self.popupController.theme.popupStyle = CNPPopupStyleCentered;
-            self.popupController.delegate = self;
-            [self.popupController presentPopupControllerAnimated:YES];
-
-            
-            
-            
-            
-            break;
-
-            
-        }
-         */
-        default:
+                 default:
             break;
     }
 }

@@ -8,6 +8,7 @@
 
 #import "PrevInvSentViewController.h"
 #import "PrevInvSentCell.h"
+#import "EmptyViewController.h"
 
 @import Firebase;
 
@@ -23,6 +24,7 @@
 
 @implementation PrevInvSentViewController
 
+EmptyViewController *pisEmptyView;
 NSMutableArray *pisGuestEMailData;
 NSMutableArray *pisGuestPhoneData;
 NSMutableArray *pisnameData;
@@ -53,34 +55,9 @@ UIActivityIndicatorView *activityIndicator;
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    //Test
-    
-    // Main thread
-    activityIndicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    [activityIndicator setCenter:CGPointMake(self.view.frame.size.width/4, self.view.frame.size.height/4)];
-    [self.view addSubview:activityIndicator];
-    [activityIndicator startAnimating];
-    
-    // create a queue
-    dispatch_queue_t queue = dispatch_queue_create("data_process", 0);
-    
-    // send a block to the queue - Not in Main thread
-    dispatch_async(queue, ^{
-        // data processing
-        
-        // Interaction with User Interface - Main thread
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [activityIndicator stopAnimating];
-            activityIndicator.hidden = YES;
-        });
-    });
-    
-    
-    
-    //Test
-    
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    pisEmptyView = [[EmptyViewController alloc]init];
     pisGuestEMailData = [[NSMutableArray alloc]init];
     pisGuestPhoneData = [[NSMutableArray alloc]init];
     pisinvitedFromData = [[NSMutableArray alloc]init];
@@ -312,7 +289,7 @@ UIActivityIndicatorView *activityIndicator;
         [pisinvitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
         [pisinvitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
         [pisactionTakenData addObject:[myactionTakenData objectAtIndex:i]];
-        [piskeyData addObject:[myactionTakenData objectAtIndex:i]];
+        [piskeyData addObject:[myKeyData objectAtIndex:i]];
     }
     
        NSLog(@"Key data is %@",piskeyData);
@@ -414,7 +391,22 @@ UIActivityIndicatorView *activityIndicator;
 
     }
 
-    
+    if([[piskeyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
+        
+        [cell.guestEMail setHidden:YES];
+        [cell.guestEMailLabel setHidden:YES];
+        [cell.guestPhone setHidden:YES];
+        [cell.guestPhoneLabel setHidden:YES];
+        [cell.invitedFromDateLabel setHidden:YES];
+        [cell.invitedTillDateLabel setHidden:YES];
+        [cell.actionTakenLabel setHidden:YES];
+        
+        cell.userInteractionEnabled = NO;
+        self.tableView.hidden = YES;
+        
+        [self.view addSubview:pisEmptyView.view];
+    }
+
     
 
     

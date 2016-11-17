@@ -10,6 +10,7 @@
 #import "PrevInvSentCell.h"
 #import "CNPPopupController.h"
 #import <MessageUI/MessageUI.h>
+#import "EmptyViewController.h"
 
 @import Firebase;
 
@@ -18,7 +19,6 @@
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (weak, nonatomic) IBOutlet UINavigationBar *waitingRespFromBack;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
-@property (weak, nonatomic) IBOutlet UILabel *backLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @property (nonatomic, strong) CNPPopupController *popupController;
@@ -27,7 +27,7 @@
 
 @implementation WaitingRespFromViewController
 
-
+EmptyViewController *wrfEmptyView;
 NSMutableArray *wrfGuestEMailData;
 NSMutableArray *wrfGuestPhoneData;
 NSMutableArray *wrfinvitedFromData;
@@ -52,6 +52,7 @@ NSArray *wrfkeys;
     [super viewDidLoad];
     [self setNeedsStatusBarAppearanceUpdate];
     
+    wrfEmptyView = [[EmptyViewController alloc]init];
     wrfGuestEMailData = [[NSMutableArray alloc]init];
     wrfGuestPhoneData = [[NSMutableArray alloc]init];
     wrfinvitedFromData = [[NSMutableArray alloc]init];
@@ -370,8 +371,30 @@ NSArray *wrfkeys;
         cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         
+    }
+    
+    if([[wrfkeyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
+        
+        
+        
+        
+        [cell.guestEMail setHidden:YES];
+        [cell.guestEMailLabel setHidden:YES];
+        [cell.guestPhone setHidden:YES];
+        [cell.guestPhoneLabel setHidden:YES];
+        [cell.invitedFromDateLabel setHidden:YES];
+        [cell.invitedTillDateLabel setHidden:YES];
+        [cell.actionTakenLabel setHidden:YES];
+        
+        
+        cell.userInteractionEnabled = NO;
+        self.tableView.hidden = YES;
+        
+        [self.view addSubview:wrfEmptyView.view];
+        
         
     }
+
 
     
     //cell.userInteractionEnabled = NO;

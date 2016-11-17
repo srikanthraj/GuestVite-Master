@@ -39,6 +39,8 @@
 		84267C711DC2C9590044ACF4 /* PrevInvRecvdCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C6F1DC2C9590044ACF4 /* PrevInvRecvdCell.m */; };
 		84267C721DC2C9590044ACF4 /* PrevInvRecvdCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C701DC2C9590044ACF4 /* PrevInvRecvdCell.xib */; };
 		845E1A041DDBCFE1008EDC62 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E1A031DDBCFE1008EDC62 /* Reachability.m */; };
+		845E1A0B1DDD25B0008EDC62 /* EmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E1A091DDD25B0008EDC62 /* EmptyViewController.m */; };
+		845E1A0C1DDD25B0008EDC62 /* EmptyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 845E1A0A1DDD25B0008EDC62 /* EmptyViewController.xib */; };
 		8462B1521DD772EF003F553F /* MyAcceptedInvitesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8462B1501DD772EF003F553F /* MyAcceptedInvitesViewController.m */; };
 		8462B1531DD772EF003F553F /* MyAcceptedInvitesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8462B1511DD772EF003F553F /* MyAcceptedInvitesViewController.xib */; };
 		847340491DA937670038C047 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 847340481DA937670038C047 /* main.m */; };
@@ -132,6 +134,9 @@
 		84267C701DC2C9590044ACF4 /* PrevInvRecvdCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrevInvRecvdCell.xib; sourceTree = "<group>"; };
 		845E19FF1DDBCF83008EDC62 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		845E1A031DDBCFE1008EDC62 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = ../Reachability.m; sourceTree = "<group>"; };
+		845E1A081DDD25B0008EDC62 /* EmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmptyViewController.h; sourceTree = "<group>"; };
+		845E1A091DDD25B0008EDC62 /* EmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmptyViewController.m; sourceTree = "<group>"; };
+		845E1A0A1DDD25B0008EDC62 /* EmptyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EmptyViewController.xib; sourceTree = "<group>"; };
 		8462B14F1DD772EF003F553F /* MyAcceptedInvitesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAcceptedInvitesViewController.h; sourceTree = "<group>"; };
 		8462B1501DD772EF003F553F /* MyAcceptedInvitesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAcceptedInvitesViewController.m; sourceTree = "<group>"; };
 		8462B1511DD772EF003F553F /* MyAcceptedInvitesViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyAcceptedInvitesViewController.xib; sourceTree = "<group>"; };
@@ -338,6 +343,9 @@
 				8462B1511DD772EF003F553F /* MyAcceptedInvitesViewController.xib */,
 				845E19FF1DDBCF83008EDC62 /* Reachability.h */,
 				845E1A031DDBCFE1008EDC62 /* Reachability.m */,
+				845E1A081DDD25B0008EDC62 /* EmptyViewController.h */,
+				845E1A091DDD25B0008EDC62 /* EmptyViewController.m */,
+				845E1A0A1DDD25B0008EDC62 /* EmptyViewController.xib */,
 			);
 			path = GuestVite;
 			sourceTree = "<group>";
@@ -439,6 +447,7 @@
 				84267C721DC2C9590044ACF4 /* PrevInvRecvdCell.xib in Resources */,
 				84D53A2F1DCE924A00FF7643 /* GuestMapViewController.xib in Resources */,
 				847340711DA977CD0038C047 /* HomePageViewController.xib in Resources */,
+				845E1A0C1DDD25B0008EDC62 /* EmptyViewController.xib in Resources */,
 				84DF6AA51DC650B600047435 /* PrevInvSentViewController.xib in Resources */,
 				84E4E8DC1DC80E24008EF854 /* WaitingRespFromViewController.xib in Resources */,
 				84267C111DAD9CF10044ACF4 /* SendNewInviteViewController.xib in Resources */,
@@ -527,6 +536,7 @@
 				847340701DA977CD0038C047 /* HomePageViewController.m in Sources */,
 				84267C331DBBBF1C0044ACF4 /* DateUtil.m in Sources */,
 				84A77E201DDA7A5A00F1CF36 /* PageContentViewController.m in Sources */,
+				845E1A0B1DDD25B0008EDC62 /* EmptyViewController.m in Sources */,
 				847340551DA937680038C047 /* GuestVite.xcdatamodeld in Sources */,
 				84267C041DAC56D30044ACF4 /* SWRevealViewController.m in Sources */,
 				84DF6AA91DC6525000047435 /* PrevInvSentCell.m in Sources */,

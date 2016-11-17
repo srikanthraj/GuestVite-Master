@@ -103,46 +103,6 @@
     // Do any additional setup after loading the view from its nib.
     
   
-    
-        /*
-        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
-        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-        paragraphStyle.alignment = NSTextAlignmentCenter;
-        
-        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"We are Sorry " attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
-        
-        NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Looks like there's poor Internet connectivity, because of which you might not be able to use some of our features " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
-        
-        CNPPopupButton *button = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
-        [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        [button setTitle:@"Okay, Got it!" forState:UIControlStateNormal];
-        button.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
-        button.layer.cornerRadius = 4;
-        button.selectionHandler = ^(CNPPopupButton *button){
-            [self.popupController dismissPopupControllerAnimated:YES];
-        };
-        
-        UILabel *titleLabel = [[UILabel alloc] init];
-        titleLabel.numberOfLines = 0;
-        titleLabel.attributedText = title;
-        
-        UILabel *lineOneLabel = [[UILabel alloc] init];
-        lineOneLabel.numberOfLines = 0;
-        lineOneLabel.attributedText = lineOne;
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sad-smiley"]];
-        
-        self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,imageView,button]];
-        self.popupController.theme = [CNPPopupTheme defaultTheme];
-        self.popupController.theme.popupStyle = CNPPopupStyleCentered;
-        self.popupController.delegate = self;
-        [self.popupController presentPopupControllerAnimated:YES];
-     
-        
-    }
-        */
-    
     [self setNeedsStatusBarAppearanceUpdate];
     
     
@@ -175,7 +135,7 @@
     [self.sendNewInviteButton setButtonColor:[UIColor ht_amethystColor]];
     [self.sendNewInviteButton setShadowColor:[UIColor ht_wisteriaColor]];
     [self.sendNewInviteButton setTitle:@"Send New Invite" forState:UIControlStateNormal];
-    [self.sendNewInviteButton addTarget:self action:@selector(buttonPressed:)
+    [self.sendNewInviteButton addTarget:self action:@selector(sendNewInviteButtonPressed:)
      forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:self.sendNewInviteButton];
@@ -273,8 +233,9 @@
 
 
 
-- (void)buttonPressed:(UIButton *)button {
+- (void)sendNewInviteButtonPressed:(UIButton *)button {
     
+    NSLog(@"Send New Invite Button Pressed");
     
     SendNewInviteViewController *sendNewVC =
     [[SendNewInviteViewController alloc] initWithNibName:@"SendNewInviteViewController" bundle:nil];
@@ -283,6 +244,9 @@
     [self.navigationController pushViewController:sendNewVC animated:YES];
     
     [self presentViewController:sendNewVC animated:YES completion:nil];
+    
+   // [self.view.window.rootViewController presentViewController:sendNewVC animated:YES completion:nil];
+    
 }
 
 

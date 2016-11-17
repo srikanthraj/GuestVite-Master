@@ -10,6 +10,7 @@
 #import "AcceptedGuestsCellTapped.h"
 #import "TrackMyGuestsCellTapped.h"
 #import "HomePageViewController.h"
+#import "EmptyViewController.h"
 
 @import Firebase;
 
@@ -25,7 +26,7 @@
 
 @implementation TrackMyGuestsViewController
 
-
+EmptyViewController *tmgEmptyView;
 NSMutableArray *tmgGuestEMailData;
 NSMutableArray *tmgGuestPhoneData;
 NSMutableArray *tmginvitedFromData;
@@ -64,7 +65,7 @@ NSArray *tmgkeys;
     [self setNeedsStatusBarAppearanceUpdate];
     // Do any additional setup after loading the view from its nib.
     
-    
+    tmgEmptyView = [[EmptyViewController alloc]init];
     tmgGuestEMailData = [[NSMutableArray alloc]init];
     tmgGuestPhoneData = [[NSMutableArray alloc]init];
     tmginvitedFromData = [[NSMutableArray alloc]init];
@@ -367,8 +368,23 @@ NSArray *tmgkeys;
         cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         
-        
     }
+    
+    if([[tmgkeyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
+        
+        [cell.guestEMail setHidden:YES];
+        [cell.guestEMailLabel setHidden:YES];
+        [cell.guestPhone setHidden:YES];
+        [cell.guestPhoneLabel setHidden:YES];
+        [cell.invitedFromDateLabel setHidden:YES];
+        [cell.invitedTillDateLabel setHidden:YES];
+        
+        cell.userInteractionEnabled = NO;
+        self.tableView.hidden = YES;
+        
+        [self.view addSubview:tmgEmptyView.view];
+    }
+
 
     
     

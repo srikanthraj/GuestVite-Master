@@ -17,4 +17,5 @@ pod 'CNPPopupController'
 pod 'GoogleMaps'
 pod 'GooglePlaces'
 pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
+pod 'DZNEmptyDataSet'
 end

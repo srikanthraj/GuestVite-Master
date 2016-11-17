@@ -1,0 +1,2 @@
+/Users/admin/Documents/MyiOSProjects/GuestVite-master/Pods/GoogleMaps/Subspecs/Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle
+/Users/admin/Documents/MyiOSProjects/GuestVite-master/Pods/GooglePlaces/Frameworks/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle
