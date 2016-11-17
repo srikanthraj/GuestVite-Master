@@ -14,9 +14,9 @@
                 <outlet property="prevInvRecvdButton" destination="UgB-TD-N5f" id="Qqk-Fr-MlM"/>
                 <outlet property="prevInvSentButton" destination="kBJ-8O-XXG" id="JHV-bC-SyG"/>
                 <outlet property="sendNewInviteButton" destination="SwP-p9-HOv" id="OEA-Bv-i2j"/>
-                <outlet property="settingsButton" destination="Ioc-hq-eBl" id="3J1-rc-Hj3"/>
                 <outlet property="signOutButton" destination="DBC-ok-4aA" id="bDt-DX-B7D"/>
                 <outlet property="trackButton" destination="PQC-2U-kLg" id="sHJ-Y3-nZB"/>
+                <outlet property="updateInfoButton" destination="Ioc-hq-eBl" id="fUO-Fg-hg4"/>
                 <outlet property="view" destination="6Os-1W-6tf" id="9b7-L3-PxE"/>
                 <outlet property="waitingRespButton" destination="7xg-79-b75" id="BoA-nm-4Bg"/>
                 <outlet property="welcomeLabel" destination="GEH-6O-8Os" id="rCo-gF-mts"/>

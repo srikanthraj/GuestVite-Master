@@ -66,29 +66,12 @@ UIActivityIndicatorView *activityIndicator;
     piskeyData = [[NSMutableArray alloc]init];
     
     
-    //UIColor *background = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"Black_BG"]];
-   
-    
-
-    
-    //self.prevInvSentBack = [[UINavigationBar alloc]initWithFrame:CGRectMake(0, 0, 400, 64)];
-    
-   // [self.prevInvSentBack setFrame:CGRectMake(0, 0, 400, 64)];
-    
-    //self.prevInvSentBack.translucent = YES;
     
     
     UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
     
-   // [[UINavigationBar appearance] setTitleTextAttributes: [NSDictionary dictionaryWithObjectsAndKeys:
-                                                           //NSForegroundColorAttributeName,
-                                           //              [UIFont fontWithName:@"HelveticaNeue-CondensedBlack" size:21.0], NSFontAttributeName, nil]];
     
-    
-    
-    
-   
     
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
     [[self navigationItem] setBackBarButtonItem:backButton];

@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="addr1Text" destination="vga-da-LM7" id="XR7-cq-dHo"/>
                 <outlet property="addr2Text" destination="YLe-9M-9ay" id="n93-dd-RDw"/>
+                <outlet property="backButton" destination="cBH-xO-f0S" id="dDC-KH-YSx"/>
                 <outlet property="cityText" destination="Bs6-zI-wB4" id="q1M-aF-2iU"/>
                 <outlet property="emailText" destination="avc-hq-prw" id="XyK-zU-AI0"/>
                 <outlet property="fNameText" destination="kML-6e-zRh" id="wxY-BY-e5W"/>
@@ -18,6 +19,7 @@
                 <outlet property="reEnterPasswordText" destination="rAv-Vr-TvP" id="bO4-qm-QC1"/>
                 <outlet property="regView" destination="d4P-ib-7JS" id="5gg-dd-UOY"/>
                 <outlet property="registerButton" destination="44l-em-dLH" id="00E-FU-lti"/>
+                <outlet property="registrationBack" destination="AgW-ob-y7A" id="WJt-Y4-Z0H"/>
                 <outlet property="scrollView" destination="kfS-nD-PEQ" id="IS8-Ff-qfF"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="zipText" destination="tAH-1y-cYL" id="JUM-ZH-Pkn"/>
@@ -65,12 +67,6 @@
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Re- Enter" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKR-8J-XNv">
                             <rect key="frame" x="20" y="233" width="73" height="21"/>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Little More Information before you are all set!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faV-kr-E4G">
-                            <rect key="frame" x="38" y="34" width="255" height="21"/>
-                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
@@ -146,11 +142,37 @@
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <textInputTraits key="textInputTraits"/>
                         </textField>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Little More Information before you are all set!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faV-kr-E4G">
+                            <rect key="frame" x="38" y="57" width="255" height="21"/>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AgW-ob-y7A">
+                            <rect key="frame" x="5" y="-3" width="324" height="60"/>
+                            <color key="backgroundColor" red="0.16217732570000001" green="0.1053099518" blue="0.21904469970000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <textAttributes key="titleTextAttributes">
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </textAttributes>
+                            <items>
+                                <navigationItem title="Registration" id="acQ-ek-5Pp">
+                                    <barButtonItem key="leftBarButtonItem" image="Back" id="cBH-xO-f0S">
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <action selector="Back" destination="-1" id="nCv-38-Nep"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </navigationItem>
+                            </items>
+                        </navigationBar>
                     </subviews>
                     <color key="backgroundColor" red="1" green="0.44758716380210262" blue="0.43335958860391599" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="d4P-ib-7JS" secondAttribute="trailing" id="BGq-fY-CVT"/>
+                        <constraint firstItem="faV-kr-E4G" firstAttribute="top" secondItem="kfS-nD-PEQ" secondAttribute="top" constant="65" id="Dg8-ES-rOC"/>
                         <constraint firstItem="d4P-ib-7JS" firstAttribute="leading" secondItem="kfS-nD-PEQ" secondAttribute="leading" id="LSI-xs-g5A"/>
+                        <constraint firstItem="faV-kr-E4G" firstAttribute="centerX" secondItem="kfS-nD-PEQ" secondAttribute="centerX" id="eM9-WS-iVa"/>
                         <constraint firstAttribute="bottom" secondItem="d4P-ib-7JS" secondAttribute="bottom" id="mFF-6S-sSb"/>
                         <constraint firstItem="d4P-ib-7JS" firstAttribute="top" secondItem="kfS-nD-PEQ" secondAttribute="top" id="vkF-JU-VDi"/>
                     </constraints>
@@ -167,6 +189,7 @@
         </view>
     </objects>
     <resources>
+        <image name="Back" width="32" height="30"/>
         <image name="Registration" width="2560" height="1440"/>
     </resources>
 </document>

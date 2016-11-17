@@ -46,7 +46,7 @@
 @property (strong, nonatomic) IBOutlet HTPressableButton *myAcceptedInvitesButton;
 
 @property (strong, nonatomic) IBOutlet HTPressableButton *signOutButton;
-@property (strong, nonatomic) IBOutlet HTPressableButton *settingsButton;
+@property (strong, nonatomic) IBOutlet HTPressableButton *updateInfoButton;
 
 @property (nonatomic, strong) CNPPopupController *popupController;
 
@@ -238,14 +238,14 @@
     [self.view addSubview:self.signOutButton];
     
     CGRect frame8 = CGRectMake(14, 527, 294, 30);
-    self.settingsButton = [[HTPressableButton alloc] initWithFrame:frame8 buttonStyle:HTPressableButtonStyleRounded];
-    [self.settingsButton setButtonColor:[UIColor ht_bitterSweetColor]];
-    [self.settingsButton setShadowColor:[UIColor ht_bitterSweetDarkColor]];
-    [self.settingsButton setTitle:@"Settings" forState:UIControlStateNormal];
-    [self.settingsButton addTarget:self action:@selector(signOutButtonPressed:)
+    self.updateInfoButton = [[HTPressableButton alloc] initWithFrame:frame8 buttonStyle:HTPressableButtonStyleRounded];
+    [self.updateInfoButton setButtonColor:[UIColor ht_bitterSweetColor]];
+    [self.updateInfoButton setShadowColor:[UIColor ht_bitterSweetDarkColor]];
+    [self.updateInfoButton setTitle:@"Update My Information" forState:UIControlStateNormal];
+    [self.updateInfoButton addTarget:self action:@selector(updateInfoButtonPressed:)
                  forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:self.settingsButton];
+    [self.view addSubview:self.updateInfoButton];
 
 
     
@@ -360,6 +360,13 @@ PrevInvRecvdViewController *prevInvRecvdVC =
     [self.navigationController pushViewController:myaccinvVC animated:YES];
     
     [self presentViewController:myaccinvVC animated:YES completion:nil];
+    
+}
+
+
+- (void) updateInfoButtonPressed:(UIButton *)button {
+    
+    
     
 }
 

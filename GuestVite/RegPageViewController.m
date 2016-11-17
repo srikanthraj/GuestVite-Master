@@ -29,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *addr1Text;
 
 @property (weak, nonatomic) IBOutlet UITextField *addr2Text;
+@property (weak, nonatomic) IBOutlet UINavigationBar *registrationBack;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
 //@property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UITextField *cityText;
@@ -46,11 +48,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setNeedsStatusBarAppearanceUpdate];
+    
+    
+    UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
+    [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
+    
+    
+    
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"Back" style:UIBarButtonItemStylePlain target:self action:@selector(Back)];
+    [[self navigationItem] setBackBarButtonItem:backButton];
+    
+    
+    
+    self.navigationItem.leftBarButtonItem = _backButton;
+    
+    [self.view addSubview:_registrationBack];
+    
+    
     self.ref = [[FIRDatabase database] reference];
     
-    
-    
-    
+
     
     
     UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
@@ -93,6 +111,14 @@
     [self.view endEditing:YES];
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
+
+- (IBAction)Back
+{
+    [self dismissViewControllerAnimated:YES completion:nil]; // ios 6
+}
 
 
 //-------------------------------
