@@ -26,8 +26,10 @@
 
 
 @import Firebase;
-@interface HomePageViewController ()
+@interface HomePageViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
+@property (strong, nonatomic) IBOutlet UIScrollView *myScrollView;
+@property (strong, nonatomic) IBOutlet UIImageView *homeView;
 
 @property (strong, nonatomic) IBOutlet HTPressableButton *sendNewInviteButton;
 
@@ -44,6 +46,7 @@
 @property (strong, nonatomic) IBOutlet HTPressableButton *myAcceptedInvitesButton;
 
 @property (strong, nonatomic) IBOutlet HTPressableButton *signOutButton;
+@property (strong, nonatomic) IBOutlet HTPressableButton *settingsButton;
 
 @property (nonatomic, strong) CNPPopupController *popupController;
 
@@ -102,6 +105,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    //Test
+    
+    //create you UIScrollView
+    self.myScrollView= [[UIScrollView alloc]initWithFrame:CGRectMake(0 ,0 ,320 ,519)];
+    self.myScrollView.delegate= self;
+    [self.myScrollView setShowsHorizontalScrollIndicator:NO];
+    [self.myScrollView setShowsVerticalScrollIndicator:YES];
+    self.myScrollView.scrollEnabled= YES;
+    self.myScrollView.userInteractionEnabled= YES;
+    [self.view addSubview:self.myScrollView];
+    self.myScrollView.contentSize= CGSizeMake(320 ,1000);//(width,height)
+    
   
     [self setNeedsStatusBarAppearanceUpdate];
     
@@ -117,6 +132,11 @@
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (UIView *) viewForZoomingInScrollView:(UIScrollView *)scrollView {
+    
+    return self.homeView;
 }
 
 - (void) configureButtons {
@@ -207,7 +227,7 @@
 
 
     
-    CGRect frame7 = CGRectMake(121, 527, 100, 30);
+    CGRect frame7 = CGRectMake(121, 550, 100, 30);
     self.signOutButton = [[HTPressableButton alloc] initWithFrame:frame7 buttonStyle:HTPressableButtonStyleRounded];
     [self.signOutButton setButtonColor:[UIColor ht_bitterSweetColor]];
     [self.signOutButton setShadowColor:[UIColor ht_bitterSweetDarkColor]];
@@ -216,6 +236,17 @@
                      forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:self.signOutButton];
+    
+    CGRect frame8 = CGRectMake(14, 527, 294, 30);
+    self.settingsButton = [[HTPressableButton alloc] initWithFrame:frame8 buttonStyle:HTPressableButtonStyleRounded];
+    [self.settingsButton setButtonColor:[UIColor ht_bitterSweetColor]];
+    [self.settingsButton setShadowColor:[UIColor ht_bitterSweetDarkColor]];
+    [self.settingsButton setTitle:@"Settings" forState:UIControlStateNormal];
+    [self.settingsButton addTarget:self action:@selector(signOutButtonPressed:)
+                 forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.settingsButton];
+
 
     
     
