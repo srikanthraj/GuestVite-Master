@@ -128,6 +128,12 @@
     [self.phoneText addTarget:self action:@selector(phoneTextChanged:) forControlEvents:UIControlEventEditingChanged];
     
     
+    [self.addr1Text addTarget:self action:@selector(addr1TextChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+    [self.addr2Text addTarget:self action:@selector(addr2TextChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+    
+    
     //Test
     
     
@@ -393,6 +399,29 @@
     
 }
 
+
+
+- (void)addr1TextChanged:(UITextField *)sender
+{
+    if([sender.text length] > 0){
+        self.addr1TextView.text = NSLocalizedString(@"😃", nil);
+    }
+    if(sender.text.length ==0) {
+        self.addr1Text.backgroundColor = [UIColor whiteColor];
+        self.addr1TextView.text = NSLocalizedString(@"😢", nil);
+    }
+}
+
+- (void)addr2TextChanged:(UITextField *)sender
+{
+    if([sender.text length] > 0){
+        self.addr2TextView.text = NSLocalizedString(@"😃", nil);
+    }
+    if(sender.text.length ==0) {
+        self.addr2Text.backgroundColor = [UIColor whiteColor];
+        self.addr2TextView.text = NSLocalizedString(@"😢", nil);
+    }
+}
 
 
 // Validators
