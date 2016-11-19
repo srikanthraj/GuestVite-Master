@@ -18,4 +18,6 @@ pod 'GoogleMaps'
 pod 'GooglePlaces'
 pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
 pod 'DZNEmptyDataSet'
+pod 'VMaskTextField'
+pod 'AJWValidator'
 end

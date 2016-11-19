@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AJWValidator.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>APAddressBook.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -59,15 +64,20 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>VMaskTextField-VMaskTextField.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>VMaskTextField.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>0597E693453A9B9EB96A690DAEC03780</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>0917E63C956CA0F6D7CA9D41B0C1F040</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -92,12 +102,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>4B9663118C429781329DA2B047644BF9</key>
+		<key>31D130E2E144F947652BDACEFC2D50A4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>37824912FED5A8D04A023227F62976EB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>611A56531AE8BFDB2320359150B8A900</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>65492978765A2F1170D727B2E3E455E5</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>73615AB1195988E96A2149E6ED019E40</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -108,6 +133,11 @@
 			<true/>
 		</dict>
 		<key>A0521A66E93BB7F52C6C0493133C6C17</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BC6FDE344170335A53782C0E1F0005B3</key>
 		<dict>
 			<key>primary</key>
 			<true/>

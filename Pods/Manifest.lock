@@ -1,4 +1,5 @@
 PODS:
+  - AJWValidator (0.0.8)
   - APAddressBook (0.2.3):
     - APAddressBook/Core (= 0.2.3)
   - APAddressBook/Core (0.2.3)
@@ -59,8 +60,10 @@ PODS:
   - KBContactsSelection (1.2.6):
     - APAddressBook (~> 0.2)
   - SWTableViewCell (0.3.7)
+  - VMaskTextField (1.0.8)
 
 DEPENDENCIES:
+  - AJWValidator
   - CNPPopupController
   - DZNEmptyDataSet
   - Firebase/Auth
@@ -73,6 +76,7 @@ DEPENDENCIES:
   - JVFloatLabeledTextField
   - KBContactsSelection
   - SWTableViewCell (~> 0.3.7)
+  - VMaskTextField
 
 EXTERNAL SOURCES:
   GeoFire:
@@ -84,6 +88,7 @@ CHECKOUT OPTIONS:
     :git: https://github.com/firebase/geofire-objc.git
 
 SPEC CHECKSUMS:
+  AJWValidator: ed00557b9cdcc38a8216aa9ddbd76b4eadb73615
   APAddressBook: 2a91bf05999548bea210ec9d1a68073f4dc8bfce
   CNPPopupController: 59b06290762f68beab5fb0bbfa87eb4dcbefb7de
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
@@ -104,7 +109,8 @@ SPEC CHECKSUMS:
   JVFloatLabeledTextField: 0e5524b097f102036214dd8279edc8ecf08b5e18
   KBContactsSelection: f31d916d041cc7c03338d2754f8e297d705709b9
   SWTableViewCell: 2a94aadc9d47b2b611fa064566bf57948b95b579
+  VMaskTextField: e77fe33633f999c5c38e70bed0afece0625624a4
 
-PODFILE CHECKSUM: 122ce849fa12b8fa59a5ca6ad323d6d27ca67ef8
+PODFILE CHECKSUM: 7b040ee476aaf27a9dc1163705e31d0cb3d19e78
 
 COCOAPODS: 1.0.1

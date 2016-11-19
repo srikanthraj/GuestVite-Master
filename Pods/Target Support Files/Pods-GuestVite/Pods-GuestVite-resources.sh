@@ -84,12 +84,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "GooglePlaces/Frameworks/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle"
   install_resource "KBContactsSelection/KBContactsSelection/KBContactCell.xib"
   install_resource "KBContactsSelection/KBContactsSelection/KBContactsSelectionViewController.xib"
+  install_resource "$PODS_CONFIGURATION_BUILD_DIR/VMaskTextField/VMaskTextField.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "GoogleMaps/Subspecs/Maps/Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle"
   install_resource "GooglePlaces/Frameworks/GooglePlaces.framework/Versions/A/Resources/GooglePlaces.bundle"
   install_resource "KBContactsSelection/KBContactsSelection/KBContactCell.xib"
   install_resource "KBContactsSelection/KBContactsSelection/KBContactsSelectionViewController.xib"
+  install_resource "$PODS_CONFIGURATION_BUILD_DIR/VMaskTextField/VMaskTextField.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"
