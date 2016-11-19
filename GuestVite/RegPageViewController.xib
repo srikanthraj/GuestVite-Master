@@ -40,11 +40,32 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfS-nD-PEQ">
-                    <rect key="frame" x="-5" y="0.0" width="417" height="570"/>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AgW-ob-y7A">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                    <color key="backgroundColor" red="0.16217732570000001" green="0.1053099518" blue="0.21904469970000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="60" id="W6s-Id-o8f"/>
+                    </constraints>
+                    <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
+                    <textAttributes key="titleTextAttributes">
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </textAttributes>
+                    <items>
+                        <navigationItem title="Registration" id="acQ-ek-5Pp">
+                            <barButtonItem key="leftBarButtonItem" image="Back" id="cBH-xO-f0S">
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="Back" destination="-1" id="nCv-38-Nep"/>
+                                </connections>
+                            </barButtonItem>
+                        </navigationItem>
+                    </items>
+                </navigationBar>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfS-nD-PEQ">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="blue-orange-backgrounds-wallpaper" translatesAutoresizingMaskIntoConstraints="NO" id="d4P-ib-7JS">
-                            <rect key="frame" x="5" y="0.0" width="412" height="576"/>
+                        <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="blue-orange-backgrounds-wallpaper" translatesAutoresizingMaskIntoConstraints="NO" id="d4P-ib-7JS">
+                            <rect key="frame" x="0.0" y="57" width="412" height="519"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="412" id="1M1-qW-wbq"/>
                                 <constraint firstAttribute="height" constant="700" id="5Un-7G-1zG"/>
@@ -102,30 +123,12 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Little More Information before you are all set!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faV-kr-E4G">
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Little More Information before you are all set!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="faV-kr-E4G">
                             <rect key="frame" x="38" y="57" width="255" height="21"/>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AgW-ob-y7A">
-                            <rect key="frame" x="5" y="-3" width="324" height="60"/>
-                            <color key="backgroundColor" red="0.16217732570000001" green="0.1053099518" blue="0.21904469970000001" alpha="1" colorSpace="calibratedRGB"/>
-                            <color key="barTintColor" red="0.57904257550000005" green="0.27542994970000001" blue="0.63032973560000005" alpha="1" colorSpace="calibratedRGB"/>
-                            <textAttributes key="titleTextAttributes">
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </textAttributes>
-                            <items>
-                                <navigationItem title="Registration" id="acQ-ek-5Pp">
-                                    <barButtonItem key="leftBarButtonItem" image="Back" id="cBH-xO-f0S">
-                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <action selector="Back" destination="-1" id="nCv-38-Nep"/>
-                                        </connections>
-                                    </barButtonItem>
-                                </navigationItem>
-                            </items>
-                        </navigationBar>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="someone@gmail.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="avc-hq-prw">
                             <rect key="frame" x="109" y="169" width="157" height="30"/>
                             <constraints>
@@ -308,16 +311,14 @@
                         <constraint firstItem="NSw-U1-GnK" firstAttribute="leading" secondItem="tAH-1y-cYL" secondAttribute="trailing" constant="7" id="rDX-HE-LZ5"/>
                         <constraint firstItem="U0g-IH-4DJ" firstAttribute="leading" secondItem="vga-da-LM7" secondAttribute="trailing" constant="7" id="u3z-6l-0K5"/>
                         <constraint firstItem="Uzd-Tv-rEh" firstAttribute="leading" secondItem="JBM-z2-INt" secondAttribute="trailing" constant="7" id="vMu-Wt-kAD"/>
-                        <constraint firstItem="d4P-ib-7JS" firstAttribute="top" secondItem="kfS-nD-PEQ" secondAttribute="top" id="vkF-JU-VDi"/>
                     </constraints>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstAttribute="bottom" secondItem="kfS-nD-PEQ" secondAttribute="bottom" constant="20" id="IZf-jz-yel"/>
-                <constraint firstItem="kfS-nD-PEQ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="bCA-gd-g9Y"/>
-                <constraint firstAttribute="trailing" secondItem="kfS-nD-PEQ" secondAttribute="trailing" id="hQP-ke-ijd"/>
-                <constraint firstItem="kfS-nD-PEQ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uEk-wA-SnO"/>
+                <constraint firstItem="AgW-ob-y7A" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="c59-9l-gsu"/>
+                <constraint firstItem="AgW-ob-y7A" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ctu-7G-xpO"/>
+                <constraint firstAttribute="trailing" secondItem="AgW-ob-y7A" secondAttribute="trailing" id="jIv-Rn-jjJ"/>
             </constraints>
             <point key="canvasLocation" x="351" y="365"/>
         </view>
