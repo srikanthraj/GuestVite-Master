@@ -16,7 +16,7 @@
 
 @import Firebase;
 
-@interface PrevInvRecvdViewController () <UITableViewDelegate, UITableViewDataSource,SWTableViewCellDelegate,CNPPopupControllerDelegate>
+@interface PrevInvRecvdViewController () <UITableViewDelegate, UITableViewDataSource,SWTableViewCellDelegate,CNPPopupControllerDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate>
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;

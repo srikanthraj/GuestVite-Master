@@ -30,9 +30,8 @@
     
     [FIRApp configure];
    
-
-    [application setStatusBarHidden:NO];
-    [application setStatusBarStyle:UIStatusBarStyleLightContent];
+   // [application setStatusBarHidden:NO];
+   // [application setStatusBarStyle:UIStatusBarStyleLightContent];
    
     return YES;
 }

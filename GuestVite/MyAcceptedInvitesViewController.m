@@ -17,7 +17,7 @@
 
 @import Firebase;
 
-@interface MyAcceptedInvitesViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface MyAcceptedInvitesViewController () <UITableViewDelegate, UITableViewDataSource,CLLocationManagerDelegate,SWTableViewCellDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,CNPPopupControllerDelegate>
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
@@ -786,7 +786,7 @@ NSString *myAcceptedInviteSelcetedKey;
 - (CLLocationCoordinate2D) geoCodeUsingAddress:(NSString *)address
 {
     double latitude = 0, longitude = 0;
-    NSString *esc_addr =  [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *esc_addr =  [address stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
     NSString *req = [NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?sensor=false&address=%@", esc_addr];
     NSString *result = [NSString stringWithContentsOfURL:[NSURL URLWithString:req] encoding:NSUTF8StringEncoding error:NULL];
     

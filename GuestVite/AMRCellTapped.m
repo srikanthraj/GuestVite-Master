@@ -17,7 +17,7 @@
 
 @import Firebase;
 
-@interface AMRCellTapped () <CLLocationManagerDelegate>
+@interface AMRCellTapped () <CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,CNPPopupControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *invitedByLabel;
 @property (weak, nonatomic) IBOutlet UILabel *invitedOnLabel;
 @property (weak, nonatomic) IBOutlet UILabel *invitedTillLabel;
@@ -622,7 +622,7 @@ float currentLongitude = 0.0;
 - (CLLocationCoordinate2D) geoCodeUsingAddress:(NSString *)address
 {
     double latitude = 0, longitude = 0;
-    NSString *esc_addr =  [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *esc_addr =  [address stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
     NSString *req = [NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?sensor=false&address=%@", esc_addr];
     NSString *result = [NSString stringWithContentsOfURL:[NSURL URLWithString:req] encoding:NSUTF8StringEncoding error:NULL];
     
