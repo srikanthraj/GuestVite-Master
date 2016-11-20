@@ -25,7 +25,7 @@
                         <constraint firstAttribute="width" constant="286" id="h1k-HZ-eHM"/>
                     </constraints>
                 </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="You can check out other cool features of Our App!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCd-Lp-RjC">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You can check out other cool features of Our App!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCd-Lp-RjC">
                     <rect key="frame" x="8" y="155" width="383" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                     <color key="textColor" red="0.09015744379" green="0.23058894229999999" blue="0.089826690419999994" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,7 +53,7 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="We're Sorry but there is nothing to show in this criteria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJY-29-qjF">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="We're Sorry but there is nothing to show in this criteria" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NJY-29-qjF">
                     <rect key="frame" x="8" y="92" width="351" height="45"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                     <color key="textColor" red="0.16078431369999999" green="0.1058823529" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -68,6 +68,7 @@
                 <constraint firstItem="3A5-O0-x2I" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TfY-Eg-60H"/>
                 <constraint firstItem="VVH-ji-FC8" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Zfd-Rk-sDD"/>
                 <constraint firstItem="3A5-O0-x2I" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dFu-Rm-9fC"/>
+                <constraint firstItem="NJY-29-qjF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="gm0-8I-KuA"/>
                 <constraint firstAttribute="trailing" secondItem="3A5-O0-x2I" secondAttribute="trailing" id="kjq-qQ-HOI"/>
                 <constraint firstItem="vCd-Lp-RjC" firstAttribute="top" secondItem="NJY-29-qjF" secondAttribute="bottom" constant="10" id="odJ-ds-53q"/>
                 <constraint firstAttribute="trailing" secondItem="VVH-ji-FC8" secondAttribute="trailing" constant="57" id="oiA-MW-R4E"/>

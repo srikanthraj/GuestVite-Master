@@ -593,14 +593,14 @@
     [self presentViewController:_addressBookController animated:YES completion:nil];
 }
 
-
+/*
 -(void)populateContactData{
     NSString *contactFullName = [NSString stringWithFormat:@"%@ %@", [_dictContactDetails objectForKey:@"firstName"], [_dictContactDetails objectForKey:@"lastName"]];
     
     //[self.eMailguestList setText:contactFullName];
     
 }
-
+*/
 -(void)selectContactData {
 
     CNContactPickerViewController * picker = [[CNContactPickerViewController alloc] init];

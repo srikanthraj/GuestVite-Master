@@ -339,8 +339,7 @@ NSArray *wrfkeys;
     }
     
     else {
-        [cell.guestEMailLabel setHidden:TRUE];
-        [cell.guestEMail setHidden:TRUE];
+        cell.guestEMailLabel.text = @"Not Specified";
     }
     
     if(!([[wrfGuestPhoneData objectAtIndex:indexPath.row] isEqualToString:@"Not Specified"])) {
@@ -348,8 +347,7 @@ NSArray *wrfkeys;
     }
     
     else {
-        [cell.guestPhoneLabel setHidden:TRUE];
-        [cell.guestPhone setHidden:TRUE];
+        cell.guestPhoneLabel.text = @"Not Specified";
     }
     
     

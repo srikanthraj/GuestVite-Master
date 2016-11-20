@@ -151,9 +151,7 @@ NSMutableString *fName;
     
      NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
     
-    //Test
-    
-    CGSize size = self.view.frame.size;
+   
     
     // Rounded rectangular default color button
     CGRect frame = CGRectMake(14, 60, 294, 30);
@@ -248,8 +246,8 @@ NSMutableString *fName;
     
     CGRect frame8 = CGRectMake(14, 527, 294, 30);
     self.updateInfoButton = [[HTPressableButton alloc] initWithFrame:frame8 buttonStyle:HTPressableButtonStyleRounded];
-    [self.updateInfoButton setButtonColor:[UIColor ht_bitterSweetColor]];
-    [self.updateInfoButton setShadowColor:[UIColor ht_bitterSweetDarkColor]];
+    [self.updateInfoButton setButtonColor:[UIColor ht_amethystColor]];
+    [self.updateInfoButton setShadowColor:[UIColor ht_wisteriaColor]];
     [self.updateInfoButton setTitle:@"Update My Information" forState:UIControlStateNormal];
     [self.updateInfoButton addTarget:self action:@selector(updateInfoButtonPressed:)
                  forControlEvents:UIControlEventTouchUpInside];
