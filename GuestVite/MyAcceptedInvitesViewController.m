@@ -399,8 +399,9 @@ NSString *myAcceptedInviteSelcetedKey;
         
         cell.userInteractionEnabled = NO;
         self.tableView.hidden = YES;
-        
-       [self.view addSubview:maiEmptyView.view];
+        self.myAcceptedInvitesBack.hidden = YES;
+        maiEmptyView.view.frame = self.view.bounds;
+        [self.view addSubview:maiEmptyView.view];
         
         
     }

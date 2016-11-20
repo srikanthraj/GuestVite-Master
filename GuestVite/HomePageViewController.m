@@ -151,10 +151,15 @@ NSMutableString *fName;
     
      NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
     
+    //Test
+    
+    CGSize size = self.view.frame.size;
     
     // Rounded rectangular default color button
-    CGRect frame = CGRectMake(14, 55, 294, 30);
+    CGRect frame = CGRectMake(14, 60, 294, 30);
+    //self.sendNewInviteButton.center = CGPointMake(size.width/2, 55);
     self.sendNewInviteButton = [[HTPressableButton alloc] initWithFrame:frame buttonStyle:HTPressableButtonStyleRounded];
+    
     
     [self.sendNewInviteButton setButtonColor:[UIColor ht_amethystColor]];
     [self.sendNewInviteButton setShadowColor:[UIColor ht_wisteriaColor]];

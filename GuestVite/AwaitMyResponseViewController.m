@@ -392,7 +392,8 @@ NSArray *keys;
         
         cell.userInteractionEnabled = NO;
         self.tableView.hidden = YES;
-        
+        self.awaitMyResponseBack.hidden = YES;
+        amrEmptyView.view.frame = self.view.bounds;
         [self.view addSubview:amrEmptyView.view];
     }
 

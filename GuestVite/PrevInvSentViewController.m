@@ -386,7 +386,8 @@ UIActivityIndicatorView *activityIndicator;
         
         cell.userInteractionEnabled = NO;
         self.tableView.hidden = YES;
-        
+        self.prevInvSentBack.hidden = YES;
+        pisEmptyView.view.frame = self.view.bounds;
         [self.view addSubview:pisEmptyView.view];
     }
 

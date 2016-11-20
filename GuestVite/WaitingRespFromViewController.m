@@ -389,9 +389,11 @@ NSArray *wrfkeys;
         
         cell.userInteractionEnabled = NO;
         self.tableView.hidden = YES;
-        
+        self.waitingRespFromBack.hidden = YES;
+        wrfEmptyView.view.frame = self.view.bounds;
         [self.view addSubview:wrfEmptyView.view];
         
+        //[self.view sizeToFit];
         
     }
 

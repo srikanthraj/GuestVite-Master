@@ -381,7 +381,8 @@ NSArray *tmgkeys;
         
         cell.userInteractionEnabled = NO;
         self.tableView.hidden = YES;
-        
+        self.trackMyGuestsBack.hidden = YES;
+        tmgEmptyView.view.frame = self.view.bounds;
         [self.view addSubview:tmgEmptyView.view];
     }
 

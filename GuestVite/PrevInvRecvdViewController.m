@@ -360,7 +360,8 @@ NSArray *pirkeys;
         
         cell.userInteractionEnabled = NO;
         self.tableView.hidden = YES;
-
+        self.prevInvRecvdBack.hidden = YES;
+        pirEmptyView.view.frame = self.view.bounds;
         [self.view addSubview:pirEmptyView.view];
     }
     
