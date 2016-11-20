@@ -306,7 +306,9 @@
                             <constraint firstItem="nL1-Jz-7ca" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="LHT-gI-UEu"/>
                             <constraint firstItem="JqD-1x-zZR" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="topMargin" id="M6f-Qq-dhS"/>
                             <constraint firstItem="Gcs-qs-Gsm" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="S5S-Kc-rHY"/>
-                            <constraint firstItem="QI5-LY-LaG" firstAttribute="top" secondItem="iQw-ck-zLY" secondAttribute="bottom" constant="22" id="SjC-d2-qpW"/>
+                            <constraint firstItem="QI5-LY-LaG" firstAttribute="top" secondItem="iQw-ck-zLY" secondAttribute="bottom" constant="22" id="SjC-d2-qpW">
+                                <variation key="heightClass=regular" constant="15"/>
+                            </constraint>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JqD-1x-zZR" secondAttribute="bottom" id="WkO-wC-f2j"/>
                             <constraint firstItem="Gcs-qs-Gsm" firstAttribute="top" secondItem="wPy-m2-4Go" secondAttribute="bottom" constant="30" id="a0U-9g-fYn"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="JqD-1x-zZR" secondAttribute="bottom" id="bH0-F2-74u"/>
@@ -314,7 +316,9 @@
                             <constraint firstItem="nL1-Jz-7ca" firstAttribute="top" secondItem="QI5-LY-LaG" secondAttribute="bottom" constant="22" id="cpi-ti-sBg"/>
                             <constraint firstItem="wPy-m2-4Go" firstAttribute="top" secondItem="nL1-Jz-7ca" secondAttribute="bottom" constant="22" id="dOT-6L-eW2"/>
                             <constraint firstItem="QI5-LY-LaG" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="eC4-G8-FOg"/>
-                            <constraint firstItem="iQw-ck-zLY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="196" id="hWQ-jE-ntE"/>
+                            <constraint firstItem="iQw-ck-zLY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="196" id="hWQ-jE-ntE">
+                                <variation key="heightClass=regular" constant="185"/>
+                            </constraint>
                             <constraint firstItem="wPy-m2-4Go" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="l7p-IO-Xcq"/>
                             <constraint firstAttribute="trailingMargin" secondItem="JqD-1x-zZR" secondAttribute="trailing" constant="-20" id="oz8-Jx-a7G"/>
                             <constraint firstItem="nL1-Jz-7ca" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sac-NM-Kte"/>
