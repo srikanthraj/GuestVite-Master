@@ -21,7 +21,7 @@
 
 @import Firebase;
 
-@interface SendNewInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UIScrollViewDelegate,UITextViewDelegate,SACalendarDelegate>
+@interface SendNewInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UIScrollViewDelegate,UITextViewDelegate,SACalendarDelegate,CNPPopupControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *guestNameText;
 @property (weak, nonatomic) IBOutlet UITextField *guestEMailText;
@@ -171,7 +171,7 @@
     UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
     [keyboardDoneButtonView sizeToFit];
     UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
-                                                                   style:UIBarButtonItemStyleBordered target:self
+                                                                   style:UIBarButtonItemStylePlain target:self
                                                                   action:@selector(doneClicked:)];
     
     self.guestNameText.inputAccessoryView = keyboardDoneButtonView;
@@ -395,7 +395,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
 - (CLLocationCoordinate2D) geoCodeUsingAddress:(NSString *)address
 {
     double latitude = 0, longitude = 0;
-    NSString *esc_addr =  [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *esc_addr =  [address stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
     NSString *req = [NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?sensor=false&address=%@", esc_addr];
     NSString *result = [NSString stringWithContentsOfURL:[NSURL URLWithString:req] encoding:NSUTF8StringEncoding error:NULL];
     

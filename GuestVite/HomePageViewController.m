@@ -27,7 +27,7 @@
 
 
 @import Firebase;
-@interface HomePageViewController () <UIScrollViewDelegate>
+@interface HomePageViewController () <UIScrollViewDelegate,CNPPopupControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
 @property (strong, nonatomic) IBOutlet UIScrollView *myScrollView;
 @property (strong, nonatomic) IBOutlet UIImageView *homeView;

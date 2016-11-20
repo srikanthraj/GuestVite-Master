@@ -14,7 +14,7 @@
 
 @import Firebase;
 
-@interface WaitingRespFromViewController () <UITableViewDelegate, UITableViewDataSource>
+@interface WaitingRespFromViewController () <UITableViewDelegate, UITableViewDataSource,CNPPopupControllerDelegate,MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,SWTableViewCellDelegate>
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 @property (weak, nonatomic) IBOutlet UINavigationBar *waitingRespFromBack;

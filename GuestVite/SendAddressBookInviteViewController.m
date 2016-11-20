@@ -27,7 +27,7 @@
 
 @import Firebase;
 
-@interface SendAddressBookInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate, CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate,SACalendarDelegate,UITextFieldDelegate>
+@interface SendAddressBookInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate, CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate,SACalendarDelegate,UITextFieldDelegate,CNPPopupControllerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITextView *eMailguestList;
@@ -164,7 +164,7 @@
     UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
     [keyboardDoneButtonView sizeToFit];
     UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
-                                                                   style:UIBarButtonItemStyleBordered target:self
+                                                                   style:UIBarButtonItemStylePlain target:self
                                                                   action:@selector(doneClicked:)];
     
     self.eMailguestList.inputAccessoryView = keyboardDoneButtonView;
@@ -228,11 +228,10 @@
 - (CLLocationCoordinate2D) geoCodeUsingAddress:(NSString *)address
 {
     double latitude = 0, longitude = 0;
-    NSString *esc_addr =  [address stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *esc_addr =  [address stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLFragmentAllowedCharacterSet]];
     NSString *req = [NSString stringWithFormat:@"http://maps.google.com/maps/api/geocode/json?sensor=false&address=%@", esc_addr];
     NSString *result = [NSString stringWithContentsOfURL:[NSURL URLWithString:req] encoding:NSUTF8StringEncoding error:NULL];
     
-    // NSLog(@"RESULU is %@",result);
     if (result) {
         NSScanner *scanner = [NSScanner scannerWithString:result];
         if ([scanner scanUpToString:@"\"lat\" :" intoString:nil] && [scanner scanString:@"\"lat\" :" intoString:nil]) {
@@ -380,7 +379,7 @@
     
     ABMultiValueRef emailsRef = ABRecordCopyValue(person, kABPersonEmailProperty);
     
-    NSMutableArray *allEmails = [[NSMutableArray alloc] init];
+   // NSMutableArray *allEmails = [[NSMutableArray alloc] init];
     
     for (int i=0; i<ABMultiValueGetCount(emailsRef); i++) {
        // CFStringRef currentEmailLabel = ABMultiValueCopyLabelAtIndex(emailsRef, i);
@@ -616,7 +615,7 @@
 -(void)contactPicker:(CNContactPickerViewController *)picker didSelectContact:(CNContact *)contact {
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    NSString *test = contact.givenName;
+    //NSString *test = contact.givenName;
     //NSLog(@"NAME IS  %@",test);
 }
 
@@ -627,8 +626,13 @@
         ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusRestricted){
         //1
         NSLog(@"Denied");
-        UIAlertView *cantAddContactAlert = [[UIAlertView alloc] initWithTitle: @"Cannot Add Contact" message: @"You must give the app permission to add the contact first." delegate:nil cancelButtonTitle: @"OK" otherButtonTitles: nil];
-        [cantAddContactAlert show];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"You must give the app permission to add the contact first."preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+        
     } else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized){
         //2
         NSLog(@"Authorized");
@@ -640,8 +644,14 @@
             if (!granted){
                 //4
                 NSLog(@"Just denied");
-                UIAlertView *cantAddContactAlert = [[UIAlertView alloc] initWithTitle: @"Cannot Add Contact" message: @"You must give the app permission to add the contact first." delegate:nil cancelButtonTitle: @"OK" otherButtonTitles: nil];
-                [cantAddContactAlert show];
+                
+                UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"You must give the app permission to add the contact first."preferredStyle:UIAlertControllerStyleAlert];
+                
+                UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                
+                [ac addAction:aa];
+                [self presentViewController:ac animated:YES completion:nil];
+                
                 return;
             }
             else{
@@ -1266,8 +1276,12 @@
             
         case MessageComposeResultFailed:
         {
-            UIAlertView *warningAlert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Failed to send SMS!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [warningAlert show];
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to Send SMS"preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
             break;
         }
             
