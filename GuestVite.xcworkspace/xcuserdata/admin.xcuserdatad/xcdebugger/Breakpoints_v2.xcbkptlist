@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GuestVite/SendBulkInviteViewController.m"
-            timestampString = "500962899.375597"
+            timestampString = "501394344.435581"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "623"
-            endingLineNumber = "623"
+            startingLineNumber = "598"
+            endingLineNumber = "598"
             landmarkName = "-sendSMSTapped:"
             landmarkType = "5">
          </BreakpointContent>

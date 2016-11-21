@@ -64,7 +64,7 @@
     
     
     NSDateFormatter *currentDateFormatter = [[NSDateFormatter alloc] init];
-    [currentDateFormatter setDateFormat:@"hh:mm a"];
+    [currentDateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [currentDateFormatter stringFromDate:[NSDate date]];
     
     self.startTime = currentTime;
@@ -131,24 +131,18 @@
     
     [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
 
-    self.datePicker.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
+   
     
     [self.datePicker setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
-    self.datePicker.datePickerMode = UIDatePickerModeTime;
-    [self.view addSubview: self.datePicker];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
+    
+    
     [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     
     
-    self.datePickerExpire.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
+    
     [self.datePickerExpire setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
     
     
-    self.datePickerExpire.datePickerMode = UIDatePickerModeTime;
-    [self.view addSubview: self.datePickerExpire];
-    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
     [self.datePickerExpire  addTarget:self action:@selector(dateChangedExpire:) forControlEvents:UIControlEventValueChanged];
 }
 
@@ -364,30 +358,6 @@
     [self.view endEditing:YES];
 }
 
-
-- (IBAction)forDateBeginEdit:(id)sender {
-    
-    self.inviteExpireDateText.enabled = FALSE;
-    
-    SACalendar *calendar = [[SACalendar alloc]initWithFrame:CGRectMake(0, 20, 320, 400)];
-    
-    calendar.delegate = self;
-    [self.view addSubview:calendar];
-    
-    [self.view endEditing:YES];
-}
-
-- (IBAction)forDateBeginEditExpire:(id)sender {
-    
-    self.inviteForDateText.enabled = FALSE;
-    
-    SACalendar *calendar1 = [[SACalendar alloc]initWithFrame:CGRectMake(0, 20, 320, 400)];
-    
-    calendar1.delegate = self;
-    [self.view addSubview:calendar1];
-    
-    [self.view endEditing:YES];
-}
 
 
 
