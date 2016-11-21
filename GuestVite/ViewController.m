@@ -20,11 +20,13 @@
 @interface ViewController () <UIPageViewControllerDataSource>
 
 
+@property (strong, nonatomic) IBOutlet UIView *contentView;
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
 @property (strong, nonatomic) NSArray *pageTitles;
 @property (strong, nonatomic) NSArray *pageImages;
 
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailConstraint;
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet TextFieldValidator *emailField;
@@ -83,11 +85,16 @@ NSUInteger currIndex;
     
     
     
+    if(self.view.frame.size.width == 320 && self.view.frame.size.height ==480) {
+        self.pageViewController.view.frame = CGRectMake(0, 0, 0,0);
     
+        
+    }// Iphone 4s
     
     // Change the size of page view controller
+    else{
     self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (self.view.frame.size.height - 200));
-    
+    }
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
@@ -98,7 +105,7 @@ NSUInteger currIndex;
     UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
     [keyboardDoneButtonView sizeToFit];
     UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
-                                                                   style:UIBarButtonItemStylePlain target:self
+                                                                   style:UIBarButtonItemStyleBordered target:self
                                                                   action:@selector(doneClicked:)];
     
     

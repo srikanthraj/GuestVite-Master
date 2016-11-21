@@ -27,9 +27,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *guestEMailText;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *guestPhoneText;
-@property (weak, nonatomic) IBOutlet UITextField *inviteForDateText;
-@property (weak, nonatomic) IBOutlet UITextField *inviteExpireDateText;
+//@property (weak, nonatomic) IBOutlet UITextField *inviteForDateText;
+//@property (weak, nonatomic) IBOutlet UITextField *inviteExpireDateText;
 @property (weak, nonatomic) IBOutlet UITextView *messageText;
 
 
@@ -53,6 +54,10 @@
 @property (nonatomic, strong) NSString *startTime;
 
 @property (nonatomic, strong) NSString *endTime;
+
+@property (nonatomic, strong) NSString *currentTime;
+
+@property (nonatomic, strong) NSString *currentTimeExpire;
 
 @end
 
@@ -117,7 +122,7 @@
     
     
     NSDateFormatter *currentDateFormatter = [[NSDateFormatter alloc] init];
-    [currentDateFormatter setDateFormat:@"hh:mm a"];
+    [currentDateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [currentDateFormatter stringFromDate:[NSDate date]];
     
     self.startTime = currentTime;
@@ -155,11 +160,6 @@
     self.guestPhoneText.layer.cornerRadius = 10.0;
     self.guestPhoneText.layer.borderWidth = 1.0;
     
-    self.inviteForDateText.layer.cornerRadius = 10.0;
-    self.inviteForDateText.layer.borderWidth = 1.0;
-    
-    self.inviteExpireDateText.layer.cornerRadius = 10.0;
-    self.inviteExpireDateText.layer.borderWidth = 1.0;
     
     self.messageText.text = @"Personalized Message";
     self.messageText.textColor = [UIColor lightGrayColor];
@@ -177,31 +177,23 @@
     self.guestNameText.inputAccessoryView = keyboardDoneButtonView;
     self.guestEMailText.inputAccessoryView = keyboardDoneButtonView;
     self.guestPhoneText.inputAccessoryView = keyboardDoneButtonView;
-    //self.inviteForDateText.inputAccessoryView = keyboardDoneButtonView;
-    //self.inviteExpireDateText.inputAccessoryView = keyboardDoneButtonView;
+
     self.messageText.inputAccessoryView = keyboardDoneButtonView;
     
     
     [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
     
-    
+    //self.datePicker.frame = CGRectMake(50, 143, 182, 200);
     
     [self.datePicker setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
-    self.datePicker.datePickerMode = UIDatePickerModeTime;
-    [self.view addSubview: self.datePicker];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
+    
     [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     
     
-    self.datePickerExpire.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
+   // self.datePickerExpire.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
     [self.datePickerExpire setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
     
     
-    self.datePickerExpire.datePickerMode = UIDatePickerModeTime;
-    [self.view addSubview: self.datePickerExpire];
-    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
     [self.datePickerExpire  addTarget:self action:@selector(dateChangedExpire:) forControlEvents:UIControlEventValueChanged];
     
     
@@ -227,7 +219,7 @@
 - (void)dateChanged:(id)sender
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [dateFormatter stringFromDate:self.datePicker.date];
     NSLog(@"Time For %@", currentTime);
     self.startTime = currentTime;
@@ -236,7 +228,7 @@
 - (void)dateChangedExpire:(id)sender
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [dateFormatter stringFromDate:self.datePickerExpire.date];
     NSLog(@"Time Expire%@", currentTime);
     self.endTime = currentTime;
@@ -257,62 +249,12 @@
 }
 
 
-- (IBAction)forDateBeginEdit:(id)sender {
-    
-    self.inviteExpireDateText.enabled = FALSE;
-    
-    SACalendar *calendar = [[SACalendar alloc]initWithFrame:CGRectMake(0, 20, 320, 400)];
-    
-    calendar.delegate = self;
-    [self.view addSubview:calendar];
-    
-    [self.view endEditing:YES];
-}
-
-- (IBAction)forDateBeginEditExpire:(id)sender {
-    
-    self.inviteForDateText.enabled = FALSE;
-    
-    SACalendar *calendar1 = [[SACalendar alloc]initWithFrame:CGRectMake(0, 20, 320, 400)];
-    
-    calendar1.delegate = self;
-    [self.view addSubview:calendar1];
-    
-    [self.view endEditing:YES];
-}
-
 
 
 - (void) setCurrentTextField:(UITextField *)currentTextField{
     self.currentTextField.text = self.string;
 }
 
-// Prints out the selected date
--(void) SACalendar:(SACalendar*)calendar didSelectDate:(int)day month:(int)month year:(int)year
-{
-    
-    [self.view endEditing:YES];
-    self.string = [NSString stringWithFormat:@"%02d/%02d/%02d",month,day,year];
-    
-    NSLog(@"Date Selected is : %@",self.string);
-    
-    if(self.inviteForDateText.isEnabled){
-        self.inviteForDateText.text = self.string;
-        self.inviteExpireDateText.enabled = TRUE;
-        NSLog(@"FOR DATE ");
-    }
-    
-    else if(self.inviteExpireDateText.isEnabled){
-        self.inviteExpireDateText.text = self.string;
-        self.inviteForDateText.enabled = TRUE;
-        NSLog(@"EXPIRE DATE ");
-    }
-    
-    [calendar removeFromSuperview];
-    
-    
-    
-}
 
 //Utility Function to convert String to date
 
@@ -472,14 +414,13 @@ if(self.segmentControl.selectedSegmentIndex ==1){
     
     __block NSString *endDateTime = [[NSString alloc] init];
     
-    startDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteForDateText.text,self.startTime];
     
-    endDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteExpireDateText.text,self.endTime];
-    
-    //startDateTime = [self.inviteForDateText.text self.startTime];
-    
-    //endDateTime = [self.inviteExpireDateText.text stringByAppendingString:self.endTime];
-    
+        NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
+        NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
+        
+        startDateTime = self.startTime;
+        endDateTime = self.endTime;
+        
     
     
     NSDate *fromDate = [self dateToFormatedDate:startDateTime];
@@ -645,7 +586,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         NSArray *recipents = [NSArray arrayWithObject:self.guestPhoneText.text];
        
         
-        NSString *message = [NSString stringWithFormat:@"Hey! %@ , You are invited by %@ at their place on %@ at %@, Please login/Register to GuestVite App for more Details ,Thanks!",self.guestNameText.text,senderName,self.inviteForDateText.text,self.startTime];
+        NSString *message = [NSString stringWithFormat:@"Hey! %@ , You are invited by %@ at their place on %@ , Please login/Register to GuestVite App for more Details ,Thanks!",self.guestNameText.text,senderName,self.startTime];
         
         MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
         messageController.messageComposeDelegate = self;
@@ -666,7 +607,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
             // Email Subject
             NSString *emailTitle = @"Message From GeuestVite";
             // Email Content
-            NSString *messageBody = [NSString stringWithFormat:@"Hey! %@ , This is %@  and I want to invite you at my place on %@ at %@ , please login to this new cool App GuestVite! for all further details, Thanks and looking forward to see you soon!",self.guestNameText.text,senderName,self.inviteForDateText.text,self.startTime];
+            NSString *messageBody = [NSString stringWithFormat:@"Hey! %@ , This is %@  and I want to invite you at my place on %@ , please login to this new cool App GuestVite! for all further details, Thanks and looking forward to see you soon!",self.guestNameText.text,senderName,self.startTime];
             // To address
             NSArray *toRecipents = [NSArray arrayWithObject:self.guestEMailText.text];
             
@@ -684,7 +625,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         }
         
         else {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than or Equal to Expire Date" preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             
