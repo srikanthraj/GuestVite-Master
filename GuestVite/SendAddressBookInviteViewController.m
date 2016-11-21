@@ -186,7 +186,7 @@
     
     self.datePicker.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
 
-    [self.datePicker setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
+    [self.datePicker setValue:[UIColor whiteColor]forKey:@"textColor"];
     self.datePicker.datePickerMode = UIDatePickerModeTime;
     [self.view addSubview: self.datePicker];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -195,7 +195,7 @@
     
     
     self.datePickerExpire.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
-    [self.datePickerExpire setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
+    [self.datePickerExpire setValue:[UIColor whiteColor]forKey:@"textColor"];
     
     
     self.datePickerExpire.datePickerMode = UIDatePickerModeTime;
