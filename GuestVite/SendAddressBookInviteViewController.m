@@ -202,6 +202,11 @@
     [self presentViewController:homePageVC animated:YES completion:nil];
 }
 
+-(void)doneClicked:(id)sender
+{
+    
+    [self.view endEditing:YES];
+}
 
 - (CLLocationCoordinate2D) geoCodeUsingAddress:(NSString *)address
 {
@@ -230,7 +235,7 @@
 - (void)dateChanged:(id)sender
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [dateFormatter stringFromDate:self.datePicker.date];
     //NSLog(@"Time For %@", currentTime);
     self.startTime = currentTime;
@@ -239,18 +244,12 @@
 - (void)dateChangedExpire:(id)sender
 {
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
+    [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [dateFormatter stringFromDate:self.datePickerExpire.date];
    // NSLog(@"Time Expire%@", currentTime);
     self.endTime = currentTime;
 }
 
-
--(void)doneClicked:(id)sender
-{
-    //NSLog(@"Done Clicked.");
-    [self.view endEditing:YES];
-}
 
 -(void)peoplePickerNavigationControllerDidCancel:(CNContactPickerViewController *)peoplePicker{
     [_addressBookController dismissViewControllerAnimated:YES completion:nil];
@@ -476,33 +475,6 @@
     self.currentTextField.text = self.string;
 }
 
-
-// Prints out the selected date
--(void) SACalendar:(SACalendar*)calendar didSelectDate:(int)day month:(int)month year:(int)year
-{
-    
-    [self.view endEditing:YES];
-    self.string = [NSString stringWithFormat:@"%02d/%02d/%02d",month,day,year];
-
-    NSLog(@"Date Selected is : %@",self.string);
-    
-    if(self.inviteForDateText.isEnabled){
-        self.inviteForDateText.text = self.string;
-        self.inviteExpireDateText.enabled = TRUE;
-        NSLog(@"FOR DATE ");
-    }
-    
-    else if(self.inviteExpireDateText.isEnabled){
-        self.inviteExpireDateText.text = self.string;
-        self.inviteForDateText.enabled = TRUE;
-        NSLog(@"EXPIRE DATE ");
-    }
-
-    [calendar removeFromSuperview];
-    
-    
-    
-}
 
 
 
@@ -814,16 +786,21 @@
     
     __block NSString *endDateTime = [[NSString alloc] init];
     
-    startDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteForDateText.text,self.startTime];
-    
-    endDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteExpireDateText.text,self.endTime];
-    
-   
+        NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
+        NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
+        
+        
+        startDateTime = self.startTime;
+        
+        endDateTime= self.endTime;
     
     NSDate *fromDate = [self dateToFormatedDate:startDateTime];
     
     NSDate *toDate = [self dateToFormatedDate:endDateTime];
     
+        NSLog(@"FROM DATE %@",fromDate);
+        
+        NSLog(@"TO DATE %@",toDate);
     
     
     if([self.phoneContactsData count] ==0) {
@@ -946,7 +923,7 @@
             return;
         }
         
-        NSString *message = [NSString stringWithFormat:@"Hey!, You are invited by %@ as a guest on %@ at %@, Please login/Register to GuestVite App for more Details ,Thanks!",senderName,self.inviteForDateText.text,self.startTime];
+        NSString *message = [NSString stringWithFormat:@"Hey!, You are invited by %@ at their place on %@, Please login/Register to GuestVite App for more Details ,Thanks!",senderName,self.startTime];
         
         MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
         messageController.messageComposeDelegate = self;
@@ -1029,23 +1006,22 @@
     
     __block NSString *endDateTime = [[NSString alloc] init];
     
-    startDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteForDateText.text,self.startTime];
-    
-    endDateTime= [NSString stringWithFormat:@"%@ %@",self.inviteExpireDateText.text,self.endTime];
-    
-    //startDateTime = [self.inviteForDateText.text self.startTime];
-    
-    //endDateTime = [self.inviteExpireDateText.text stringByAppendingString:self.endTime];
-    
+        NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
+        NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
+        
+        startDateTime = self.startTime;
+        endDateTime = self.endTime;
     
     
     NSDate *fromDate = [self dateToFormatedDate:startDateTime];
     
     NSDate *toDate = [self dateToFormatedDate:endDateTime];
 
+        NSLog(@"FROM DATE %@",fromDate);
+        
+        NSLog(@"TO DATE %@",toDate);
     
-    //NSLog(@"E- Mail LIST %@", self.emailContactsData);
-    
+       
     if([self.emailContactsData count] ==0) {
         
         UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"At Least One Guest Info is required"preferredStyle:UIAlertControllerStyleAlert];
@@ -1159,7 +1135,7 @@
         // Email Subject
         NSString *emailTitle = @"Message From GeuestVite";
         // Email Content
-        NSString *messageBody = [NSString stringWithFormat:@"Hey!, This is %@  and I want to invite you at my place on %@ at %@ , please login to this new cool App GuestVite! for all further details, Thanks and looking forward to see you soon!",senderName,self.inviteForDateText.text,self.startTime];
+        NSString *messageBody = [NSString stringWithFormat:@"Hey!, You are invited by %@ at their place on %@, Please login/Register to GuestVite App for more Details ,Thanks!",senderName,self.startTime];
         // To address
         //NSArray *toRecipents = [NSArray arrayWithObject:self.guestEMailText.text];
         
