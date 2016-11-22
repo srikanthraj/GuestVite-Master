@@ -23,6 +23,7 @@
 @interface SendBulkInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate,SACalendarDelegate,CNPPopupControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *eMailguestList;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
@@ -48,9 +49,22 @@
 
 @property (nonatomic, strong) NSString *endTime;
 
+@property (nonatomic) BOOL shouldKeyboardMoveUp;
+
 @end
 
 @implementation SendBulkInviteViewController
+
+//Test
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self registerForKeyboardNotifications];
+    
+}
+
+//Test Ends
 
 
 - (void)viewDidLoad {
@@ -151,6 +165,114 @@
     
     [self presentViewController:homePageVC animated:YES completion:nil];
 }
+
+
+
+// Test-------------------------------
+
+
+- (void)registerForKeyboardNotifications {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+}
+
+- (void)deregisterFromKeyboardNotifications {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardDidHideNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    
+}
+
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [self deregisterFromKeyboardNotifications];
+    
+    [super viewWillDisappear:animated];
+    
+}
+
+
+- (void)keyboardWasShown:(NSNotification *)notification {
+    
+    NSDictionary* info = [notification userInfo];
+    
+    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    CGPoint buttonOrigin = CGPointMake(0, 0);
+    CGFloat buttonHeight = 0.0;
+    
+    
+    if(self.inviteMessage.isFirstResponder){
+        buttonOrigin = self.inviteMessage.frame.origin;
+        
+        buttonHeight = self.inviteMessage.frame.size.height;
+        self.shouldKeyboardMoveUp = TRUE;
+        
+    }
+    
+    else if(self.eMailguestList.isFirstResponder){
+        buttonOrigin = self.eMailguestList.frame.origin;
+        
+        buttonHeight = self.eMailguestList.frame.size.height;
+        self.shouldKeyboardMoveUp = TRUE;
+        
+    }
+    
+    if(self.shouldKeyboardMoveUp)
+    {
+        
+        
+        CGRect visibleRect = self.view.frame;
+        
+        visibleRect.size.height -= keyboardSize.height + 40; // Extra 40 for Done Button
+        
+        if (!CGRectContainsPoint(visibleRect, buttonOrigin)){
+            
+            CGPoint scrollPoint = CGPointMake(0.0, buttonOrigin.y - visibleRect.size.height + buttonHeight);
+            
+            [self.scrollView setContentOffset:scrollPoint animated:YES];
+            
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+}
+
+- (void)keyboardWillBeHidden:(NSNotification *)notification {
+    
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
+    
+}
+
+-(void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+//---------------------------------
+
 
 
 

@@ -13,6 +13,7 @@
                 <outlet property="datePickerExpire" destination="mrI-hF-LRo" id="KhH-tg-SxG"/>
                 <outlet property="eMailguestList" destination="JoZ-u9-g4e" id="KIt-hQ-WPe"/>
                 <outlet property="inviteMessage" destination="2ZU-nA-Chb" id="H4M-hm-5t8"/>
+                <outlet property="scrollView" destination="I7L-09-tA7" id="ASl-uW-Ml9"/>
                 <outlet property="segmentControl" destination="1t1-Ax-8XR" id="mhL-Bl-TFG"/>
                 <outlet property="sendAddressBookInviteBack" destination="0Xb-9T-bBu" id="beW-l3-u7i"/>
                 <outlet property="smsGuestList" destination="tkJ-5u-rDf" id="ARU-L0-39Z"/>

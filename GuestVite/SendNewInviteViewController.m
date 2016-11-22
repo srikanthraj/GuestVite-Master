@@ -284,13 +284,23 @@
         self.shouldKeyboardMoveUp = TRUE;
         
     }
+    
+    else if(self.guestPhoneText.isFirstResponder){
+        buttonOrigin = self.guestPhoneText.frame.origin;
+        
+        buttonHeight = self.guestPhoneText.frame.size.height;
+        self.shouldKeyboardMoveUp = TRUE;
+        
+    }
+
+    
     if(self.shouldKeyboardMoveUp)
     {
         
         
         CGRect visibleRect = self.view.frame;
         
-        visibleRect.size.height -= keyboardSize.height + 10; // Extra 10 for Done Button
+        visibleRect.size.height -= keyboardSize.height + 40; // Extra 40 for Done Button
         
         if (!CGRectContainsPoint(visibleRect, buttonOrigin)){
             
