@@ -124,14 +124,14 @@
 
    
     
-    [self.datePicker setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
+    [self.datePicker setValue:[UIColor whiteColor]forKey:@"textColor"];
     
     
     [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     
     
     
-    [self.datePickerExpire setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
+    [self.datePickerExpire setValue:[UIColor whiteColor]forKey:@"textColor"];
     
     
     [self.datePickerExpire  addTarget:self action:@selector(dateChangedExpire:) forControlEvents:UIControlEventValueChanged];

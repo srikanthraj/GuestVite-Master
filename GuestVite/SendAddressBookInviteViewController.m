@@ -34,8 +34,6 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
-@property (weak, nonatomic) IBOutlet UITextField *inviteForDateText;
-@property (weak, nonatomic) IBOutlet UITextField *inviteExpireDateText;
 @property (weak, nonatomic) IBOutlet UITextView *inviteMessage;
 
 @property (weak, nonatomic) IBOutlet UITextView *smsGuestList;
@@ -146,12 +144,7 @@
     self.smsGuestList.layer.cornerRadius = 10.0;
     self.smsGuestList.layer.borderWidth = 1.0;
     self.smsGuestList.delegate = self;
-    
-    self.inviteForDateText.layer.cornerRadius = 10.0;
-    self.inviteForDateText.layer.borderWidth = 1.0;
-    
-    self.inviteExpireDateText.layer.cornerRadius = 10.0;
-    self.inviteExpireDateText.layer.borderWidth = 1.0;
+
     
     
     self.inviteMessage.text = @"Personalized Message";
@@ -168,8 +161,6 @@
     
     self.eMailguestList.inputAccessoryView = keyboardDoneButtonView;
     self.smsGuestList.inputAccessoryView = keyboardDoneButtonView;
-   // self.inviteForDateText.inputAccessoryView = keyboardDoneButtonView;
-    self.inviteExpireDateText.inputAccessoryView = keyboardDoneButtonView;
     self.inviteMessage.inputAccessoryView = keyboardDoneButtonView;
     
     
