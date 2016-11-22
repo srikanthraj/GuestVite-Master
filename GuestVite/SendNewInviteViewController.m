@@ -29,8 +29,6 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UITextField *guestPhoneText;
-//@property (weak, nonatomic) IBOutlet UITextField *inviteForDateText;
-//@property (weak, nonatomic) IBOutlet UITextField *inviteExpireDateText;
 @property (weak, nonatomic) IBOutlet UITextView *messageText;
 
 
@@ -183,14 +181,13 @@
     
     [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
     
-    //self.datePicker.frame = CGRectMake(50, 143, 182, 200);
     
     [self.datePicker setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
     
     [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     
     
-   // self.datePickerExpire.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
+   
     [self.datePickerExpire setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
     
     
@@ -264,14 +261,6 @@
     return [dateFormatter dateFromString:dateStr];
 }
 
-
-//Utility Function to convert String to ONLY date without time
-
--(NSDate *)dateToFormatedDateValidate:(NSString *)dateStr {
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"MM/dd/yyyy"];
-    return [dateFormatter dateFromString:dateStr];
-}
 
 
 // Prints out the month and year displaying on the calendar
