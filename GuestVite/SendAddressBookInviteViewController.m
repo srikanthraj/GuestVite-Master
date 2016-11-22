@@ -85,7 +85,6 @@
 @property (nonatomic, strong) ABPeoplePickerNavigationController *addressBookController;
 -(void)showAddressBook;
 
--(void)populateContactData;
 
 -(void)selectContactData;
 
@@ -108,7 +107,7 @@
     
     
     NSDateFormatter *currentDateFormatter = [[NSDateFormatter alloc] init];
-    [currentDateFormatter setDateFormat:@"hh:mm a"];
+    [currentDateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [currentDateFormatter stringFromDate:[NSDate date]];
     
     self.startTime = currentTime;
@@ -184,24 +183,12 @@
     self.lastNameEmailContactsData = [[NSMutableArray alloc]init];
     
     
-    self.datePicker.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
 
     [self.datePicker setValue:[UIColor whiteColor]forKey:@"textColor"];
-    self.datePicker.datePickerMode = UIDatePickerModeTime;
-    [self.view addSubview: self.datePicker];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
     [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     
     
-    self.datePickerExpire.frame = CGRectMake(40, 70, 300, 50); // set frame as your need
     [self.datePickerExpire setValue:[UIColor whiteColor]forKey:@"textColor"];
-    
-    
-    self.datePickerExpire.datePickerMode = UIDatePickerModeTime;
-    [self.view addSubview: self.datePickerExpire];
-    //NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    [dateFormatter setDateFormat:@"hh:mm a"];
     [self.datePickerExpire  addTarget:self action:@selector(dateChangedExpire:) forControlEvents:UIControlEventValueChanged];
   
     
@@ -278,44 +265,9 @@
     [_addressBookController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (IBAction)editBegin:(id)sender {
-    [self.view endEditing:YES];
-}
-
-
-- (IBAction)forDateBeginEdit:(id)sender {
-    
-    self.inviteExpireDateText.enabled = FALSE;
-    
-    SACalendar *calendar = [[SACalendar alloc]initWithFrame:CGRectMake(0, 20, 320, 400)];
-    
-    calendar.delegate = self;
-    [self.view addSubview:calendar];
-    
-    [self.view endEditing:YES];
-}
-
-- (IBAction)forDateBeginEditExpire:(id)sender {
-    
-    self.inviteForDateText.enabled = FALSE;
-    
-    SACalendar *calendar1 = [[SACalendar alloc]initWithFrame:CGRectMake(0, 20, 320, 400)];
-    
-    calendar1.delegate = self;
-    [self.view addSubview:calendar1];
-    
-    [self.view endEditing:YES];
-}
 
 
 
-/*
--(void)selectDateButtonPressed:(id)sender
-{
-    
-    [self.view removeFromSuperview];
-}
-*/
 
 -(void)peoplePickerNavigationController:(CNContactPickerViewController *)peoplePicker didSelectPerson:(ABRecordRef)person{
     
@@ -573,9 +525,6 @@
 
 
 
-- (IBAction)editEnded:(id)sender {
-    [sender resignFirstResponder];
-}
 
 // Prints out the month and year displaying on the calendar
 -(void) SACalendar:(SACalendar *)calendar didDisplayCalendarForMonth:(int)month year:(int)year{
@@ -593,14 +542,7 @@
     [self presentViewController:_addressBookController animated:YES completion:nil];
 }
 
-/*
--(void)populateContactData{
-    NSString *contactFullName = [NSString stringWithFormat:@"%@ %@", [_dictContactDetails objectForKey:@"firstName"], [_dictContactDetails objectForKey:@"lastName"]];
-    
-    //[self.eMailguestList setText:contactFullName];
-    
-}
-*/
+
 -(void)selectContactData {
 
     CNContactPickerViewController * picker = [[CNContactPickerViewController alloc] init];
