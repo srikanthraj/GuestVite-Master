@@ -21,7 +21,7 @@
 
 @import Firebase;
 
-@interface SendNewInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UIScrollViewDelegate,UITextViewDelegate,SACalendarDelegate,CNPPopupControllerDelegate>
+@interface SendNewInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UIScrollViewDelegate,UITextViewDelegate,SACalendarDelegate,CNPPopupControllerDelegate,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *guestNameText;
 @property (weak, nonatomic) IBOutlet UITextField *guestEMailText;
@@ -57,10 +57,23 @@
 
 @property (nonatomic, strong) NSString *currentTimeExpire;
 
+@property (nonatomic) BOOL shouldKeyboardMoveUp;
+
 @end
 
 @implementation SendNewInviteViewController
 
+
+//Test
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self registerForKeyboardNotifications];
+    
+}
+
+//Test Ends
 
 -(void)viewDidAppear:(BOOL)animated {
     
@@ -211,6 +224,106 @@
     
     [self presentViewController:homePageVC animated:YES completion:nil];
 }
+
+
+
+// Test-------------------------------
+
+
+- (void)registerForKeyboardNotifications {
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWasShown:)
+                                                 name:UIKeyboardDidShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillBeHidden:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+    
+}
+
+- (void)deregisterFromKeyboardNotifications {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardDidHideNotification
+                                                  object:nil];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:UIKeyboardWillHideNotification
+                                                  object:nil];
+    
+}
+
+
+
+- (void)viewWillDisappear:(BOOL)animated {
+    
+    [self deregisterFromKeyboardNotifications];
+    
+    [super viewWillDisappear:animated];
+    
+}
+
+
+- (void)keyboardWasShown:(NSNotification *)notification {
+    
+    NSDictionary* info = [notification userInfo];
+    
+    CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    CGPoint buttonOrigin = CGPointMake(0, 0);
+    CGFloat buttonHeight = 0.0;
+    
+    
+    if(self.messageText.isFirstResponder){
+        buttonOrigin = self.messageText.frame.origin;
+        
+        buttonHeight = self.messageText.frame.size.height;
+        self.shouldKeyboardMoveUp = TRUE;
+        
+    }
+    if(self.shouldKeyboardMoveUp)
+    {
+        
+        
+        CGRect visibleRect = self.view.frame;
+        
+        visibleRect.size.height -= keyboardSize.height + 10; // Extra 10 for Done Button
+        
+        if (!CGRectContainsPoint(visibleRect, buttonOrigin)){
+            
+            CGPoint scrollPoint = CGPointMake(0.0, buttonOrigin.y - visibleRect.size.height + buttonHeight);
+            
+            [self.scrollView setContentOffset:scrollPoint animated:YES];
+            
+        }
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+}
+
+- (void)keyboardWillBeHidden:(NSNotification *)notification {
+    
+    [self.scrollView setContentOffset:CGPointZero animated:YES];
+    
+}
+
+-(void) dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+//---------------------------------
+
+
 
 
 - (void)dateChanged:(id)sender

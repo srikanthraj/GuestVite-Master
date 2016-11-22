@@ -61,11 +61,13 @@
 @property (weak, nonatomic) IBOutlet UITextView *zipTextView;
 @property (weak, nonatomic) IBOutlet UITextView *phoneTextView;
 
+@property (nonatomic) BOOL shouldKeyboardMoveUp;
+
 @end
 
 @implementation RegPageViewController
 
-//Test AJW
+
 
 
 - (void)viewWillAppear:(BOOL)animated
@@ -82,7 +84,6 @@
 }
 
 
-//Test AJW
 
 
 
@@ -551,21 +552,38 @@
     NSDictionary* info = [notification userInfo];
     
     CGSize keyboardSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    CGPoint buttonOrigin = CGPointMake(0, 0);
+    CGFloat buttonHeight = 0.0;
     
-    CGPoint buttonOrigin;
-    CGFloat buttonHeight;
     
+    if(self.addr1Text.isFirstResponder){
+        buttonOrigin = self.addr1Text.frame.origin;
+        
+        buttonHeight = self.addr1Text.frame.size.height;
+        self.shouldKeyboardMoveUp = TRUE;
+    }
+
     
-    if(self.cityText.isFirstResponder){
+    else if(self.addr2Text.isFirstResponder){
+        buttonOrigin = self.addr2Text.frame.origin;
+        
+        buttonHeight = self.addr2Text.frame.size.height;
+        self.shouldKeyboardMoveUp = TRUE;
+    }
+
+    
+    else if(self.cityText.isFirstResponder){
     buttonOrigin = self.cityText.frame.origin;
     
     buttonHeight = self.cityText.frame.size.height;
+        self.shouldKeyboardMoveUp = TRUE;
     }
     
     else if(self.phoneText.isFirstResponder){
         buttonOrigin = self.phoneText.frame.origin;
         
         buttonHeight = self.phoneText.frame.size.height;
+        self.shouldKeyboardMoveUp = TRUE;
     }
     
     
@@ -573,25 +591,24 @@
         buttonOrigin = self.reEnterPasswordText.frame.origin;
         
         buttonHeight = self.reEnterPasswordText.frame.size.height;
+        self.shouldKeyboardMoveUp = TRUE;
     }
     
-    else if(self.addr1Text.isFirstResponder){
-        buttonOrigin = self.addr1Text.frame.origin;
-        
-        buttonHeight = self.addr1Text.frame.size.height;
-    }
+
     else if(self.zipText.isFirstResponder){
         buttonOrigin = self.zipText.frame.origin;
         
         buttonHeight = self.zipText.frame.size.height;
+        self.shouldKeyboardMoveUp = TRUE;
     }
     
     
-
-    
+if(self.shouldKeyboardMoveUp)
+{
     CGRect visibleRect = self.view.frame;
     
-    visibleRect.size.height -= keyboardSize.height;
+    visibleRect.size.height -= keyboardSize.height + 10; // Extra 10 for Done Button
+
     
     if (!CGRectContainsPoint(visibleRect, buttonOrigin)){
         
@@ -600,6 +617,7 @@
         [self.scrollView setContentOffset:scrollPoint animated:YES];
         
     }
+}
     
 }
 
