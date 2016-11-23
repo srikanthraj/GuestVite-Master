@@ -19,6 +19,7 @@
 
 @interface ViewController () <UIPageViewControllerDataSource>
 
+@property (strong, nonatomic) IBOutlet UIView *loginView;
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
@@ -84,7 +85,7 @@ NSUInteger currIndex;
     //Try
     
     
-    
+    /*
     if(self.view.frame.size.width == 320 && self.view.frame.size.height ==480) {
         self.pageViewController.view.frame = CGRectMake(0, 0, 0,0);
     
@@ -93,8 +94,12 @@ NSUInteger currIndex;
     
     // Change the size of page view controller
     else{
-    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (self.view.frame.size.height - 200));
-    }
+     */
+   self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (2*self.view.frame.size.height)/3 + 100);
+   
+    
+   // self.loginView.frame = CGRectMake(0, -1* (self.view.frame.size.height/3), self.view.frame.size.width, (2*self.view.frame.size.height)/3);
+   // }
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
