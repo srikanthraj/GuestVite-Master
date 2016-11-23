@@ -27,7 +27,7 @@
 @property (strong, nonatomic) NSArray *pageTitles;
 @property (strong, nonatomic) NSArray *pageImages;
 
-@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailConstraint;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
 @property (weak, nonatomic) IBOutlet TextFieldValidator *emailField;
@@ -97,6 +97,7 @@ NSUInteger currIndex;
      */
    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (2*self.view.frame.size.height)/3 + 100);
    
+    
     
    // self.loginView.frame = CGRectMake(0, -1* (self.view.frame.size.height/3), self.view.frame.size.width, (2*self.view.frame.size.height)/3);
    // }
@@ -360,6 +361,7 @@ NSUInteger currIndex;
     
     return pageContentViewController;
 }
+
 
 - (NSInteger)presentationCountForPageViewController:(UIPageViewController *)pageViewController
 {
