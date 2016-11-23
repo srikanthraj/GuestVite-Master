@@ -20,6 +20,7 @@
 @interface ViewController () <UIPageViewControllerDataSource>
 
 @property (strong, nonatomic) IBOutlet UIView *loginView;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (strong, nonatomic) IBOutlet UIView *contentView;
 
@@ -95,8 +96,13 @@ NSUInteger currIndex;
     // Change the size of page view controller
     else{
      */
-   self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (2*self.view.frame.size.height)/3 + 100);
+   //self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (2*self.view.frame.size.height)/3 + 75);
    
+    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.loginView.frame.size.height - self.view.frame.size.height);
+    
+    NSLog(@"Viwe Frame Height %f",self.view.frame.size.height);
+    
+    NSLog(@"Login Frame Height %f",self.loginView.frame.size.height);
     
     
    // self.loginView.frame = CGRectMake(0, -1* (self.view.frame.size.height/3), self.view.frame.size.width, (2*self.view.frame.size.height)/3);

@@ -184,6 +184,7 @@
                         <outlet property="loginView" destination="8bC-Xf-vdC" id="riw-VS-sj5"/>
                         <outlet property="passwordField" destination="QI5-LY-LaG" id="HEa-6y-9Jc"/>
                         <outlet property="registerButton" destination="Utw-ex-Fe5" id="DAk-4i-U1w"/>
+                        <outlet property="scrollView" destination="oXh-o3-Xh3" id="2pf-ZP-c9C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
