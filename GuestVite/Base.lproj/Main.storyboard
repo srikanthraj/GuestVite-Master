@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Page View Controller-->
@@ -160,6 +161,7 @@
                                     <constraint firstAttribute="bottom" secondItem="JqD-1x-zZR" secondAttribute="bottom" id="IWH-oS-wPN"/>
                                     <constraint firstItem="Utw-ex-Fe5" firstAttribute="top" secondItem="Gcs-qs-Gsm" secondAttribute="bottom" constant="30" id="aoG-ah-DUW"/>
                                     <constraint firstItem="JqD-1x-zZR" firstAttribute="leading" secondItem="oXh-o3-Xh3" secondAttribute="leading" id="cky-V8-U9m"/>
+                                    <constraint firstItem="iQw-ck-zLY" firstAttribute="top" secondItem="oXh-o3-Xh3" secondAttribute="top" constant="185" id="fef-B8-qIp"/>
                                     <constraint firstItem="Gcs-qs-Gsm" firstAttribute="centerX" secondItem="oXh-o3-Xh3" secondAttribute="centerX" id="kYg-da-evK"/>
                                     <constraint firstItem="wPy-m2-4Go" firstAttribute="centerX" secondItem="oXh-o3-Xh3" secondAttribute="centerX" id="rp6-Zo-WPp"/>
                                     <constraint firstAttribute="trailing" secondItem="JqD-1x-zZR" secondAttribute="trailing" id="sfx-Gx-v9Z"/>
@@ -171,13 +173,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="oXh-o3-Xh3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="200" id="5dc-tG-RJg"/>
+                            <constraint firstItem="oXh-o3-Xh3" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" multiplier="0.6386" id="5dc-tG-RJg"/>
                             <constraint firstItem="JqD-1x-zZR" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="QrN-nU-DP2"/>
                             <constraint firstItem="oXh-o3-Xh3" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="RsY-Sr-3Ty"/>
                             <constraint firstItem="oXh-o3-Xh3" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="xz2-Kg-b2A"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="emailConstraint" destination="fef-B8-qIp" id="7we-8t-05Q"/>
                         <outlet property="emailField" destination="iQw-ck-zLY" id="pxs-DH-AeJ"/>
                         <outlet property="forgotButton" destination="wPy-m2-4Go" id="8Ua-RW-TSg"/>
                         <outlet property="loginButton" destination="nL1-Jz-7ca" id="npG-GP-ogk"/>

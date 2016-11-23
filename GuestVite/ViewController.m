@@ -22,9 +22,15 @@
 @property (strong, nonatomic) IBOutlet UIView *loginView;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
-@property (strong, nonatomic) IBOutlet UIView *contentView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *emailConstraint;
+
 
 @property (strong, nonatomic) UIPageViewController *pageViewController;
+
+
+@property (strong, nonatomic) PageContentViewController *pageContentController;
+
+
 @property (strong, nonatomic) NSArray *pageTitles;
 @property (strong, nonatomic) NSArray *pageImages;
 
@@ -72,9 +78,14 @@ NSUInteger currIndex;
     
 
     
-  
+  //Test
+    
+    self.pageContentController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageContentController"];
+    
+    
     // Create page view controller
     self.pageViewController = [self.storyboard instantiateViewControllerWithIdentifier:@"PageViewController"];
+    
      self.pageViewController.dataSource = self;
     
     
@@ -98,13 +109,24 @@ NSUInteger currIndex;
      */
    //self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - (2*self.view.frame.size.height)/3 + 75);
    
-    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, self.loginView.frame.size.height - self.view.frame.size.height);
-    
-    NSLog(@"Viwe Frame Height %f",self.view.frame.size.height);
-    
-    NSLog(@"Login Frame Height %f",self.loginView.frame.size.height);
+    self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 0.3614 * self.view.frame.size.height);
     
     
+    
+    NSLog(@"Page View controller Height %f", 0.3614 * self.view.frame.size.height);
+    
+    
+    NSLog(@"Adjusted Height %f",(0.3614 * self.view.frame.size.height)-20);
+    float temp = (0.3614 * self.view.frame.size.height)-20;
+    
+    [self.loginView addConstraint:[NSLayoutConstraint
+                                       constraintWithItem:self.loginView
+                                       attribute:NSLayoutAttributeTop
+                                       relatedBy:NSLayoutRelationEqual
+                                       toItem:self.emailField
+                                       attribute:NSLayoutAttributeTop
+                                       multiplier:1.0
+                                       constant:(self.view.frame.size.height-20)]];
    // self.loginView.frame = CGRectMake(0, -1* (self.view.frame.size.height/3), self.view.frame.size.width, (2*self.view.frame.size.height)/3);
    // }
     [self addChildViewController:_pageViewController];
