@@ -63,6 +63,22 @@
 
 @property (nonatomic) BOOL shouldKeyboardMoveUp;
 
+@property (nonatomic) BOOL entryErrorFName;
+
+@property (nonatomic) BOOL entryErrorEMail;
+
+@property (nonatomic) BOOL entryErrorPassword;
+
+@property (nonatomic) BOOL entryErrorRePassword;
+
+@property (nonatomic) BOOL entryErrorAdd1;
+
+@property (nonatomic) BOOL entryErrorCity;
+
+
+@property (nonatomic) BOOL entryErrorZip;
+
+@property (nonatomic) BOOL entryErrorPhone;
 @end
 
 @implementation RegPageViewController
@@ -107,6 +123,27 @@
     self.cityTextView.text = NSLocalizedString(@"😐", nil);
     self.zipTextView.text = NSLocalizedString(@"😐", nil);
     self.phoneTextView.text = NSLocalizedString(@"😐", nil);
+    
+    self.fNameTextView.editable = NO;
+    self.lNameTextView.editable = NO;
+    self.emailTextView.editable = NO;
+    self.passTextView.editable = NO;
+    self.rePassTextView.editable = NO;
+    self.addr1TextView.editable = NO;
+    self.addr2TextView.editable = NO;
+    self.cityTextView.editable = NO;
+    self.zipTextView.editable = NO;
+    self.phoneTextView.editable = NO;
+    
+    
+    self.entryErrorFName = YES;
+    self.entryErrorEMail = YES;
+    self.entryErrorPassword = YES;
+    self.entryErrorRePassword = YES;
+    self.entryErrorAdd1 = YES;
+    self.entryErrorCity = YES;
+    self.entryErrorZip = YES;
+    self.entryErrorPhone = YES;
     
     
     [self.fNameText addTarget:self action:@selector(firstNameTextChanged:) forControlEvents:UIControlEventEditingChanged];
@@ -204,11 +241,10 @@
     
     
     if([self validateEmailWithString:sender.text]){
-        UIColor *validGreen = [UIColor colorWithRed:0.27 green:0.63 blue:0.27 alpha:1];
-        self.emailText.backgroundColor = [validGreen colorWithAlphaComponent:0.3];
-        self.emailTextView.text = NSLocalizedString(@"😃", nil);
-        self.emailTextView.textColor = validGreen;
         
+        self.emailTextView.text = NSLocalizedString(@"😃", nil);
+        self.emailText.backgroundColor = [UIColor whiteColor];
+        self.entryErrorEMail = NO;
     }
     
     else {
@@ -216,6 +252,7 @@
         self.emailText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
         self.emailTextView.text = NSLocalizedString(@"😧", nil);
         self.emailTextView.textColor = invalidRed;
+        self.entryErrorEMail = YES;
     }
 
     
@@ -225,8 +262,10 @@
 - (void)firstNameTextChanged:(UITextField *)sender
 {
 
-    if([self validateNameWithString:sender.text]){
+    if(sender.text.length > 0){
         self.fNameTextView.text = NSLocalizedString(@"😃", nil);
+        self.fNameText.backgroundColor = [UIColor whiteColor];
+        self.entryErrorFName = NO;
     }
     
     
@@ -236,12 +275,14 @@
         self.fNameText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
         self.fNameTextView.text = NSLocalizedString(@"😧", nil);
         self.fNameTextView.textColor = invalidRed;
+        self.entryErrorFName = YES;
     }
     
     if(sender.text.length ==0) {
         
         self.fNameText.backgroundColor = [UIColor whiteColor];
         self.fNameTextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorFName = YES;
     }
     
     
@@ -252,23 +293,71 @@
 - (void)lastNameTextChanged:(UITextField *)sender
 {
     
-    if([self validateNameWithString:sender.text]){
+    if(sender.text.length > 0){
         self.lNameTextView.text = NSLocalizedString(@"😃", nil);
     }
     
-   
+    else if(sender.text.length ==0) {
+        self.lNameTextView.text = NSLocalizedString(@"😐", nil);
+    }
+    
+}
+
+
+
+
+- (void)passTextChanged:(UITextField *)sender
+{
+    
+    if([self.passwordText.text length] > 6){
+        self.passTextView.text = NSLocalizedString(@"😃", nil);
+        self.passwordText.backgroundColor = [UIColor whiteColor];
+        self.entryErrorPassword = NO;
+        
+    }
     
     else {
         UIColor *invalidRed = [UIColor colorWithRed:0.89 green:0.18 blue:0.16 alpha:1];
-        self.lNameText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
-        self.lNameTextView.text = NSLocalizedString(@"😧", nil);
-        self.lNameTextView.textColor = invalidRed;
+        self.passwordText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
+        self.passTextView.text = NSLocalizedString(@"😧", nil);
+        self.passTextView.textColor = invalidRed;
+        self.entryErrorPassword = YES;
     }
     
     if(sender.text.length ==0) {
-        self.lNameText.backgroundColor = [UIColor whiteColor];
-        self.lNameTextView.text = NSLocalizedString(@"😢", nil);
+        self.passwordText.backgroundColor = [UIColor whiteColor];
+        self.passTextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorPassword = YES;
     }
+    
+}
+
+
+- (void)rePassTextChanged:(UITextField *)sender
+{
+    
+    if([self.reEnterPasswordText.text length] > 6 && [self.passwordText.text isEqualToString:self.reEnterPasswordText.text]){
+    
+        self.rePassTextView.text = NSLocalizedString(@"😃", nil);
+        self.reEnterPasswordText.backgroundColor = [UIColor whiteColor];
+        self.entryErrorRePassword = NO;
+        
+    }
+    
+    else {
+        UIColor *invalidRed = [UIColor colorWithRed:0.89 green:0.18 blue:0.16 alpha:1];
+        self.reEnterPasswordText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
+        self.rePassTextView.text = NSLocalizedString(@"😧", nil);
+        self.rePassTextView.textColor = invalidRed;
+        self.entryErrorRePassword = YES;
+    }
+    
+    if(sender.text.length ==0) {
+        self.reEnterPasswordText.backgroundColor = [UIColor whiteColor];
+        self.rePassTextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorRePassword = YES;
+    }
+    
     
 }
 
@@ -276,8 +365,10 @@
 - (void)cityTextChanged:(UITextField *)sender
 {
     
-    if([self validateNameWithString:sender.text]){
+    if([self validateCityWithString:sender.text]){
         self.cityTextView.text = NSLocalizedString(@"😃", nil);
+        self.cityText.backgroundColor = [UIColor whiteColor];
+        self.entryErrorCity = NO;
         
     }
     
@@ -287,71 +378,17 @@
         self.cityText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
         self.cityTextView.text = NSLocalizedString(@"😧", nil);
         self.cityTextView.textColor = invalidRed;
+        self.entryErrorCity = YES;
     }
     
     if(sender.text.length ==0) {
         self.cityText.backgroundColor = [UIColor whiteColor];
         self.cityTextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorCity = YES;
     }
     
 }
 
-
-- (void)passTextChanged:(UITextField *)sender
-{
-    
-    if([self.passwordText.text length] > 6 && [self validateZipPhoneWithString:sender.text]){
-        self.passTextView.text = NSLocalizedString(@"😃💪", nil);
-        
-    }
-    
-    else if ([self.passwordText.text length] > 6 && ![self validateZipPhoneWithString:sender.text]){
-        self.passTextView.text = NSLocalizedString(@"😃", nil);
-    }
-    
-    else {
-        UIColor *invalidRed = [UIColor colorWithRed:0.89 green:0.18 blue:0.16 alpha:1];
-        self.passwordText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
-        self.passTextView.text = NSLocalizedString(@"😧", nil);
-        self.passTextView.textColor = invalidRed;
-    }
-    
-    if(sender.text.length ==0) {
-        self.passwordText.backgroundColor = [UIColor whiteColor];
-        self.passTextView.text = NSLocalizedString(@"😢", nil);
-    }
-    
-}
-
-
-- (void)rePassTextChanged:(UITextField *)sender
-{
-    
-    if([self.reEnterPasswordText.text length] > 6 && [self.passwordText.text isEqualToString:self.reEnterPasswordText.text] && [self validateZipPhoneWithString:sender.text]){
-    
-        self.rePassTextView.text = NSLocalizedString(@"😃💪", nil);
-        
-    }
-    
-    else if([self.reEnterPasswordText.text length] > 6 && [self.passwordText.text isEqualToString:self.reEnterPasswordText.text] && ![self validateZipPhoneWithString:sender.text]) {
-        
-        self.rePassTextView.text = NSLocalizedString(@"😃", nil);
-    }
-    
-    else {
-        UIColor *invalidRed = [UIColor colorWithRed:0.89 green:0.18 blue:0.16 alpha:1];
-        self.reEnterPasswordText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
-        self.rePassTextView.text = NSLocalizedString(@"😧", nil);
-        self.rePassTextView.textColor = invalidRed;
-    }
-    
-    if(sender.text.length ==0) {
-        self.reEnterPasswordText.backgroundColor = [UIColor whiteColor];
-        self.rePassTextView.text = NSLocalizedString(@"😢", nil);
-    }
-    
-    
-}
 
 - (void)zipTextChanged:(UITextField *)sender
 {
@@ -359,6 +396,8 @@
     if([self validateZipPhoneWithString:sender.text]){
         
         self.zipTextView.text = NSLocalizedString(@"😃", nil);
+        self.zipText.backgroundColor = [UIColor whiteColor];
+        self.entryErrorZip = NO;
         
     }
     
@@ -367,11 +406,13 @@
         self.zipText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
         self.zipTextView.text = NSLocalizedString(@"😧", nil);
         self.zipTextView.textColor = invalidRed;
+        self.entryErrorZip = YES;
     }
 
     if(sender.text.length ==0) {
         self.zipText.backgroundColor = [UIColor whiteColor];
         self.zipTextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorZip = YES;
     }
     
 }
@@ -381,7 +422,8 @@
     
     if([self validateZipPhoneWithString:sender.text]){
             self.phoneTextView.text = NSLocalizedString(@"😃", nil);
-        
+        self.phoneText.backgroundColor = [UIColor whiteColor];
+        self.entryErrorPhone = NO;
         
     }
     
@@ -390,11 +432,13 @@
         self.phoneText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
         self.phoneTextView.text = NSLocalizedString(@"😧", nil);
         self.phoneTextView.textColor = invalidRed;
+        self.entryErrorPhone = YES;
     }
     
     if(sender.text.length ==0) {
         self.phoneText.backgroundColor = [UIColor whiteColor];
         self.phoneTextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorPhone = YES;
     }
     
     
@@ -418,9 +462,9 @@
     if([sender.text length] > 0){
         self.addr2TextView.text = NSLocalizedString(@"😃", nil);
     }
-    if(sender.text.length ==0) {
-        self.addr2Text.backgroundColor = [UIColor whiteColor];
-        self.addr2TextView.text = NSLocalizedString(@"😢", nil);
+    else if(sender.text.length ==0) {
+        //self.addr2Text.backgroundColor = [UIColor whiteColor];
+        self.addr2TextView.text = NSLocalizedString(@"😐", nil);
     }
 }
 
@@ -442,6 +486,29 @@
     }
     
 }
+
+-(BOOL)validateCityWithString:(NSString*)checkString
+{
+    
+    //Create character set
+    NSCharacterSet *validChars = [NSCharacterSet characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"];
+    
+    //Invert the set
+    validChars = [validChars invertedSet];
+    
+    //Check against that
+    NSRange  range = [checkString rangeOfCharacterFromSet:validChars];
+    if (NSNotFound != range.location) {
+        
+        return NO;
+    }
+    
+    else{
+        return YES;
+    }
+    
+}
+
 
 
 - (BOOL)validateEmailWithString:(NSString*)checkString
@@ -645,6 +712,27 @@ if(self.shouldKeyboardMoveUp)
 
 - (IBAction)registerTapped:(id)sender {
     
+    
+    
+    
+    
+    // If any Fields has error
+    if([self entryErrorFName] || [self entryErrorEMail] || [self entryErrorPassword] || [self entryErrorRePassword] || [self entryErrorAdd1] || [self entryErrorCity] || [self entryErrorZip] || [self entryErrorPhone]) {
+        
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check your input fields which has not a smiling face again"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+        
+    }
+    
+    
+    else {
+    
+    
     NSString *eMailAddress = self.emailText.text;
     NSString *password = self.passwordText.text;
     
@@ -704,6 +792,7 @@ if(self.shouldKeyboardMoveUp)
          
      }];
 
+    }// Main else ends
     
     }
 
