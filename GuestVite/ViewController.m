@@ -47,7 +47,7 @@ NSUInteger currIndex;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-
+     [self setNeedsStatusBarAppearanceUpdate];
     
     self.ref = [[FIRDatabase database] reference];
     
@@ -102,7 +102,9 @@ NSUInteger currIndex;
 }
 
 
-
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 
 -(void) autoLogin {
     HomePageViewController *hPViewController =

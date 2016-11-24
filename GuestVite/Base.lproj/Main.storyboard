@@ -20,7 +20,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oXh-o3-Xh3">
                                 <rect key="frame" x="0.0" y="0.0" width="321" height="528"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="blue-orange-backgrounds-wallpaper" translatesAutoresizingMaskIntoConstraints="NO" id="JqD-1x-zZR">
+                                    <imageView userInteractionEnabled="NO" alpha="0.90000000000000002" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="Welcome-Mat" translatesAutoresizingMaskIntoConstraints="NO" id="JqD-1x-zZR">
                                         <rect key="frame" x="0.0" y="-55" width="412" height="700"/>
                                     </imageView>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Password" textAlignment="justified" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QI5-LY-LaG" customClass="TextFieldValidator">
@@ -162,6 +162,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="blue-orange-backgrounds-wallpaper" width="1680" height="1050"/>
+        <image name="Welcome-Mat" width="450" height="300"/>
     </resources>
 </document>
