@@ -27,9 +27,8 @@
 
 
 @import Firebase;
-@interface HomePageViewController () <UIScrollViewDelegate>
-@property (weak, nonatomic) IBOutlet UILabel *welcomeLabel;
-@property (strong, nonatomic) IBOutlet UIScrollView *myScrollView;
+@interface HomePageViewController ()
+
 @property (strong, nonatomic) IBOutlet UIImageView *homeView;
 
 @property (strong, nonatomic) IBOutlet HTPressableButton *sendNewInviteButton;
@@ -109,19 +108,7 @@ NSMutableString *fName;
     // Do any additional setup after loading the view from its nib.
     
     
-    //Test
     
-    //create you UIScrollView
-    self.myScrollView= [[UIScrollView alloc]initWithFrame:CGRectMake(0 ,0 ,320 ,519)];
-    self.myScrollView.delegate= self;
-    [self.myScrollView setShowsHorizontalScrollIndicator:NO];
-    [self.myScrollView setShowsVerticalScrollIndicator:YES];
-    self.myScrollView.scrollEnabled= YES;
-    self.myScrollView.userInteractionEnabled= YES;
-    [self.view addSubview:self.myScrollView];
-    self.myScrollView.contentSize= CGSizeMake(320 ,1000);//(width,height)
-    
-  
     [self setNeedsStatusBarAppearanceUpdate];
     
     
@@ -138,10 +125,7 @@ NSMutableString *fName;
     return UIStatusBarStyleLightContent;
 }
 
-- (UIView *) viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    
-    return self.homeView;
-}
+
 
 - (void) configureButtons {
     
@@ -151,9 +135,26 @@ NSMutableString *fName;
     
      NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
     
+    CGRect screenRect = [[UIScreen mainScreen] bounds];
+    
+    
+    NSLog(@"screen Width  %f",screenRect.size.width);
+    
+    NSLog(@"screen Height  %f",screenRect.size.height);
+    
+    
+   
+    // self.homeView.frame.size.height = screenRect.size.height;
+    
+    float widthOffset = (screenRect.size.width - 294)/2;
+    
+    float widthOffsetSignout = (screenRect.size.width - 100)/2;
+    
+    float heightOffset = ((screenRect.size.height - 55) - 270) / 8;
+    
     
     // Rounded rectangular default color button
-    CGRect frame = CGRectMake(14, 55, 294, 30);
+    CGRect frame = CGRectMake(widthOffset, 55, 294, 30);
     self.sendNewInviteButton = [[HTPressableButton alloc] initWithFrame:frame buttonStyle:HTPressableButtonStyleRounded];
     
     [self.sendNewInviteButton setButtonColor:[UIColor ht_amethystColor]];
@@ -165,7 +166,7 @@ NSMutableString *fName;
     [self.view addSubview:self.sendNewInviteButton];
     
     
-    CGRect frame1 = CGRectMake(14, 119, 294, 30);
+    CGRect frame1 = CGRectMake(widthOffset, (55+30+heightOffset), 294, 30);
     self.waitingRespButton = [[HTPressableButton alloc] initWithFrame:frame1 buttonStyle:HTPressableButtonStyleRounded];
     
     [self.waitingRespButton setButtonColor:[UIColor ht_amethystColor]];
@@ -176,7 +177,7 @@ NSMutableString *fName;
     
     [self.view addSubview:self.waitingRespButton];
     
-    CGRect frame2 = CGRectMake(14, 195, 294, 30);
+    CGRect frame2 = CGRectMake(widthOffset, (55+2*(30+heightOffset)), 294, 30);
     self.prevInvSentButton = [[HTPressableButton alloc] initWithFrame:frame2 buttonStyle:HTPressableButtonStyleRounded];
     [self.prevInvSentButton setButtonColor:[UIColor ht_amethystColor]];
     [self.prevInvSentButton setShadowColor:[UIColor ht_wisteriaColor]];
@@ -186,7 +187,7 @@ NSMutableString *fName;
     
     [self.view addSubview:self.prevInvSentButton];
     
-    CGRect frame3 = CGRectMake(14, 255, 294, 30);
+    CGRect frame3 = CGRectMake(widthOffset, (55+3*(30+heightOffset)), 294, 30);
     self.prevInvRecvdButton = [[HTPressableButton alloc] initWithFrame:frame3 buttonStyle:HTPressableButtonStyleRounded];
     [self.prevInvRecvdButton setButtonColor:[UIColor ht_amethystColor]];
     [self.prevInvRecvdButton setShadowColor:[UIColor ht_wisteriaColor]];
@@ -197,7 +198,7 @@ NSMutableString *fName;
     [self.view addSubview:self.prevInvRecvdButton];
     
     
-    CGRect frame4 = CGRectMake(14, 315, 294, 30);
+    CGRect frame4 = CGRectMake(widthOffset, (55+4*(30+heightOffset)), 294, 30);
     self.trackButton = [[HTPressableButton alloc] initWithFrame:frame4 buttonStyle:HTPressableButtonStyleRounded];
     [self.trackButton setButtonColor:[UIColor ht_amethystColor]];
     [self.trackButton setShadowColor:[UIColor ht_wisteriaColor]];
@@ -209,7 +210,7 @@ NSMutableString *fName;
     
     
     
-    CGRect frame5 = CGRectMake(14, 389, 294, 30);
+    CGRect frame5 = CGRectMake(widthOffset, (55+5*(30+heightOffset)), 294, 30);
     self.awaitMyRespButton = [[HTPressableButton alloc] initWithFrame:frame5 buttonStyle:HTPressableButtonStyleRounded];
     [self.awaitMyRespButton setButtonColor:[UIColor ht_amethystColor]];
     [self.awaitMyRespButton setShadowColor:[UIColor ht_wisteriaColor]];
@@ -220,7 +221,7 @@ NSMutableString *fName;
     [self.view addSubview:self.awaitMyRespButton];
     
     
-    CGRect frame6 = CGRectMake(14, 449, 294, 30);
+    CGRect frame6 = CGRectMake(widthOffset, (55+6*(30+heightOffset)), 294, 30);
     self.myAcceptedInvitesButton = [[HTPressableButton alloc] initWithFrame:frame6 buttonStyle:HTPressableButtonStyleRounded];
     [self.myAcceptedInvitesButton setButtonColor:[UIColor ht_amethystColor]];
     [self.myAcceptedInvitesButton setShadowColor:[UIColor ht_wisteriaColor]];
@@ -231,8 +232,20 @@ NSMutableString *fName;
 
 
     
-    CGRect frame7 = CGRectMake(121, 550, 100, 30);
-    self.signOutButton = [[HTPressableButton alloc] initWithFrame:frame7 buttonStyle:HTPressableButtonStyleRounded];
+    CGRect frame7 = CGRectMake(widthOffset, (55+7*(30+heightOffset)), 294, 30);
+    self.updateInfoButton = [[HTPressableButton alloc] initWithFrame:frame7 buttonStyle:HTPressableButtonStyleRounded];
+    [self.updateInfoButton setButtonColor:[UIColor ht_amethystColor]];
+    [self.updateInfoButton setShadowColor:[UIColor ht_wisteriaColor]];
+    [self.updateInfoButton setTitle:@"Update My Information" forState:UIControlStateNormal];
+    [self.updateInfoButton addTarget:self action:@selector(updateInfoButtonPressed:)
+                    forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:self.updateInfoButton];
+
+    
+    
+    CGRect frame8 = CGRectMake(widthOffsetSignout, (55+8*(30+heightOffset)), 100, 30);
+    self.signOutButton = [[HTPressableButton alloc] initWithFrame:frame8 buttonStyle:HTPressableButtonStyleRounded];
     [self.signOutButton setButtonColor:[UIColor ht_bitterSweetColor]];
     [self.signOutButton setShadowColor:[UIColor ht_bitterSweetDarkColor]];
     [self.signOutButton setTitle:@"Sign Out" forState:UIControlStateNormal];
@@ -241,16 +254,7 @@ NSMutableString *fName;
     
     [self.view addSubview:self.signOutButton];
     
-    CGRect frame8 = CGRectMake(14, 527, 294, 30);
-    self.updateInfoButton = [[HTPressableButton alloc] initWithFrame:frame8 buttonStyle:HTPressableButtonStyleRounded];
-    [self.updateInfoButton setButtonColor:[UIColor ht_bitterSweetColor]];
-    [self.updateInfoButton setShadowColor:[UIColor ht_bitterSweetDarkColor]];
-    [self.updateInfoButton setTitle:@"Update My Information" forState:UIControlStateNormal];
-    [self.updateInfoButton addTarget:self action:@selector(updateInfoButtonPressed:)
-                 forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:self.updateInfoButton];
-
 
     
     
@@ -454,7 +458,7 @@ PrevInvRecvdViewController *prevInvRecvdVC =
     }
     
     [fName setString:myFName];
-    self.welcomeLabel.text = [self.welcomeLabel.text stringByAppendingFormat:@" %@"  ,fName];
+
     
 }
 
