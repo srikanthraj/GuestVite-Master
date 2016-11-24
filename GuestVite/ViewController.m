@@ -112,22 +112,29 @@ NSUInteger currIndex;
     self.pageViewController.view.frame = CGRectMake(0, 0, self.view.frame.size.width, 0.3614 * self.view.frame.size.height);
     
     
+    NSLog(@"TOTAL SCREEN HEIGHT %f",self.emailField.superview.frame.size
+          .height);
     
     NSLog(@"Page View controller Height %f", 0.3614 * self.view.frame.size.height);
     
     
     NSLog(@"Adjusted Height %f",(0.3614 * self.view.frame.size.height)-20);
+    
+    /*
     float temp = (0.3614 * self.view.frame.size.height)-20;
     
-    [self.loginView addConstraint:[NSLayoutConstraint
-                                       constraintWithItem:self.loginView
+   
+   [self.emailField.superview addConstraint:[NSLayoutConstraint
+                                       constraintWithItem:self.emailField.superview
                                        attribute:NSLayoutAttributeTop
                                        relatedBy:NSLayoutRelationEqual
                                        toItem:self.emailField
                                        attribute:NSLayoutAttributeTop
                                        multiplier:1.0
-                                       constant:(self.view.frame.size.height-20)]];
-   // self.loginView.frame = CGRectMake(0, -1* (self.view.frame.size.height/3), self.view.frame.size.width, (2*self.view.frame.size.height)/3);
+                                       constant:180]];
+  */
+    
+     // self.loginView.frame = CGRectMake(0, -1* (self.view.frame.size.height/3), self.view.frame.size.width, (2*self.view.frame.size.height)/3);
    // }
     [self addChildViewController:_pageViewController];
     [self.view addSubview:_pageViewController.view];

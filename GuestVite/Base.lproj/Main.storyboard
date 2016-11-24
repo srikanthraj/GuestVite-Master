@@ -159,9 +159,9 @@
                                     <constraint firstItem="Utw-ex-Fe5" firstAttribute="centerX" secondItem="oXh-o3-Xh3" secondAttribute="centerX" id="IAe-Qo-sYd"/>
                                     <constraint firstItem="nL1-Jz-7ca" firstAttribute="centerX" secondItem="oXh-o3-Xh3" secondAttribute="centerX" id="IPo-PQ-rAx"/>
                                     <constraint firstAttribute="bottom" secondItem="JqD-1x-zZR" secondAttribute="bottom" id="IWH-oS-wPN"/>
+                                    <constraint firstItem="iQw-ck-zLY" firstAttribute="top" secondItem="oXh-o3-Xh3" secondAttribute="top" constant="185" id="WIN-n7-tZB"/>
                                     <constraint firstItem="Utw-ex-Fe5" firstAttribute="top" secondItem="Gcs-qs-Gsm" secondAttribute="bottom" constant="30" id="aoG-ah-DUW"/>
                                     <constraint firstItem="JqD-1x-zZR" firstAttribute="leading" secondItem="oXh-o3-Xh3" secondAttribute="leading" id="cky-V8-U9m"/>
-                                    <constraint firstItem="iQw-ck-zLY" firstAttribute="top" secondItem="oXh-o3-Xh3" secondAttribute="top" constant="185" id="fef-B8-qIp"/>
                                     <constraint firstItem="Gcs-qs-Gsm" firstAttribute="centerX" secondItem="oXh-o3-Xh3" secondAttribute="centerX" id="kYg-da-evK"/>
                                     <constraint firstItem="wPy-m2-4Go" firstAttribute="centerX" secondItem="oXh-o3-Xh3" secondAttribute="centerX" id="rp6-Zo-WPp"/>
                                     <constraint firstAttribute="trailing" secondItem="JqD-1x-zZR" secondAttribute="trailing" id="sfx-Gx-v9Z"/>
@@ -180,7 +180,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="emailConstraint" destination="fef-B8-qIp" id="7we-8t-05Q"/>
                         <outlet property="emailField" destination="iQw-ck-zLY" id="pxs-DH-AeJ"/>
                         <outlet property="forgotButton" destination="wPy-m2-4Go" id="8Ua-RW-TSg"/>
                         <outlet property="loginButton" destination="nL1-Jz-7ca" id="npG-GP-ogk"/>
