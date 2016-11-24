@@ -8,6 +8,7 @@ target 'GuestVite' do
   # Pods for GuestVite
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
+pod 'Firebase/Messaging'
 pod 'Firebase/Database'
 pod 'KBContactsSelection'
 pod 'SWTableViewCell', '~> 0.3.7'

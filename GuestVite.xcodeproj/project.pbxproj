@@ -86,7 +86,7 @@
 
 /* Begin PBXFileReference section */
 		48C15378E10A7A5F7D66BCBB /* Pods-GuestVite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuestVite.release.xcconfig"; path = "Pods/Target Support Files/Pods-GuestVite/Pods-GuestVite.release.xcconfig"; sourceTree = "<group>"; };
-		84267BF71DA9AB750044ACF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		84267BF71DA9AB750044ACF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "/Users/admin/Documents/MyiOSProjects/GuestVite-master/../../../Downloads/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
 		84267BFF1DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLScrollViewKeyboardSupport.h; path = "../../../../Downloads/SLScrollViewKeyboardSupport-master/SLScrollViewKeyboardSupport/SLScrollViewKeyboardSupport.h"; sourceTree = "<group>"; };
 		84267C001DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLScrollViewKeyboardSupport.m; path = "../../../../Downloads/SLScrollViewKeyboardSupport-master/SLScrollViewKeyboardSupport/SLScrollViewKeyboardSupport.m"; sourceTree = "<group>"; };
 		84267C021DAC56D30044ACF4 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.h"; sourceTree = "<group>"; };
@@ -420,7 +420,12 @@
 				TargetAttributes = {
 					847340431DA937670038C047 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 7D7YWS69ZD;
+						DevelopmentTeam = 8VUQ2U668B;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -680,10 +685,13 @@
 			baseConfigurationReference = 99E7C1676E7E599B44419974 /* Pods-GuestVite.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = GuestVite/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.helloworld.CoreDataAssignment.GuestVite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.helloworld.GuestVite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -692,10 +700,13 @@
 			baseConfigurationReference = 48C15378E10A7A5F7D66BCBB /* Pods-GuestVite.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = GuestVite/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.helloworld.CoreDataAssignment.GuestVite;
+				PRODUCT_BUNDLE_IDENTIFIER = com.helloworld.GuestVite;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

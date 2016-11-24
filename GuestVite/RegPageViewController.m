@@ -714,7 +714,7 @@ if(self.shouldKeyboardMoveUp)
     
     
     
-    
+    /*
     
     // If any Fields has error
     if([self entryErrorFName] || [self entryErrorEMail] || [self entryErrorPassword] || [self entryErrorRePassword] || [self entryErrorAdd1] || [self entryErrorCity] || [self entryErrorZip] || [self entryErrorPhone]) {
@@ -731,7 +731,7 @@ if(self.shouldKeyboardMoveUp)
     
     
     else {
-    
+    */
     
     NSString *eMailAddress = self.emailText.text;
     NSString *password = self.passwordText.text;
@@ -792,7 +792,7 @@ if(self.shouldKeyboardMoveUp)
          
      }];
 
-    }// Main else ends
+   // }// Main else ends
     
     }
 

@@ -7,9 +7,9 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>805451718290-embt5qgv2pq32bp6vv17ttrk2pr8rpn9.apps.googleusercontent.com</string>
+	<string>805451718290-5fqqldeb7vd9cksj6bor0t5ihk8fr2at.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.805451718290-embt5qgv2pq32bp6vv17ttrk2pr8rpn9</string>
+	<string>com.googleusercontent.apps.805451718290-5fqqldeb7vd9cksj6bor0t5ihk8fr2at</string>
 	<key>API_KEY</key>
 	<string>AIzaSyAvKPUNly5achk9o3iHrDxIeMpwmX5u9mM</string>
 	<key>GCM_SENDER_ID</key>
@@ -17,7 +17,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.helloworld.CoreDataAssignment.GuestVite</string>
+	<string>com.helloworld.GuestVite</string>
 	<key>PROJECT_ID</key>
 	<string>guestvite</string>
 	<key>STORAGE_BUCKET</key>
@@ -33,7 +33,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:805451718290:ios:8c39f83e1e751147</string>
+	<string>1:805451718290:ios:a6cc9cd342eb059c</string>
 	<key>DATABASE_URL</key>
 	<string>https://guestvite.firebaseio.com</string>
 </dict>

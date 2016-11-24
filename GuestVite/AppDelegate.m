@@ -13,6 +13,7 @@
 
 
 @import Firebase;
+@import FirebaseMessaging;
 @import GoogleMaps;
 @import GooglePlaces;
 
@@ -32,6 +33,20 @@
    
    // [application setStatusBarHidden:NO];
    // [application setStatusBarStyle:UIStatusBarStyleLightContent];
+    
+    
+    // Add an observer for handling a token refresh callback
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenRefreshCallback:) name:kFIRInstanceIDTokenRefreshNotification object:nil];
+    
+    //Request Permission for notifications from user
+    UIUserNotificationType allNotificationTypes = (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
+    
+    [application registerUserNotificationSettings:settings];
+    
+    //Request a device token from Apple Push Notification Services
+    [application registerForRemoteNotifications];
    
     return YES;
 }
@@ -53,6 +68,9 @@
     //[self.locationManager allowsBackgroundLocationUpdates];
     [self.locationManager startUpdatingLocation];
     */
+    
+    [[FIRMessaging messaging]disconnect];
+    NSLog(@"Disconnected from FCM");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -61,12 +79,27 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    [self connectToFirebase];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [self saveContext];
+}
+
+-(void)application: (UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    // If you are receiving a notification message while your app is in background,
+    //this callback will not be fired till the user taps on the notification launching the application
+    
+    //Print message ID
+    NSLog(@"Message ID %@", userInfo[@"gcm.message_id"]);
+    
+    //Print full message
+    NSLog(@"%@",userInfo);
+    
 }
 
 #pragma mark - Core Data stack
@@ -149,6 +182,29 @@
     }
 }
 
+#pragma mark - Connect to firebase
+
+
+- (void) tokenRefreshCallback :(NSNotification *)notification {
+
+    NSString *refreshedToken = [[FIRInstanceID instanceID]token];
+    NSLog(@"Instance ID token: %@", refreshedToken);
+    
+    // Connect to FCM since connection may have failed when attempted before having a token
+    [self connectToFirebase];
+}
+
+- (void) connectToFirebase {
+    [[FIRMessaging messaging] connectWithCompletion:^(NSError * _Nullable error) {
+       
+        if(error !=nil){
+            NSLog(@"Unable to connect to FCM %@",error);
+        }
+        else {
+            NSLog(@"Connected to FCM");
+        }
+    }];
+}
 
 
 
