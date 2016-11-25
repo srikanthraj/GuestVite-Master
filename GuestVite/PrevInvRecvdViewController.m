@@ -131,12 +131,9 @@ NSArray *pirkeys;
     [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSDictionary *dictUser = snapshot.value;
-        NSArray * arrUser = [dictUser allValues];
-        //NSLog(@"ARR USER %@",arrUser);
-        
-        currentUserEMail =  [NSString stringWithFormat:@"%@",arrUser[0]];
-        currentUserPhone  = [NSString stringWithFormat:@"%@",arrUser[3]];
-        
+       
+        currentUserEMail =  [NSString stringWithFormat:@"%@",[dictUser valueForKey:@"EMail"]];
+        currentUserPhone  = [NSString stringWithFormat:@"%@",[dictUser valueForKey:@"Phone"]];
         
     }];
     while([currentUserEMail length]== 0 || [currentUserPhone length] ==0) {

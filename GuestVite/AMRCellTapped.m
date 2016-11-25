@@ -98,13 +98,11 @@ float currentLongitude = 0.0;
     [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSDictionary *dictUser = snapshot.value;
-        NSArray * arrUser = [dictUser allValues];
-        NSLog(@"ARR USER %@",arrUser);
         
-        currentUserFName =  [NSString stringWithFormat:@"%@",arrUser[1]];
-        currentUserLName =  [NSString stringWithFormat:@"%@",arrUser[2]];
-        currentUserEMail =  [NSString stringWithFormat:@"%@",arrUser[0]];
-        currentUserPhone  = [NSString stringWithFormat:@"%@",arrUser[3]];
+        currentUserFName =  [NSString stringWithFormat:@"%@",[dictUser valueForKey:@"First Name"]];
+        currentUserLName =  [NSString stringWithFormat:@"%@",[dictUser valueForKey:@"Last Name"]];
+        currentUserEMail =  [NSString stringWithFormat:@"%@",[dictUser valueForKey:@"EMail"]];
+        currentUserPhone  = [NSString stringWithFormat:@"%@",[dictUser valueForKey:@"Phone"]];
         
         
     }];
@@ -117,6 +115,10 @@ float currentLongitude = 0.0;
     [myEMail setString:currentUserEMail];
     [myPhone setString:currentUserPhone];
     
+    NSLog(@"My First name %@",myFName);
+    NSLog(@"My Last name %@",myLName);
+    NSLog(@"My E-Mail %@",myEMail);
+    NSLog(@"My Phone %@",myPhone);
     // Ends
     
     self.invitedByLabel.text = [NSString stringWithFormat:@"%@ %@",_inviteByFirstName,_inviteByLastName];
@@ -276,9 +278,32 @@ float currentLongitude = 0.0;
         
         
         if(![MFMessageComposeViewController canSendText]) {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+          
+            UIAlertController *ac = [UIAlertController  alertControllerWithTitle:@"GuestVite" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
+        
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction * myaction){
+                //If Declined
+                if([action isEqualToString:@"Declined"])
+                {
+                    self.acceptOrDeclineLabel.text = @"Invitation Declined";
+                    self.acceptOrDeclineLabel.textColor = [UIColor redColor];
+                    [self performSelector:@selector(loadingNextView)
+                               withObject:nil afterDelay:3.0f];
+                    
+                }
+                
+                // If Accepted
+                
+                else if([action isEqualToString:@"Accepted"])
+                {
+                    self.acceptOrDeclineLabel.text = [NSString stringWithFormat:@"Invitation Accepted, You can go to My Accepted Invites when you want to start to %@'s place",_inviteByFirstName];
+                    self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+                    
+                    [self performSelector:@selector(loadingNextView)
+                               withObject:nil afterDelay:4.0f];
+                }
+
+            }];
             
             [ac addAction:aa];
             [self presentViewController:ac animated:YES completion:nil];

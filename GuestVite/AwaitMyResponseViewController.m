@@ -154,11 +154,9 @@ NSArray *keys;
     [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSDictionary *dictUser = snapshot.value;
-        NSArray * arrUser = [dictUser allValues];
-        //NSLog(@"ARR USER %@",arrUser);
         
-        currentUserEMail =  [NSString stringWithFormat:@"%@",arrUser[0]];
-        currentUserPhone  = [NSString stringWithFormat:@"%@",arrUser[3]];
+        currentUserEMail =  [NSString stringWithFormat:@"%@",[dictUser valueForKey:@"EMail"]];
+        currentUserPhone  = [NSString stringWithFormat:@"%@",[dictUser valueForKey:@"Phone"]];
         
         
     }];
@@ -166,36 +164,32 @@ NSArray *keys;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
-    // NSLog(@"Current User Email %@",currentUserEMail);
-    // NSLog(@"Current User Phone %@",currentUserPhone);
     
     
     [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
         
         NSDictionary *dict = snapshot.value;
-        //NSString *startDateTime  = [[NSString alloc] init];
+        
+   
         NSString *endDateTime = [[NSString alloc] init];
         NSArray * arr = [dict allValues];
         keys = [dict allKeys];
-        //NSLog(@"Array %@",arr[0][@"Sender First Name"]);
-        
-        // NSLog(@"Login date is %@",loginDate);
+    
         
         inviteTableLength = [arr count];
-        //NSLog(@"ARR count %lu",(unsigned long)[arr count]);
+        
         
         for(int i=0;i < [arr count];i++)
         {
             
             endDateTime = arr[i][@"Invite Valid Till Date"];
             
-            //NSLog(@"PESONAl MESSAGE at iteattion %d IS %@",i,arr[i][@"Mesage From Sender"]);
             
             if([currentUserEMail length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail])
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
             {
                 
-                //NSLog(@"INSIDE EMAIL");
+                NSLog(@"INSIDE EMAIL");
                 
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
@@ -223,6 +217,8 @@ NSArray *keys;
             if([currentUserPhone length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver Phone"] isEqualToString:currentUserPhone])
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
             {
+             
+                
                 
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
@@ -307,7 +303,7 @@ NSArray *keys;
     }
     
     
-    // NSLog(@"Key data is %@",keyData);
+    NSLog(@"INSIDE AWAIT MY RESPONSE Key data is %@",keyData);
     
     // Do any additional setup after loading the view from its nib.
     
