@@ -17,7 +17,7 @@
 
 @import Firebase;
 
-@interface AMRCellTapped () <CLLocationManagerDelegate,MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,CNPPopupControllerDelegate>
+@interface AMRCellTapped () <MFMailComposeViewControllerDelegate,MFMessageComposeViewControllerDelegate,CNPPopupControllerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *invitedByLabel;
 @property (weak, nonatomic) IBOutlet UILabel *invitedOnLabel;
 @property (weak, nonatomic) IBOutlet UILabel *invitedTillLabel;
@@ -27,7 +27,7 @@
 @property (weak, nonatomic) IBOutlet UINavigationBar *pendingInvitationsBack;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
-@property(strong, nonatomic) CLLocationManager *locationManager;
+
 @property (nonatomic, strong) CNPPopupController *popupController;
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
@@ -40,6 +40,13 @@
 
 @implementation AMRCellTapped
 
+NSMutableString *myFName;
+NSMutableString *myLName;
+NSMutableString *myEMail;
+NSMutableString *myPhone;
+
+
+NSString *actionTaken;
 
 UIView* loadingView;
 
@@ -54,13 +61,13 @@ float currentLongitude = 0.0;
    // GeoFire *geoFire = [[GeoFire alloc] initWithFirebaseRef:geofireRef];
     
     
+    myFName = [[NSMutableString alloc]init];
+    myLName = [[NSMutableString alloc]init];
+    myEMail = [[NSMutableString alloc]init];
+    myPhone = [[NSMutableString alloc]init];
+    actionTaken = [[NSString alloc]init];
     
     
-    
-    
-    // Initialize the location Manager
-    self.locationManager = [[CLLocationManager alloc] init];
-    self.locationManager.delegate =self;
     
     UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
@@ -77,6 +84,41 @@ float currentLongitude = 0.0;
     
     
      self.ref = [[FIRDatabase database] reference];
+    
+    // Get First Name  and Last Name  and E-Mail or phone of the person who loggeded in
+    
+    __block NSString *currentUserFName = [[NSString alloc] init];
+    __block NSString *currentUserLName = [[NSString alloc] init];
+    __block NSString *currentUserEMail = [[NSString alloc] init];
+    __block NSString *currentUserPhone = [[NSString alloc] init];
+    
+    
+    NSString *userID = [FIRAuth auth].currentUser.uid;
+    
+    [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+        
+        NSDictionary *dictUser = snapshot.value;
+        NSArray * arrUser = [dictUser allValues];
+        NSLog(@"ARR USER %@",arrUser);
+        
+        currentUserFName =  [NSString stringWithFormat:@"%@",arrUser[1]];
+        currentUserLName =  [NSString stringWithFormat:@"%@",arrUser[2]];
+        currentUserEMail =  [NSString stringWithFormat:@"%@",arrUser[0]];
+        currentUserPhone  = [NSString stringWithFormat:@"%@",arrUser[3]];
+        
+        
+    }];
+    while(([currentUserEMail length]== 0 || [currentUserPhone length] ==0) && [currentUserFName length] == 0) {
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+    }
+
+    [myFName setString:currentUserFName];
+    [myLName setString:currentUserLName];
+    [myEMail setString:currentUserEMail];
+    [myPhone setString:currentUserPhone];
+    
+    // Ends
+    
     self.invitedByLabel.text = [NSString stringWithFormat:@"%@ %@",_inviteByFirstName,_inviteByLastName];
     
     self.invitedOnLabel.text = _invitedOn;
@@ -129,7 +171,7 @@ float currentLongitude = 0.0;
     
     
     
-    // If the user wants to send a message and decline
+    // If the user wants to decline
     
     CNPPopupButton *buttonYesMessage = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
     [buttonYesMessage setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -139,80 +181,20 @@ float currentLongitude = 0.0;
     buttonYesMessage.layer.cornerRadius = 4;
     buttonYesMessage.selectionHandler = ^(CNPPopupButton *buttonYesMessage){
         
+       
+        //Update Action Taken
+        
+        actionTaken = @"Declined";
         
         // a. Send Message
         
-        
-            
-            
-            //Check for SMS and Send It
-            
-            if(!([_hostPhone isEqualToString:@"Not Specified"]))
-            {
-                
-                
-                
-                
-                if(![MFMessageComposeViewController canSendText]) {
-                    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
-                    
-                    UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                    
-                    [ac addAction:aa];
-                    [self presentViewController:ac animated:YES completion:nil];
-                    return;
-                }
-                
-                
-                
-                
-                
-                NSArray *recipents = [NSArray arrayWithObject:_hostPhone];
-                
-                
-                NSString *message = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I would not be able to make it this time , May be next time!",_inviteByFirstName];
-                
-                MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
-                messageController.messageComposeDelegate = self;
-                [messageController setRecipients:recipents];
-                [messageController setBody:message];
-                
-                
-                [self presentViewController:messageController animated:YES completion:nil];
-                
-                
-            }
-        
-        if(!([_hostEMail isEqualToString:@"Not Specified"]))
-        {
-            
-            //Send Email
-            
-            
-            // Email Subject
-            NSString *emailTitle = @"Message From GeuestVite";
-            // Email Content
-            NSString *messageBody = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I would not be able to make it this time , May be next time!",_inviteByFirstName];
-            // To address
-            NSArray *toRecipents = [NSArray arrayWithObject:_hostEMail];
-            
-            MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-            mc.mailComposeDelegate = self;
-            [mc setSubject:emailTitle];
-            [mc setMessageBody:messageBody isHTML:NO];
-            [mc setToRecipients:toRecipents];
-            
-            // Present mail view controller on screen
-            [self presentViewController:mc animated:YES completion:NULL];
-            
-        }
+        [self sendMessageToHost:@"Declined"];
         
         
         
+        //b.  Update the DB entry
         
-        //b.  Remove the DB entry
-        
-        // If Decline confirmed , ONLY then go ahead and delete
+        // If Decline confirmed , ONLY then go ahead and deckine
         
         [self updateDB:@"NOT_STARTED" withInvitationStatus:@"Declined"];
         
@@ -222,33 +204,7 @@ float currentLongitude = 0.0;
     };
     
     
-    // If the user just wants to decline
-    
-    CNPPopupButton *buttonYes = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
-    [buttonYes setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    buttonYes.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    [buttonYes setTitle:@"Just Decline" forState:UIControlStateNormal];
-    buttonYes.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
-    buttonYes.layer.cornerRadius = 4;
-    buttonYes.selectionHandler = ^(CNPPopupButton *buttonYes){
-        
-        // If Decline confirmed , ONLY then go ahead and delete the Db entry
-        
-        [self updateDB:@"NOT_STARTED" withInvitationStatus:@"Declined"];
-        
-        
-        [self.popupController dismissPopupControllerAnimated:YES];
-       
-        self.acceptOrDeclineLabel.text = @"Invitation Declined";
-        self.acceptOrDeclineLabel.textColor = [UIColor redColor];
-        
-        
-        [self performSelector:@selector(loadingNextView)
-                   withObject:nil afterDelay:3.0f];
-    };
-    
-    
-    // If the user changes mind
+        // If the user changes mind
     
     CNPPopupButton *buttonNoMessage = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
     [buttonNoMessage setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -269,7 +225,7 @@ float currentLongitude = 0.0;
     lineOneLabel.numberOfLines = 0;
     lineOneLabel.attributedText = lineOne;
     
-       self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,buttonYesMessage,buttonYes,buttonNoMessage]];
+       self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,buttonYesMessage,buttonNoMessage]];
     self.popupController.theme = [CNPPopupTheme defaultTheme];
     self.popupController.theme.popupStyle = CNPPopupStyleCentered;
     self.popupController.delegate = self;
@@ -288,281 +244,116 @@ float currentLongitude = 0.0;
     
     
     
-        // Show popup
+    //Update Action Taken
+    
+    actionTaken = @"Accepted";
+    
+    // a. Send Message
+    
+    [self sendMessageToHost:@"Accepted"];
+
+    //b.  Update the DB entry
+   
+    [self updateDB:@"NOT_STARTED" withInvitationStatus:@"Accepted"];
+    
+
+
+    
+    
+}
+
+
+-(void) sendMessageToHost:(NSString *)action {
+    
+    
+    
+    //Check for SMS and Send It
+    
+    if(!([_hostPhone isEqualToString:@"Not Specified"]))
+    {
         
-        NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
-        paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
-        paragraphStyle.alignment = NSTextAlignmentCenter;
-        
-        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Your Acceptance is on its way!" attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
         
         
-        CNPPopupButton *startToHostPlaceButton = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
-        [startToHostPlaceButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        startToHostPlaceButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        [startToHostPlaceButton setTitle:[NSString stringWithFormat:@"%@'s place!",self.inviteByFirstName] forState:UIControlStateNormal];
-        startToHostPlaceButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
-        startToHostPlaceButton.layer.cornerRadius = 4;
-        startToHostPlaceButton.selectionHandler = ^(CNPPopupButton *startToHostPlaceButton){
-            
-            
         
+        if(![MFMessageComposeViewController canSendText]) {
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
             
-            [self.locationManager requestAlwaysAuthorization];
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             
-            CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
-            
-            if (status == kCLAuthorizationStatusAuthorizedAlways) {
-                
-                NSLog(@"Authorized location when start to Host tapped");
-                
-                //[self updateDB:@"IN_TRANSIT" withInvitationStatus:@"Accepted"];
-                [self startNavigation];
-                
-               
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+            return;
+        }
+        
+        
+        
+        
+        
+        NSArray *recipents = [NSArray arrayWithObject:_hostPhone];
+        
+        NSString *message = [[NSString alloc]init];
+        if([action isEqualToString:@"Declined"])
+            {
+        
+        message = [NSString stringWithFormat:@"Hey %@!, This is %@ and I am extremely sorry that I would not be able to make it this time , May be next time!",_inviteByFirstName,myFName];
             }
+        else if([action isEqualToString:@"Accepted"]){
             
-            if (status == kCLAuthorizationStatusDenied) {
-                
-                NSLog(@"Denied location when start to Host tapped");
-               
-                __block NSMutableString *guestAddr1 = [[NSMutableString alloc]init];
-                __block NSMutableString *guestAddr2 = [[NSMutableString alloc]init];
-                __block NSMutableString *guestCity = [[NSMutableString alloc]init];
-                __block NSMutableString *guestZip = [[NSMutableString alloc]init];
-                
-                [self updateDB:@"NOT_PERMITTED" withInvitationStatus:@"Accepted"];
-                
-    
-                
-                
+        message = [NSString stringWithFormat:@"Hey %@!, This is %@ and Thank You for the invite, We will be there at your place",_inviteByFirstName,myFName];
+        }
         
-                    
-                    NSString *userID = [FIRAuth auth].currentUser.uid;
-                    [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-                        
-                        NSDictionary *dict = snapshot.value;
-                        
-                        
-                        
-                        
-                        
-                        
-                        [guestAddr1 setString:[dict valueForKey:@"Address1"]];
-                        [guestAddr2 setString:[dict valueForKey:@"Address2"]];
-                        [guestCity setString:[dict valueForKey:@"City"]];
-                        [guestZip setString:[dict valueForKey:@"Zip"]];
-                        
-                        
-                        
-                        
-                        
-                    }];
-                    while([guestAddr1 length]== 0 && [guestCity length] ==0 && [guestZip length] ==0) {
-                        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-                    }
-                    
-                    NSLog(@"Addre1 %@",guestAddr1);
-                    NSLog(@"Addre2 %@",guestAddr2);
-                    NSLog(@"City %@",guestCity);
-                    NSLog(@"Zip %@",guestZip);
-                    
-                    [self startNavigationWithoutLocationTracking:guestAddr1 line2:guestAddr2 city:guestCity zip:guestZip];
-                    [self.popupController dismissPopupControllerAnimated:YES];
-                    
+        MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+        messageController.messageComposeDelegate = self;
+        [messageController setRecipients:recipents];
+        [messageController setBody:message];
+        
+        
+        [self presentViewController:messageController animated:YES completion:nil];
+        
+        
+    }
+    
+    else if(!([_hostEMail isEqualToString:@"Not Specified"]))
+    {
+        
+        
+        //Send Email
+        
+        NSLog(@"Device Cant send Text , So End E-Mail");
+        // Email Subject
+        NSString *emailTitle = @"Message From GeuestVite";
+        // Email Content
+        
+        NSString *messageBody = [[NSString alloc]init];
+        if([action isEqualToString:@"Declined"])
+        {
 
+        messageBody = [NSString stringWithFormat:@"Hey %@!, This is %@ and I am extremely sorry that I would not be able to make it this time , May be next time!",_inviteByFirstName,myFName];
+        }
+        else if([action isEqualToString:@"Accepted"]) {
             
-            
-            }
-            
-             
-        };
-    
-    
-    CNPPopupButton *goBackButton = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
-    [goBackButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    goBackButton.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    [goBackButton setTitle:@"Not Now" forState:UIControlStateNormal];
-    goBackButton.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
-    goBackButton.layer.cornerRadius = 4;
-    goBackButton.selectionHandler = ^(CNPPopupButton *goBackButton){
+        messageBody = [NSString stringWithFormat:@"Hey %@!, This is %@ and Thank You for the invite, We will be there at your place",_inviteByFirstName,myFName];
+        }
         
-       
-            [self updateDB:@"NOT_STARTED" withInvitationStatus:@"Accepted"];
-       
+        // To address
+        NSArray *toRecipents = [NSArray arrayWithObject:_hostEMail];
+        
+        MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+        mc.mailComposeDelegate = self;
+        [mc setSubject:emailTitle];
+        [mc setMessageBody:messageBody isHTML:NO];
+        [mc setToRecipients:toRecipents];
+        
+        // Present mail view controller on screen
+        [self presentViewController:mc animated:YES completion:NULL];
         
         
-        
-        [self.popupController dismissPopupControllerAnimated:YES];
-        self.acceptOrDeclineLabel.text = @"Invitation Accepted";
-        self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
-        
-        
-        [self performSelector:@selector(loadingNextView)
-                   withObject:nil afterDelay:3.0f];
-        
+    }
 
-    };
     
- 
-    UILabel *titleLabel = [[UILabel alloc] init];
-    titleLabel.numberOfLines = 0;
-    titleLabel.attributedText = title;
-    
-    
-    self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel,startToHostPlaceButton,goBackButton]];
-    self.popupController.theme = [CNPPopupTheme defaultTheme];
-    self.popupController.theme.popupStyle = CNPPopupStyleCentered;
-    self.popupController.delegate = self;
-    [self.popupController presentPopupControllerAnimated:YES];
-
     
     
 }
-
-
-
-
--(void)startNavigationWithoutLocationTracking :(NSString *)guestAddressLine1 line2:(NSString *)guestAddressLine2 city:(NSString *)guestAddressCity zip:(NSString *)guestAddressZip {
-    
-    
-    // Open of Maps Part starts
-    
-    //Check the availability of the Google Maps app on the device
-    
-    if (![[UIApplication sharedApplication] canOpenURL:
-          [NSURL URLWithString:@"comgooglemaps://"]]) {
-        NSLog(@"Your Device does not have Google Maps");
-    }
-    
-    else { // If device has Google Maps
-        
-        
-        // Getting GUEST Address
-        NSString *newAddOneGuestString = [ guestAddressLine1 stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *newAddTwoGuestString = [ guestAddressLine2 stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *newAddCityGuestString = [ guestAddressCity stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        
-        NSString *sourceAddr = [[NSString alloc]init];
-        
-        if([guestAddressLine2 length] > 0) { // If address Line 2 provided
-            sourceAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneGuestString,newAddTwoGuestString,newAddCityGuestString,guestAddressZip];
-        }
-        
-        else { // If address Line 2 NOT provided
-            sourceAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneGuestString,newAddCityGuestString,guestAddressZip];
-        }
-        
-
-        
-        
-        // Getting HOST Address
-        NSString *newAddOneHostString = [ _hostAddrLineOne stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *newAddTwoHostString = [ _hostAddrLineTwo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *newAddCityHostString = [ _hostAddrCity stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        
-        NSString *destAddr = [[NSString alloc]init];
-        
-        if([_hostAddrLineTwo length] > 0) { // If address Line 2 provided
-            destAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneHostString,newAddTwoHostString,newAddCityHostString,_hostAddrZip];
-        }
-        
-        else { // If address Line 2 NOT provided
-            destAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneHostString,newAddCityHostString,_hostAddrZip];
-        }
-        
-        
-        NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%@&daddr=%@&directionsmode=driving",sourceAddr,destAddr];
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
-        
-        
-    }
-    
-    
-    [self.popupController dismissPopupControllerAnimated:YES];
-    //NSLog(@"Block for button: %@", startToHostPlaceButton.titleLabel.text);
-    self.acceptOrDeclineLabel.text = @"Invitation Accepted";
-    self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
-    
-    
-    [self performSelector:@selector(loadingNextView)
-               withObject:nil afterDelay:3.0f];
-    
-    
-    //Open of Maps part Ends
-
- 
-    
-}
-
--(void)startNavigation {
-    
-    // Open of Maps Part starts
-    
-    //Check the availability of the Google Maps app on the device
-    
-    if (![[UIApplication sharedApplication] canOpenURL:
-          [NSURL URLWithString:@"comgooglemaps://"]]) {
-        NSLog(@"Your Device does not have Google Maps");
-    }
-    
-    else { // If device has Google Maps
-        
-        //1. Get guest's current location
-        
-        
-        [self.locationManager setAllowsBackgroundLocationUpdates:YES];
-        
-        [self.locationManager startUpdatingLocation];
-        
-        
-        
-        while(currentLatitude == 0.0 && currentLongitude == 0.0){ // Wait till latitude and longitude gets populated
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        }
-        
-        NSLog(@"Current Latitude is %f",currentLatitude);
-        NSLog(@"Current Longitude is %f",currentLongitude);
-        
-        
-        NSString *newAddOneString = [ _hostAddrLineOne stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *newAddTwoString = [ _hostAddrLineTwo stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        NSString *newAddCityString = [ _hostAddrCity stringByReplacingOccurrencesOfString:@" " withString:@"+"];
-        
-        NSString *destAddr = [[NSString alloc]init];
-        
-        if([_hostAddrLineTwo length] > 0) { // If address Line 2 provided
-            destAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneString,newAddTwoString,newAddCityString,_hostAddrZip];
-        }
-        
-        else { // If address Line 2 NOT provided
-            destAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneString,newAddCityString,_hostAddrZip];
-        }
-        
-        
-        NSString *address = [NSString stringWithFormat:@"comgooglemaps://?saddr=%f,%f&daddr=%@&directionsmode=driving",currentLatitude,currentLongitude,destAddr];
-        
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
-        
-        
-    }
-    
-    
-    [self.popupController dismissPopupControllerAnimated:YES];
-    //NSLog(@"Block for button: %@", startToHostPlaceButton.titleLabel.text);
-    self.acceptOrDeclineLabel.text = @"Invitation Accepted";
-    self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
-    
-    
-    [self performSelector:@selector(loadingNextView)
-               withObject:nil afterDelay:3.0f];
-    
-    
-    //Open of Maps part Ends
-    
-}
-
 
 -(void)updateDB :(NSString *)guestLocationStatus withInvitationStatus:(NSString *)guestReply
 {
@@ -643,157 +434,6 @@ float currentLongitude = 0.0;
 }
 
 
-#pragma mark - CLLocationManagerDelegate
-
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
-    NSLog(@"PERMISSION DENIED");
-}
-
-/*
-
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
-    
-    
-     if (status == kCLAuthorizationStatusDenied) {
-         
-       NSLog(@"Denied location from delegate");
-         [self.popupController dismissPopupControllerAnimated:YES];
-    }
-    
-
-
-}
- */
-
-
--(void) locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations{
-    
-    
-    
-    
- 
-    currentLatitude = locations.lastObject.coordinate.latitude;
-    currentLongitude = locations.lastObject.coordinate.longitude;
-    
-    NSLog(@"insode delegate %f",currentLatitude);
-    
-    NSString *hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",_hostAddrLineOne,_hostAddrLineTwo,_hostAddrCity,_hostAddrZip];
-    CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
-    
-    
-    
-    
-    
-    CLLocation *destLoc = [[CLLocation alloc] initWithLatitude:dest.latitude longitude:dest.longitude];
-    
-    NSLog(@"The total distance between source to destination is %f",[locations.firstObject distanceFromLocation:destLoc]*0.000621371);
-    
-       NSLog(@"DISTANCE BETWEEN SOURCE TO DESTINATION IS %f",[locations.lastObject distanceFromLocation:destLoc]*0.000621371);
-    
-  
-    // Give an alert to Host to say that the Guest is nearby
-    
-    /*
-     
-     
-     1. If Total Distance >50 miles , Then alert when Distnace <  5 miles
-     
-     2. If Total Distance < 50 miles , Then alert when Distance < 10% of distance
-     */
-
-    
-
-        
-    // UPDATE DB WITH latitude, longuitude and ACCEPTED ENDS
-    
-    // IF the GUEST AND HOST DISTANCE < 0.1 MILE  THE STOP UPDATING LOCATION AND BREAK THE FUNCTION
-    
-    if([locations.lastObject distanceFromLocation:destLoc]*0.000621371 < 0.1){
-        
-        [self.locationManager stopUpdatingLocation];
-        
-        // DB Updates to REACHED
-        
-        [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-            
-            NSDictionary *dict = snapshot.value;
-            
-            
-            NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
-                                       @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
-                                       @"Sender EMail": [dict valueForKey:@"Sender EMail"],
-                                       @"Sender Address1": [dict valueForKey:@"Sender Address1"],
-                                       @"Sender Address2": [dict valueForKey:@"Sender Address2"],
-                                       @"Sender City": [dict valueForKey:@"Sender City"],
-                                       @"Sender Zip": [dict valueForKey:@"Sender Zip"],
-                                       @"Sender Phone": [dict valueForKey:@"Sender Phone"],
-                                       @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
-                                       @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
-                                       @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
-                                       @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
-                                       @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
-                                       @"Invite For Date": [dict valueForKey:@"Invite For Date"],
-                                       @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
-                                       @"Invitation Status": @"Accepted",
-                                       @"Guest Latitude": [NSNumber numberWithFloat:currentLatitude],
-                                       @"Guest Longitude": [NSNumber numberWithFloat:currentLongitude],
-                                       @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
-                                       @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
-                                       @"Guest Location Status" : @"REACHED",
-                                       };//Dict post
-            
-            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
-            [_ref updateChildValues:childUpdates];
-            
-        }];
-
-       // NSLog(@"GUEST REACHED");
-    }
-    
-    
-    else
-    {
-    
-        // DB Updates if distance more than 0.1 mile
-        
-        [[[_ref child:@"invites"] child:_key] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
-            
-            NSDictionary *dict = snapshot.value;
-            
-            
-            NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
-                                       @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
-                                       @"Sender EMail": [dict valueForKey:@"Sender EMail"],
-                                       @"Sender Address1": [dict valueForKey:@"Sender Address1"],
-                                       @"Sender Address2": [dict valueForKey:@"Sender Address2"],
-                                       @"Sender City": [dict valueForKey:@"Sender City"],
-                                       @"Sender Zip": [dict valueForKey:@"Sender Zip"],
-                                       @"Sender Phone": [dict valueForKey:@"Sender Phone"],
-                                       @"Mesage From Sender": [dict valueForKey:@"Mesage From Sender"],
-                                       @"Receiver First Name": [dict valueForKey:@"Receiver First Name"],
-                                       @"Receiver Last Name": [dict valueForKey:@"Receiver Last Name"],
-                                       @"Receiver EMail": [dict valueForKey:@"Receiver EMail"],
-                                       @"Receiver Phone": [dict valueForKey:@"Receiver Phone"],
-                                       @"Invite For Date": [dict valueForKey:@"Invite For Date"],
-                                       @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
-                                       @"Invitation Status": @"Accepted",
-                                       @"Guest Latitude": [NSNumber numberWithFloat:currentLatitude],
-                                       @"Guest Longitude": [NSNumber numberWithFloat:currentLongitude],
-                                       @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
-                                       @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
-                                       @"Guest Location Status" : @"IN_TRANSIT",
-                                       };//Dict post
-            
-            NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
-            [_ref updateChildValues:childUpdates];
-        }];
-
-    }
-    
-}
-
-
 
 
 - (void)loadingNextView{
@@ -815,8 +455,32 @@ float currentLongitude = 0.0;
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult) result
 {
     switch (result) {
-        case MessageComposeResultCancelled:
+        case MessageComposeResultCancelled: {
+            
+            //If Declined
+            if([actionTaken isEqualToString:@"Declined"])
+            {
+                self.acceptOrDeclineLabel.text = @"Invitation Declined";
+                self.acceptOrDeclineLabel.textColor = [UIColor redColor];
+                [self performSelector:@selector(loadingNextView)
+                           withObject:nil afterDelay:3.0f];
+                
+            }
+            
+            // If Accepted
+            
+            else if([actionTaken isEqualToString:@"Accepted"])
+            {
+                self.acceptOrDeclineLabel.text = [NSString stringWithFormat:@"Invitation Accepted, You can go to My Accepted Invites when you want to start to %@'s place",_inviteByFirstName];
+                self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+                
+                [self performSelector:@selector(loadingNextView)
+                           withObject:nil afterDelay:4.0f];
+            }
+
+            
             break;
+        }
             
         case MessageComposeResultFailed:
         {
@@ -832,13 +496,29 @@ float currentLongitude = 0.0;
             
         case MessageComposeResultSent:
         {
-            //NSLog(@"SMS Sent");
+            
+            // If Declined
+            
+            if([actionTaken isEqualToString:@"Declined"])
+            {
             self.acceptOrDeclineLabel.text = @"Invitation Declined";
             self.acceptOrDeclineLabel.textColor = [UIColor redColor];
             
-            
             [self performSelector:@selector(loadingNextView)
                        withObject:nil afterDelay:3.0f];
+            }
+            
+            // If Accepted
+            
+            else if([actionTaken isEqualToString:@"Accepted"])
+            {
+                self.acceptOrDeclineLabel.text = [NSString stringWithFormat:@"Invitation Accepted, You can go to My Accepted Invites when you want to start to %@'s place",_inviteByFirstName];
+                self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+                
+                [self performSelector:@selector(loadingNextView)
+                           withObject:nil afterDelay:4.0f];
+            }
+            
             break;
         }
             
@@ -854,19 +534,60 @@ float currentLongitude = 0.0;
 {
     switch (result)
     {
-        case MFMailComposeResultCancelled:
+        case MFMailComposeResultCancelled: {
+            
+            
+            //If Declined
+            if([actionTaken isEqualToString:@"Declined"])
+            {
+                self.acceptOrDeclineLabel.text = @"Invitation Declined";
+                self.acceptOrDeclineLabel.textColor = [UIColor redColor];
+                [self performSelector:@selector(loadingNextView)
+                           withObject:nil afterDelay:3.0f];
+                
+            }
+            
+            // If Accepted
+            
+            else if([actionTaken isEqualToString:@"Accepted"])
+            {
+                self.acceptOrDeclineLabel.text = [NSString stringWithFormat:@"Invitation Accepted, You can go to My Accepted Invites when you want to start to %@'s place",_inviteByFirstName];
+                self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+                
+                [self performSelector:@selector(loadingNextView)
+                           withObject:nil afterDelay:4.0f];
+            }
+            
             break;
+        }
         case MFMailComposeResultSaved:
             
             break;
         case MFMailComposeResultSent: {
-           // NSLog(@"E-Mail Sent");
+           
+           
+            //If Declined
+            if([actionTaken isEqualToString:@"Declined"])
+            {
             self.acceptOrDeclineLabel.text = @"Invitation Declined";
             self.acceptOrDeclineLabel.textColor = [UIColor redColor];
-            
-            
             [self performSelector:@selector(loadingNextView)
                        withObject:nil afterDelay:3.0f];
+            
+            }
+            
+            // If Accepted
+            
+            else if([actionTaken isEqualToString:@"Accepted"])
+            {
+                self.acceptOrDeclineLabel.text = [NSString stringWithFormat:@"Invitation Accepted, You can go to My Accepted Invites when you want to start to %@'s place",_inviteByFirstName];
+                self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+                
+                [self performSelector:@selector(loadingNextView)
+                           withObject:nil afterDelay:4.0f];
+            }
+
+            
             break;
         }
         case MFMailComposeResultFailed:

@@ -45,6 +45,7 @@ NSMutableArray *hostAddLTwo;
 NSMutableArray *hostAddCity;
 NSMutableArray *hostAddZip;
 
+NSMutableArray *guestFirstNameData;
 
 
 NSMutableArray *nameData;
@@ -82,7 +83,7 @@ NSArray *keys;
     hostAddCity = [[NSMutableArray alloc]init];
     hostAddZip = [[NSMutableArray alloc]init];
     
-    
+    guestFirstNameData = [[NSMutableArray alloc]init];
     
     invitedFromData = [[NSMutableArray alloc]init];
     invitedTillData = [[NSMutableArray alloc]init];
@@ -130,6 +131,8 @@ NSArray *keys;
     __block NSMutableArray *myhostAddCity = [[NSMutableArray alloc] init];
     __block NSMutableArray *myhostAddZip = [[NSMutableArray alloc] init];
     
+    
+    __block NSMutableArray *myGuestFirstNameData = [[NSMutableArray alloc] init];
     
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
