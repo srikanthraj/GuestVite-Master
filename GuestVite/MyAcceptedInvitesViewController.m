@@ -470,7 +470,7 @@ NSString *myAcceptedInviteSelcetedKey;
             
             //[self updateDB:@"IN_TRANSIT" withInvitationStatus:@"Accepted"];
             [self startNavigation:indexPath.row];
-            
+            [self.popupController dismissPopupControllerAnimated:YES];
             
         }
         
@@ -672,6 +672,43 @@ NSString *myAcceptedInviteSelcetedKey;
 
 -(void)startNavigation:(NSInteger)row {
     
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Open in Maps" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction* googleMaps = [UIAlertAction
+                         actionWithTitle:@"Google Maps"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [self openGoogleMaps:row];
+                         }];
+    
+    UIAlertAction* appleMaps = [UIAlertAction
+                                 actionWithTitle:@"Apple Maps"
+                                 style:UIAlertActionStyleDefault
+                                 handler:^(UIAlertAction * action)
+                                 {
+                                     [self openAppleMaps:row];
+                                 }];
+    
+    
+    UIAlertAction* cancel = [UIAlertAction
+                             actionWithTitle:@"Cancel"
+                             style:UIAlertActionStyleDefault
+                             handler:^(UIAlertAction * action)
+                             {
+                                 [ac dismissViewControllerAnimated:YES completion:nil];
+                                 
+                             }];
+    
+    [ac addAction:googleMaps];
+    [ac addAction:appleMaps];
+    [ac addAction:cancel];
+    [self presentViewController:ac animated:YES completion:nil];
+    
+    }
+
+
+-(void)openGoogleMaps:(NSInteger)row{
     // Open of Maps Part starts
     
     //Check the availability of the Google Maps app on the device
@@ -731,9 +768,60 @@ NSString *myAcceptedInviteSelcetedKey;
     
     [self.popupController dismissPopupControllerAnimated:YES];
     
-    //Open of Maps part Ends
+    //Open of Google Maps part Ends
     
 }
+
+
+
+-(void)openAppleMaps:(NSInteger)row{
+    // Open of Maps Part starts
+    
+    // If device has Google Maps
+        
+        //1. Get guest's current location
+        
+        
+        [self.locationManager setAllowsBackgroundLocationUpdates:YES];
+        
+        [self.locationManager startUpdatingLocation];
+        
+        
+        
+        while(maicurrentLatitude == 0.0 && maicurrentLongitude == 0.0){ // Wait till latitude and longitude gets populated
+            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        }
+        
+        NSLog(@"Current Latitude is %f",maicurrentLatitude);
+        NSLog(@"Current Longitude is %f",maicurrentLongitude);
+        
+        
+        NSString *newAddOneString = [[maihostAddLOne objectAtIndex:row] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        NSString *newAddTwoString = [[maihostAddLTwo objectAtIndex:row] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        NSString *newAddCityString = [[maihostAddCity objectAtIndex:row] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
+        
+        NSString *destAddr = [[NSString alloc]init];
+        
+        if([[maihostAddLTwo objectAtIndex:row] length] > 0) { // If address Line 2 provided
+            destAddr = [NSString stringWithFormat:@"%@,%@,%@,%@",newAddOneString,newAddTwoString,newAddCityString,[maihostAddZip objectAtIndex:row]];
+        }
+        
+        else { // If address Line 2 NOT provided
+            destAddr = [NSString stringWithFormat:@"%@,%@,%@",newAddOneString,newAddCityString,[maihostAddZip objectAtIndex:row]];
+        }
+        
+        
+        NSString *address = [NSString stringWithFormat:@"http://maps.apple.com/?saddr=%f,%f&daddr=%@",maicurrentLatitude,maicurrentLongitude,destAddr];
+        
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:address]];
+        
+    
+    
+    //Open of Apple Maps part Ends
+    
+}
+
+
 
 
 
