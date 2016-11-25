@@ -548,7 +548,14 @@ NSString *myAcceptedInviteSelcetedKey;
         
         [self.locationManager stopUpdatingLocation];
         
-        // a. Send Message
+        //a.  Remove the DB entry
+        
+        // If Decline confirmed , ONLY then go ahead and Decline
+        
+        [self updateDB:@"NOT_STARTED" withInvitationStatus:@"Declined" withKey:[maikeyData objectAtIndex:indexPath.row]];
+
+        
+        // b. Send Message
         
         
         
@@ -564,7 +571,11 @@ NSString *myAcceptedInviteSelcetedKey;
             if(![MFMessageComposeViewController canSendText]) {
                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
                 
-                UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *myaction) {
+                    
+                    [self.popupController dismissPopupControllerAnimated:YES];
+                    
+                }];
                 
                 [ac addAction:aa];
                 [self presentViewController:ac animated:YES completion:nil];
@@ -591,7 +602,7 @@ NSString *myAcceptedInviteSelcetedKey;
             
         }
         
-        if(!([[maihostEMailData objectAtIndex:indexPath.row] isEqualToString:@"Not Specified"]))
+       else  if(!([[maihostEMailData objectAtIndex:indexPath.row] isEqualToString:@"Not Specified"]))
         {
             
             //Send Email
@@ -618,11 +629,6 @@ NSString *myAcceptedInviteSelcetedKey;
         
         
         
-        //b.  Remove the DB entry
-        
-        // If Decline confirmed , ONLY then go ahead and delete
-        
-        [self updateDB:@"NOT_STARTED" withInvitationStatus:@"Declined" withKey:[maikeyData objectAtIndex:indexPath.row]];
         
         
         [self.popupController dismissPopupControllerAnimated:YES];
@@ -672,7 +678,13 @@ NSString *myAcceptedInviteSelcetedKey;
     
     if (![[UIApplication sharedApplication] canOpenURL:
           [NSURL URLWithString:@"comgooglemaps://"]]) {
-        NSLog(@"Your Device does not have Google Maps");
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device does not have Google Maps" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+        
     }
     
     else { // If device has Google Maps
