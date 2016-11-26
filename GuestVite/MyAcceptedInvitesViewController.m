@@ -460,11 +460,11 @@ NSString *myAcceptedInviteSelcetedKey;
     startToHostPlaceButton.selectionHandler = ^(CNPPopupButton *startToHostPlaceButton){
         
         
-        [self.locationManager requestAlwaysAuthorization];
+        [self.locationManager requestWhenInUseAuthorization];
         
         CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
         
-        if (status == kCLAuthorizationStatusAuthorizedAlways) {
+        if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
             
             NSLog(@"Authorized location when start to Host tapped");
             

@@ -36,8 +36,8 @@
 	</dict>
 	<key>NSContactsUsageDescription</key>
 	<string>GuestVite needs to access your contacts</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>GuestVite Needs to know your location for your Host to track wher you reached. Location updates will be turned Off as soon as you reach your Host's place.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>GuestVite Needs to know your location for your Host to track where you reached. Location updates will be turned Off as soon as you reach your Host&apos;s place.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>location</string>
