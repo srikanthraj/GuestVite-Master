@@ -546,7 +546,7 @@ NSString *myAcceptedInviteSelcetedKey;
         
         // Stop Updating Location Manager if user is already in Transit
         
-        [self.locationManager stopUpdatingLocation];
+        [self.locationManager stopMonitoringSignificantLocationChanges];
         
         //a.  Remove the DB entry
         
@@ -949,7 +949,7 @@ NSString *myAcceptedInviteSelcetedKey;
     
     if([locations.lastObject distanceFromLocation:destLoc]*0.000621371 < 0.2){
         
-        [self.locationManager stopUpdatingLocation];
+        [self.locationManager stopMonitoringSignificantLocationChanges];
         
         // DB Updates to REACHED
         
