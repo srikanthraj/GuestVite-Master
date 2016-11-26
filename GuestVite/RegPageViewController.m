@@ -110,6 +110,12 @@
     
     self.emailText.delegate = self;
     
+    //Style the Register Button
+    
+    self.registerButton.layer.cornerRadius = 10.0;
+    [[self.registerButton layer] setBorderWidth:1.0f];
+    [[self.registerButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+    
     //Test
     
     
@@ -245,6 +251,7 @@
         self.emailTextView.text = NSLocalizedString(@"😃", nil);
         self.emailText.backgroundColor = [UIColor whiteColor];
         self.entryErrorEMail = NO;
+        NSLog(@"Error of E-Mail is %@",self.entryErrorEMail ? @"YES" : @"NO");
     }
     
     else {
@@ -254,6 +261,14 @@
         self.emailTextView.textColor = invalidRed;
         self.entryErrorEMail = YES;
     }
+    
+    if(sender.text.length ==0) {
+        
+        self.emailText.backgroundColor = [UIColor whiteColor];
+        self.emailTextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorEMail = YES;
+    }
+
 
     
 }
@@ -266,6 +281,7 @@
         self.fNameTextView.text = NSLocalizedString(@"😃", nil);
         self.fNameText.backgroundColor = [UIColor whiteColor];
         self.entryErrorFName = NO;
+        NSLog(@"Error of First Name is %@",self.entryErrorFName ? @"YES" : @"NO");
     }
     
     
@@ -295,6 +311,7 @@
     
     if(sender.text.length > 0){
         self.lNameTextView.text = NSLocalizedString(@"😃", nil);
+        
     }
     
     else if(sender.text.length ==0) {
@@ -313,7 +330,7 @@
         self.passTextView.text = NSLocalizedString(@"😃", nil);
         self.passwordText.backgroundColor = [UIColor whiteColor];
         self.entryErrorPassword = NO;
-        
+        NSLog(@"Error of Password is %@",self.entryErrorPassword ? @"YES" : @"NO");
     }
     
     else {
@@ -341,6 +358,7 @@
         self.rePassTextView.text = NSLocalizedString(@"😃", nil);
         self.reEnterPasswordText.backgroundColor = [UIColor whiteColor];
         self.entryErrorRePassword = NO;
+        NSLog(@"Error of Re Password is %@",self.entryErrorRePassword ? @"YES" : @"NO");
         
     }
     
@@ -369,6 +387,7 @@
         self.cityTextView.text = NSLocalizedString(@"😃", nil);
         self.cityText.backgroundColor = [UIColor whiteColor];
         self.entryErrorCity = NO;
+        NSLog(@"Error of City is %@",self.entryErrorCity ? @"YES" : @"NO");
         
     }
     
@@ -398,7 +417,7 @@
         self.zipTextView.text = NSLocalizedString(@"😃", nil);
         self.zipText.backgroundColor = [UIColor whiteColor];
         self.entryErrorZip = NO;
-        
+        NSLog(@"Error of Zip is %@",self.entryErrorZip ? @"YES" : @"NO");
     }
     
     else {
@@ -420,10 +439,11 @@
 - (void)phoneTextChanged:(VMaskTextField *)sender
 {
     
-    if([self validateZipPhoneWithString:sender.text]){
+    if([self validateZipPhoneWithString:sender.text] && [sender.text length] == 10){
             self.phoneTextView.text = NSLocalizedString(@"😃", nil);
         self.phoneText.backgroundColor = [UIColor whiteColor];
         self.entryErrorPhone = NO;
+        NSLog(@"Error of Phone is %@",self.entryErrorPhone ? @"YES" : @"NO");
         
     }
     
@@ -448,12 +468,15 @@
 
 - (void)addr1TextChanged:(UITextField *)sender
 {
-    if([sender.text length] > 0){
+    if([sender.text length] > 4){
         self.addr1TextView.text = NSLocalizedString(@"😃", nil);
+        self.entryErrorAdd1 = NO;
+        NSLog(@"Error of Address Line 1 is %@",self.entryErrorAdd1 ? @"YES" : @"NO");
     }
     if(sender.text.length ==0) {
         self.addr1Text.backgroundColor = [UIColor whiteColor];
         self.addr1TextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorAdd1 = YES;
     }
 }
 
@@ -713,8 +736,7 @@ if(self.shouldKeyboardMoveUp)
 - (IBAction)registerTapped:(id)sender {
     
     
-    
-    /*
+
     
     // If any Fields has error
     if([self entryErrorFName] || [self entryErrorEMail] || [self entryErrorPassword] || [self entryErrorRePassword] || [self entryErrorAdd1] || [self entryErrorCity] || [self entryErrorZip] || [self entryErrorPhone]) {
@@ -731,7 +753,7 @@ if(self.shouldKeyboardMoveUp)
     
     
     else {
-    */
+    
     
     NSString *eMailAddress = self.emailText.text;
     NSString *password = self.passwordText.text;
@@ -792,7 +814,7 @@ if(self.shouldKeyboardMoveUp)
          
      }];
 
-   // }// Main else ends
+   }// Main else ends
     
     }
 
