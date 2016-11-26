@@ -766,9 +766,9 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         
    // 2. Else If (Error in Fields)
    
-    else if([self entryErrorFName] || [self entryErrorEMail] || [self entryErrorPhone]) {
+    else if([self entryErrorFName] || ([self entryErrorEMail] && [self entryErrorPhone])) {
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check your input fields which has not a smiling face again"preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check your input fields which has a sad smiley again"preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
