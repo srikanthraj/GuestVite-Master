@@ -766,7 +766,7 @@ if(self.shouldKeyboardMoveUp)
                   NSError *_Nullable error) {
          
          if (error) {
-             UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"There was an error creating your account"preferredStyle:UIAlertControllerStyleAlert];
+             UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"There was an error creating your account - Maybe an account already exists with the same E-Mail address"preferredStyle:UIAlertControllerStyleAlert];
              
              UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
              
