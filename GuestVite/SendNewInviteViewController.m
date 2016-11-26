@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *guestPhoneText;
 @property (weak, nonatomic) IBOutlet UITextView *messageText;
 
+@property (weak, nonatomic) IBOutlet UISwitch *informSwitch;
 
 @property (weak, nonatomic) IBOutlet UIButton *sendInvite;
 @property (weak, nonatomic) IBOutlet UIImageView *regView;
@@ -586,7 +587,7 @@
 -(void)textViewDidChange:(UITextView *)textView
 {
     NSUInteger len = textView.text.length;
-    self.countLabel.text=[NSString stringWithFormat:@"%u",100-len];
+    self.countLabel.text=[NSString stringWithFormat:@"%lu",100-(unsigned long)len];
 }
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -807,6 +808,12 @@ if(self.segmentControl.selectedSegmentIndex ==1){
             NSArray * arr = [self.guestNameText.text componentsSeparatedByString:@" "];
             
             NSString *hostaddr = [[NSString alloc]init];
+            NSString *sendMessages = [[NSString alloc]init];
+            if(self.informSwitch.isOn)
+                sendMessages = @"YES";
+            else
+                sendMessages = @"NO";
+            
             NSDictionary *post = [[NSDictionary alloc] init];
             
             if([[dict valueForKey:@"Address2"] length] > 0)
@@ -844,6 +851,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
                                    @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                    @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                    @"Guest Location Status" : @"NOT_STARTED",
+                                   @"Host Send Messages" : sendMessages,
                                    };
             
                 }
@@ -870,6 +878,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"NOT_STARTED",
+                                       @"Host Send Messages" : sendMessages,
                                        };
 
             }
@@ -981,6 +990,8 @@ self.guestEMailText.text = @"";
 self.guestPhoneText.text = @"";
 self.messageText.text = @"Personalized Message";
 self.messageText.textColor = [UIColor lightGrayColor];
+self.countLabel.text = @"100";
+    self.informSwitch.on = YES;
     
 }
 

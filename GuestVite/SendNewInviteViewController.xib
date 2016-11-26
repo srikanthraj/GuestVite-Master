@@ -17,6 +17,7 @@
                 <outlet property="guestEMailText" destination="lu0-GX-0hT" id="UeG-VY-XM7"/>
                 <outlet property="guestNameText" destination="IjT-JN-3rF" id="5Hy-rV-LKO"/>
                 <outlet property="guestPhoneText" destination="FLY-oL-FLt" id="3He-QB-kqo"/>
+                <outlet property="informSwitch" destination="A81-nH-VFV" id="aSN-K7-Awc"/>
                 <outlet property="messageText" destination="fyq-c0-mTe" id="Tbj-zR-elU"/>
                 <outlet property="phoneTextView" destination="kgH-gM-jrX" id="fmZ-9P-lRp"/>
                 <outlet property="regView" destination="dFe-Z6-Ztw" id="Qsc-Ct-MqP"/>
@@ -126,7 +127,7 @@
                             <rect key="frame" x="30" y="298" width="223" height="37"/>
                             <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="300" id="pPI-Q0-QA2"/>
+                                <constraint firstAttribute="width" constant="310" id="pPI-Q0-QA2"/>
                                 <constraint firstAttribute="height" constant="50" id="wQK-hH-p7M"/>
                             </constraints>
                             <date key="date" timeIntervalSinceReferenceDate="498970174.52192199">
@@ -140,7 +141,7 @@
                             <rect key="frame" x="30" y="216" width="214" height="37"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="CJ4-jQ-vYl"/>
-                                <constraint firstAttribute="width" constant="300" id="WLt-lX-qoW"/>
+                                <constraint firstAttribute="width" constant="310" id="WLt-lX-qoW"/>
                             </constraints>
                             <date key="date" timeIntervalSinceReferenceDate="498970174.52192199">
                                 <!--2016-10-24 02:49:34 +0000-->
