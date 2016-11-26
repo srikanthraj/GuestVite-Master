@@ -25,6 +25,14 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *guestNameText;
 @property (weak, nonatomic) IBOutlet UITextField *guestEMailText;
+
+
+@property (weak, nonatomic) IBOutlet UITextView *emailTextView;
+
+@property (weak, nonatomic) IBOutlet UITextView *phoneTextView;
+
+@property (weak, nonatomic) IBOutlet UITextView *fNameTextView;
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
@@ -58,6 +66,10 @@
 @property (nonatomic, strong) NSString *currentTimeExpire;
 
 @property (nonatomic) BOOL shouldKeyboardMoveUp;
+
+@property (nonatomic) BOOL entryErrorFName;
+@property (nonatomic) BOOL entryErrorEMail;
+@property (nonatomic) BOOL entryErrorPhone;
 
 @end
 
@@ -127,8 +139,29 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
    
-   
+    // Set the Text Views
+    
+    self.fNameTextView.text = NSLocalizedString(@"😐", nil);
+    self.fNameTextView.editable = NO;
+    
+    self.emailTextView.text = NSLocalizedString(@"😐", nil);
+    self.emailTextView.editable = NO;
+    
+    self.phoneTextView.text = NSLocalizedString(@"😐", nil);
+    self.phoneTextView.editable = NO;
+    
+    self.entryErrorFName = YES;
+    self.entryErrorEMail = YES;
+    self.entryErrorPhone = YES;
+    
+    
+    [self.guestNameText addTarget:self action:@selector(firstNameTextChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+    [self.guestEMailText addTarget:self action:@selector(emailTextChanged:) forControlEvents:UIControlEventEditingChanged];
+    
+    [self.guestPhoneText addTarget:self action:@selector(phoneTextChanged:) forControlEvents:UIControlEventEditingChanged];
 
+    
     // Set the current date and time as date
     
     
@@ -142,6 +175,7 @@
     self.endTime = currentTime;
     
     NSLog(@"End Time on load %@", self.endTime);
+    
     
     
     
@@ -334,7 +368,129 @@
 //---------------------------------
 
 
+- (void)firstNameTextChanged:(UITextField *)sender
+{
+    
+    if(sender.text.length > 0){
+        self.fNameTextView.text = NSLocalizedString(@"😃", nil);
+        self.guestNameText.backgroundColor = [UIColor whiteColor];
+        self.entryErrorFName = NO;
+        NSLog(@"Error of First Name is %@",self.entryErrorFName ? @"YES" : @"NO");
+    }
+    
+    
+    
+    else {
+        UIColor *invalidRed = [UIColor colorWithRed:0.89 green:0.18 blue:0.16 alpha:1];
+        self.guestNameText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
+        self.fNameTextView.text = NSLocalizedString(@"😧", nil);
+        self.fNameTextView.textColor = invalidRed;
+        self.entryErrorFName = YES;
+    }
+    
+    if(sender.text.length ==0) {
+        
+        self.guestNameText.backgroundColor = [UIColor whiteColor];
+        self.fNameTextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorFName = YES;
+    }
+    
+    
+    
+    
+}
 
+
+
+
+- (void)emailTextChanged:(UITextField *)sender
+{
+    
+    
+    if([self validateEmailWithString:sender.text]){
+        
+        self.emailTextView.text = NSLocalizedString(@"😃", nil);
+        self.guestEMailText.backgroundColor = [UIColor whiteColor];
+        self.entryErrorEMail = NO;
+        NSLog(@"Error of E-Mail is %@",self.entryErrorEMail ? @"YES" : @"NO");
+    }
+    
+    else {
+        UIColor *invalidRed = [UIColor colorWithRed:0.89 green:0.18 blue:0.16 alpha:1];
+        self.guestEMailText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
+        self.emailTextView.text = NSLocalizedString(@"😧", nil);
+        self.emailTextView.textColor = invalidRed;
+        self.entryErrorEMail = YES;
+    }
+    
+    if(sender.text.length ==0) {
+        
+        self.guestEMailText.backgroundColor = [UIColor whiteColor];
+        self.emailTextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorEMail = YES;
+    }
+    
+    
+}
+
+
+- (void)phoneTextChanged:(UITextField *)sender
+{
+    
+    if([self validatePhoneWithString:sender.text] && [sender.text length] == 10){
+        self.phoneTextView.text = NSLocalizedString(@"😃", nil);
+        self.guestPhoneText.backgroundColor = [UIColor whiteColor];
+        self.entryErrorPhone = NO;
+        NSLog(@"Error of Phone is %@",self.entryErrorPhone ? @"YES" : @"NO");
+        
+    }
+    
+    else {
+        UIColor *invalidRed = [UIColor colorWithRed:0.89 green:0.18 blue:0.16 alpha:1];
+        self.guestPhoneText.backgroundColor = [invalidRed colorWithAlphaComponent:0.3];
+        self.phoneTextView.text = NSLocalizedString(@"😧", nil);
+        self.phoneTextView.textColor = invalidRed;
+        self.entryErrorPhone = YES;
+    }
+    
+    if(sender.text.length ==0) {
+        self.guestPhoneText.backgroundColor = [UIColor whiteColor];
+        self.phoneTextView.text = NSLocalizedString(@"😢", nil);
+        self.entryErrorPhone = YES;
+    }
+    
+    
+}
+
+- (BOOL)validateEmailWithString:(NSString*)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
+
+- (BOOL)validatePhoneWithString:(NSString*)checkString
+
+{
+    NSCharacterSet *alphaNums = [NSCharacterSet decimalDigitCharacterSet];
+    NSCharacterSet *inStringSet = [NSCharacterSet characterSetWithCharactersInString:checkString];
+    
+    // Not numeric
+    if (![alphaNums isSupersetOfSet:inStringSet]){
+        return NO;
+    }
+    
+    else {
+        return YES;
+    }
+    
+}
+
+
+// -------------------------------
 
 - (void)dateChanged:(id)sender
 {
@@ -544,24 +700,61 @@ if(self.segmentControl.selectedSegmentIndex ==1){
     
     NSLog(@"TO DATE %@",toDate);
 
-    
+    // 4 conditions to be checked
+        /*
+         
+         1. If( Error in fields and From Date > To Date)
+         2. Else If (Error in Fields)
+         3. Else If (From date > To Date)
+         4. Else - Go Ahead and Add in DB
+         
+         */
 
-    if([self.guestEMailText.text length] ==0 && [self.guestPhoneText.text length] ==0) {
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"At Least One field amonf E-Mail Address or Phone is required"preferredStyle:UIAlertControllerStyleAlert];
+        
+        //1. If( Error in fields and From Date > To Date)
+        
+        
+    if(([self entryErrorFName] || [self entryErrorEMail] || [self entryErrorPhone]) && !([fromDate compare:toDate] == NSOrderedAscending)) {
+        
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check your input fields which has not a smiling face again",@"From Date cannot be later than To Date"]preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
         [ac addAction:aa];
         [self presentViewController:ac animated:YES completion:nil];
     }
+        
+        
+   // 2. Else If (Error in Fields)
+   
+    else if([self entryErrorFName] || [self entryErrorEMail] || [self entryErrorPhone]) {
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check your input fields which has not a smiling face again"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+        
+    }
+    
+    //  3. Else If (From date > To Date)
+    else if(!([fromDate compare:toDate] == NSOrderedAscending)) {
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+    }
+        
+    //4. Else - Go Ahead and Add in DB
     
     else{
         
-        
-        if([fromDate compare:toDate] == NSOrderedAscending) // ONLY if from is earlier
-        {
-            
             
         self.ref = [[FIRDatabase database] reference];
         
@@ -734,16 +927,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
 
             
         }
-        }
         
-        else {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than or Equal to Expire Date" preferredStyle:UIAlertControllerStyleAlert];
-            
-            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-            
-            [ac addAction:aa];
-            [self presentViewController:ac animated:YES completion:nil];
-        }
         
     }// Main else ends
         
