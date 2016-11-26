@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *guestNameText;
 @property (weak, nonatomic) IBOutlet UITextField *guestEMailText;
 
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
 
 @property (weak, nonatomic) IBOutlet UITextView *emailTextView;
 
@@ -229,13 +230,13 @@
     [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
     
     
-    [self.datePicker setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
+    [self.datePicker setValue:[UIColor whiteColor]forKey:@"textColor"];
     
     [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     
     
    
-    [self.datePickerExpire setValue:[UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]forKey:@"textColor"];
+    [self.datePickerExpire setValue:[UIColor whiteColor]forKey:@"textColor"];
     
     
     [self.datePickerExpire  addTarget:self action:@selector(dateChangedExpire:) forControlEvents:UIControlEventValueChanged];
@@ -347,6 +348,30 @@
         
         
     }
+    
+    // If Message Text is first Responder, the move 70 for Characters remaining to be visible
+    
+    
+    if(self.shouldKeyboardMoveUp && self.messageText.isFirstResponder)
+    {
+        
+        
+        CGRect visibleRect = self.view.frame;
+        
+        visibleRect.size.height -= keyboardSize.height + 70; // Extra 70 for Done Button and characters remaining
+        
+        if (!CGRectContainsPoint(visibleRect, buttonOrigin)){
+            
+            CGPoint scrollPoint = CGPointMake(0.0, buttonOrigin.y - visibleRect.size.height + buttonHeight);
+            
+            [self.scrollView setContentOffset:scrollPoint animated:YES];
+            
+        }
+        
+        
+        
+    }
+
     
     
     
@@ -556,6 +581,17 @@
             self.messageText.textColor = [UIColor blackColor];
         }
     }
+}
+
+-(void)textViewDidChange:(UITextView *)textView
+{
+    NSUInteger len = textView.text.length;
+    self.countLabel.text=[NSString stringWithFormat:@"%u",100-len];
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    return textView.text.length + (text.length - range.length) <= 100;
 }
 
 -(void) textViewDidChangeSelection:(UITextView *)textView
