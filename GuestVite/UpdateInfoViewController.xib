@@ -20,6 +20,7 @@
                 <outlet property="phoneField" destination="N4K-DL-siD" id="vLA-Hl-dFP"/>
                 <outlet property="phoneTextView" destination="kY8-8q-EZ8" id="mN0-pk-V1r"/>
                 <outlet property="resultField" destination="7xm-1K-7dL" id="zZ8-n6-lhR"/>
+                <outlet property="scrollView" destination="jQq-U0-AFT" id="HpA-78-15w"/>
                 <outlet property="updateInfoBack" destination="Oou-oG-FON" id="zcJ-Pd-w9w"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="zipField" destination="fhi-pi-Aip" id="7Hg-da-GQS"/>

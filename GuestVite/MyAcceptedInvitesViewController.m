@@ -50,7 +50,7 @@ NSMutableArray *maihostAddLTwo;
 NSMutableArray *maihostAddCity;
 NSMutableArray *maihostAddZip;
 
-
+NSMutableArray *maiinformHostData;
 
 NSMutableArray *mainameData;
 NSMutableArray *maiinvitedFromData;
@@ -88,6 +88,7 @@ NSString *myAcceptedInviteSelcetedKey;
     mailastNameData = [[NSMutableArray alloc]init];
     maihostEMailData = [[NSMutableArray alloc]init];
     maihostPhoneData = [[NSMutableArray alloc]init];
+    maiinformHostData = [[NSMutableArray alloc]init];
     maiGuestLocationStatusData = [[NSMutableArray alloc]init];
     maihostAddLOne = [[NSMutableArray alloc]init];
     maihostAddLTwo = [[NSMutableArray alloc]init];
@@ -135,7 +136,7 @@ NSString *myAcceptedInviteSelcetedKey;
     __block NSMutableArray *myhostAddLTwo = [[NSMutableArray alloc] init];
     __block NSMutableArray *myhostAddCity = [[NSMutableArray alloc] init];
     __block NSMutableArray *myhostAddZip = [[NSMutableArray alloc] init];
-    
+    __block NSMutableArray *myInformHostData = [[NSMutableArray alloc] init];
     
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
@@ -206,7 +207,7 @@ NSString *myAcceptedInviteSelcetedKey;
                 [myhostAddLTwo addObject:arr[i][@"Sender Address2"]];
                 [myhostAddCity addObject:arr[i][@"Sender City"]];
                 [myhostAddZip addObject:arr[i][@"Sender Zip"]];
-                
+                [myInformHostData addObject:arr[i][@"Host Send Messages"]];
                 
                 
                 
@@ -234,7 +235,7 @@ NSString *myAcceptedInviteSelcetedKey;
                 [myhostAddLTwo addObject:arr[i][@"Sender Address2"]];
                 [myhostAddCity addObject:arr[i][@"Sender City"]];
                 [myhostAddZip addObject:arr[i][@"Sender Zip"]];
-                
+                [myInformHostData addObject:arr[i][@"Host Send Messages"]];
                 
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                 [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
@@ -266,7 +267,7 @@ NSString *myAcceptedInviteSelcetedKey;
                     [myhostAddCity addObject: @"No Invites"];
                     [myhostAddZip addObject: @"No Invites"];
                     
-                    
+                    [myInformHostData addObject: @"No Invites"];
                     
                     [myinvitedFromData addObject: @"No Invites"];
                     [myinvitedTillData addObject: @"No Invites"];
@@ -282,7 +283,7 @@ NSString *myAcceptedInviteSelcetedKey;
         
     }];
     
-    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0 && [myGuestLocationStatusData count]== 0 && [myhostAddLOne count]== 0 && [myhostAddCity count]== 0 && [myhostAddZip count]== 0) { // Host Address line 2 is optional and hence not required here
+    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0 && [myGuestLocationStatusData count]== 0 && [myhostAddLOne count]== 0 && [myhostAddCity count]== 0 && [myhostAddZip count]== 0 && [myInformHostData count]== 0) { // Host Address line 2 is optional and hence not required here
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
@@ -299,7 +300,7 @@ NSString *myAcceptedInviteSelcetedKey;
         [maihostAddLTwo addObject:[myhostAddLTwo objectAtIndex:i]];
         [maihostAddCity addObject:[myhostAddCity objectAtIndex:i]];
         [maihostAddZip addObject:[myhostAddZip objectAtIndex:i]];
-        
+        [maiinformHostData addObject:[myInformHostData objectAtIndex:i]];
         
         [maiinvitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
         [maiinvitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
@@ -546,7 +547,7 @@ NSString *myAcceptedInviteSelcetedKey;
         
         // Stop Updating Location Manager if user is already in Transit
         
-        [self.locationManager stopMonitoringSignificantLocationChanges];
+        [self.locationManager stopUpdatingLocation];
         
         //a.  Remove the DB entry
         
@@ -870,6 +871,7 @@ NSString *myAcceptedInviteSelcetedKey;
                                    @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                    @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                    @"Guest Location Status" : guestLocationStatus,
+                                   @"Host Send Messages" : [dict valueForKey:@"Host Send Messages"],
                                    };//Dict post
         
         NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", key]: postDict};
@@ -949,7 +951,7 @@ NSString *myAcceptedInviteSelcetedKey;
     
     if([locations.lastObject distanceFromLocation:destLoc]*0.000621371 < 0.2){
         
-        [self.locationManager stopMonitoringSignificantLocationChanges];
+        [self.locationManager stopUpdatingLocation];
         
         // DB Updates to REACHED
         
@@ -979,6 +981,7 @@ NSString *myAcceptedInviteSelcetedKey;
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"REACHED",
+                                       @"Host Send Messages" : [dict valueForKey:@"Host Send Messages"],
                                        };//Dict post
             
             NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", [maikeyData objectAtIndex:mySelectedRowNumber]]: postDict};
@@ -1021,6 +1024,7 @@ NSString *myAcceptedInviteSelcetedKey;
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"IN_TRANSIT",
+                                       @"Host Send Messages" : [dict valueForKey:@"Host Send Messages"],
                                        };//Dict post
             
             NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", [maikeyData objectAtIndex:mySelectedRowNumber]]: postDict};
