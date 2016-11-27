@@ -12,6 +12,7 @@
                 <outlet property="invitedByLabel" destination="bkt-vH-9Bh" id="nEg-bG-ZlE"/>
                 <outlet property="invitedOnLabel" destination="Oot-Zu-avO" id="bEo-a7-kEq"/>
                 <outlet property="invitedTillLabel" destination="HkO-0j-vT7" id="Rml-Wt-GqT"/>
+                <outlet property="messageFromLabel" destination="ggR-cd-h3j" id="FTE-2A-FFO"/>
                 <outlet property="pendingInvitationsBack" destination="htz-G3-ruS" id="IcD-7u-VLV"/>
                 <outlet property="personalMessageLabel" destination="zlB-Jd-nOd" id="YNC-ws-6vD"/>
                 <outlet property="senderNameLabel" destination="a4P-kA-DQg" id="DaN-To-J89"/>

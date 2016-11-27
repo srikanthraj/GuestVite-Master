@@ -19,6 +19,7 @@
 @property(nonatomic) NSString *hostAddrCity;
 @property(nonatomic) NSString *hostAddrZip;
 
+@property(nonatomic) NSString *informHost;
 
 @property(nonatomic) NSString *invitedOn;
 @property(nonatomic) NSString *invitedTill;

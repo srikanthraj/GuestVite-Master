@@ -46,7 +46,7 @@ NSMutableArray *hostAddCity;
 NSMutableArray *hostAddZip;
 
 NSMutableArray *guestFirstNameData;
-
+NSMutableArray *informHostData;
 
 NSMutableArray *nameData;
 NSMutableArray *invitedFromData;
@@ -84,6 +84,7 @@ NSArray *keys;
     hostAddZip = [[NSMutableArray alloc]init];
     
     guestFirstNameData = [[NSMutableArray alloc]init];
+    informHostData = [[NSMutableArray alloc]init];
     
     invitedFromData = [[NSMutableArray alloc]init];
     invitedTillData = [[NSMutableArray alloc]init];
@@ -133,6 +134,7 @@ NSArray *keys;
     
     
     __block NSMutableArray *myGuestFirstNameData = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myInformHostData = [[NSMutableArray alloc] init];
     
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
@@ -201,7 +203,7 @@ NSArray *keys;
                 [myhostAddCity addObject:arr[i][@"Sender City"]];
                 [myhostAddZip addObject:arr[i][@"Sender Zip"]];
                 
-                
+                [myInformHostData addObject:arr[i][@"Host Send Messages"]];
                 
                 
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
@@ -231,6 +233,7 @@ NSArray *keys;
                 [myhostAddCity addObject:arr[i][@"Sender City"]];
                 [myhostAddZip addObject:arr[i][@"Sender Zip"]];
                 
+                [myInformHostData addObject:arr[i][@"Host Send Messages"]];
                 
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                 [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
@@ -261,7 +264,7 @@ NSArray *keys;
                     [myhostAddCity addObject: @"No Invites"];
                     [myhostAddZip addObject: @"No Invites"];
                     
-                    
+                    [myInformHostData addObject: @"No Invites"];
                     
                     [myinvitedFromData addObject: @"No Invites"];
                     [myinvitedTillData addObject: @"No Invites"];
@@ -277,7 +280,7 @@ NSArray *keys;
         
     }];
     
-    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0  && [myhostAddLOne count]== 0 && [myhostAddCity count]== 0 && [myhostAddZip count]== 0) { // Host Address line 2 is optional and hence not required here
+    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0  && [myhostAddLOne count]== 0 && [myhostAddCity count]== 0 && [myhostAddZip count]== 0 && [myInformHostData count]== 0) { // Host Address line 2 is optional and hence not required here
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
@@ -295,6 +298,7 @@ NSArray *keys;
         [hostAddCity addObject:[myhostAddCity objectAtIndex:i]];
         [hostAddZip addObject:[myhostAddZip objectAtIndex:i]];
         
+        [informHostData addObject:[myInformHostData objectAtIndex:i]];
         
         [invitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
         [invitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
@@ -439,6 +443,7 @@ NSArray *keys;
     amrCellTapped.hostAddrCity = [hostAddCity objectAtIndex:indexPath.row];
     amrCellTapped.hostAddrZip = [hostAddZip objectAtIndex:indexPath.row];
     
+    amrCellTapped.informHost = [informHostData objectAtIndex:indexPath.row];
     
     amrCellTapped.invitedOn = [invitedFromData objectAtIndex:indexPath.row];
     amrCellTapped.invitedTill = [invitedTillData objectAtIndex:indexPath.row];

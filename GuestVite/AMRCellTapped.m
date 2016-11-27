@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UINavigationBar *pendingInvitationsBack;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
+@property (weak, nonatomic) IBOutlet UILabel *messageFromLabel;
 
 @property (nonatomic, strong) CNPPopupController *popupController;
 
@@ -44,7 +45,6 @@ NSMutableString *myFName;
 NSMutableString *myLName;
 NSMutableString *myEMail;
 NSMutableString *myPhone;
-
 
 NSString *actionTaken;
 
@@ -132,6 +132,15 @@ float currentLongitude = 0.0;
     self.senderNameLabel.text = _inviteByFirstName;
     
     self.acceptOrDeclineLabel.text = @"";
+    
+    //If No personal Message , then remove the corresponsding labels
+    
+    if([self.personalMessageLabel.text isEqualToString:@"Personalized Message"]){
+        self.messageFromLabel.hidden = YES;
+        self.senderNameLabel.hidden = YES;
+        self.personalMessageLabel.hidden = YES;
+    }
+    
 }
 
 
@@ -169,7 +178,7 @@ float currentLongitude = 0.0;
     
     NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Do You really want to Decline this Invite?" attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
     
-    NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"If Yes, How about sending a sorry message to your Host?" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+   
     
     
     
@@ -178,7 +187,7 @@ float currentLongitude = 0.0;
     CNPPopupButton *buttonYesMessage = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
     [buttonYesMessage setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     buttonYesMessage.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    [buttonYesMessage setTitle:@"Decline & Message" forState:UIControlStateNormal];
+    [buttonYesMessage setTitle:@"Decline" forState:UIControlStateNormal];
     buttonYesMessage.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
     buttonYesMessage.layer.cornerRadius = 4;
     buttonYesMessage.selectionHandler = ^(CNPPopupButton *buttonYesMessage){
@@ -188,8 +197,8 @@ float currentLongitude = 0.0;
         
         actionTaken = @"Declined";
         
-        // a. Send Message
-        
+        // a. Send Message only if Host has permitted
+        if([_informHost isEqualToString:@"YES"])
         [self sendMessageToHost:@"Declined"];
         
         
@@ -202,6 +211,14 @@ float currentLongitude = 0.0;
         
         
         [self.popupController dismissPopupControllerAnimated:YES];
+        
+        if([_informHost isEqualToString:@"NO"]){
+            
+            self.acceptOrDeclineLabel.text = @"Invitation Declined";
+            self.acceptOrDeclineLabel.textColor = [UIColor redColor];
+            [self performSelector:@selector(loadingNextView)
+                       withObject:nil afterDelay:3.0f];
+        }
         
     };
     
@@ -223,11 +240,9 @@ float currentLongitude = 0.0;
     titleLabel.numberOfLines = 0;
     titleLabel.attributedText = title;
     
-    UILabel *lineOneLabel = [[UILabel alloc] init];
-    lineOneLabel.numberOfLines = 0;
-    lineOneLabel.attributedText = lineOne;
+  
     
-       self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,buttonYesMessage,buttonNoMessage]];
+       self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel,buttonYesMessage,buttonNoMessage]];
     self.popupController.theme = [CNPPopupTheme defaultTheme];
     self.popupController.theme.popupStyle = CNPPopupStyleCentered;
     self.popupController.delegate = self;
@@ -250,15 +265,23 @@ float currentLongitude = 0.0;
     
     actionTaken = @"Accepted";
     
-    // a. Send Message
+    // a. Send Message only if Host has permitted
     
+    if([_informHost isEqualToString:@"YES"])
     [self sendMessageToHost:@"Accepted"];
 
     //b.  Update the DB entry
    
     [self updateDB:@"NOT_STARTED" withInvitationStatus:@"Accepted"];
     
-
+    if([_informHost isEqualToString:@"NO"]){
+        
+        self.acceptOrDeclineLabel.text = [NSString stringWithFormat:@"Invitation Accepted, You can go to My Accepted Invites when you want to start to %@'s place",_inviteByFirstName];
+        self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
+        
+        [self performSelector:@selector(loadingNextView)
+                   withObject:nil afterDelay:4.0f];
+    }
 
     
     
@@ -321,10 +344,18 @@ float currentLongitude = 0.0;
             {
         
         message = [NSString stringWithFormat:@"Hey %@!, This is %@ and I am extremely sorry that I would not be able to make it this time , May be next time!",_inviteByFirstName,myFName];
+            
+            
             }
+        
+        
+        
         else if([action isEqualToString:@"Accepted"]){
             
+       
         message = [NSString stringWithFormat:@"Hey %@!, This is %@ and Thank You for the invite, We will be there at your place",_inviteByFirstName,myFName];
+            
+            
         }
         
         MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
@@ -423,6 +454,7 @@ float currentLongitude = 0.0;
                                @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                @"Guest Location Status" : guestLocationStatus,
+                               @"Host Send Messages" : _informHost,
                                };//Dict post
     
     NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", _key]: postDict};
