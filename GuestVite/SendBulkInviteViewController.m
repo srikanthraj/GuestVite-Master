@@ -25,6 +25,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *eMailguestList;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+@property (weak, nonatomic) IBOutlet UITextView *phoneTextView;
+
+@property (weak, nonatomic) IBOutlet UITextView *emailTextView;
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
 @property (weak, nonatomic) IBOutlet UITextView *inviteMessage;
@@ -51,6 +55,9 @@
 
 @property (nonatomic) BOOL shouldKeyboardMoveUp;
 
+@property (nonatomic) BOOL entryErrorEMail;
+@property (nonatomic) BOOL entryErrorPhone;
+
 @end
 
 @implementation SendBulkInviteViewController
@@ -71,6 +78,20 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     [self setNeedsStatusBarAppearanceUpdate];
+    
+    
+    // Set the Text Views
+    
+    self.emailTextView.text = NSLocalizedString(@"😐", nil);
+    self.emailTextView.editable = NO;
+    
+    self.phoneTextView.text = NSLocalizedString(@"😐", nil);
+    self.phoneTextView.editable = NO;
+
+    self.entryErrorEMail = YES;
+    self.entryErrorPhone = YES;
+    
+    
     
     // Set the current date and time as date
     
@@ -166,6 +187,34 @@
     [self presentViewController:homePageVC animated:YES completion:nil];
 }
 
+
+
+- (BOOL)validateEmailWithString:(NSString*)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
+
+- (BOOL)validatePhoneWithString:(NSString*)checkString
+
+{
+    NSCharacterSet *alphaNums = [NSCharacterSet decimalDigitCharacterSet];
+    NSCharacterSet *inStringSet = [NSCharacterSet characterSetWithCharactersInString:checkString];
+    
+    // Not numeric
+    if (![alphaNums isSupersetOfSet:inStringSet]){
+        return NO;
+    }
+    
+    else {
+        return YES;
+    }
+    
+}
 
 
 // Test-------------------------------
@@ -275,6 +324,11 @@
 
 
 
+
+
+
+
+// ---------------------------------
 
 - (void)dateChanged:(id)sender
 {
@@ -551,6 +605,8 @@
     //__block NSMutableArray *emailList = [[NSMutableArray alloc] init];
     
     __block NSMutableArray *noneList = [[NSMutableArray alloc] init];
+        
+    NSMutableArray *badPhoneList = [[NSMutableArray alloc] init];
     
     
     __block NSString *startDateTime  = [[NSString alloc] init];
@@ -575,10 +631,64 @@
     NSLog(@"FROM DATE %@",fromDate);
     
     NSLog(@"TO DATE %@",toDate);
-    
-    if([self.smsGuestList.text length] ==0) {
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"At Least One Guest Info is required"preferredStyle:UIAlertControllerStyleAlert];
+        
+     // Check all phone numbers to see if anything is present in Bad Phone List
+        
+        NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
+        
+        for(NSString *address in arr)
+        {
+           
+           
+            
+            if(![self validatePhoneWithString:address] || [address length] != 10 || [address length] ==0)
+                
+            [badPhoneList addObject:address];
+            
+
+        }
+        
+        NSLog(@"Bad Phone numbers are %@",badPhoneList);
+        
+        
+        // 4 conditions to be checked
+        /*
+         
+         1. If( Error in Phone and From Date > To Date)
+         2. Else If (Error in Phone)
+         3. Else If (From date > To Date)
+         4. Else - Go Ahead and Add in DB
+         
+         */
+
+     //1. If( Error in fields and From Date > To Date)
+    
+    if([badPhoneList count] > 0 && !([fromDate compare:toDate] == NSOrderedAscending)) {
+        
+        // Mark bad Phone with red
+        
+        NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
+        NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:self.smsGuestList.text];
+        
+        for(NSString *temp in arr){
+            for(NSString *tempNone in badPhoneList){
+                
+                if([temp isEqualToString:tempNone]){
+                    
+                    //NSLog(@"None String is %@",temp);
+                    
+                    NSRange range=[self.smsGuestList.text rangeOfString:temp];
+                    [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                }
+            }
+        }
+        
+        [self.smsGuestList setAttributedText:string];
+        
+        
+        self.phoneTextView.text = NSLocalizedString(@"😧", nil);
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the Phone numbers marked in red (May be you left an empty line?)",@"From Date cannot be later than To Date"]preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
@@ -586,11 +696,67 @@
         [self presentViewController:ac animated:YES completion:nil];
     }
     
+    // 2. Else If (Error in Fields)
+        
+    else if([badPhoneList count] > 0) {
+        
+        // Mark bad Phone with red
+        
+        NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
+        NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:self.smsGuestList.text];
+        
+        for(NSString *temp in arr){
+            for(NSString *tempNone in badPhoneList){
+                
+                if([temp isEqualToString:tempNone]){
+                    
+                    //NSLog(@"None String is %@",temp);
+                    
+                    NSRange range=[self.smsGuestList.text rangeOfString:temp];
+                    [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                }
+            }
+        }
+        
+        [self.smsGuestList setAttributedText:string];
+        
+        
+        self.phoneTextView.text = NSLocalizedString(@"😧", nil);
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check the Phone numbers marked in red (May be you left an empty line?)"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+        
+        
+    }
+        
+        //  3. Else If (From date > To Date)
+    else if(!([fromDate compare:toDate] == NSOrderedAscending)) {
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
+    }
+
+     //4. Else - Go Ahead and Add in DB
+        
     else{
         
-        if([fromDate compare:toDate] == NSOrderedAscending) // ONLY if from is earlier
-        {
+        // Mark phone numbers with Black
         
+        self.smsGuestList.textColor = [UIColor blackColor];
+        
+        
+    
+        // Make face smiling Again
+        self.phoneTextView.text = NSLocalizedString(@"😃", nil);
+        
+            
         self.ref = [[FIRDatabase database] reference];
         
         
@@ -608,9 +774,6 @@
             for(NSString *address in arr)
             {
                 
-                              if([address length] == 10)
-                              {
-                                  
                                   NSString *hostaddr = [[NSString alloc]init];
                                   
                                   if([[dict valueForKey:@"Address2"] length] > 0)
@@ -668,13 +831,8 @@
                     [_ref updateChildValues:childUpdates];
                     [smsList addObject:address];
                     //NSLog(@"PKEY for PHONE NUMBER %@",pKey);
-                } // If addr length = 10 ends
+                
     
-                else {
-                    
-                    [noneList addObject:address];
-                    
-                } // else ends
                 
                 
                 i++;
@@ -686,7 +844,7 @@
             
         }]; // DB Query ends
         
-        while([rowValue length]== 0 && [senderName length] ==0 && ([smsList count] == 0 || [noneList count] == 0)) {
+        while([rowValue length]== 0 && [senderName length] ==0 && [smsList count] == 0) {
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         }
         
@@ -723,39 +881,7 @@
             
         }
         
-    }
     
-    else {
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        
-        [ac addAction:aa];
-        [self presentViewController:ac animated:YES completion:nil];
-    }
-
-    
-         if([noneList count] > 0) {
-         
-         NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
-         NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:self.smsGuestList.text];
-             
-             for(NSString *temp in arr){
-                 for(NSString *tempNone in noneList){
-                 
-                        if([temp isEqualToString:tempNone]){
-                     
-                            
-                            NSRange range=[self.smsGuestList.text rangeOfString:temp];
-                            NSLog(@"None String Range is %@",NSStringFromRange(range));
-                            [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
-                        }
-                 }
-             }
-             [self.smsGuestList setAttributedText:string];
-         
-         }
-        
 
         
         

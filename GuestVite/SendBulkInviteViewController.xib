@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendBulkInviteViewController">
@@ -11,7 +12,9 @@
                 <outlet property="datePicker" destination="lnx-qD-85g" id="2G6-H8-pc8"/>
                 <outlet property="datePickerExpire" destination="C4u-RJ-0eS" id="TMK-7a-iAa"/>
                 <outlet property="eMailguestList" destination="PwQ-Pf-6fp" id="kNg-lU-0Yi"/>
+                <outlet property="emailTextView" destination="P1n-XO-G1S" id="SNM-Cf-RjE"/>
                 <outlet property="inviteMessage" destination="d8o-w3-8EW" id="col-Tm-REp"/>
+                <outlet property="phoneTextView" destination="rL0-vF-LlV" id="tKm-uB-FbJ"/>
                 <outlet property="scrollView" destination="vFd-dl-6Hx" id="b61-44-VX6"/>
                 <outlet property="segmentControl" destination="h8w-Wn-c9c" id="NuK-Bw-c1q"/>
                 <outlet property="sendBulkInviteBack" destination="2Yt-rp-LaL" id="h4q-aU-UUn"/>
@@ -64,10 +67,10 @@
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                         </textView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PwQ-Pf-6fp">
-                            <rect key="frame" x="8" y="117" width="292" height="78"/>
+                            <rect key="frame" x="8" y="117" width="268" height="78"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="295" id="3io-GW-qlp"/>
+                                <constraint firstAttribute="width" constant="250" id="3io-GW-qlp"/>
                                 <constraint firstAttribute="height" constant="80" id="edQ-Zh-zWC"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
@@ -87,11 +90,11 @@
                             </connections>
                         </button>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O6g-N8-VRL">
-                            <rect key="frame" x="9" y="36" width="292" height="68"/>
+                            <rect key="frame" x="9" y="36" width="267" height="68"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="80" id="Jwz-fy-0vN"/>
-                                <constraint firstAttribute="width" constant="295" id="hY6-FZ-mUK"/>
+                                <constraint firstAttribute="width" constant="250" id="hY6-FZ-mUK"/>
                             </constraints>
                             <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                             <textInputTraits key="textInputTraits" autocapitalizationType="sentences" keyboardAppearance="light"/>
@@ -124,12 +127,15 @@
                         <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="lnx-qD-85g">
                             <rect key="frame" x="53" y="229" width="138" height="40"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="300" id="0N4-sK-vwD"/>
+                                <constraint firstAttribute="width" constant="310" id="0N4-sK-vwD"/>
                                 <constraint firstAttribute="height" constant="50" id="4bH-o2-0TN"/>
                             </constraints>
                             <date key="date" timeIntervalSinceReferenceDate="498963518.36885297">
                                 <!--2016-10-24 00:58:38 +0000-->
                             </date>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="highlightsToday" value="NO"/>
+                            </userDefinedRuntimeAttributes>
                         </datePicker>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Invitation From" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V3B-0v-axC">
                             <rect key="frame" x="89" y="203" width="114" height="21"/>
@@ -144,11 +150,14 @@
                             <rect key="frame" x="65" y="301" width="138" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="50" id="4rt-3l-4K5"/>
-                                <constraint firstAttribute="width" constant="300" id="Reb-cT-70O"/>
+                                <constraint firstAttribute="width" constant="310" id="Reb-cT-70O"/>
                             </constraints>
                             <date key="date" timeIntervalSinceReferenceDate="498963518.36885297">
                                 <!--2016-10-24 00:58:38 +0000-->
                             </date>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="highlightsToday" value="NO"/>
+                            </userDefinedRuntimeAttributes>
                         </datePicker>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Invitation Till" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5iN-gQ-zX4">
                             <rect key="frame" x="86" y="273" width="96" height="21"/>
@@ -159,31 +168,51 @@
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="rL0-vF-LlV">
+                            <rect key="frame" x="279" y="61" width="33" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="40" id="lQ1-Kx-mGb"/>
+                                <constraint firstAttribute="height" constant="30" id="qnD-Ab-gHR"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="P1n-XO-G1S">
+                            <rect key="frame" x="279" y="135" width="33" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="30" id="AHn-De-bR7"/>
+                                <constraint firstAttribute="width" constant="40" id="scO-LU-FrO"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
                     </subviews>
                     <constraints>
                         <constraint firstItem="C4u-RJ-0eS" firstAttribute="top" secondItem="5iN-gQ-zX4" secondAttribute="bottom" constant="5" id="ADU-mW-2jr"/>
+                        <constraint firstItem="rL0-vF-LlV" firstAttribute="top" secondItem="h8w-Wn-c9c" secondAttribute="bottom" constant="30" id="AcU-zQ-gtp"/>
                         <constraint firstItem="d8o-w3-8EW" firstAttribute="top" secondItem="C4u-RJ-0eS" secondAttribute="bottom" constant="8" id="D8N-9a-eFC"/>
                         <constraint firstItem="C4u-RJ-0eS" firstAttribute="centerX" secondItem="vFd-dl-6Hx" secondAttribute="centerX" id="DaD-Ox-Og5"/>
-                        <constraint firstItem="PwQ-Pf-6fp" firstAttribute="centerX" secondItem="vFd-dl-6Hx" secondAttribute="centerX" id="Dbh-kB-Jdh"/>
                         <constraint firstItem="h8w-Wn-c9c" firstAttribute="top" secondItem="vFd-dl-6Hx" secondAttribute="top" constant="20" id="E0A-lj-zVh"/>
                         <constraint firstItem="lnx-qD-85g" firstAttribute="centerX" secondItem="vFd-dl-6Hx" secondAttribute="centerX" id="EqQ-zk-R84"/>
                         <constraint firstItem="lnx-qD-85g" firstAttribute="top" secondItem="V3B-0v-axC" secondAttribute="bottom" constant="5" id="LH8-tg-RXn"/>
-                        <constraint firstItem="h8w-Wn-c9c" firstAttribute="leading" secondItem="vFd-dl-6Hx" secondAttribute="leading" constant="-8" id="MAE-h7-XBG"/>
-                        <constraint firstItem="O6g-N8-VRL" firstAttribute="centerX" secondItem="vFd-dl-6Hx" secondAttribute="centerX" id="OI3-ym-wuC"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="h8w-Wn-c9c" secondAttribute="trailing" constant="-8" id="OV2-zF-msM"/>
                         <constraint firstItem="d8o-w3-8EW" firstAttribute="centerX" secondItem="vFd-dl-6Hx" secondAttribute="centerX" id="Psr-2f-XIK"/>
                         <constraint firstItem="PwQ-Pf-6fp" firstAttribute="leading" secondItem="O6g-N8-VRL" secondAttribute="leading" id="RQz-mg-LIz"/>
+                        <constraint firstItem="P1n-XO-G1S" firstAttribute="top" secondItem="rL0-vF-LlV" secondAttribute="bottom" constant="60" id="Rlu-Fx-kH2"/>
                         <constraint firstItem="nzy-GK-eRd" firstAttribute="leading" secondItem="vFd-dl-6Hx" secondAttribute="leading" id="VEg-Ue-d3V"/>
                         <constraint firstAttribute="trailing" secondItem="nzy-GK-eRd" secondAttribute="trailing" id="Yg1-7d-lMV"/>
+                        <constraint firstItem="P1n-XO-G1S" firstAttribute="leading" secondItem="PwQ-Pf-6fp" secondAttribute="trailing" constant="10" id="Ywr-Eb-Rby"/>
                         <constraint firstItem="V3B-0v-axC" firstAttribute="centerX" secondItem="vFd-dl-6Hx" secondAttribute="centerX" id="bZB-9p-m9T"/>
                         <constraint firstItem="V3B-0v-axC" firstAttribute="top" secondItem="PwQ-Pf-6fp" secondAttribute="bottom" constant="5" id="cbh-wD-Kbg"/>
                         <constraint firstItem="AMa-Mo-OYU" firstAttribute="top" secondItem="d8o-w3-8EW" secondAttribute="bottom" constant="10" id="dfS-pB-D4F"/>
                         <constraint firstItem="d8o-w3-8EW" firstAttribute="leading" secondItem="O6g-N8-VRL" secondAttribute="leading" id="fZG-WJ-vCK"/>
                         <constraint firstItem="O6g-N8-VRL" firstAttribute="top" secondItem="h8w-Wn-c9c" secondAttribute="bottom" constant="10" id="jGp-SV-Jjv"/>
+                        <constraint firstItem="h8w-Wn-c9c" firstAttribute="leading" secondItem="vFd-dl-6Hx" secondAttribute="leadingMargin" constant="-8" id="jrV-s6-HkG"/>
                         <constraint firstItem="5iN-gQ-zX4" firstAttribute="top" secondItem="lnx-qD-85g" secondAttribute="bottom" constant="8" id="k7P-md-IXJ"/>
                         <constraint firstItem="5iN-gQ-zX4" firstAttribute="centerX" secondItem="vFd-dl-6Hx" secondAttribute="centerX" id="k8C-5E-g6M"/>
+                        <constraint firstItem="rL0-vF-LlV" firstAttribute="leading" secondItem="O6g-N8-VRL" secondAttribute="trailing" constant="10" id="knI-1P-wub"/>
                         <constraint firstAttribute="bottom" secondItem="nzy-GK-eRd" secondAttribute="bottom" id="pXQ-7e-n3d"/>
                         <constraint firstItem="PwQ-Pf-6fp" firstAttribute="top" secondItem="O6g-N8-VRL" secondAttribute="bottom" constant="14" id="sBj-X1-tV8"/>
-                        <constraint firstAttribute="trailing" secondItem="h8w-Wn-c9c" secondAttribute="trailing" constant="-8" id="xDZ-p9-Vd6"/>
                         <constraint firstItem="NDq-zM-QHB" firstAttribute="top" secondItem="d8o-w3-8EW" secondAttribute="bottom" constant="10" id="xDg-n7-clA"/>
                     </constraints>
                 </scrollView>

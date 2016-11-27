@@ -110,6 +110,10 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
    //[self loadPhoneContacts];
+    // Disable E-Mail and SMS Guest List
+    
+    self.smsGuestList.editable = NO;
+    self.eMailguestList.editable = NO;
     
     
     
@@ -147,13 +151,13 @@
     
     self.ref = [[FIRDatabase database] reference];
     
-    self.eMailguestList.text = @"Enter Email Addressses here";
+    self.eMailguestList.text = @"Address Book Imported Email Addressses goes here";
     self.eMailguestList.textColor = [UIColor lightGrayColor];
     self.eMailguestList.layer.cornerRadius = 10.0;
     self.eMailguestList.layer.borderWidth = 1.0;
     self.eMailguestList.delegate = self;
     
-    self.smsGuestList.text = @"Enter Phone Numbers here";
+    self.smsGuestList.text = @"Address Book Imported Phone Numbers goes here";
     self.smsGuestList.textColor = [UIColor lightGrayColor];
     self.smsGuestList.layer.cornerRadius = 10.0;
     self.smsGuestList.layer.borderWidth = 1.0;

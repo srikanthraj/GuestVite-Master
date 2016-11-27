@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SendAddressBookInviteViewController">
@@ -115,12 +116,15 @@
                         <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="mrI-hF-LRo">
                             <rect key="frame" x="72" y="359" width="143" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="300" id="JR1-j0-vju"/>
+                                <constraint firstAttribute="width" constant="310" id="JR1-j0-vju"/>
                                 <constraint firstAttribute="height" constant="50" id="LvI-uJ-QaS"/>
                             </constraints>
                             <date key="date" timeIntervalSinceReferenceDate="498934002.71286601">
                                 <!--2016-10-23 16:46:42 +0000-->
                             </date>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="highlightsToday" value="NO"/>
+                            </userDefinedRuntimeAttributes>
                         </datePicker>
                         <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="2" translatesAutoresizingMaskIntoConstraints="NO" id="1t1-Ax-8XR">
                             <rect key="frame" x="0.0" y="19" width="320" height="29"/>
@@ -147,12 +151,15 @@
                         <datePicker contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="5" translatesAutoresizingMaskIntoConstraints="NO" id="UzK-56-Yfg">
                             <rect key="frame" x="89" y="282" width="143" height="30"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="300" id="6gP-rZ-4ab"/>
+                                <constraint firstAttribute="width" constant="310" id="6gP-rZ-4ab"/>
                                 <constraint firstAttribute="height" constant="50" id="LJB-uv-eTg"/>
                             </constraints>
                             <date key="date" timeIntervalSinceReferenceDate="498934002.71286601">
                                 <!--2016-10-23 16:46:42 +0000-->
                             </date>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="highlightsToday" value="NO"/>
+                            </userDefinedRuntimeAttributes>
                         </datePicker>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Invitation Till" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XpF-FE-7XQ">
                             <rect key="frame" x="108" y="325" width="96" height="21"/>
@@ -185,8 +192,8 @@
                         <constraint firstItem="vGK-jm-uev" firstAttribute="leading" secondItem="I7L-09-tA7" secondAttribute="leading" id="Sbz-Kj-KlS"/>
                         <constraint firstItem="JoZ-u9-g4e" firstAttribute="centerX" secondItem="I7L-09-tA7" secondAttribute="centerX" id="TGv-GN-tmC"/>
                         <constraint firstItem="JoZ-u9-g4e" firstAttribute="leading" secondItem="tkJ-5u-rDf" secondAttribute="leading" id="UKr-NS-FnS"/>
-                        <constraint firstItem="1t1-Ax-8XR" firstAttribute="leading" secondItem="I7L-09-tA7" secondAttribute="leading" constant="-8" id="V5u-6J-05Z"/>
-                        <constraint firstAttribute="trailing" secondItem="1t1-Ax-8XR" secondAttribute="trailing" constant="-8" id="iRQ-BX-KVX"/>
+                        <constraint firstItem="1t1-Ax-8XR" firstAttribute="leading" secondItem="I7L-09-tA7" secondAttribute="leadingMargin" constant="-8" id="V5u-6J-05Z"/>
+                        <constraint firstAttribute="trailingMargin" secondItem="1t1-Ax-8XR" secondAttribute="trailing" constant="-8" id="iRQ-BX-KVX"/>
                         <constraint firstItem="UzK-56-Yfg" firstAttribute="centerX" secondItem="I7L-09-tA7" secondAttribute="centerX" id="jEb-Gv-Pkn"/>
                         <constraint firstItem="JoZ-u9-g4e" firstAttribute="top" secondItem="tkJ-5u-rDf" secondAttribute="bottom" constant="14" id="lIs-e4-QXg"/>
                         <constraint firstItem="2ZU-nA-Chb" firstAttribute="top" secondItem="mrI-hF-LRo" secondAttribute="bottom" constant="8" id="mBJ-Wt-gOG"/>
