@@ -24,6 +24,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *eMailguestList;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *informSwitch;
 
 @property (weak, nonatomic) IBOutlet UITextView *phoneTextView;
 
@@ -304,7 +306,30 @@
     }
     
     
+    // If Message Text is first Responder, the move 70 for Characters remaining to be visible
     
+    
+    if(self.shouldKeyboardMoveUp && self.inviteMessage.isFirstResponder)
+    {
+        
+        
+        CGRect visibleRect = self.view.frame;
+        
+        visibleRect.size.height -= keyboardSize.height + 70; // Extra 70 for Done Button and characters remaining
+        
+        if (!CGRectContainsPoint(visibleRect, buttonOrigin)){
+            
+            CGPoint scrollPoint = CGPointMake(0.0, buttonOrigin.y - visibleRect.size.height + buttonHeight);
+            
+            [self.scrollView setContentOffset:scrollPoint animated:YES];
+            
+        }
+        
+        
+        
+    }
+    
+
     
     
 }
@@ -500,6 +525,32 @@
     
 }
 
+-(void)textViewDidChange:(UITextView *)textView
+{
+    
+    if(self.inviteMessage.isFirstResponder)
+    {
+    NSUInteger len = textView.text.length;
+    self.countLabel.text=[NSString stringWithFormat:@"%lu",100-(unsigned long)len];
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    
+    if(self.inviteMessage.isFirstResponder)
+    {
+    return self.inviteMessage.text.length + (text.length - range.length) <= 100;
+    }
+    
+    else {
+        return 100;
+    }
+    
+}
+
+
+
 -(void) clearFields {
     self.smsGuestList.text = @"Enter Phone Numbers here";
     self.smsGuestList.textColor = [UIColor lightGrayColor];
@@ -509,6 +560,9 @@
     
     self.inviteMessage.text = @"Personalized Message";
     self.inviteMessage.textColor = [UIColor lightGrayColor];
+    
+    self.countLabel.text = @"100";
+    self.informSwitch.on = YES;
     
 }
 
@@ -604,7 +658,6 @@
     
     //__block NSMutableArray *emailList = [[NSMutableArray alloc] init];
     
-    __block NSMutableArray *noneList = [[NSMutableArray alloc] init];
         
     NSMutableArray *badPhoneList = [[NSMutableArray alloc] init];
     
@@ -769,6 +822,13 @@
             
             NSDictionary *dict = snapshot.value;
             
+            NSString *sendMessages = [[NSString alloc]init];
+            if(self.informSwitch.isOn)
+                sendMessages = @"YES";
+            else
+                sendMessages = @"NO";
+            
+            
              NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
             int i =0;
             for(NSString *address in arr)
@@ -807,6 +867,7 @@
                                            @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                            @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                            @"Guest Location Status" : @"NOT_STARTED",
+                                           @"Host Send Messages" : sendMessages,
                                            };//Dict post
                     
                     
@@ -948,6 +1009,8 @@
     __block NSMutableString *senderName = [[NSMutableString alloc] init];
     
     //__block NSMutableArray *smsList = [[NSMutableArray alloc] init];
+        
+    NSMutableArray *badEMailList = [[NSMutableArray alloc] init];
     
     __block NSMutableArray *emailList = [[NSMutableArray alloc] init];
     
@@ -972,21 +1035,134 @@
         NSLog(@"FROM DATE %@",fromDate);
         
         NSLog(@"TO DATE %@",toDate);
-    
-    if([self.eMailguestList.text length] ==0) {
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"At Least One Guest Info is required"preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        // Check all E-Mails to see if anything is present in Bad E-Mail List
         
-        [ac addAction:aa];
-        [self presentViewController:ac animated:YES completion:nil];
-    }
-    
+        NSArray * arr = [self.eMailguestList.text componentsSeparatedByString:@"\n"];
+        
+        for(NSString *address in arr)
+        {
+            
+            
+            
+            if(![self validateEmailWithString:address] || [address length] ==0)
+                
+                [badEMailList addObject:address];
+            
+            
+        }
+        
+        NSLog(@"Bad E-Mail Addresses are %@",badEMailList);
+      
+        // 4 conditions to be checked
+        /*
+         
+         1. If( Error in E-Mail and From Date > To Date)
+         2. Else If (Error in E-Mail)
+         3. Else If (From date > To Date)
+         4. Else - Go Ahead and Add in DB
+         
+         */
+
+     
+        //1. If( Error in fields and From Date > To Date)
+        
+        if([badEMailList count] > 0 && !([fromDate compare:toDate] == NSOrderedAscending)) {
+            
+            // Mark bad E-Mail with red
+            
+            NSArray * arr = [self.eMailguestList.text componentsSeparatedByString:@"\n"];
+            NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:self.eMailguestList.text];
+            
+            for(NSString *temp in arr){
+                for(NSString *tempNone in badEMailList){
+                    
+                    if([temp isEqualToString:tempNone]){
+                        
+                        //NSLog(@"None String is %@",temp);
+                        
+                        NSRange range=[self.eMailguestList.text rangeOfString:temp];
+                        [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                    }
+                }
+            }
+            
+            [self.eMailguestList setAttributedText:string];
+            
+            
+            self.emailTextView.text = NSLocalizedString(@"😧", nil);
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the E-Mail addresses marked in red (May be you left an empty line?)",@"From Date cannot be later than To Date"]preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+        }
+   
+        
+      
+        // 2. Else If (Error in Fields)
+        
+        else if([badEMailList count] > 0) {
+            
+            // Mark bad Phone with red
+            
+            NSArray * arr = [self.eMailguestList.text componentsSeparatedByString:@"\n"];
+            NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:self.eMailguestList.text];
+            
+            for(NSString *temp in arr){
+                for(NSString *tempNone in badEMailList){
+                    
+                    if([temp isEqualToString:tempNone]){
+                        
+                        //NSLog(@"None String is %@",temp);
+                        
+                        NSRange range=[self.eMailguestList.text rangeOfString:temp];
+                        [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                    }
+                }
+            }
+            
+            [self.eMailguestList setAttributedText:string];
+            
+            
+            self.emailTextView.text = NSLocalizedString(@"😧", nil);
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check the E-Mail Addresses marked in red (May be you left an empty line?)"preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+            
+            
+        }
+  
+        
+        //  3. Else If (From date > To Date)
+        else if(!([fromDate compare:toDate] == NSOrderedAscending)) {
+            
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+        }
+
+        
+     //4. Else - Go Ahead and Add in DB
+        
     else{
         
-        if([fromDate compare:toDate] == NSOrderedAscending) // ONLY if from is earlier
-        {
+        // Mark E-Mail Addresses with Black
+        
+        self.eMailguestList.textColor = [UIColor blackColor];
+        
+        
+        
+        // Make face smiling Again
+        self.emailTextView.text = NSLocalizedString(@"😃", nil);
             
         self.ref = [[FIRDatabase database] reference];
         
@@ -1000,15 +1176,20 @@
             
             NSDictionary *dict = snapshot.value;
             
+            NSString *sendMessages = [[NSString alloc]init];
+            if(self.informSwitch.isOn)
+                sendMessages = @"YES";
+            else
+                sendMessages = @"NO";
+            
+            
             NSArray * arr = [self.eMailguestList.text componentsSeparatedByString:@"\n"];
             int i =0;
             for(NSString *address in arr)
             {
                 
                 
-                if([address containsString:@".com"])
-                {
-                    
+                
                     NSString *hostaddr = [[NSString alloc]init];
                     
                     if([[dict valueForKey:@"Address2"] length] > 0)
@@ -1043,6 +1224,7 @@
                                            @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                            @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                            @"Guest Location Status" : @"NOT_STARTED",
+                                           @"Host Send Messages" : sendMessages,
                                            };
                     
                     
@@ -1068,28 +1250,18 @@
                     NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", pKey]: post};
                     [_ref updateChildValues:childUpdates];
                     [emailList addObject:address];
-                    
-                }
-                
-                
-                
-                else {
-                    
-                    [noneList addObject:address];
-                    
-                }
                 
                 
                 i++;
                 
                 
-            }
+            }// For loop ends
             
             
             
-        }];
+        }]; // DB Query ends
         
-        while([rowValue length]== 0 && [senderName length] ==0 && ([emailList count] == 0 || [noneList count] == 0)) {
+        while([rowValue length]== 0 && [senderName length] ==0 && [emailList count] == 0) {
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         }
         
@@ -1112,49 +1284,10 @@
             [self presentViewController:mc animated:YES completion:NULL];
             
             
-            
         }
-        
-    }
-    
-    else {
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        
-        [ac addAction:aa];
-        [self presentViewController:ac animated:YES completion:nil];
-    }
 
     
-    
-    
-    }// else ends
-    
-        
-    
-    
-    if([noneList count] > 0) {
-        
-        NSArray * arr = [self.eMailguestList.text componentsSeparatedByString:@"\n"];
-        NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:self.eMailguestList.text];
-        
-        for(NSString *temp in arr){
-            for(NSString *tempNone in noneList){
-                
-                if([temp isEqualToString:tempNone]){
-                    
-                    //NSLog(@"None String is %@",temp);
-                    
-                    NSRange range=[self.eMailguestList.text rangeOfString:temp];
-                    [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
-                }
-            }
-        }
-        
-        [self.eMailguestList setAttributedText:string];
-        
-    }
+    }// Main else ends
     
         
     }// Network connectivity else ends
