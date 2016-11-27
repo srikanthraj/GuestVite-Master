@@ -1014,7 +1014,6 @@
     
     __block NSMutableArray *emailList = [[NSMutableArray alloc] init];
     
-    __block NSMutableArray *noneList = [[NSMutableArray alloc] init];
     
     __block NSString *startDateTime  = [[NSString alloc] init];
     

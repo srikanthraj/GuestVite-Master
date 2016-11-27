@@ -35,6 +35,11 @@
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
+@property (weak, nonatomic) IBOutlet UILabel *countLabel;
+
+@property (weak, nonatomic) IBOutlet UISwitch *informSwitch;
+
+
 @property (weak, nonatomic) IBOutlet UITextView *inviteMessage;
 
 @property (weak, nonatomic) IBOutlet UITextView *smsGuestList;
@@ -110,11 +115,9 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
    //[self loadPhoneContacts];
-    // Disable E-Mail and SMS Guest List
-    
-    self.smsGuestList.editable = NO;
+  
     self.eMailguestList.editable = NO;
-    
+    self.smsGuestList.editable = NO;
     
     
     // Do any additional setup after loading the view from its nib.
@@ -307,7 +310,29 @@
         
     }
     
+    // If Message Text is first Responder, the move 70 for Characters remaining to be visible
     
+    
+    if(self.shouldKeyboardMoveUp && self.inviteMessage.isFirstResponder)
+    {
+        
+        
+        CGRect visibleRect = self.view.frame;
+        
+        visibleRect.size.height -= keyboardSize.height + 70; // Extra 70 for Done Button and characters remaining
+        
+        if (!CGRectContainsPoint(visibleRect, buttonOrigin)){
+            
+            CGPoint scrollPoint = CGPointMake(0.0, buttonOrigin.y - visibleRect.size.height + buttonHeight);
+            
+            [self.scrollView setContentOffset:scrollPoint animated:YES];
+            
+        }
+        
+        
+        
+    }
+  
     
     
     
@@ -508,7 +533,7 @@
         [self.phoneContactsData addObject:[contactInfoDict objectForKey:@"mobileNumber"]];
     
         //NSLog(@"PHONE CONTACTS DATA %@",[contactInfoDict objectForKey:@"mobileNumber"]);
-    if([self.smsGuestList.text isEqualToString:@"Enter Phone Numbers here"]){
+    if([self.smsGuestList.text isEqualToString:@"Address Book Imported Phone Numbers goes here"]){
         self.smsGuestList.text = [tempo stringByAppendingString:@"\n"];
         
     }
@@ -544,7 +569,7 @@
         [self.phoneContactsData addObject:[contactInfoDict objectForKey:@"homeNumber"]];
         
         //NSLog(@"PHONE CONTACTS DATA %@",[contactInfoDict objectForKey:@"homeNumber"]);
-        if([self.smsGuestList.text isEqualToString:@"Enter Phone Numbers here"]){
+        if([self.smsGuestList.text isEqualToString:@"Address Book Imported Phone Numbers goes here"]){
             self.smsGuestList.text = [tempo stringByAppendingString:@"\n"];
             
         }
@@ -582,7 +607,7 @@
         
         //NSLog(@"EMAIL CONTACTS DATA %@",[contactInfoDict objectForKey:@"EMail"]);
     
-    if([self.eMailguestList.text isEqualToString:@"Enter Email Addressses here"]){
+    if([self.eMailguestList.text isEqualToString:@"Address Book Imported Email Addressses goes here"]){
         self.eMailguestList.text = [tempoEMail stringByAppendingString:@"\n"];
         
     }
@@ -748,13 +773,13 @@
     
     if(self.eMailguestList.isFirstResponder)
     {
-        if([self.eMailguestList.text isEqualToString:@"Enter Email Addressses here"]) {
+        if([self.eMailguestList.text isEqualToString:@"Address Book Imported Email Addressses goes here"]) {
             self.eMailguestList.text = @"";
             self.eMailguestList.textColor = [UIColor blackColor];
         }
         
         if([self.smsGuestList.text isEqualToString:@""]) {
-            self.smsGuestList.text = @"Enter Phone Numbers here";
+            self.smsGuestList.text = @"Address Book Imported Phone Numbers goes here";
             self.smsGuestList.textColor = [UIColor grayColor];
         }
         
@@ -768,13 +793,13 @@
     
     if(self.smsGuestList.isFirstResponder)
     {
-        if([self.smsGuestList.text isEqualToString:@"Enter Phone Numbers here"]) {
+        if([self.smsGuestList.text isEqualToString:@"Address Book Imported Phone Numbers goes here"]) {
             self.smsGuestList.text = @"";
             self.smsGuestList.textColor = [UIColor blackColor];
         }
         
         if([self.eMailguestList.text isEqualToString:@""]) {
-            self.eMailguestList.text = @"Enter Email Addressses here";
+            self.eMailguestList.text = @"Address Book Imported Email Addressses goes here";
             self.eMailguestList.textColor = [UIColor grayColor];
         }
         
@@ -793,12 +818,12 @@
         }
         
         if([self.eMailguestList.text isEqualToString:@""]) {
-            self.eMailguestList.text = @"Enter Email Addressses here";
+            self.eMailguestList.text = @"Address Book Imported Email Addressses goes here";
             self.eMailguestList.textColor = [UIColor grayColor];
         }
         
         if([self.smsGuestList.text isEqualToString:@""]) {
-            self.smsGuestList.text = @"Enter Phone Numbers here";
+            self.smsGuestList.text = @"Address Book Imported Phone Numbers goes here";
             self.smsGuestList.textColor = [UIColor grayColor];
         }
         
@@ -815,7 +840,7 @@
     {
         if(self.eMailguestList.text.length == 0){
             self.eMailguestList.textColor = [UIColor lightGrayColor];
-            self.eMailguestList.text = @"Enter Email Addressses here";
+            self.eMailguestList.text = @"Address Book Imported Email Addressses goes here";
             [self.eMailguestList resignFirstResponder];
         }
     }
@@ -825,7 +850,7 @@
     {
         if(self.smsGuestList.text.length == 0){
             self.smsGuestList.textColor = [UIColor lightGrayColor];
-            self.smsGuestList.text = @"Enter Phone Numbers here";
+            self.smsGuestList.text = @"Address Book Imported Phone Numbers goes here";
             [self.smsGuestList resignFirstResponder];
         }
     }
@@ -843,15 +868,45 @@
     
 }
 
+
+-(void)textViewDidChange:(UITextView *)textView
+{
+    
+    if(self.inviteMessage.isFirstResponder)
+    {
+        NSUInteger len = textView.text.length;
+        self.countLabel.text=[NSString stringWithFormat:@"%lu",100-(unsigned long)len];
+    }
+}
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+{
+    
+    if(self.inviteMessage.isFirstResponder)
+    {
+        return self.inviteMessage.text.length + (text.length - range.length) <= 100;
+    }
+    
+    else {
+        return 100;
+    }
+    
+}
+
+
+
 -(void) clearFields {
-    self.smsGuestList.text = @"Enter Phone Numbers here";
+    self.smsGuestList.text = @"Address Book Imported Phone Numbers goes here";
     self.smsGuestList.textColor = [UIColor lightGrayColor];
     
-    self.eMailguestList.text = @"Enter Email Addresses here";
+    self.eMailguestList.text = @"Address Book Imported Email Addressses goes here";
     self.eMailguestList.textColor = [UIColor lightGrayColor];
     
     self.inviteMessage.text = @"Personalized Message";
     self.inviteMessage.textColor = [UIColor lightGrayColor];
+    
+    self.countLabel.text = @"100";
+    self.informSwitch.on = YES;
     
 }
 
@@ -960,6 +1015,14 @@
         [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             
             NSDictionary *dict = snapshot.value;
+            
+            NSString *sendMessages = [[NSString alloc]init];
+            if(self.informSwitch.isOn)
+                sendMessages = @"YES";
+            else
+                sendMessages = @"NO";
+            
+            
             for(NSString *address in self.phoneContactsData){
                 
                 //NSLog(@"PRINTING Phone contacts Data %@", address);
@@ -1015,6 +1078,7 @@
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"NOT_STARTED",
+                                       @"Host Send Messages" : sendMessages,
                                        };//Dict post
                 
                 
@@ -1181,6 +1245,14 @@
             
             NSDictionary *dict = snapshot.value;
 
+            NSString *sendMessages = [[NSString alloc]init];
+            if(self.informSwitch.isOn)
+                sendMessages = @"YES";
+            else
+                sendMessages = @"NO";
+
+            
+            
             for(NSString *address in self.emailContactsData){
                 
                 
@@ -1230,6 +1302,7 @@
                                        @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
                                        @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
                                        @"Guest Location Status" : @"NOT_STARTED",
+                                       @"Host Send Messages" : sendMessages,
                                        };
                 NSTimeInterval timeInSeconds = [[NSDate date] timeIntervalSince1970];
                 NSString *intervalString = [NSString stringWithFormat:@"%f", timeInSeconds];
