@@ -27,6 +27,18 @@
 @property (weak, nonatomic) IBOutlet UINavigationBar *updateInfoBack;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
 
+
+//Text Views
+
+@property (weak, nonatomic) IBOutlet UITextView *nameTextView;
+
+
+@property (weak, nonatomic) IBOutlet UITextView *addr1TextView;
+@property (weak, nonatomic) IBOutlet UITextView *addr2TextView;
+@property (weak, nonatomic) IBOutlet UITextView *cityTextView;
+@property (weak, nonatomic) IBOutlet UITextView *zipTextView;
+@property (weak, nonatomic) IBOutlet UITextView *phoneTextView;
+
 @end
 
 @implementation UpdateInfoViewController
@@ -44,6 +56,25 @@ NSMutableString *zip;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    //Initialize Text Views
+    
+    self.nameTextView.text = NSLocalizedString(@"😃", nil);
+    self.addr1TextView.text = NSLocalizedString(@"😃", nil);
+    //If Address 2 is filled then smile
+    self.addr2TextView.text = NSLocalizedString(@"😃", nil);
+    self.cityTextView.text = NSLocalizedString(@"😃", nil);
+    self.zipTextView.text = NSLocalizedString(@"😃", nil);
+    self.phoneTextView.text = NSLocalizedString(@"😃", nil);
+    
+    self.nameTextView.editable = NO;
+    self.addr1TextView.editable = NO;
+    self.addr2TextView.editable = NO;
+    self.cityTextView.editable = NO;
+    self.zipTextView.editable = NO;
+    self.phoneTextView.editable = NO;
+    
+    
     
     self.resultField.hidden = YES;
     name = [[NSMutableString alloc]init];
