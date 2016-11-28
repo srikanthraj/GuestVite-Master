@@ -224,8 +224,13 @@ NSMutableString *zip;
     else
         self.addr2TextView.text = NSLocalizedString(@"😐", nil);
     
+    [self setNeedsStatusBarAppearanceUpdate];
+    
 }
 
+-(UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
+}
 
 -(void)doneClicked:(id)sender
 {

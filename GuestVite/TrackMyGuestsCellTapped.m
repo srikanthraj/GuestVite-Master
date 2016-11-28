@@ -31,6 +31,7 @@
 @property (weak, nonatomic) IBOutlet UINavigationBar *myGuestsLocationBack;
 
 @property(nonatomic,assign) BOOL mapIsMoving;
+@property (weak, nonatomic) IBOutlet UILabel *etaTimeLabel;
 
 
 
@@ -116,6 +117,46 @@ float totalDistance;
 }
 
 
+-(NSString *) findETA:(CLLocationDegrees)destLatitude withDestLongitude:(CLLocationDegrees)destLongitude withSourceLatitude:(CLLocationDegrees)sourceLatitude withSourceLongitude:(CLLocationDegrees)sourceLongitude{
+    
+    
+    MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
+    
+    MKPlacemark *sourcePlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(sourceLatitude,sourceLongitude) addressDictionary:nil];
+    
+    [request setSource:[[MKMapItem alloc] initWithPlacemark:sourcePlacemark]];
+    
+    
+    MKPlacemark *destPlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(destLatitude,destLongitude) addressDictionary:nil];
+    
+    [request setDestination:[[MKMapItem alloc] initWithPlacemark:destPlacemark]];
+    
+    __block NSString *myETA = [[NSString alloc] init];
+    
+    [request setTransportType:MKDirectionsTransportTypeAutomobile];
+    [request setRequestsAlternateRoutes:NO];
+    MKDirections *directions = [[MKDirections alloc] initWithRequest:request];
+    [directions calculateDirectionsWithCompletionHandler:^(MKDirectionsResponse *response, NSError *error) {
+        
+        if ( ! error && [response routes] > 0) {
+            MKRoute *route = [[response routes] objectAtIndex:0];
+            //NSLog(@"Distance is %f" ,route.distance * 0.000621371);
+            NSLog(@"ETA INSIDE FUNCTION IS %f",route.expectedTravelTime/60);
+            myETA = [NSString stringWithFormat:@"%f",route.expectedTravelTime/60];
+            
+        }
+    }];
+    
+    while([myETA length] == 0){
+        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+        NSLog(@"In Loop");
+    }
+    NSLog(@"ETA OUTSIDE FUNCTION IS %@",myETA);
+    return(myETA);
+}
+
+
+
 -(void)refreshLocation {
     
     hostLatitude = [[NSMutableString alloc]init];
@@ -133,6 +174,8 @@ float totalDistance;
     __block NSMutableString *myGuestLongitude = [[NSMutableString alloc]init];
     
     __block NSMutableString *myGuestStatus = [[NSMutableString alloc]init];
+    
+    
     
     
     self.ref = [[FIRDatabase database] reference];
@@ -171,6 +214,20 @@ float totalDistance;
     [self addAnnotations];
     
     [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+    
+    NSString *eta = [self findETA:[hostLatitude doubleValue] withDestLongitude: [hostLongitude doubleValue] withSourceLatitude: [guestLatitude doubleValue] withSourceLongitude:[guestLongitude doubleValue]];
+    //Update ETA
+    NSLog(@"ETA IS %@",eta);
+    // Change eta to time
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"hh:mm a"];
+    NSDateComponents *components= [[NSDateComponents alloc] init];
+    [components setMinute:[eta integerValue]];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *myNewDate=[calendar dateByAddingComponents:components toDate:[NSDate date] options:0];
+    
+    self.etaTimeLabel.text = [formatter stringFromDate:myNewDate];
    
     NSLog(@"Guest Status inside refresh Location is %@",guestStatus);
     

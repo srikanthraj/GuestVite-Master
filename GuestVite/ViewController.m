@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "RegPageViewController.h"
-#import "TextFieldValidator.h"
+
 #import "HomePageViewController.h"
 
 
@@ -24,9 +24,9 @@
 
 
 @property (weak, nonatomic) IBOutlet UIButton *loginButton;
-@property (weak, nonatomic) IBOutlet TextFieldValidator *emailField;
+@property (weak, nonatomic) IBOutlet UITextField *emailField;
 
-@property (weak, nonatomic) IBOutlet TextFieldValidator *passwordField;
+@property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @property (weak, nonatomic) IBOutlet UIButton *forgotButton;
 
@@ -34,6 +34,7 @@
 
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 
+@property (nonatomic) BOOL entryErrorEMail;
 
 @end
 
@@ -49,12 +50,14 @@ NSUInteger currIndex;
     
      [self setNeedsStatusBarAppearanceUpdate];
     
+    
+    self.entryErrorEMail = YES;
     self.ref = [[FIRDatabase database] reference];
     
     UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
     [keyboardDoneButtonView sizeToFit];
     UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
-                                                                   style:UIBarButtonItemStyleBordered target:self
+                                                                   style:UIBarButtonItemStylePlain target:self
                                                                   action:@selector(doneClicked:)];
     
     
@@ -147,16 +150,26 @@ NSUInteger currIndex;
                                     }];
 }
 
+
+- (BOOL)validateEmailWithString:(NSString*)checkString
+{
+    BOOL stricterFilter = NO;
+    NSString *stricterFilterString = @"[A-Z0-9a-z\\._%+-]+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2,4}";
+    NSString *laxString = @".+@([A-Za-z0-9-]+\\.)+[A-Za-z]{2}[A-Za-z]*";
+    NSString *emailRegex = stricterFilter ? stricterFilterString : laxString;
+    NSPredicate *emailTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", emailRegex];
+    return [emailTest evaluateWithObject:checkString];
+}
+
+
 - (IBAction)loginTapped:(id)sender {
     
     signedOut = FALSE;
-    // Add regex for validating email id
-    [self.emailField addRegx:@"[A-Z0-9a-z._%+-]{3,}+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}" withMsg:@"Enter valid email."];
-    
-    [self.passwordField addRegx:@"[A-Z0-9a-z._%+-]{3,}" withMsg:@"Password Field does not meet requirements"];
+
     
     NSString *eMailEntered = self.emailField.text;
     NSString *passwordEntered = self.passwordField.text;
+    
     
     
     [[FIRAuth auth] signInWithEmail:eMailEntered
@@ -165,7 +178,51 @@ NSUInteger currIndex;
                         
 
                              
-                             if(error){
+                             if(![self validateEmailWithString:eMailEntered] && [passwordEntered length] == 0) {
+                                 
+                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the format of your E-Mail Address and try again",@"Password Field is empty, please Enter the password"]preferredStyle:UIAlertControllerStyleAlert];
+                                 
+                                 UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                                 
+                                 [ac addAction:aa];
+                                 [self presentViewController:ac animated:YES completion:nil];
+                                 
+                             }
+
+                             else if(![self validateEmailWithString:eMailEntered] && [passwordEntered length] <= 6) {
+                                 
+                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the format of your E-Mail Address and try again",@"Please check your password and try again"]preferredStyle:UIAlertControllerStyleAlert];
+                                 
+                                 UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                                 
+                                 [ac addAction:aa];
+                                 [self presentViewController:ac animated:YES completion:nil];
+                                 
+                             }
+                             
+                             else if(![self validateEmailWithString:eMailEntered]) {
+                                 
+                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check the format of your E-Mail Address and try again"preferredStyle:UIAlertControllerStyleAlert];
+                                 
+                                 UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                                 
+                                 [ac addAction:aa];
+                                 [self presentViewController:ac animated:YES completion:nil];
+                                 
+                             }
+                             
+                             
+                             else if([passwordEntered length] == 0) {
+                                 
+                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Password Field is empty, please Enter the password"preferredStyle:UIAlertControllerStyleAlert];
+                                 
+                                 UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                                 
+                                 [ac addAction:aa];
+                                 [self presentViewController:ac animated:YES completion:nil];
+                             }
+                             
+                             else if(error){
                                  
                                  UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Incorrect Password, please try again!"preferredStyle:UIAlertControllerStyleAlert];
                                  

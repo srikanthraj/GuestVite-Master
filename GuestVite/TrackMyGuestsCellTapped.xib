@@ -8,6 +8,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TrackMyGuestsCellTapped">
             <connections>
                 <outlet property="backButton" destination="CU6-SH-f5i" id="gli-FM-9Jm"/>
+                <outlet property="etaTimeLabel" destination="lvJ-Si-OST" id="mOK-vV-Qgi"/>
                 <outlet property="mapView" destination="XeW-vm-c3p" id="Cdl-MT-aGn"/>
                 <outlet property="myGuestsLocationBack" destination="uuV-vf-Voi" id="GUv-ax-Zqb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -18,8 +19,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <navigationBar contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uuV-vf-Voi">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuV-vf-Voi">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                     <color key="backgroundColor" red="0.16217732570000001" green="0.1053099518" blue="0.21904469970000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="60" id="K1c-YO-tG4"/>
@@ -40,21 +41,40 @@
                     </items>
                 </navigationBar>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XeW-vm-c3p">
-                    <rect key="frame" x="0.0" y="44" width="320" height="524"/>
+                    <rect key="frame" x="0.0" y="44" width="320" height="465"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="xFV-EX-Vqh"/>
                     </connections>
                 </mapView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Estimated Time Of Guest's Arrival" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svh-Jz-9dB">
+                    <rect key="frame" x="8" y="529" width="202" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="202" id="jLX-M6-b6L"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvJ-Si-OST">
+                    <rect key="frame" x="211" y="529" width="58" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="XeW-vm-c3p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="B48-uZ-uKk"/>
                 <constraint firstItem="uuV-vf-Voi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="HWv-vn-8m1"/>
                 <constraint firstItem="uuV-vf-Voi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="O0r-F4-etk"/>
+                <constraint firstAttribute="bottom" secondItem="lvJ-Si-OST" secondAttribute="bottom" constant="15" id="Ojp-eX-w1P"/>
                 <constraint firstItem="XeW-vm-c3p" firstAttribute="top" secondItem="uuV-vf-Voi" secondAttribute="bottom" id="RWo-00-VRK"/>
-                <constraint firstAttribute="bottom" secondItem="XeW-vm-c3p" secondAttribute="bottom" id="av9-VU-GPM"/>
+                <constraint firstItem="svh-Jz-9dB" firstAttribute="top" secondItem="XeW-vm-c3p" secondAttribute="bottom" constant="10" id="Xc1-cv-90j"/>
+                <constraint firstItem="svh-Jz-9dB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="ec0-Vj-Gju"/>
+                <constraint firstItem="lvJ-Si-OST" firstAttribute="leading" secondItem="svh-Jz-9dB" secondAttribute="trailing" constant="2" id="gIE-rk-5cv"/>
                 <constraint firstAttribute="trailing" secondItem="XeW-vm-c3p" secondAttribute="trailing" id="gwt-Q9-Caw"/>
                 <constraint firstAttribute="trailing" secondItem="uuV-vf-Voi" secondAttribute="trailing" id="k3Y-ki-dGu"/>
+                <constraint firstAttribute="bottom" secondItem="svh-Jz-9dB" secondAttribute="bottom" constant="15" id="zCq-0a-5kr"/>
             </constraints>
             <point key="canvasLocation" x="139" y="371"/>
         </view>

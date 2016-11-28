@@ -727,11 +727,13 @@
         for(NSString *temp in arr){
             for(NSString *tempNone in badPhoneList){
                 
+                NSLog(@"Comparing %@ against %@",tempNone,temp);
                 if([temp isEqualToString:tempNone]){
                     
                     //NSLog(@"None String is %@",temp);
                     
-                    NSRange range=[self.smsGuestList.text rangeOfString:temp];
+                    NSRange range=[temp rangeOfString:tempNone options:NSCaseInsensitiveSearch];
+                    NSLog(@"RANGE IS %lu",(unsigned long)range.location);
                     [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
                 }
             }

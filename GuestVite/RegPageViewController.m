@@ -8,7 +8,6 @@
 
 #import "RegPageViewController.h"
 #import "HomePageViewController.h"
-#include "TextFieldValidator.h"
 #import "VMaskTextField.h"
 #import "CNPPopupController.h"
 #import "Reachability.h"

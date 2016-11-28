@@ -4,11 +4,6 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>AJWValidator.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>APAddressBook.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -102,27 +97,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>31D130E2E144F947652BDACEFC2D50A4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>37824912FED5A8D04A023227F62976EB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>611A56531AE8BFDB2320359150B8A900</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>65492978765A2F1170D727B2E3E455E5</key>
+		<key>63C2E5391A7EA6C2AD95F46FEB616051</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>73615AB1195988E96A2149E6ED019E40</key>
+		<key>688CEDB508887B3550D0AD4B7D516F68</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -137,7 +122,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BC6FDE344170335A53782C0E1F0005B3</key>
+		<key>ABE0BEF4552F90EBE3BC0B0C49B98B7B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>B6113799E00E8E78DECCB347C4935C41</key>
 		<dict>
 			<key>primary</key>
 			<true/>

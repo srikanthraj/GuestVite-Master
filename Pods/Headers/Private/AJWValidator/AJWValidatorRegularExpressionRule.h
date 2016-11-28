@@ -1,1 +1,0 @@
-../../../AJWValidator/AJWValidator/AJWValidatorRegularExpressionRule.h

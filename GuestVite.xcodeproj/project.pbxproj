@@ -56,7 +56,6 @@
 		847340711DA977CD0038C047 /* HomePageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8473406F1DA977CD0038C047 /* HomePageViewController.xib */; };
 		847340751DA979A50038C047 /* RegPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847340731DA979A50038C047 /* RegPageViewController.m */; };
 		847340761DA979A50038C047 /* RegPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847340741DA979A50038C047 /* RegPageViewController.xib */; };
-		8473407B1DA983F10038C047 /* TextFieldValidator.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473407A1DA983F10038C047 /* TextFieldValidator.m */; };
 		84A410B11DCC03D800216DEA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A410B01DCC03D800216DEA /* CoreLocation.framework */; };
 		84A410B31DCC071000216DEA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A410B21DCC071000216DEA /* MapKit.framework */; };
 		84A77E201DDA7A5A00F1CF36 /* PageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A77E1F1DDA7A5A00F1CF36 /* PageContentViewController.m */; };
@@ -162,8 +161,6 @@
 		847340721DA979A50038C047 /* RegPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegPageViewController.h; sourceTree = "<group>"; };
 		847340731DA979A50038C047 /* RegPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegPageViewController.m; sourceTree = "<group>"; };
 		847340741DA979A50038C047 /* RegPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegPageViewController.xib; sourceTree = "<group>"; };
-		847340791DA983F10038C047 /* TextFieldValidator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldValidator.h; path = "../../../../Downloads/TextFieldValidator-master/TextFieldValidator/TextFieldValidator.h"; sourceTree = "<group>"; };
-		8473407A1DA983F10038C047 /* TextFieldValidator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextFieldValidator.m; path = "../../../../Downloads/TextFieldValidator-master/TextFieldValidator/TextFieldValidator.m"; sourceTree = "<group>"; };
 		84A410B01DCC03D800216DEA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84A410B21DCC071000216DEA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		84A77E1E1DDA7A5A00F1CF36 /* PageContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageContentViewController.h; sourceTree = "<group>"; };
@@ -380,8 +377,6 @@
 				847340481DA937670038C047 /* main.m */,
 				84267BFF1DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.h */,
 				84267C001DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m */,
-				847340791DA983F10038C047 /* TextFieldValidator.h */,
-				8473407A1DA983F10038C047 /* TextFieldValidator.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -544,7 +539,6 @@
 				84267C391DBBC81E0044ACF4 /* DMLazyScrollView.m in Sources */,
 				84D53A4D1DCF8C8400FF7643 /* TrackMyGuestsCellTapped.m in Sources */,
 				84267C6C1DC2C1600044ACF4 /* PrevInvRecvdViewController.m in Sources */,
-				8473407B1DA983F10038C047 /* TextFieldValidator.m in Sources */,
 				8462B1521DD772EF003F553F /* MyAcceptedInvitesViewController.m in Sources */,
 				84267C351DBBBF1C0044ACF4 /* SACalendar.m in Sources */,
 				847340701DA977CD0038C047 /* HomePageViewController.m in Sources */,

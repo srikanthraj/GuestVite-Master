@@ -312,8 +312,9 @@ NSString *myAcceptedInviteSelcetedKey;
     
     // Do any additional setup after loading the view from its nib.
     
-    
+        
 }
+
 
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
@@ -938,8 +939,7 @@ NSString *myAcceptedInviteSelcetedKey;
     
     CLLocation *destLoc = [[CLLocation alloc] initWithLatitude:dest.latitude longitude:dest.longitude];
     
-    NSLog(@"DISTANCE BETWEEN SOURCE TO DESTINATION IS %f",[locations.lastObject distanceFromLocation:destLoc]*0.000621371);
-    
+  
     
     
     
@@ -952,6 +952,7 @@ NSString *myAcceptedInviteSelcetedKey;
     if([locations.lastObject distanceFromLocation:destLoc]*0.000621371 < 0.2){
         
         [self.locationManager stopUpdatingLocation];
+        
         
         // DB Updates to REACHED
         
