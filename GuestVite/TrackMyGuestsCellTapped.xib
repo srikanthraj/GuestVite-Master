@@ -9,7 +9,9 @@
             <connections>
                 <outlet property="backButton" destination="CU6-SH-f5i" id="gli-FM-9Jm"/>
                 <outlet property="etaTimeLabel" destination="lvJ-Si-OST" id="mOK-vV-Qgi"/>
+                <outlet property="indicator" destination="J6W-ce-Bql" id="gFV-pF-44l"/>
                 <outlet property="mapView" destination="XeW-vm-c3p" id="Cdl-MT-aGn"/>
+                <outlet property="mileLabel" destination="5B2-yC-NQ8" id="Sug-Ct-IZC"/>
                 <outlet property="myGuestsLocationBack" destination="uuV-vf-Voi" id="GUv-ax-Zqb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -19,6 +21,9 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" misplaced="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="J6W-ce-Bql">
+                    <rect key="frame" x="147" y="236" width="320" height="448"/>
+                </activityIndicatorView>
                 <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uuV-vf-Voi">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
                     <color key="backgroundColor" red="0.16217732570000001" green="0.1053099518" blue="0.21904469970000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -41,13 +46,13 @@
                     </items>
                 </navigationBar>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="XeW-vm-c3p">
-                    <rect key="frame" x="0.0" y="44" width="320" height="465"/>
+                    <rect key="frame" x="0.0" y="44" width="320" height="449"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="xFV-EX-Vqh"/>
                     </connections>
                 </mapView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Estimated Time Of Guest's Arrival" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svh-Jz-9dB">
-                    <rect key="frame" x="8" y="529" width="202" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Estimated Time Of Guest's Arrival" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="svh-Jz-9dB">
+                    <rect key="frame" x="8" y="501" width="202" height="21"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="202" id="jLX-M6-b6L"/>
                     </constraints>
@@ -55,8 +60,26 @@
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvJ-Si-OST">
-                    <rect key="frame" x="211" y="529" width="58" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lvJ-Si-OST">
+                    <rect key="frame" x="211" y="501" width="58" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Distance Remaining" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZjR-wp-4LI">
+                    <rect key="frame" x="8" y="530" width="125" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="125" id="p2p-Le-o2l"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="--" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5B2-yC-NQ8">
+                    <rect key="frame" x="123" y="530" width="159" height="21"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="160" id="lBh-F3-Q4v"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                     <nil key="highlightedColor"/>
@@ -64,17 +87,28 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
+                <constraint firstItem="ZjR-wp-4LI" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="AWi-dy-bnU"/>
                 <constraint firstItem="XeW-vm-c3p" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="B48-uZ-uKk"/>
+                <constraint firstItem="J6W-ce-Bql" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="FGh-0K-Iwa"/>
+                <constraint firstItem="J6W-ce-Bql" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="HEQ-3O-ESi"/>
                 <constraint firstItem="uuV-vf-Voi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="HWv-vn-8m1"/>
+                <constraint firstItem="J6W-ce-Bql" firstAttribute="top" secondItem="uuV-vf-Voi" secondAttribute="bottom" id="LbJ-bE-YhV"/>
                 <constraint firstItem="uuV-vf-Voi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="O0r-F4-etk"/>
-                <constraint firstAttribute="bottom" secondItem="lvJ-Si-OST" secondAttribute="bottom" constant="15" id="Ojp-eX-w1P"/>
+                <constraint firstAttribute="bottom" secondItem="ZjR-wp-4LI" secondAttribute="bottom" constant="5" id="PuH-SL-5wT"/>
                 <constraint firstItem="XeW-vm-c3p" firstAttribute="top" secondItem="uuV-vf-Voi" secondAttribute="bottom" id="RWo-00-VRK"/>
-                <constraint firstItem="svh-Jz-9dB" firstAttribute="top" secondItem="XeW-vm-c3p" secondAttribute="bottom" constant="10" id="Xc1-cv-90j"/>
-                <constraint firstItem="svh-Jz-9dB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="ec0-Vj-Gju"/>
+                <constraint firstItem="svh-Jz-9dB" firstAttribute="top" secondItem="XeW-vm-c3p" secondAttribute="bottom" constant="5" id="Xc1-cv-90j"/>
+                <constraint firstItem="5B2-yC-NQ8" firstAttribute="leading" secondItem="ZjR-wp-4LI" secondAttribute="trailing" constant="2" id="YRd-tl-3w3"/>
+                <constraint firstItem="5B2-yC-NQ8" firstAttribute="top" secondItem="lvJ-Si-OST" secondAttribute="bottom" constant="8" id="a1M-j4-jhb"/>
+                <constraint firstAttribute="bottom" secondItem="5B2-yC-NQ8" secondAttribute="bottom" constant="5" id="bC3-6i-N8U"/>
+                <constraint firstItem="svh-Jz-9dB" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="10" id="ec0-Vj-Gju"/>
+                <constraint firstItem="ZjR-wp-4LI" firstAttribute="top" secondItem="svh-Jz-9dB" secondAttribute="bottom" constant="8" id="ete-hg-jeq"/>
+                <constraint firstItem="svh-Jz-9dB" firstAttribute="top" secondItem="J6W-ce-Bql" secondAttribute="bottom" constant="5" id="fo3-Qd-Xp1"/>
                 <constraint firstItem="lvJ-Si-OST" firstAttribute="leading" secondItem="svh-Jz-9dB" secondAttribute="trailing" constant="2" id="gIE-rk-5cv"/>
                 <constraint firstAttribute="trailing" secondItem="XeW-vm-c3p" secondAttribute="trailing" id="gwt-Q9-Caw"/>
                 <constraint firstAttribute="trailing" secondItem="uuV-vf-Voi" secondAttribute="trailing" id="k3Y-ki-dGu"/>
-                <constraint firstAttribute="bottom" secondItem="svh-Jz-9dB" secondAttribute="bottom" constant="15" id="zCq-0a-5kr"/>
+                <constraint firstAttribute="trailing" secondItem="J6W-ce-Bql" secondAttribute="trailing" id="rX9-n6-0gz"/>
+                <constraint firstItem="J6W-ce-Bql" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="sP1-RW-mL7"/>
+                <constraint firstItem="lvJ-Si-OST" firstAttribute="top" secondItem="XeW-vm-c3p" secondAttribute="bottom" constant="5" id="xUJ-r5-jHe"/>
             </constraints>
             <point key="canvasLocation" x="139" y="371"/>
         </view>

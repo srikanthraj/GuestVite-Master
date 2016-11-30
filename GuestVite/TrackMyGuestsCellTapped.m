@@ -34,7 +34,10 @@
 @property (weak, nonatomic) IBOutlet UILabel *etaTimeLabel;
 
 
+@property (weak, nonatomic) IBOutlet UILabel *mileLabel;
 
+
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *indicator;
 
 @end
 
@@ -42,6 +45,7 @@
 
 NSMutableString *hostLatitude;
 NSMutableString *hostLongitude;
+
 NSMutableString *guestLatitude;
 NSMutableString *guestLongitude;
 NSMutableString *guestStatus;
@@ -57,15 +61,15 @@ float totalDistance;
 -(void) viewDidAppear:(BOOL)animated{
     
     
+    //NSLog(@"View DID APPEAR");
     if ([guestStatus isEqualToString:@"REACHED"]) {
         
         
-        NSLog(@"SHOW THIS!!");
+        //NSLog(@"SHOW THIS!!");
         
         UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy your time!"preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        
         [ac addAction:aa];
         [self presentViewController:ac animated:YES completion:nil];
         
@@ -89,9 +93,10 @@ float totalDistance;
     
     else if([guestStatus isEqualToString:@"NOT_STARTED"]){
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Not started yet"preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Not started yet, PLease check later"preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+
         
         [ac addAction:aa];
         [self presentViewController:ac animated:YES completion:nil];
@@ -105,33 +110,49 @@ float totalDistance;
         self.mapIsMoving  = NO;
         self.mapView.camera.altitude *= 1.4;
         
-        newTimer =  [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(refreshLocation) userInfo:nil repeats:YES];
+        [self.view addSubview:self.indicator];
+        [self.indicator startAnimating];
+        
+        [self.indicator.layer setBackgroundColor:[[UIColor colorWithWhite: 0.0 alpha:0.30] CGColor]];
+        CGPoint center = self.view.center;
+        self.indicator.center = center;
+
+        
+    newTimer =  [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(refreshLocation) userInfo:nil repeats:YES];
         
             }
 
     
     
     
-    NSLog(@"View Did apperar");
+ 
     [self.navigationController.navigationBar setFrame:CGRectMake(0, 0, self.view.frame.size.width,80.0)];
 }
 
 
--(NSString *) findETA:(CLLocationDegrees)destLatitude withDestLongitude:(CLLocationDegrees)destLongitude withSourceLatitude:(CLLocationDegrees)sourceLatitude withSourceLongitude:(CLLocationDegrees)sourceLongitude{
+
+// Test - Find ETA method
+
+
+-(void) findETA:(CLLocationDegrees)hostLati withHostLongitude:(CLLocationDegrees)hostLongi withGuestLatitude:(CLLocationDegrees)guestLati withGuestLongitude:(CLLocationDegrees)guestLongi{
     
+    
+    NSLog(@"Parameters Received In ETA - Host Latitude %f",hostLati);
+    NSLog(@"Parameters Received In ETA - Host Longitude %f",hostLongi);
+    NSLog(@"Parameters Received In ETA - Guest Latitude %f",guestLati);
+    NSLog(@"Parameters Received In ETA - Guest Latitude %f",guestLongi);
     
     MKDirectionsRequest *request = [[MKDirectionsRequest alloc] init];
     
-    MKPlacemark *sourcePlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(sourceLatitude,sourceLongitude) addressDictionary:nil];
+    MKPlacemark *guestPlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(guestLati,guestLongi) addressDictionary:nil];
     
-    [request setSource:[[MKMapItem alloc] initWithPlacemark:sourcePlacemark]];
+    [request setSource:[[MKMapItem alloc] initWithPlacemark:guestPlacemark]];
     
     
-    MKPlacemark *destPlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(destLatitude,destLongitude) addressDictionary:nil];
+    MKPlacemark *hostPlacemark = [[MKPlacemark alloc] initWithCoordinate:CLLocationCoordinate2DMake(hostLati,hostLongi) addressDictionary:nil];
     
-    [request setDestination:[[MKMapItem alloc] initWithPlacemark:destPlacemark]];
+    [request setDestination:[[MKMapItem alloc] initWithPlacemark:hostPlacemark]];
     
-    __block NSString *myETA = [[NSString alloc] init];
     
     [request setTransportType:MKDirectionsTransportTypeAutomobile];
     [request setRequestsAlternateRoutes:NO];
@@ -140,27 +161,27 @@ float totalDistance;
         
         if ( ! error && [response routes] > 0) {
             MKRoute *route = [[response routes] objectAtIndex:0];
-            //NSLog(@"Distance is %f" ,route.distance * 0.000621371);
-            NSLog(@"ETA INSIDE FUNCTION IS %f",route.expectedTravelTime/60);
-            myETA = [NSString stringWithFormat:@"%f",route.expectedTravelTime/60];
             
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            [formatter setDateFormat:@"hh:mm a"];
+            NSDateComponents *components= [[NSDateComponents alloc] init];
+            [components setMinute:route.expectedTravelTime/60];
+            NSCalendar *calendar = [NSCalendar currentCalendar];
+            NSDate *myNewDate=[calendar dateByAddingComponents:components toDate:[NSDate date] options:0];
+            
+            self.etaTimeLabel.text = [formatter stringFromDate:myNewDate];
+            
+            NSLog(@"ETA TIME LABEL IS %@",self.etaTimeLabel.text);
         }
     }];
-    
-    while([myETA length] == 0){
-        [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        NSLog(@"In Loop");
-    }
-    NSLog(@"ETA OUTSIDE FUNCTION IS %@",myETA);
-    return(myETA);
+
 }
 
-
+// Test Find ETA ends
 
 -(void)refreshLocation {
     
-    hostLatitude = [[NSMutableString alloc]init];
-    hostLongitude = [[NSMutableString alloc]init];
+
     guestLatitude = [[NSMutableString alloc]init];
     guestLongitude = [[NSMutableString alloc]init];
     guestStatus = [[NSMutableString alloc]init];
@@ -214,22 +235,28 @@ float totalDistance;
     [self addAnnotations];
     
     [self.mapView showAnnotations:self.mapView.annotations animated:YES];
+    self.indicator.hidden = TRUE;
+    //Test Calling find ETA method
     
-    NSString *eta = [self findETA:[hostLatitude doubleValue] withDestLongitude: [hostLongitude doubleValue] withSourceLatitude: [guestLatitude doubleValue] withSourceLongitude:[guestLongitude doubleValue]];
-    //Update ETA
-    NSLog(@"ETA IS %@",eta);
-    // Change eta to time
+    [self findETA:[hostLatitude floatValue] withHostLongitude: [hostLongitude floatValue] withGuestLatitude: [guestLatitude floatValue] withGuestLongitude:[guestLongitude floatValue]];
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"hh:mm a"];
-    NSDateComponents *components= [[NSDateComponents alloc] init];
-    [components setMinute:[eta integerValue]];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *myNewDate=[calendar dateByAddingComponents:components toDate:[NSDate date] options:0];
-    
-    self.etaTimeLabel.text = [formatter stringFromDate:myNewDate];
    
-    NSLog(@"Guest Status inside refresh Location is %@",guestStatus);
+    //NSLog(@"Guest Status inside refresh Location is %@",guestStatus);
+    
+    
+    //Find Distance Remaining
+    float distRemainingMile = [[[CLLocation alloc] initWithLatitude:[hostLatitude floatValue] longitude:[hostLongitude floatValue]] distanceFromLocation:[[CLLocation alloc] initWithLatitude:[guestLatitude floatValue] longitude:[guestLongitude floatValue]]] * 0.000621371;
+    
+    
+    float distRemainingKM = [[[CLLocation alloc] initWithLatitude:[hostLatitude floatValue] longitude:[hostLongitude floatValue]] distanceFromLocation:[[CLLocation alloc] initWithLatitude:[guestLatitude floatValue] longitude:[guestLongitude floatValue]]]/1000;
+    
+    
+    NSLog(@"Distance Remaining IM MILES %.02f",distRemainingMile);
+    self.mileLabel.text = [NSString stringWithFormat:@"%.02f Mi ,(%.02f Km)",distRemainingMile,distRemainingKM];
+    
+    
+   // NSLog(@"Distance Remaining IM KM %.02f",distRemainingKM);
+   // self.kmLabel.text = [NSString stringWithFormat:@"%.02f",distRemainingKM];
     
     
     // If Guest nearing - Remaining Distance < 10% of Total Distance
@@ -251,14 +278,23 @@ float totalDistance;
     
     if([guestStatus isEqualToString:@"REACHED"]){
         
-        NSLog(@"Going inside here");
+        //NSLog(@"Going inside here");
         //return;
         [newTimer invalidate];
         newTimer = nil;
         
         UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy your time!"preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        
+            TrackMyGuestsViewController *trackGuestsVC =
+            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
+            
+            //hPViewController.userName  = eMailEntered;
+            [self.navigationController pushViewController:trackGuestsVC animated:YES];
+            
+            [self presentViewController:trackGuestsVC animated:YES completion:nil];
+        }];
         
         [ac addAction:aa];
         [self presentViewController:ac animated:YES completion:nil];
@@ -299,7 +335,7 @@ float totalDistance;
     
     __block NSMutableString *myHostLastName = [[NSMutableString alloc]init];
     
-    NSLog(@"KEY %@",_key);
+    //NSLog(@"KEY %@",_key);
     
     self.ref = [[FIRDatabase database] reference];
    
@@ -307,7 +343,7 @@ float totalDistance;
         
         NSDictionary *dict = snapshot.value;
         
-        NSLog(@"DICT %@",dict);
+       // NSLog(@"DICT %@",dict);
         
         myHostLatitude = [NSMutableString stringWithFormat:@"%@",[dict valueForKey:@"Host Latitude"]];
         myHostLongitude = [NSMutableString stringWithFormat:@"%@",[dict valueForKey:@"Host Longitude"]];
@@ -347,18 +383,29 @@ float totalDistance;
     
     totalDistance = [guestLoc distanceFromLocation:hostLoc]*0.000621371;
     
-    NSLog(@"Total Distance is %f",totalDistance);
-    NSLog(@"Guest Satus is %@",guestStatus);
+   // NSLog(@"HOSt Lat Long is %f %f",[hostLatitude floatValue],[hostLongitude floatValue]);
+   // NSLog(@"Total Distance is %f",totalDistance);
+   // NSLog(@"Guest Satus is %@",guestStatus);
     
     
     
-    NSLog(@"TOTAL DIST");
+   // NSLog(@"TOTAL DIST");
 }
 
-
-
+/*
+- (void)mapViewDidFinishLoadingMap:(MKMapView *)mapView
+{
+    [self.indicator stopAnimating];
+    self.indicator.hidden = TRUE;
+}
+*/
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+   // NSLog(@"View DID LOAD");
+    
+    self.mapView.delegate = self;
+    
     [self setNeedsStatusBarAppearanceUpdate];
     // Do any additional setup after loading the view from its nib.
     
@@ -380,9 +427,7 @@ float totalDistance;
     
     [self.view addSubview:_myGuestsLocationBack];
     
-    
-    
-    
+   // self.indicator.hidden = FALSE;
     
     // Call calculate Total Distance
     
@@ -409,8 +454,8 @@ float totalDistance;
     
     
    
-    NSLog(@"GUEST LATITIDE %f",[guestLatitude floatValue]);
-    NSLog(@"GUEST LONGITUDE %f",[guestLongitude floatValue]);
+    //NSLog(@"GUEST LATITIDE %f",[guestLatitude floatValue]);
+  // NSLog(@"GUEST LONGITUDE %f",[guestLongitude floatValue]);
     
     self.yourLocationAnno = [[MKPointAnnotation alloc]init];
     
@@ -436,6 +481,8 @@ float totalDistance;
 
 - (IBAction)Back
 {
+    
+    NSLog(@"Back Tapped");
     TrackMyGuestsViewController *trackGuestsVC =
     [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
     
