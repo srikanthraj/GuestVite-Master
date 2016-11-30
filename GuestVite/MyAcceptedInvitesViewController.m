@@ -50,6 +50,10 @@ NSMutableArray *maihostAddLTwo;
 NSMutableArray *maihostAddCity;
 NSMutableArray *maihostAddZip;
 
+NSMutableArray *maihostLatitude;
+NSMutableArray *maihostLongitude;
+
+
 NSMutableArray *maiinformHostData;
 
 NSMutableArray *mainameData;
@@ -59,6 +63,7 @@ NSMutableArray *maikeyData;
 
 NSArray *maikeys;
 
+CLLocation *destLoc;
 
 NSString *myAcceptedInviteSelcetedKey;
 
@@ -83,6 +88,7 @@ NSString *myAcceptedInviteSelcetedKey;
     self.locationManager.delegate =self;
     
     
+    
     maiEmptyView = [[EmptyViewController alloc]init];
     maifirstNameData = [[NSMutableArray alloc]init];
     mailastNameData = [[NSMutableArray alloc]init];
@@ -94,7 +100,8 @@ NSString *myAcceptedInviteSelcetedKey;
     maihostAddLTwo = [[NSMutableArray alloc]init];
     maihostAddCity = [[NSMutableArray alloc]init];
     maihostAddZip = [[NSMutableArray alloc]init];
-    
+    maihostLatitude = [[NSMutableArray alloc]init];
+    maihostLongitude = [[NSMutableArray alloc]init];
     
     
     maiinvitedFromData = [[NSMutableArray alloc]init];
@@ -137,6 +144,10 @@ NSString *myAcceptedInviteSelcetedKey;
     __block NSMutableArray *myhostAddCity = [[NSMutableArray alloc] init];
     __block NSMutableArray *myhostAddZip = [[NSMutableArray alloc] init];
     __block NSMutableArray *myInformHostData = [[NSMutableArray alloc] init];
+    
+    __block NSMutableArray *myhostLatitude = [[NSMutableArray alloc] init];
+    __block NSMutableArray *myhostLongitude = [[NSMutableArray alloc] init];
+    
     
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myinvitedTillData = [[NSMutableArray alloc] init];
@@ -209,7 +220,8 @@ NSString *myAcceptedInviteSelcetedKey;
                 [myhostAddZip addObject:arr[i][@"Sender Zip"]];
                 [myInformHostData addObject:arr[i][@"Host Send Messages"]];
                 
-                
+                [myhostLatitude addObject:arr[i][@"Host Latitude"]];
+                [myhostLongitude addObject:arr[i][@"Host Longitude"]];
                 
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                 [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
@@ -236,6 +248,10 @@ NSString *myAcceptedInviteSelcetedKey;
                 [myhostAddCity addObject:arr[i][@"Sender City"]];
                 [myhostAddZip addObject:arr[i][@"Sender Zip"]];
                 [myInformHostData addObject:arr[i][@"Host Send Messages"]];
+                
+                [myhostLatitude addObject:arr[i][@"Host Latitude"]];
+                [myhostLongitude addObject:arr[i][@"Host Longitude"]];
+
                 
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
                 [myinvitedTillData addObject:arr[i][@"Invite Valid Till Date"]];
@@ -269,6 +285,10 @@ NSString *myAcceptedInviteSelcetedKey;
                     
                     [myInformHostData addObject: @"No Invites"];
                     
+                    [myhostLatitude addObject:arr[i][@"Host Latitude"]];
+                    [myhostLongitude addObject:arr[i][@"Host Longitude"]];
+
+                    
                     [myinvitedFromData addObject: @"No Invites"];
                     [myinvitedTillData addObject: @"No Invites"];
                     
@@ -283,7 +303,7 @@ NSString *myAcceptedInviteSelcetedKey;
         
     }];
     
-    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0 && [myGuestLocationStatusData count]== 0 && [myhostAddLOne count]== 0 && [myhostAddCity count]== 0 && [myhostAddZip count]== 0 && [myInformHostData count]== 0) { // Host Address line 2 is optional and hence not required here
+    while([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0 && [myhostEMailData count]== 0 && [myhostPhoneData count]== 0 && [myGuestLocationStatusData count]== 0 && [myhostAddLOne count]== 0 && [myhostAddCity count]== 0 && [myhostAddZip count]== 0 && [myInformHostData count]== 0 && [myhostLatitude count]== 0 && [myhostLongitude count]== 0) { // Host Address line 2 is optional and hence not required here
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
@@ -302,13 +322,16 @@ NSString *myAcceptedInviteSelcetedKey;
         [maihostAddZip addObject:[myhostAddZip objectAtIndex:i]];
         [maiinformHostData addObject:[myInformHostData objectAtIndex:i]];
         
+        [maihostLatitude addObject:[myhostLatitude objectAtIndex:i]];
+        [maihostLongitude addObject:[myhostLongitude objectAtIndex:i]];
+        
         [maiinvitedFromData addObject:[myinvitedFromData objectAtIndex:i]];
         [maiinvitedTillData addObject:[myinvitedTillData objectAtIndex:i]];
         [maikeyData addObject:[myKeyData objectAtIndex:i]];
     }
     
     
-    // NSLog(@"Key data is %@",keyData);
+  
     
     // Do any additional setup after loading the view from its nib.
     
@@ -422,9 +445,13 @@ NSString *myAcceptedInviteSelcetedKey;
     
     myAcceptedInviteSelcetedKey = [maikeyData objectAtIndex:indexPath.row];
     
+    // Init Dest Latitude Longitude
+    
+   destLoc = [[CLLocation alloc] initWithLatitude:[[maihostLatitude objectAtIndex:indexPath.row] floatValue] longitude:[[maihostLongitude objectAtIndex:indexPath.row]floatValue]];
+    
     mySelectedRowNumber = indexPath.row;
     
-    NSLog(@"MY SELECTED KEY %@",myAcceptedInviteSelcetedKey);
+    NSLog(@"MY SELECTED HOST Lat Long is  %@",destLoc);
     
     NSLog(@"MY SELECTED ROW NUMBER %ld",(long)mySelectedRowNumber);
     
@@ -838,7 +865,7 @@ NSString *myAcceptedInviteSelcetedKey;
         
         NSDictionary *dict = snapshot.value;
         
-        
+        /*
         NSString *hostaddr = [[NSString alloc]init];
         
         if([[dict valueForKey:@"Sender Address2"] length] > 0)
@@ -851,7 +878,7 @@ NSString *myAcceptedInviteSelcetedKey;
         }
         
         CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
-        
+        */
         
         NSDictionary *postDict = @{@"Sender First Name": [dict valueForKey:@"Sender First Name"],
                                    @"Sender Last Name": [dict valueForKey:@"Sender Last Name"],
@@ -869,8 +896,8 @@ NSString *myAcceptedInviteSelcetedKey;
                                    @"Invite For Date": [dict valueForKey:@"Invite For Date"],
                                    @"Invite Valid Till Date": [dict valueForKey:@"Invite Valid Till Date"],
                                    @"Invitation Status": guestReply,
-                                   @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
-                                   @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
+                                   @"Host Latitude": [dict valueForKey:@"Host Latitude"],
+                                   @"Host Longitude": [dict valueForKey:@"Host Longitude"],
                                    @"Guest Location Status" : guestLocationStatus,
                                    @"Host Send Messages" : [dict valueForKey:@"Host Send Messages"],
                                    };//Dict post
@@ -928,19 +955,21 @@ NSString *myAcceptedInviteSelcetedKey;
     maicurrentLatitude = locations.lastObject.coordinate.latitude;
     maicurrentLongitude = locations.lastObject.coordinate.longitude;
     
-    NSLog(@"insode delegate %f",maicurrentLatitude);
-    
+   
+    /*
     NSString *hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",[maihostAddLOne objectAtIndex:mySelectedRowNumber],[maihostAddLTwo objectAtIndex:mySelectedRowNumber],[maihostAddCity objectAtIndex:mySelectedRowNumber],[maihostAddZip objectAtIndex:mySelectedRowNumber]];
+    
+    NSLog(@"Host Address is %@",hostaddr);
     CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
+    */
     
     
     
     
-    
-    CLLocation *destLoc = [[CLLocation alloc] initWithLatitude:dest.latitude longitude:dest.longitude];
+ 
     
   
-    
+    NSLog(@"DEST LOC is %@",destLoc);
     
     
     
@@ -979,8 +1008,8 @@ NSString *myAcceptedInviteSelcetedKey;
                                        @"Invitation Status": @"Accepted",
                                        @"Guest Latitude": [NSNumber numberWithFloat:maicurrentLatitude],
                                        @"Guest Longitude": [NSNumber numberWithFloat:maicurrentLongitude],
-                                       @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
-                                       @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
+                                       @"Host Latitude": [dict valueForKey:@"Host Latitude"],
+                                       @"Host Longitude": [dict valueForKey:@"Host Longitude"],
                                        @"Guest Location Status" : @"REACHED",
                                        @"Host Send Messages" : [dict valueForKey:@"Host Send Messages"],
                                        };//Dict post
@@ -1022,8 +1051,8 @@ NSString *myAcceptedInviteSelcetedKey;
                                        @"Invitation Status": @"Accepted",
                                        @"Guest Latitude": [NSNumber numberWithFloat:maicurrentLatitude],
                                        @"Guest Longitude": [NSNumber numberWithFloat:maicurrentLongitude],
-                                       @"Host Latitude": [NSNumber numberWithFloat:dest.latitude],
-                                       @"Host Longitude": [NSNumber numberWithFloat:dest.longitude],
+                                       @"Host Latitude": [dict valueForKey:@"Host Latitude"],
+                                       @"Host Longitude": [dict valueForKey:@"Host Longitude"],
                                        @"Guest Location Status" : @"IN_TRANSIT",
                                        @"Host Send Messages" : [dict valueForKey:@"Host Send Messages"],
                                        };//Dict post
