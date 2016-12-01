@@ -12,7 +12,6 @@
 #import <MessageUI/MessageUI.h>
 #import <CoreLocation/CoreLocation.h>
 #import "MapKit/MapKit.h"
-#import "GeoFire/GeoFire.h"
 #import "GuestMapViewController.h"
 
 @import Firebase;

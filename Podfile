@@ -8,7 +8,6 @@ target 'GuestVite' do
   # Pods for GuestVite
 pod 'Firebase/Core'
 pod 'Firebase/Auth'
-pod 'Firebase/Messaging'
 pod 'Firebase/Database'
 pod 'KBContactsSelection'
 pod 'SWTableViewCell', '~> 0.3.7'
@@ -16,8 +15,4 @@ pod 'HTPressableButton'
 pod 'JVFloatLabeledTextField'
 pod 'CNPPopupController'
 pod 'GoogleMaps'
-pod 'GooglePlaces'
-pod 'GeoFire', :git => 'https://github.com/firebase/geofire-objc.git'
-pod 'DZNEmptyDataSet'
-pod 'VMaskTextField'
 end

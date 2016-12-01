@@ -8,8 +8,6 @@
 
 #import "HomePageViewController.h"
 #import "SignOut.h"
-#import "FLAnimatedImage.h"
-#import "FLAnimatedImageView.h"
 #import "ViewController.h"
 #import "HTPressableButton.h"
 #import "UIColor+HTColor.h"
@@ -27,7 +25,7 @@
 
 
 @import Firebase;
-@interface HomePageViewController ()
+@interface HomePageViewController ()<CNPPopupControllerDelegate>
 
 @property (strong, nonatomic) IBOutlet UIImageView *homeView;
 

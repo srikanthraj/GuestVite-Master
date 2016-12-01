@@ -14,12 +14,8 @@
 #import "MapKit/MapKit.h"
 #import <AddressBook/AddressBook.h>
 #import <AddressBookUI/AddressBookUI.h>
-
 #import "KBContactsSelectionViewController.h"
-
 #import <ContactsUI/ContactsUI.h>
-#import "SACalendar.h"
-
 #import "Reachability.h"
 #import "UIViewController+Reachability.m"
 #import "CNPPopupController.h"
@@ -27,7 +23,7 @@
 
 @import Firebase;
 
-@interface SendAddressBookInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate, CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate,SACalendarDelegate,UITextFieldDelegate,CNPPopupControllerDelegate>
+@interface SendAddressBookInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UITextViewDelegate, CNContactPickerDelegate,ABPeoplePickerNavigationControllerDelegate,UITextFieldDelegate,CNPPopupControllerDelegate>
 
 
 @property (weak, nonatomic) IBOutlet UITextView *eMailguestList;
@@ -643,12 +639,6 @@
 }
 
 
-
-
-// Prints out the month and year displaying on the calendar
--(void) SACalendar:(SACalendar *)calendar didDisplayCalendarForMonth:(int)month year:(int)year{
-    [self.view endEditing:YES];
-}
 
 -(BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
     return NO;

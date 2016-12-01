@@ -8,7 +8,6 @@
 
 #import "RegPageViewController.h"
 #import "HomePageViewController.h"
-#import "VMaskTextField.h"
 #import "CNPPopupController.h"
 #import "Reachability.h"
 #import "UIViewController+Reachability.m"
@@ -39,7 +38,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *cityText;
 @property (weak, nonatomic) IBOutlet UITextField *zipText;
 
-@property (weak, nonatomic) IBOutlet VMaskTextField *phoneText;
+@property (weak, nonatomic) IBOutlet UITextField *phoneText;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
 @property (weak, nonatomic) IBOutlet UIImageView *regView;
@@ -188,9 +187,6 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
     
-    //Telephone with Code Area
-    self.phoneText.mask = @"(###)###-####";
-    self.phoneText.delegate = (id)self;
     
     UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
@@ -215,7 +211,7 @@
     UIToolbar* keyboardDoneButtonView = [[UIToolbar alloc] init];
     [keyboardDoneButtonView sizeToFit];
     UIBarButtonItem* doneButton = [[UIBarButtonItem alloc] initWithTitle:@"Done"
-                                                                   style:UIBarButtonItemStyleBordered target:self
+                                                                   style:UIBarButtonItemStylePlain target:self
                                                                   action:@selector(doneClicked:)];
     
     
@@ -235,14 +231,6 @@
     self.phoneText.inputAccessoryView = keyboardDoneButtonView;
 }
 
-/*
-- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string{
-    return  [self.phoneText shouldChangeCharactersInRange:range replacementString:string];
-}
-
-*/
-
-// Test
 
 - (void)emailTextChanged:(UITextField *)sender
 {
@@ -438,7 +426,7 @@
     
 }
 
-- (void)phoneTextChanged:(VMaskTextField *)sender
+- (void)phoneTextChanged:(UITextField *)sender
 {
     
     if([self validateZipPhoneWithString:sender.text] && [sender.text length] == 10){

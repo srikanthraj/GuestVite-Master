@@ -13,28 +13,12 @@
 
 
 @import Firebase;
-@import FirebaseMessaging;
 @import GoogleMaps;
-@import GooglePlaces;
 
-@interface AppDelegate () //<CLLocationManagerDelegate>
+@interface AppDelegate ()
 @property (strong, nonatomic) FIRDatabaseReference *ref;
 //@property(strong, nonatomic) CLLocationManager *locationManager;
 @end
-
-
-// Implement UNUserNotificationCenterDelegate to receive display notification via APNS for devices
-// running iOS 10 and above. Implement FIRMessagingDelegate to receive data message via FCM for
-// devices running iOS 10 and above.
-#if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
-@interface AppDelegate () <UNUserNotificationCenterDelegate, FIRMessagingDelegate>
-@end
-#endif
-
-// Copied from Apple's header in case it is missing in some cases (e.g. pre-Xcode 8 builds).
-#ifndef NSFoundationVersionNumber_iOS_9_x_Max
-#define NSFoundationVersionNumber_iOS_9_x_Max 1299
-#endif
 
 
 
@@ -45,60 +29,12 @@
     // Override point for customization after application launch.
    
     
-    // Register for remote notifications
-    if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_7_1) {
-        // iOS 7.1 or earlier. Disable the deprecation warnings.
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wdeprecated-declarations"
-        UIRemoteNotificationType allNotificationTypes =
-        (UIRemoteNotificationTypeSound |
-         UIRemoteNotificationTypeAlert |
-         UIRemoteNotificationTypeBadge);
-        [application registerForRemoteNotificationTypes:allNotificationTypes];
-#pragma clang diagnostic pop
-    } else {
-        // iOS 8 or later
-        // [START register_for_notifications]
-        if (floor(NSFoundationVersionNumber) <= NSFoundationVersionNumber_iOS_9_x_Max) {
-            UIUserNotificationType allNotificationTypes =
-            (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge);
-            UIUserNotificationSettings *settings =
-            [UIUserNotificationSettings settingsForTypes:allNotificationTypes categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        } else {
-            // iOS 10 or later
-#if defined(__IPHONE_10_0) && __IPHONE_OS_VERSION_MAX_ALLOWED >= __IPHONE_10_0
-            UNAuthorizationOptions authOptions =
-            UNAuthorizationOptionAlert
-            | UNAuthorizationOptionSound
-            | UNAuthorizationOptionBadge;
-            [[UNUserNotificationCenter currentNotificationCenter]
-             requestAuthorizationWithOptions:authOptions
-             completionHandler:^(BOOL granted, NSError * _Nullable error) {
-             }
-             ];
-            
-            // For iOS 10 display notification (sent via APNS)
-            [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
-            // For iOS 10 data message (sent via FCM)
-            [[FIRMessaging messaging] setRemoteMessageDelegate:self];
-#endif
-        }
-        
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        // [END register_for_notifications]
-    }
-
     
     [FIRApp configure];
    
    // [application setStatusBarHidden:NO];
    // [application setStatusBarStyle:UIStatusBarStyleLightContent];
     
-    
-    // Add an observer for handling a token refresh callback
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenRefreshCallback:) name:kFIRInstanceIDTokenRefreshNotification object:nil];
     
     return YES;
 }
@@ -109,20 +45,7 @@
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    /*
-    NSLog(@"In Background");
     
-     self.locationManager = [[CLLocationManager alloc]init];
-    self.locationManager.delegate = self;
-    [self.locationManager setAllowsBackgroundLocationUpdates:YES];
-    //[self.locationManager allowsBackgroundLocationUpdates];
-    [self.locationManager startUpdatingLocation];
-    */
-    
-    [[FIRMessaging messaging]disconnect];
-    NSLog(@"Disconnected from FCM");
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -131,8 +54,7 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    [self connectToFirebase];
-}
+   }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
@@ -140,19 +62,6 @@
     [self saveContext];
 }
 
--(void)application: (UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHandler {
-    
-    // If you are receiving a notification message while your app is in background,
-    //this callback will not be fired till the user taps on the notification launching the application
-    
-    //Print message ID
-    NSLog(@"Message ID %@", userInfo[@"gcm.message_id"]);
-    
-    //Print full message
-    NSLog(@"%@",userInfo);
-    
-}
 
 #pragma mark - Core Data stack
 
@@ -233,33 +142,5 @@ fetchCompletionHandler:(nonnull void (^)(UIBackgroundFetchResult))completionHand
         }
     }
 }
-
-#pragma mark - Connect to firebase
-
-
-- (void) tokenRefreshCallback :(NSNotification *)notification {
-
-    NSString *refreshedToken = [[FIRInstanceID instanceID]token];
-    NSLog(@"Instance ID token: %@", refreshedToken);
-    
-    // Connect to FCM since connection may have failed when attempted before having a token
-    [self connectToFirebase];
-}
-
-- (void) connectToFirebase {
-    [[FIRMessaging messaging] connectWithCompletion:^(NSError * _Nullable error) {
-       
-        if(error !=nil){
-            NSLog(@"Unable to connect to FCM %@",error);
-        }
-        else {
-            NSLog(@"Connected to FCM");
-        }
-    }];
-}
-
-
-
-
 
 @end

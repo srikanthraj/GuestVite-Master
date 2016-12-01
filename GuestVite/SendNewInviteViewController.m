@@ -11,17 +11,14 @@
 #import "SendAddressBookInviteViewController.h"
 #import "HomePageViewController.h"
 #import "MapKit/MapKit.h"
-
 #import <MessageUI/MessageUI.h>
-#import "SACalendar.h"
-
 #import "Reachability.h"
 #import "UIViewController+Reachability.m"
 #import "CNPPopupController.h"
 
 @import Firebase;
 
-@interface SendNewInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UIScrollViewDelegate,UITextViewDelegate,SACalendarDelegate,CNPPopupControllerDelegate,UITextFieldDelegate>
+@interface SendNewInviteViewController () <MFMessageComposeViewControllerDelegate,MFMailComposeViewControllerDelegate,UIScrollViewDelegate,UITextViewDelegate,CNPPopupControllerDelegate,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *guestNameText;
 @property (weak, nonatomic) IBOutlet UITextField *guestEMailText;
@@ -568,11 +565,6 @@
 
 
 
-// Prints out the month and year displaying on the calendar
--(void) SACalendar:(SACalendar *)calendar didDisplayCalendarForMonth:(int)month year:(int)year{
-    [self.view endEditing:YES];
-}
-
 - (void) textViewDidBeginEditing:(UITextView *) textView{
     
     if(self.messageText.isFirstResponder)
@@ -607,6 +599,7 @@
     }
 
 }
+
 
 
 - (IBAction)segmentTapped:(id)sender {

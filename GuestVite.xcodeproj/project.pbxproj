@@ -9,10 +9,6 @@
 /* Begin PBXBuildFile section */
 		368E5A3200675FE398DC7271 /* libPods-GuestVite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ED20978095D751C4C7AB2EF5 /* libPods-GuestVite.a */; };
 		84267BF81DA9AB750044ACF4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84267BF71DA9AB750044ACF4 /* GoogleService-Info.plist */; };
-		84267C011DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C001DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m */; };
-		84267C041DAC56D30044ACF4 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C031DAC56D30044ACF4 /* SWRevealViewController.m */; };
-		84267C091DAC6DC10044ACF4 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C061DAC6DC10044ACF4 /* FLAnimatedImage.m */; };
-		84267C0A1DAC6DC10044ACF4 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C081DAC6DC10044ACF4 /* FLAnimatedImageView.m */; };
 		84267C0C1DAC708B0044ACF4 /* Hello.gif in Resources */ = {isa = PBXBuildFile; fileRef = 84267C0B1DAC708B0044ACF4 /* Hello.gif */; };
 		84267C101DAD9CF10044ACF4 /* SendNewInviteViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C0E1DAD9CF10044ACF4 /* SendNewInviteViewController.m */; };
 		84267C111DAD9CF10044ACF4 /* SendNewInviteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C0F1DAD9CF10044ACF4 /* SendNewInviteViewController.xib */; };
@@ -23,11 +19,6 @@
 		84267C1E1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C1C1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.xib */; };
 		84267C261DB9B70B0044ACF4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84267C251DB9B70B0044ACF4 /* UIKit.framework */; };
 		84267C281DB9B7130044ACF4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84267C271DB9B7130044ACF4 /* Foundation.framework */; };
-		84267C331DBBBF1C0044ACF4 /* DateUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C2C1DBBBF1C0044ACF4 /* DateUtil.m */; };
-		84267C341DBBBF1C0044ACF4 /* DMLazyScrollView in Resources */ = {isa = PBXBuildFile; fileRef = 84267C2D1DBBBF1C0044ACF4 /* DMLazyScrollView */; };
-		84267C351DBBBF1C0044ACF4 /* SACalendar.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C2F1DBBBF1C0044ACF4 /* SACalendar.m */; };
-		84267C361DBBBF1C0044ACF4 /* SACalendarCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C311DBBBF1C0044ACF4 /* SACalendarCell.m */; };
-		84267C391DBBC81E0044ACF4 /* DMLazyScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C381DBBC81E0044ACF4 /* DMLazyScrollView.m */; };
 		84267C581DBEDF4F0044ACF4 /* AwaitMyResponseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84267C561DBEDF4F0044ACF4 /* AwaitMyResponseViewController.m */; };
 		84267C591DBEDF4F0044ACF4 /* AwaitMyResponseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C571DBEDF4F0044ACF4 /* AwaitMyResponseViewController.xib */; };
 		84267C5B1DBEE2430044ACF4 /* SimpleTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84267C5A1DBEE2430044ACF4 /* SimpleTableCell.xib */; };
@@ -58,7 +49,6 @@
 		847340761DA979A50038C047 /* RegPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 847340741DA979A50038C047 /* RegPageViewController.xib */; };
 		84A410B11DCC03D800216DEA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A410B01DCC03D800216DEA /* CoreLocation.framework */; };
 		84A410B31DCC071000216DEA /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A410B21DCC071000216DEA /* MapKit.framework */; };
-		84A77E201DDA7A5A00F1CF36 /* PageContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84A77E1F1DDA7A5A00F1CF36 /* PageContentViewController.m */; };
 		84D53A2E1DCE924A00FF7643 /* GuestMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D53A2C1DCE924A00FF7643 /* GuestMapViewController.m */; };
 		84D53A2F1DCE924A00FF7643 /* GuestMapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84D53A2D1DCE924A00FF7643 /* GuestMapViewController.xib */; };
 		84D53A311DCE94BC00FF7643 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D53A301DCE94BC00FF7643 /* AVFoundation.framework */; };
@@ -86,14 +76,6 @@
 /* Begin PBXFileReference section */
 		48C15378E10A7A5F7D66BCBB /* Pods-GuestVite.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GuestVite.release.xcconfig"; path = "Pods/Target Support Files/Pods-GuestVite/Pods-GuestVite.release.xcconfig"; sourceTree = "<group>"; };
 		84267BF71DA9AB750044ACF4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "/Users/admin/Documents/MyiOSProjects/GuestVite-master/../../../Downloads/GoogleService-Info.plist"; sourceTree = "<absolute>"; };
-		84267BFF1DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SLScrollViewKeyboardSupport.h; path = "../../../../Downloads/SLScrollViewKeyboardSupport-master/SLScrollViewKeyboardSupport/SLScrollViewKeyboardSupport.h"; sourceTree = "<group>"; };
-		84267C001DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SLScrollViewKeyboardSupport.m; path = "../../../../Downloads/SLScrollViewKeyboardSupport-master/SLScrollViewKeyboardSupport/SLScrollViewKeyboardSupport.m"; sourceTree = "<group>"; };
-		84267C021DAC56D30044ACF4 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SWRevealViewController.h; path = "../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.h"; sourceTree = "<group>"; };
-		84267C031DAC56D30044ACF4 /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SWRevealViewController.m; path = "../../../../Downloads/SWRevealViewController-master/SWRevealViewController/SWRevealViewController.m"; sourceTree = "<group>"; };
-		84267C051DAC6DC10044ACF4 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImage.h; path = "../../../../Downloads/FLAnimatedImage-master/FLAnimatedImage/FLAnimatedImage.h"; sourceTree = "<group>"; };
-		84267C061DAC6DC10044ACF4 /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImage.m; path = "../../../../Downloads/FLAnimatedImage-master/FLAnimatedImage/FLAnimatedImage.m"; sourceTree = "<group>"; };
-		84267C071DAC6DC10044ACF4 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FLAnimatedImageView.h; path = "../../../../Downloads/FLAnimatedImage-master/FLAnimatedImage/FLAnimatedImageView.h"; sourceTree = "<group>"; };
-		84267C081DAC6DC10044ACF4 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FLAnimatedImageView.m; path = "../../../../Downloads/FLAnimatedImage-master/FLAnimatedImage/FLAnimatedImageView.m"; sourceTree = "<group>"; };
 		84267C0B1DAC708B0044ACF4 /* Hello.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; name = Hello.gif; path = ../../../../Desktop/Hello.gif; sourceTree = "<group>"; };
 		84267C0D1DAD9CF10044ACF4 /* SendNewInviteViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendNewInviteViewController.h; sourceTree = "<group>"; };
 		84267C0E1DAD9CF10044ACF4 /* SendNewInviteViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendNewInviteViewController.m; sourceTree = "<group>"; };
@@ -108,16 +90,6 @@
 		84267C1C1DB96B6D0044ACF4 /* SendAddressBookInviteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SendAddressBookInviteViewController.xib; sourceTree = "<group>"; };
 		84267C251DB9B70B0044ACF4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		84267C271DB9B7130044ACF4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		84267C2B1DBBBF1C0044ACF4 /* DateUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateUtil.h; path = "../../../../Downloads/SACalendar-master/Classes/DateUtil.h"; sourceTree = "<group>"; };
-		84267C2C1DBBBF1C0044ACF4 /* DateUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateUtil.m; path = "../../../../Downloads/SACalendar-master/Classes/DateUtil.m"; sourceTree = "<group>"; };
-		84267C2D1DBBBF1C0044ACF4 /* DMLazyScrollView */ = {isa = PBXFileReference; lastKnownFileType = folder; name = DMLazyScrollView; path = "../../../../Downloads/SACalendar-master/Classes/DMLazyScrollView"; sourceTree = "<group>"; };
-		84267C2E1DBBBF1C0044ACF4 /* SACalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SACalendar.h; path = "../../../../Downloads/SACalendar-master/Classes/SACalendar.h"; sourceTree = "<group>"; };
-		84267C2F1DBBBF1C0044ACF4 /* SACalendar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SACalendar.m; path = "../../../../Downloads/SACalendar-master/Classes/SACalendar.m"; sourceTree = "<group>"; };
-		84267C301DBBBF1C0044ACF4 /* SACalendarCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SACalendarCell.h; path = "../../../../Downloads/SACalendar-master/Classes/SACalendarCell.h"; sourceTree = "<group>"; };
-		84267C311DBBBF1C0044ACF4 /* SACalendarCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SACalendarCell.m; path = "../../../../Downloads/SACalendar-master/Classes/SACalendarCell.m"; sourceTree = "<group>"; };
-		84267C321DBBBF1C0044ACF4 /* SACalendarConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SACalendarConstants.h; path = "../../../../Downloads/SACalendar-master/Classes/SACalendarConstants.h"; sourceTree = "<group>"; };
-		84267C371DBBC81E0044ACF4 /* DMLazyScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DMLazyScrollView.h; path = "../../../../Downloads/SACalendar-master/Classes/DMLazyScrollView/DMLazyScrollView.h"; sourceTree = "<group>"; };
-		84267C381DBBC81E0044ACF4 /* DMLazyScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DMLazyScrollView.m; path = "../../../../Downloads/SACalendar-master/Classes/DMLazyScrollView/DMLazyScrollView.m"; sourceTree = "<group>"; };
 		84267C551DBEDF4F0044ACF4 /* AwaitMyResponseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwaitMyResponseViewController.h; sourceTree = "<group>"; };
 		84267C561DBEDF4F0044ACF4 /* AwaitMyResponseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwaitMyResponseViewController.m; sourceTree = "<group>"; };
 		84267C571DBEDF4F0044ACF4 /* AwaitMyResponseViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AwaitMyResponseViewController.xib; sourceTree = "<group>"; };
@@ -163,8 +135,6 @@
 		847340741DA979A50038C047 /* RegPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RegPageViewController.xib; sourceTree = "<group>"; };
 		84A410B01DCC03D800216DEA /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		84A410B21DCC071000216DEA /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		84A77E1E1DDA7A5A00F1CF36 /* PageContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageContentViewController.h; sourceTree = "<group>"; };
-		84A77E1F1DDA7A5A00F1CF36 /* PageContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageContentViewController.m; sourceTree = "<group>"; };
 		84D53A2B1DCE924A00FF7643 /* GuestMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuestMapViewController.h; sourceTree = "<group>"; };
 		84D53A2C1DCE924A00FF7643 /* GuestMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuestMapViewController.m; sourceTree = "<group>"; };
 		84D53A2D1DCE924A00FF7643 /* GuestMapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuestMapViewController.xib; sourceTree = "<group>"; };
@@ -256,8 +226,6 @@
 		8473403B1DA937670038C047 = {
 			isa = PBXGroup;
 			children = (
-				84A77E1E1DDA7A5A00F1CF36 /* PageContentViewController.h */,
-				84A77E1F1DDA7A5A00F1CF36 /* PageContentViewController.m */,
 				847340461DA937670038C047 /* GuestVite */,
 				847340451DA937670038C047 /* Products */,
 				3A39C1F4C90DECC973A8352E /* Pods */,
@@ -358,25 +326,7 @@
 		847340471DA937670038C047 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				84267C2B1DBBBF1C0044ACF4 /* DateUtil.h */,
-				84267C2C1DBBBF1C0044ACF4 /* DateUtil.m */,
-				84267C371DBBC81E0044ACF4 /* DMLazyScrollView.h */,
-				84267C381DBBC81E0044ACF4 /* DMLazyScrollView.m */,
-				84267C2D1DBBBF1C0044ACF4 /* DMLazyScrollView */,
-				84267C2E1DBBBF1C0044ACF4 /* SACalendar.h */,
-				84267C2F1DBBBF1C0044ACF4 /* SACalendar.m */,
-				84267C301DBBBF1C0044ACF4 /* SACalendarCell.h */,
-				84267C311DBBBF1C0044ACF4 /* SACalendarCell.m */,
-				84267C321DBBBF1C0044ACF4 /* SACalendarConstants.h */,
-				84267C021DAC56D30044ACF4 /* SWRevealViewController.h */,
-				84267C031DAC56D30044ACF4 /* SWRevealViewController.m */,
-				84267C051DAC6DC10044ACF4 /* FLAnimatedImage.h */,
-				84267C061DAC6DC10044ACF4 /* FLAnimatedImage.m */,
-				84267C071DAC6DC10044ACF4 /* FLAnimatedImageView.h */,
-				84267C081DAC6DC10044ACF4 /* FLAnimatedImageView.m */,
 				847340481DA937670038C047 /* main.m */,
-				84267BFF1DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.h */,
-				84267C001DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -418,7 +368,7 @@
 						DevelopmentTeam = 8VUQ2U668B;
 						SystemCapabilities = {
 							com.apple.Push = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -450,7 +400,6 @@
 				84D53A441DCF702300FF7643 /* TrackMyGuestsViewController.xib in Resources */,
 				84267C681DC180A90044ACF4 /* AMRCellTapped.xib in Resources */,
 				8473405A1DA937680038C047 /* LaunchScreen.storyboard in Resources */,
-				84267C341DBBBF1C0044ACF4 /* DMLazyScrollView in Resources */,
 				8462B1531DD772EF003F553F /* MyAcceptedInvitesViewController.xib in Resources */,
 				84267C721DC2C9590044ACF4 /* PrevInvRecvdCell.xib in Resources */,
 				84D53A2F1DCE924A00FF7643 /* GuestMapViewController.xib in Resources */,
@@ -535,22 +484,15 @@
 				84267C181DB083D10044ACF4 /* SendBulkInviteViewController.m in Sources */,
 				84267C5E1DBEE5AA0044ACF4 /* SimpleTableCellTableViewCell.m in Sources */,
 				8473404C1DA937670038C047 /* AppDelegate.m in Sources */,
-				84267C091DAC6DC10044ACF4 /* FLAnimatedImage.m in Sources */,
-				84267C391DBBC81E0044ACF4 /* DMLazyScrollView.m in Sources */,
 				84D53A4D1DCF8C8400FF7643 /* TrackMyGuestsCellTapped.m in Sources */,
 				84267C6C1DC2C1600044ACF4 /* PrevInvRecvdViewController.m in Sources */,
 				8462B1521DD772EF003F553F /* MyAcceptedInvitesViewController.m in Sources */,
-				84267C351DBBBF1C0044ACF4 /* SACalendar.m in Sources */,
 				847340701DA977CD0038C047 /* HomePageViewController.m in Sources */,
-				84267C331DBBBF1C0044ACF4 /* DateUtil.m in Sources */,
-				84A77E201DDA7A5A00F1CF36 /* PageContentViewController.m in Sources */,
 				845E1A0B1DDD25B0008EDC62 /* EmptyViewController.m in Sources */,
 				847340551DA937680038C047 /* GuestVite.xcdatamodeld in Sources */,
-				84267C041DAC56D30044ACF4 /* SWRevealViewController.m in Sources */,
 				84DF6AA91DC6525000047435 /* PrevInvSentCell.m in Sources */,
 				84D53A2E1DCE924A00FF7643 /* GuestMapViewController.m in Sources */,
 				847340751DA979A50038C047 /* RegPageViewController.m in Sources */,
-				84267C0A1DAC6DC10044ACF4 /* FLAnimatedImageView.m in Sources */,
 				845E1A101DDE1CE3008EDC62 /* UpdateInfoViewController.m in Sources */,
 				84E4E8DB1DC80E24008EF854 /* WaitingRespFromViewController.m in Sources */,
 				847340491DA937670038C047 /* main.m in Sources */,
@@ -560,9 +502,7 @@
 				845E1A041DDBCFE1008EDC62 /* Reachability.m in Sources */,
 				84267C101DAD9CF10044ACF4 /* SendNewInviteViewController.m in Sources */,
 				84267C711DC2C9590044ACF4 /* PrevInvRecvdCell.m in Sources */,
-				84267C361DBBBF1C0044ACF4 /* SACalendarCell.m in Sources */,
 				84D53A431DCF702300FF7643 /* TrackMyGuestsViewController.m in Sources */,
-				84267C011DAAA81A0044ACF4 /* SLScrollViewKeyboardSupport.m in Sources */,
 				84267C671DC180A90044ACF4 /* AMRCellTapped.m in Sources */,
 				84D53A481DCF791200FF7643 /* AcceptedGuestsCellTapped.m in Sources */,
 			);

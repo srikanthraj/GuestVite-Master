@@ -18,8 +18,8 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="EmptyView" translatesAutoresizingMaskIntoConstraints="NO" id="VVH-ji-FC8">
-                    <rect key="frame" x="57" y="271" width="286" height="198"/>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyView" translatesAutoresizingMaskIntoConstraints="NO" id="VVH-ji-FC8">
+                    <rect key="frame" x="17" y="185" width="286" height="198"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="198" id="R0x-6t-bAF"/>
                         <constraint firstAttribute="width" constant="286" id="h1k-HZ-eHM"/>
@@ -62,7 +62,6 @@
             </subviews>
             <color key="backgroundColor" red="0.72156862745098038" green="0.43137254901960786" blue="0.4823529411764706" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
-                <constraint firstItem="VVH-ji-FC8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="30" id="8b4-fs-54I"/>
                 <constraint firstItem="vCd-Lp-RjC" firstAttribute="leading" secondItem="NJY-29-qjF" secondAttribute="leading" id="L52-mT-bQo"/>
                 <constraint firstItem="VVH-ji-FC8" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Nc2-1G-LZC"/>
                 <constraint firstItem="3A5-O0-x2I" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="TfY-Eg-60H"/>
@@ -71,7 +70,6 @@
                 <constraint firstItem="NJY-29-qjF" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="gm0-8I-KuA"/>
                 <constraint firstAttribute="trailing" secondItem="3A5-O0-x2I" secondAttribute="trailing" id="kjq-qQ-HOI"/>
                 <constraint firstItem="vCd-Lp-RjC" firstAttribute="top" secondItem="NJY-29-qjF" secondAttribute="bottom" constant="10" id="odJ-ds-53q"/>
-                <constraint firstAttribute="trailing" secondItem="VVH-ji-FC8" secondAttribute="trailing" constant="57" id="oiA-MW-R4E"/>
                 <constraint firstItem="NJY-29-qjF" firstAttribute="top" secondItem="3A5-O0-x2I" secondAttribute="bottom" constant="30" id="tgS-rf-7Jr"/>
             </constraints>
             <point key="canvasLocation" x="358" y="256"/>

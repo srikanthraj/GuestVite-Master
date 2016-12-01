@@ -14,17 +14,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>DZNEmptyDataSet.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>GeoFire.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -59,16 +49,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>VMaskTextField-VMaskTextField.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
-		<key>VMaskTextField.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -77,7 +57,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>0C85D27A40C11D1A774A31676864884B</key>
+		<key>0CE2C5FFABAA8D2B4DF63119BB10DB40</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,32 +82,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>63C2E5391A7EA6C2AD95F46FEB616051</key>
+		<key>ABEC20541CCB88E9C276EE25B7BE1BAE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>688CEDB508887B3550D0AD4B7D516F68</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>736E57AD5AEFAAF68D47AE4E8FCB8F68</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A0521A66E93BB7F52C6C0493133C6C17</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>ABE0BEF4552F90EBE3BC0B0C49B98B7B</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B6113799E00E8E78DECCB347C4935C41</key>
+		<key>D3F234B42353578F05BE0F2777877ADE</key>
 		<dict>
 			<key>primary</key>
 			<true/>
