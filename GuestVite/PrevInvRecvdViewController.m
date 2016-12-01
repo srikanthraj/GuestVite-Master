@@ -298,10 +298,10 @@ NSArray *pirkeys;
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
     
     [rightUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:0.0 green:122.0/255.0 blue:1.0 alpha:1.0]
+     [UIColor colorWithRed:250/255.0 green:142/255.0 blue:80/255.0 alpha:0.5]
                                                 title:@"E-Mail"];
     [rightUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor greenColor]
+     [UIColor colorWithRed:90/255.0 green:53/255.0 blue:104/255.0 alpha:0.5]
                                                 title:@"SMS"];
     
     

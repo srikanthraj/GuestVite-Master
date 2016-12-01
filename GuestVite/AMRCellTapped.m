@@ -25,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *acceptOrDeclineLabel;
 @property (weak, nonatomic) IBOutlet UINavigationBar *pendingInvitationsBack;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *backButton;
+@property (weak, nonatomic) IBOutlet UIButton *acceptButton;
+@property (weak, nonatomic) IBOutlet UIButton *declineButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *messageFromLabel;
 
@@ -67,6 +69,18 @@ float currentLongitude = 0.0;
     actionTaken = [[NSString alloc]init];
     
     
+    
+    // Stylize the buttons
+    
+    self.acceptButton.layer.cornerRadius = 10.0;
+    [[self.acceptButton layer] setBorderWidth:1.0f];
+    [[self.acceptButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+    
+    self.declineButton.layer.cornerRadius = 10.0;
+    [[self.declineButton layer] setBorderWidth:1.0f];
+    [[self.declineButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+    
+     // Stylize the buttons ends
     
     UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
     [[UINavigationBar appearance] setBackgroundImage:navBackgroundImage forBarMetrics:UIBarMetricsDefault];
