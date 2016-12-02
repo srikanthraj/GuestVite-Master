@@ -748,7 +748,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
     if(([self entryErrorFName] || [self entryErrorEMail] || [self entryErrorPhone]) && !([fromDate compare:toDate] == NSOrderedAscending)) {
         
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check your input fields which has not a smiling face again",@"From Date cannot be later than To Date"]preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check your input fields",@"From Date cannot be later than To Date"]preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
@@ -761,7 +761,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
    
     else if([self entryErrorFName] || ([self entryErrorEMail] && [self entryErrorPhone])) {
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check your input fields which has a sad smiley again"preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check your input fields"preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         

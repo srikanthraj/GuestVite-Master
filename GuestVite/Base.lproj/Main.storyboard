@@ -67,10 +67,10 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Don't have an Account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gcs-qs-Gsm">
-                                        <rect key="frame" x="51" y="282" width="219" height="17"/>
+                                        <rect key="frame" x="51" y="282" width="171" height="17"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="17" id="7nt-Wa-yIV"/>
-                                            <constraint firstAttribute="width" constant="218" id="vS7-bH-ZC8"/>
+                                            <constraint firstAttribute="width" constant="171" id="vS7-bH-ZC8"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>

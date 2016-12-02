@@ -285,16 +285,7 @@ float totalDistance;
         
         UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Guest Reached or is very close to your place, Enjoy your time!"preferredStyle:UIAlertControllerStyleAlert];
         
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        
-            TrackMyGuestsViewController *trackGuestsVC =
-            [[TrackMyGuestsViewController alloc] initWithNibName:@"TrackMyGuestsViewController" bundle:nil];
-            
-            //hPViewController.userName  = eMailEntered;
-            [self.navigationController pushViewController:trackGuestsVC animated:YES];
-            
-            [self presentViewController:trackGuestsVC animated:YES completion:nil];
-        }];
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
         [ac addAction:aa];
         [self presentViewController:ac animated:YES completion:nil];

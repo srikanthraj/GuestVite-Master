@@ -32,6 +32,7 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+@property (weak, nonatomic) IBOutlet UIButton *updateButton;
 @property (nonatomic, strong) CNPPopupController *popupController;
 
 @property (nonatomic) BOOL shouldKeyboardMoveUp;
@@ -83,6 +84,12 @@ NSMutableString *zip;
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    //Style the Update Button
+    
+    self.updateButton.layer.cornerRadius = 10.0;
+    [[self.updateButton layer] setBorderWidth:1.0f];
+    [[self.updateButton layer] setBorderColor:[UIColor whiteColor].CGColor];
     
     //Initialize Text Views
     

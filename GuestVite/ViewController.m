@@ -48,7 +48,7 @@ NSUInteger currIndex;
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
-     [self setNeedsStatusBarAppearanceUpdate];
+    // [self setNeedsStatusBarAppearanceUpdate];
     
     
     self.entryErrorEMail = YES;
@@ -104,11 +104,11 @@ NSUInteger currIndex;
     
 }
 
-
+/*
 -(UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
 }
-
+*/
 -(void) autoLogin {
     HomePageViewController *hPViewController =
     [[HomePageViewController alloc] init];
@@ -126,7 +126,31 @@ NSUInteger currIndex;
     
     [[FIRAuth auth] sendPasswordResetWithEmail:eMailEntered
                                     completion:^(NSError *_Nullable error) {
-                                        if (error) {
+                                        
+                                       
+                                        if([eMailEntered length] == 0){
+                                            
+                                            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@",@"Please Enter an E-Mail address for which you want to get the password"]preferredStyle:UIAlertControllerStyleAlert];
+                                            
+                                            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                                            
+                                            [ac addAction:aa];
+                                            [self presentViewController:ac animated:YES completion:nil];
+
+                                        }
+                                        
+                                        else if(![self validateEmailWithString:eMailEntered]) {
+                                            
+                                            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@",@"Sorry,Please Enter a valid E-Mail address for which you want to get the password"]preferredStyle:UIAlertControllerStyleAlert];
+                                            
+                                            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+                                            
+                                            [ac addAction:aa];
+                                            [self presentViewController:ac animated:YES completion:nil];
+                                        }
+                                        
+                                        
+                                        else if (error) {
                                             // An error happened.
                                             UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"An Error Occured, Please try again"preferredStyle:UIAlertControllerStyleAlert];
                                             
@@ -139,7 +163,7 @@ NSUInteger currIndex;
                                         
                                         else {
                                             
-                                            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Check your inbox for details"preferredStyle:UIAlertControllerStyleAlert];
+                                            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check your Inbox for datils to reset your password"preferredStyle:UIAlertControllerStyleAlert];
                                             
                                             UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                                             

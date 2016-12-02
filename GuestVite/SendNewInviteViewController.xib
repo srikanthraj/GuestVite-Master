@@ -289,7 +289,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Back" width="32" height="30"/>
+        <image name="Back" width="30" height="24"/>
         <image name="purple" width="336" height="280"/>
     </resources>
 </document>
