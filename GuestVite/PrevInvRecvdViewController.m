@@ -100,7 +100,7 @@ NSArray *pirkeys;
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     // or @"yyyy-MM-dd hh:mm:ss a" if you prefer the time with AM/PM
-    NSLog(@"DATE IS %@",[NSDate date]);
+   // NSLog(@"DATE IS %@",[NSDate date]);
     
     
     NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
@@ -140,8 +140,8 @@ NSArray *pirkeys;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
-    NSLog(@"Current User Email %@",currentUserEMail);
-    NSLog(@"Current User Phone %@",currentUserPhone);
+    //NSLog(@"Current User Email %@",currentUserEMail);
+    //NSLog(@"Current User Phone %@",currentUserPhone);
     
     
     [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -153,7 +153,7 @@ NSArray *pirkeys;
         pirkeys = [dict allKeys];
         //NSLog(@"Array %@",arr[0][@"Sender First Name"]);
         
-        NSLog(@"Login date is %@",loginDate);
+        //NSLog(@"Login date is %@",loginDate);
         
         inviteTableLength = [arr count];
         //NSLog(@"ARR count %lu",(unsigned long)[arr count]);
@@ -163,13 +163,13 @@ NSArray *pirkeys;
         {
             
             endDateTime = arr[i][@"Invite Valid Till Date"];
-            NSLog(@"END DATE TIME %@",endDateTime);
+           // NSLog(@"END DATE TIME %@",endDateTime);
             
             if([currentUserEMail length] > 0 && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail])
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
             {
                 
-                NSLog(@"INSIDE EMAIL");
+                //NSLog(@"INSIDE EMAIL");
                 
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
@@ -209,7 +209,7 @@ NSArray *pirkeys;
             if(i == ([arr count]-1)){ // Check in case of last iteration and Add "No Invites" Only if no data is added to invites list
                 
                 
-                NSLog(@"Last Iteration");
+                //NSLog(@"Last Iteration");
                 if([myfirstNameData count]== 0 && [mylastNameData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0)
                 {
                     
@@ -240,7 +240,7 @@ NSArray *pirkeys;
     }
 
     
-    NSLog(@"myfirstNameData count is %lu",(unsigned long)[myfirstNameData count]);
+    //NSLog(@"myfirstNameData count is %lu",(unsigned long)[myfirstNameData count]);
     for(int i =0;i<[myinvitedFromData count];i++){
         [pirfirstNameData addObject:[myfirstNameData objectAtIndex:i]];
         [pirlastNameData addObject:[mylastNameData objectAtIndex:i]];
@@ -330,22 +330,22 @@ NSArray *pirkeys;
     
     
     
-    if (indexPath.row % 2 == 0)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    }
+    //if (indexPath.row % 2 == 0)
+    //{
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    //}
     
-    else
-    {
-        
+    //else
+    //{
+      /*
         
         cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         
         
     }
-
+       */
     if([[pirkeyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
 
         [cell.firstNameLabel setHidden:YES];
@@ -376,11 +376,11 @@ NSArray *pirkeys;
 #pragma mark - CNPPopupController Delegate
 
 - (void)popupController:(CNPPopupController *)controller didDismissWithButtonTitle:(NSString *)title {
-    NSLog(@"Dismissed with button title: %@", title);
+    //NSLog(@"Dismissed with button title: %@", title);
 }
 
 - (void)popupControllerDidPresent:(CNPPopupController *)controller {
-    NSLog(@"Popup controller presented.");
+    //NSLog(@"Popup controller presented.");
 }
 
 
@@ -391,6 +391,7 @@ NSArray *pirkeys;
         case 0:
         {
             
+            /*
             NSLog(@"FIRST NAMES %@",pirfirstNameData);
             NSLog(@"LAST NAMES %@",pirlastNameData);
             NSLog(@"INVITED FROM %@",pirinvitedFromData);
@@ -398,7 +399,7 @@ NSArray *pirkeys;
             NSLog(@"SENDER PHONE %@",pirsenderPhoneData);
             NSLog(@"SENDER EMAIL %@",pirsenderEMailData);
             NSLog(@"ACTION TAKEN %@",piractionTakenData);
-            
+            */
             
             
             
@@ -509,7 +510,7 @@ NSArray *pirkeys;
                         break;
         }
         case MFMailComposeResultFailed:
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            //NSLog(@"Mail sent failure: %@", [error localizedDescription]);
             break;
         default:
             break;

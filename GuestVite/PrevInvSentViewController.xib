@@ -43,7 +43,7 @@
                 </navigationBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7nZ-g5-ofm">
                     <rect key="frame" x="0.0" y="66" width="320" height="502"/>
-                    <color key="backgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.35886457939999999" green="0.1568488676" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="sectionIndexBackgroundColor" red="0.75294117647058822" green="0.37647058823529411" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="om5-S2-UxE"/>

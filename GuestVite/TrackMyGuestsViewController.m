@@ -126,8 +126,8 @@ NSArray *tmgkeys;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
-    NSLog(@"Current User Email %@",currentUserEMail);
-    NSLog(@"Current User Phone %@",currentUserPhone);
+    //NSLog(@"Current User Email %@",currentUserEMail);
+   // NSLog(@"Current User Phone %@",currentUserPhone);
 
     
     
@@ -141,7 +141,7 @@ NSArray *tmgkeys;
         tmgkeys = [dict allKeys];
         
         
-        NSLog(@"Login date is %@",loginDate);
+        //NSLog(@"Login date is %@",loginDate);
         
         inviteTableLength = [arr count];
         
@@ -159,8 +159,8 @@ NSArray *tmgkeys;
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending) && [arr[i][@"Invitation Status"] isEqualToString:@"Accepted"])
             {
                 
-                NSLog(@"INVITED FROM DATE TIME %@",startDateTime);
-                NSLog(@"INVITED TILL DATE TIME %@",endDateTime);
+                //NSLog(@"INVITED FROM DATE TIME %@",startDateTime);
+                //NSLog(@"INVITED TILL DATE TIME %@",endDateTime);
                 
                 if([arr[i][@"Receiver EMail"] length] == 0) {
                     [myGuestEMailData addObject: @"Not Specified"];
@@ -206,8 +206,8 @@ NSArray *tmgkeys;
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending)&& [arr[i][@"Invitation Status"] isEqualToString:@"Accepted"])
             {
                 
-                NSLog(@"INVITED FROM DATE TIME %@",startDateTime);
-                NSLog(@"INVITED TILL DATE TIME %@",endDateTime);
+                //NSLog(@"INVITED FROM DATE TIME %@",startDateTime);
+                //NSLog(@"INVITED TILL DATE TIME %@",endDateTime);
                 
                 if([arr[i][@"Receiver EMail"] length] == 0) {
                     [myGuestEMailData addObject: @"Not Specified"];
@@ -287,7 +287,7 @@ NSArray *tmgkeys;
         [tmgkeyData addObject:[myKeyData objectAtIndex:i]];
     }
     
-     NSLog(@"Key data is %@",tmgGuestEMailData);
+     //NSLog(@"Key data is %@",tmgGuestEMailData);
 }
 
 -(UIStatusBarStyle)preferredStatusBarStyle {
@@ -354,21 +354,21 @@ NSArray *tmgkeys;
     cell.invitedFromDateLabel.text = [tmginvitedFromData objectAtIndex:indexPath.row];
     cell.invitedTillDateLabel.text = [tmginvitedTillData objectAtIndex:indexPath.row];
 
-    if (indexPath.row % 2 == 0)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    }
+    //if (indexPath.row % 2 == 0)
+    //{
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    //}
     
-    else
-    {
+    //else
+    //{
         
-        
+      /*
         cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         
-    }
-    
+    //}
+    */
     if([[tmgkeyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
         
         [cell.guestEMail setHidden:YES];
@@ -398,7 +398,7 @@ NSArray *tmgkeys;
 {
     
     
-    NSLog(@"Cell Tapped");
+    //NSLog(@"Cell Tapped");
     
     TrackMyGuestsCellTapped *tmgCellTapped =
     [[TrackMyGuestsCellTapped alloc] initWithNibName:@"TrackMyGuestsCellTapped" bundle:nil];

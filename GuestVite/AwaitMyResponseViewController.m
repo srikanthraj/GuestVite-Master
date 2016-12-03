@@ -133,7 +133,6 @@ NSArray *keys;
     __block NSMutableArray *myhostAddZip = [[NSMutableArray alloc] init];
     
     
-    __block NSMutableArray *myGuestFirstNameData = [[NSMutableArray alloc] init];
     __block NSMutableArray *myInformHostData = [[NSMutableArray alloc] init];
     
     __block NSMutableArray *myinvitedFromData = [[NSMutableArray alloc] init];
@@ -172,11 +171,11 @@ NSArray *keys;
         
         NSDictionary *dict = snapshot.value;
         
-   
+        
         NSString *endDateTime = [[NSString alloc] init];
         NSArray * arr = [dict allValues];
         keys = [dict allKeys];
-    
+        
         
         inviteTableLength = [arr count];
         
@@ -191,7 +190,7 @@ NSArray *keys;
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
             {
                 
-                NSLog(@"INSIDE EMAIL");
+                //NSLog(@"INSIDE EMAIL");
                 
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
@@ -219,7 +218,7 @@ NSArray *keys;
             if([currentUserPhone length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"] && ([arr[i][@"Receiver Phone"] isEqualToString:currentUserPhone])
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
             {
-             
+                
                 
                 
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
@@ -307,7 +306,7 @@ NSArray *keys;
     }
     
     
-    NSLog(@"INSIDE AWAIT MY RESPONSE Key data is %@",keyData);
+    //NSLog(@"INSIDE AWAIT MY RESPONSE Key data is %@",keyData);
     
     // Do any additional setup after loading the view from its nib.
     
@@ -357,7 +356,7 @@ NSArray *keys;
     
     SimpleTableCellTableViewCell *cell = (SimpleTableCellTableViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier forIndexPath:indexPath];
     
-        cell.delegate = self;
+    cell.delegate = self;
     
     
     
@@ -367,21 +366,22 @@ NSArray *keys;
     cell.invitedTillDateLabel.text = [invitedTillData objectAtIndex:indexPath.row];
     
     
-    if (indexPath.row % 2 == 0)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    }
+    //if (indexPath.row % 2 == 0)
+    //{
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    //}
     
-    else
-    {
-        
-        
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        
-    }
-
+    // else
+    //{
+    
+    /*
+     cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+     cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+     
+     }
+     */
+    
     if([[keyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
         
         [cell.firstNameLabel setHidden:YES];
@@ -399,7 +399,7 @@ NSArray *keys;
         amrEmptyView.view.frame = self.view.bounds;
         [self.view addSubview:amrEmptyView.view];
     }
-
+    
     
     
     

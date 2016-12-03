@@ -202,7 +202,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Back" width="32" height="30"/>
+        <image name="Back" width="30" height="24"/>
         <image name="blue-orange-backgrounds-wallpaper" width="1680" height="1050"/>
     </resources>
 </document>

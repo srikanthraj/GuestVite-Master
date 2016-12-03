@@ -919,7 +919,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         
         
         if(![MFMessageComposeViewController canSendText]) {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Error" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device does not support SMS, please try again" preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             
@@ -935,12 +935,15 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         NSArray *recipents = [NSArray arrayWithObject:self.guestPhoneText.text];
        
         
-        NSString *message = [NSString stringWithFormat:@"Hey! %@ , You are invited by %@ at their place on %@ , Please login/Register to GuestVite App for more Details ,Thanks!",self.guestNameText.text,senderName,self.startTime];
+        NSString *message = [NSString stringWithFormat:@"Hey! %@ , You are invited by %@ at their place on %@ , Please Login/Register to this cool App GuestVite @ %@ for more details ,Thanks!",self.guestNameText.text,senderName,self.startTime,@"https://itunes.apple.com/us/app/guestvite/id1182204052?ls=1&mt=8"];
         
         MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
         messageController.messageComposeDelegate = self;
         [messageController setRecipients:recipents];
+        
+        
         [messageController setBody:message];
+      
         
         
         [self presentViewController:messageController animated:YES completion:nil];
@@ -954,16 +957,16 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         if([self.guestEMailText.text length] > 0  && [self.guestPhoneText.text length] == 0) {
             
             // Email Subject
-            NSString *emailTitle = @"Message From GeuestVite";
+            NSString *emailTitle = @"Message From GuestVite";
             // Email Content
-            NSString *messageBody = [NSString stringWithFormat:@"Hey! %@ , This is %@  and I want to invite you at my place on %@ , please login to this new cool App GuestVite! for all further details, Thanks and looking forward to see you soon!",self.guestNameText.text,senderName,self.startTime];
+            NSString *messageBody = [NSString stringWithFormat:@"Hey %@ , You are invited by %@ at their place on %@, Please Login/Register to this cool App <a href = '%@'> GuestVite </a> for more details ,Thanks!",self.guestNameText.text,senderName,self.startTime,@"https://itunes.apple.com/us/app/guestvite/id1182204052?ls=1&mt=8"];
             // To address
             NSArray *toRecipents = [NSArray arrayWithObject:self.guestEMailText.text];
             
             MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
             mc.mailComposeDelegate = self;
             [mc setSubject:emailTitle];
-            [mc setMessageBody:messageBody isHTML:NO];
+            [mc setMessageBody:messageBody isHTML:YES];
             [mc setToRecipients:toRecipents];
             
             // Present mail view controller on screen
@@ -1005,7 +1008,7 @@ self.countLabel.text = @"100";
         case MessageComposeResultFailed:
         {
             
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to send SMS!" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to send SMS!, please try again." preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             
