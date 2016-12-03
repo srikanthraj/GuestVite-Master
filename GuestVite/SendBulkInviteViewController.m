@@ -28,6 +28,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *phoneTextView;
 
 @property (weak, nonatomic) IBOutlet UITextView *emailTextView;
+@property (weak, nonatomic) IBOutlet UIButton *sendSMS;
+@property (weak, nonatomic) IBOutlet UIButton *sendEMail;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
@@ -80,6 +82,18 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
     
+    //Style the Buttons
+    
+    self.sendSMS.layer.cornerRadius = 10.0;
+    [[self.sendSMS layer] setBorderWidth:1.0f];
+    [[self.sendSMS layer] setBorderColor:[UIColor whiteColor].CGColor];
+    
+    self.sendEMail.layer.cornerRadius = 10.0;
+    [[self.sendEMail layer] setBorderWidth:1.0f];
+    [[self.sendEMail layer] setBorderColor:[UIColor whiteColor].CGColor];
+    
+
+    
     // Set the Text Views
     
     self.emailTextView.text = NSLocalizedString(@"😐", nil);
@@ -101,11 +115,11 @@
     NSString *currentTime = [currentDateFormatter stringFromDate:[NSDate date]];
     
     self.startTime = currentTime;
-    NSLog(@"Start Time on load %@", self.startTime);
+    //NSLog(@"Start Time on load %@", self.startTime);
     
     self.endTime = currentTime;
     
-    NSLog(@"End Time on load %@", self.endTime);
+    //NSLog(@"End Time on load %@", self.endTime);
     
     
     UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
@@ -358,7 +372,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [dateFormatter stringFromDate:self.datePicker.date];
-    NSLog(@"Time For %@", currentTime);
+    //NSLog(@"Time For %@", currentTime);
     self.startTime = currentTime;
 }
 
@@ -367,7 +381,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [dateFormatter stringFromDate:self.datePickerExpire.date];
-    NSLog(@"Time Expire%@", currentTime);
+    //NSLog(@"Time Expire%@", currentTime);
     self.endTime = currentTime;
 }
 
@@ -659,8 +673,8 @@
     
     __block NSString *endDateTime = [[NSString alloc] init];
         
-        NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
-        NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
+        //NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
+        //NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
         
     
     startDateTime = self.startTime;
@@ -674,9 +688,9 @@
     NSDate *toDate = [self dateToFormatedDate:endDateTime];
     
     
-    NSLog(@"FROM DATE %@",fromDate);
+    //NSLog(@"FROM DATE %@",fromDate);
     
-    NSLog(@"TO DATE %@",toDate);
+    //NSLog(@"TILL DATE %@",toDate);
         
         
      // Check all phone numbers to see if anything is present in Bad Phone List
@@ -695,7 +709,7 @@
 
         }
         
-        NSLog(@"Bad Phone numbers are %@",badPhoneList);
+        //NSLog(@"Bad Phone numbers are %@",badPhoneList);
         
         
         // 4 conditions to be checked
@@ -720,13 +734,13 @@
         for(NSString *temp in arr){
             for(NSString *tempNone in badPhoneList){
                 
-                NSLog(@"Comparing %@ against %@",tempNone,temp);
+                //NSLog(@"Comparing %@ against %@",tempNone,temp);
                 if([temp isEqualToString:tempNone]){
                     
                     //NSLog(@"None String is %@",temp);
                     
                     NSRange range=[temp rangeOfString:tempNone options:NSCaseInsensitiveSearch];
-                    NSLog(@"RANGE IS %lu",(unsigned long)range.location);
+                    //NSLog(@"RANGE IS %lu",(unsigned long)range.location);
                     [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
                 }
             }
@@ -736,7 +750,7 @@
         
         
         self.phoneTextView.text = NSLocalizedString(@"😧", nil);
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the Phone numbers marked in red (May be you left an empty line?)",@"From Date cannot be later than To Date"]preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the Phone numbers marked in red (May be you left an empty line?)",@"From Date cannot be later than Till Date"]preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
@@ -783,7 +797,7 @@
         //  3. Else If (From date > To Date)
     else if(!([fromDate compare:toDate] == NSOrderedAscending)) {
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than Till Date"preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
@@ -1014,8 +1028,8 @@
     
     __block NSString *endDateTime = [[NSString alloc] init];
         
-        NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
-        NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
+        //NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
+        //NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
         
         startDateTime = self.startTime;
         endDateTime = self.endTime;
@@ -1026,9 +1040,9 @@
     
     NSDate *toDate = [self dateToFormatedDate:endDateTime];
         
-        NSLog(@"FROM DATE %@",fromDate);
+        //NSLog(@"FROM DATE %@",fromDate);
         
-        NSLog(@"TO DATE %@",toDate);
+        //NSLog(@"TILL DATE %@",toDate);
         
         
         // Check all E-Mails to see if anything is present in Bad E-Mail List
@@ -1047,7 +1061,7 @@
             
         }
         
-        NSLog(@"Bad E-Mail Addresses are %@",badEMailList);
+        //NSLog(@"Bad E-Mail Addresses are %@",badEMailList);
       
         // 4 conditions to be checked
         /*

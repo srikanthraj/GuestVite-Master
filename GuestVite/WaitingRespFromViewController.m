@@ -85,7 +85,7 @@ NSArray *wrfkeys;
     
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
-    NSLog(@"DATE IS %@",[NSDate date]);
+   // NSLog(@"DATE IS %@",[NSDate date]);
     
     
     NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
@@ -124,8 +124,8 @@ NSArray *wrfkeys;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
-    NSLog(@"Current User Email %@",currentUserEMail);
-    NSLog(@"Current User Phone %@",currentUserPhone);
+    //NSLog(@"Current User Email %@",currentUserEMail);
+    //NSLog(@"Current User Phone %@",currentUserPhone);
     
     
     [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -138,7 +138,7 @@ NSArray *wrfkeys;
         wrfkeys = [dict allKeys];
         
         
-        NSLog(@"Login date is %@",loginDate);
+        //NSLog(@"Login date is %@",loginDate);
         
         inviteTableLength = [arr count];
         
@@ -149,42 +149,42 @@ NSArray *wrfkeys;
             
             endDateTime = arr[i][@"Invite Valid Till Date"];
             startDateTime = arr[i][@"Invite For Date"];
-            NSLog(@"EMail %lu",[arr[i][@"Receiver EMail"] length]);
+            //NSLog(@"EMail %lu",[arr[i][@"Receiver EMail"] length]);
             
             if([currentUserEMail length] > 0 && ([arr[i][@"Sender EMail"] isEqualToString:currentUserEMail])
                 && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending) && [arr[i][@"Invitation Status"] isEqualToString:@"Pending"])
             {
                 
-                NSLog(@"INSIDE EMAIL");
+                //NSLog(@"INSIDE EMAIL");
                 
                 if([arr[i][@"Receiver EMail"] length] == 0) {
                     [myGuestEMailData addObject: @"Not Specified"];
-                    NSLog(@"Receiver E-Mail Empty");
+                    //NSLog(@"Receiver E-Mail Empty");
                 }
                 else if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
                     [myGuestEMailData addObject: arr[i][@"Receiver EMail"]];
-                    NSLog(@"Receiver E-Mail NOT BULK");
+                    //NSLog(@"Receiver E-Mail NOT BULK");
                 }
                 
                 else {
                     [myGuestEMailData addObject: @"Not Specified"];
-                    NSLog(@"Receiver E-Mail BULK");
+                    //NSLog(@"Receiver E-Mail BULK");
                 }
                 
                 if([arr[i][@"Receiver Phone"] length] == 0) {
                     [myGuestPhoneData addObject: @"Not Specified"];
-                    NSLog(@"Receiver Phone Empty");
+                    //NSLog(@"Receiver Phone Empty");
                 }
                 
                 else if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
                     [myGuestPhoneData addObject: arr[i][@"Receiver Phone"]];
-                    NSLog(@"Receiver Phone NOT BULK");
+                   // NSLog(@"Receiver Phone NOT BULK");
                 }
                 
                 
                 else {
                     [myGuestPhoneData addObject: @"Not Specified"];
-                    NSLog(@"Receiver Phone BULK");
+                    //NSLog(@"Receiver Phone BULK");
                 }
                 
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
@@ -203,32 +203,32 @@ NSArray *wrfkeys;
                 
                 if([arr[i][@"Receiver EMail"] length] == 0) {
                     [myGuestEMailData addObject: @"Not Specified"];
-                    NSLog(@"Receiver E-Mail Empty");
+                    //NSLog(@"Receiver E-Mail Empty");
                 }
                 
                 else if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
                     [myGuestEMailData addObject: arr[i][@"Receiver EMail"]];
-                    NSLog(@"Receiver E-Mail NOT BULK");
+                    //NSLog(@"Receiver E-Mail NOT BULK");
                 }
                 
                 else {
                     [myGuestEMailData addObject: @"Not Specified"];
-                    NSLog(@"Receiver E-Mail BULK");
+                    //NSLog(@"Receiver E-Mail BULK");
                 }
                 
                 if([arr[i][@"Receiver Phone"] length] == 0) {
                     [myGuestPhoneData addObject: @"Not Specified"];
-                    NSLog(@"Receiver Phone Empty");
+                   // NSLog(@"Receiver Phone Empty");
                 }
                 
                 else if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
                     [myGuestPhoneData addObject: arr[i][@"Receiver Phone"]];
-                    NSLog(@"Receiver Phone NOT BULK");
+                    //NSLog(@"Receiver Phone NOT BULK");
                 }
                 
                 else {
                     [myGuestPhoneData addObject: @"Not Specified"];
-                    NSLog(@"Receiver Phone BULK");
+                   // NSLog(@"Receiver Phone BULK");
                 }
                 
                 
@@ -248,7 +248,7 @@ NSArray *wrfkeys;
             if(i == ([arr count]-1)){ // Check in case of last iteration and Add "No Invites" Only if no data is added to invites list
                 
                 
-                NSLog(@"Last Iteration");
+                //NSLog(@"Last Iteration");
                 if([myGuestEMailData count]== 0 && [myGuestPhoneData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0)
                 {
                     [myGuestEMailData addObject: @"No Invites"];
@@ -271,7 +271,7 @@ NSArray *wrfkeys;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
-    NSLog(@"myinvitedFromData count is %lu",(unsigned long)[myinvitedFromData count]);
+   // NSLog(@"myinvitedFromData count is %lu",(unsigned long)[myinvitedFromData count]);
     for(int i =0;i<[myinvitedFromData count];i++){
         [wrfGuestEMailData addObject:[myGuestEMailData objectAtIndex:i]];
         [wrfGuestPhoneData addObject:[myGuestPhoneData objectAtIndex:i]];
@@ -281,8 +281,8 @@ NSArray *wrfkeys;
         [wrfkeyData addObject:[myKeyData objectAtIndex:i]];
     }
     
-        NSLog(@"Guest E-Mail data is %@",wrfGuestEMailData);
-     NSLog(@"Guest Phone data is %@",wrfGuestPhoneData);
+    //    NSLog(@"Guest E-Mail data is %@",wrfGuestEMailData);
+   //  NSLog(@"Guest Phone data is %@",wrfGuestPhoneData);
     
 }
 
@@ -325,7 +325,7 @@ NSArray *wrfkeys;
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
     
     [rightUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
+     [UIColor colorWithRed:128.0f green:0.0f blue:0.0 alpha:0.7f]
                                                 title:@"Cancel Invite"];
     
     
@@ -355,21 +355,21 @@ NSArray *wrfkeys;
     cell.actionTakenLabel.text = [wrfactionTakenData objectAtIndex:indexPath.row];
     
     
-    if (indexPath.row % 2 == 0)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    }
+   // if (indexPath.row % 2 == 0)
+   // {
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+  //  }
     
-    else
-    {
+   // else
+   // {
         
-        
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    /*
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-orange"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-orange"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         
     }
-    
+    */
     if([[wrfkeyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
         
         
@@ -410,11 +410,11 @@ NSArray *wrfkeys;
 #pragma mark - CNPPopupController Delegate
 
 - (void)popupController:(CNPPopupController *)controller didDismissWithButtonTitle:(NSString *)title {
-    NSLog(@"Dismissed with button title: %@", title);
+   // NSLog(@"Dismissed with button title: %@", title);
 }
 
 - (void)popupControllerDidPresent:(CNPPopupController *)controller {
-    NSLog(@"Popup controller presented.");
+   // NSLog(@"Popup controller presented.");
 }
 
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
@@ -427,9 +427,9 @@ NSArray *wrfkeys;
                 paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
                 paragraphStyle.alignment = NSTextAlignmentCenter;
                 
-                NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"Just One Confirmation!" attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
-                NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Do You really want to Camcel this Invite?" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSParagraphStyleAttributeName : paragraphStyle}];
-                NSAttributedString *lineTwo = [[NSAttributedString alloc] initWithString:@"Once deleted, it cannot be reverted" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+                
+                NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Do You really want to Cancel this Invite?" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSParagraphStyleAttributeName : paragraphStyle}];
+                NSAttributedString *lineTwo = [[NSAttributedString alloc] initWithString:@"Once deleted, it can't be reverted" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
                 
                 CNPPopupButton *buttonGoBack = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
                 [buttonGoBack setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -439,19 +439,19 @@ NSArray *wrfkeys;
                 buttonGoBack.layer.cornerRadius = 4;
                 buttonGoBack.selectionHandler = ^(CNPPopupButton *buttonGoBack){
                     [self.popupController dismissPopupControllerAnimated:YES];
-                    NSLog(@"Block for button: %@", buttonGoBack.titleLabel.text);
+                    //NSLog(@"Block for button: %@", buttonGoBack.titleLabel.text);
                 };
                 
                 CNPPopupButton *buttonCancelComm = [[CNPPopupButton alloc] initWithFrame:CGRectMake(50, 50, 200, 60)];
                 [buttonCancelComm setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-                buttonCancelComm.titleLabel.font = [UIFont boldSystemFontOfSize:18];
+                buttonCancelComm.titleLabel.font = [UIFont boldSystemFontOfSize:12];
                 [buttonCancelComm setTitle:@"Cancel and Let My Guest Know" forState:UIControlStateNormal];
                 buttonCancelComm.backgroundColor = [UIColor colorWithRed:1.0 green:0.231f blue:0.188 alpha:1.0];
                 buttonCancelComm.layer.cornerRadius = 4;
                 buttonCancelComm.selectionHandler = ^(CNPPopupButton *buttonDelete){
                     // Delete button is pressed
                     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-                    NSLog(@"KEY DATA IS %@",[wrfkeyData objectAtIndex:cellIndexPath.row]);
+                   // NSLog(@"KEY DATA IS %@",[wrfkeyData objectAtIndex:cellIndexPath.row]);
                     // Send Communication
                     
                     if(!([[wrfGuestEMailData objectAtIndex:cellIndexPath.row] isEqualToString:@"Not Specified"]))
@@ -535,7 +535,7 @@ NSArray *wrfkeys;
                     [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
                     
                     [self.popupController dismissPopupControllerAnimated:YES];
-                    NSLog(@"Block for button: %@", buttonDelete.titleLabel.text);
+                   // NSLog(@"Block for button: %@", buttonDelete.titleLabel.text);
                     
                     
                 };
@@ -551,7 +551,7 @@ NSArray *wrfkeys;
                 justCancel.selectionHandler = ^(CNPPopupButton *buttonDelete){
                     // Delete button is pressed
                     NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-                    NSLog(@"KEY DATA IS %@",[wrfkeyData objectAtIndex:cellIndexPath.row]);
+                    //NSLog(@"KEY DATA IS %@",[wrfkeyData objectAtIndex:cellIndexPath.row]);
                     
                     [[[_ref child:@"invites"] child:[wrfkeyData objectAtIndex:cellIndexPath.row]] removeValue];
                     
@@ -565,7 +565,7 @@ NSArray *wrfkeys;
                     [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
                     
                     [self.popupController dismissPopupControllerAnimated:YES];
-                    NSLog(@"Block for button: %@", buttonDelete.titleLabel.text);
+                    //NSLog(@"Block for button: %@", buttonDelete.titleLabel.text);
                     
                     
                 };
@@ -573,9 +573,7 @@ NSArray *wrfkeys;
                 
                 
                 
-                UILabel *titleLabel = [[UILabel alloc] init];
-                titleLabel.numberOfLines = 0;
-                titleLabel.attributedText = title;
+           
                 
                 UILabel *lineOneLabel = [[UILabel alloc] init];
                 lineOneLabel.numberOfLines = 0;
@@ -596,7 +594,7 @@ NSArray *wrfkeys;
                 // textFied.placeholder = @"Custom view!";
                 //[customView addSubview:textFied];
                 
-                self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel, lineTwoLabel, buttonGoBack,buttonCancelComm,justCancel]];
+                self.popupController = [[CNPPopupController alloc] initWithContents:@[lineOneLabel, lineTwoLabel, buttonGoBack,buttonCancelComm,justCancel]];
                 self.popupController.theme = [CNPPopupTheme defaultTheme];
                 self.popupController.theme.popupStyle = CNPPopupStyleCentered;
                 self.popupController.delegate = self;
@@ -662,7 +660,7 @@ NSArray *wrfkeys;
             break;
         }
         case MFMailComposeResultFailed:
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            //NSLog(@"Mail sent failure: %@", [error localizedDescription]);
             break;
         default:
             break;

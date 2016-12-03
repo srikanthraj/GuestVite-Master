@@ -29,7 +29,7 @@
                         <color key="textColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
                     </textAttributes>
                     <items>
-                        <navigationItem title="Pending Responses from " id="dY4-bq-UvO">
+                        <navigationItem title="Pending Responses From " id="dY4-bq-UvO">
                             <barButtonItem key="leftBarButtonItem" image="Back" id="Ngd-mV-qnc">
                                 <color key="tintColor" red="1" green="0.99397569200000002" blue="0.98804398550000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -41,7 +41,7 @@
                 </navigationBar>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tWt-C3-O4J">
                     <rect key="frame" x="0.0" y="56" width="320" height="512"/>
-                    <color key="backgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.35886457937176325" green="0.15684886755450184" blue="0.75294117650000003" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="sectionIndexBackgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="Dxp-Rv-t57"/>
@@ -63,6 +63,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Back" width="32" height="30"/>
+        <image name="Back" width="30" height="24"/>
     </resources>
 </document>

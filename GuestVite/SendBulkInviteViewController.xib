@@ -20,6 +20,8 @@
                 <outlet property="scrollView" destination="vFd-dl-6Hx" id="b61-44-VX6"/>
                 <outlet property="segmentControl" destination="h8w-Wn-c9c" id="NuK-Bw-c1q"/>
                 <outlet property="sendBulkInviteBack" destination="2Yt-rp-LaL" id="h4q-aU-UUn"/>
+                <outlet property="sendEMail" destination="AMa-Mo-OYU" id="r2L-zc-fM7"/>
+                <outlet property="sendSMS" destination="NDq-zM-QHB" id="E2S-oa-9nc"/>
                 <outlet property="smsGuestList" destination="O6g-N8-VRL" id="ArE-8c-R64"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -54,7 +56,7 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vFd-dl-6Hx">
                     <rect key="frame" x="0.0" y="44" width="320" height="568"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="purple" translatesAutoresizingMaskIntoConstraints="NO" id="nzy-GK-eRd">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="test-purple" translatesAutoresizingMaskIntoConstraints="NO" id="nzy-GK-eRd">
                             <rect key="frame" x="0.0" y="-55" width="412" height="900"/>
                         </imageView>
                         <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" text="Personalized Message" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="d8o-w3-8EW">
@@ -82,7 +84,7 @@
                             <rect key="frame" x="30" y="486" width="71" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="CS5-wl-fhU"/>
-                                <constraint firstAttribute="width" constant="71" id="Xl8-gC-Ksm"/>
+                                <constraint firstAttribute="width" constant="75" id="Xl8-gC-Ksm"/>
                             </constraints>
                             <state key="normal" title="Send SMS">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -105,7 +107,7 @@
                             <rect key="frame" x="199" y="486" width="83" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="5hK-vX-EFd"/>
-                                <constraint firstAttribute="width" constant="83" id="VVc-7N-Ejy"/>
+                                <constraint firstAttribute="width" constant="87" id="VVc-7N-Ejy"/>
                             </constraints>
                             <state key="normal" title="Send E-Mail">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -278,7 +280,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Back" width="32" height="30"/>
-        <image name="purple" width="336" height="280"/>
+        <image name="Back" width="30" height="24"/>
+        <image name="test-purple" width="300" height="168"/>
     </resources>
 </document>

@@ -91,10 +91,10 @@ UIActivityIndicatorView *activityIndicator;
     
     NSDateFormatter *dateFormatter=[[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
-    NSLog(@"DATE IS %@",[NSDate date]);
+    //NSLog(@"DATE IS %@",[NSDate date]);
     
     
-    NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
+   // NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
     
     
     __block NSMutableArray *myGuestEMailData = [[NSMutableArray alloc] init];
@@ -130,8 +130,8 @@ UIActivityIndicatorView *activityIndicator;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
-    NSLog(@"Current User Email %@",currentUserEMail);
-    NSLog(@"Current User Phone %@",currentUserPhone);
+   // NSLog(@"Current User Email %@",currentUserEMail);
+   // NSLog(@"Current User Phone %@",currentUserPhone);
     
     
     [[_ref child:@"invites"] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
@@ -143,7 +143,7 @@ UIActivityIndicatorView *activityIndicator;
         piskeys = [dict allKeys];
         
         
-        NSLog(@"Login date is %@",loginDate);
+       // NSLog(@"Login date is %@",loginDate);
         
         inviteTableLength = [arr count];
         
@@ -153,17 +153,17 @@ UIActivityIndicatorView *activityIndicator;
         {
             
             endDateTime = arr[i][@"Invite Valid Till Date"];
-            NSLog(@"END DATE TIME %@",endDateTime);
+           // NSLog(@"END DATE TIME %@",endDateTime);
             
             if([currentUserEMail length] > 0 && ([arr[i][@"Sender EMail"] isEqualToString:currentUserEMail]))
                //&& ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
             {
                 
-                NSLog(@"INSIDE EMAIL");
+               // NSLog(@"INSIDE EMAIL");
                 
                 if([arr[i][@"Receiver EMail"] length] == 0) {
                     [myGuestEMailData addObject: @"Not Specified"];
-                    NSLog(@"Receiver E-Mail Empty");
+                   // NSLog(@"Receiver E-Mail Empty");
                 }
                 
                 else if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
@@ -175,7 +175,7 @@ UIActivityIndicatorView *activityIndicator;
                 
                 if([arr[i][@"Receiver Phone"] length] == 0) {
                     [myGuestPhoneData addObject: @"Not Specified"];
-                    NSLog(@"Receiver Phone Empty");
+                   // NSLog(@"Receiver Phone Empty");
                 }
                 
                 else if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
@@ -201,7 +201,7 @@ UIActivityIndicatorView *activityIndicator;
                 
                 if([arr[i][@"Receiver EMail"] length] == 0) {
                     [myGuestEMailData addObject: @"Not Specified"];
-                    NSLog(@"Receiver E-Mail Empty");
+                   // NSLog(@"Receiver E-Mail Empty");
                 }
                 
                 else if(!([arr[i][@"Receiver EMail"] isEqualToString:@"BULK"])) {
@@ -214,7 +214,7 @@ UIActivityIndicatorView *activityIndicator;
                 
                 if([arr[i][@"Receiver Phone"] length] == 0) {
                     [myGuestPhoneData addObject: @"Not Specified"];
-                    NSLog(@"Receiver Phone Empty");
+                    //NSLog(@"Receiver Phone Empty");
                 }
                 
                 else if(!([arr[i][@"Receiver Phone"] isEqualToString:@"BULK"])) {
@@ -241,7 +241,7 @@ UIActivityIndicatorView *activityIndicator;
             if(i == ([arr count]-1)){ // Check in case of last iteration and Add "No Invites" Only if no data is added to invites list
                 
                 
-                NSLog(@"Last Iteration");
+                //NSLog(@"Last Iteration");
                 if([myGuestEMailData count]== 0 && [myGuestPhoneData count]== 0 && [myinvitedFromData count]== 0 && [myinvitedTillData count]== 0)
                 {
                     [myGuestEMailData addObject: @"No Invites"];
@@ -264,7 +264,7 @@ UIActivityIndicatorView *activityIndicator;
         [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
     }
     
-    NSLog(@"myinvitedFromData count is %lu",(unsigned long)[myinvitedFromData count]);
+    //NSLog(@"myinvitedFromData count is %lu",(unsigned long)[myinvitedFromData count]);
     for(int i =0;i<[myinvitedFromData count];i++){
         [pisGuestEMailData addObject:[myGuestEMailData objectAtIndex:i]];
         [pisGuestPhoneData addObject:[myGuestPhoneData objectAtIndex:i]];
@@ -274,7 +274,7 @@ UIActivityIndicatorView *activityIndicator;
         [piskeyData addObject:[myKeyData objectAtIndex:i]];
     }
     
-       NSLog(@"Key data is %@",piskeyData);
+       //NSLog(@"Key data is %@",piskeyData);
 
     
 }
@@ -357,22 +357,22 @@ UIActivityIndicatorView *activityIndicator;
     cell.actionTakenLabel.text = [pisactionTakenData objectAtIndex:indexPath.row];
     
     
-    if (indexPath.row % 2 == 0)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    }
+    //if (indexPath.row % 2 == 0)
+    //{
+    cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    //}
    
-    else
-        {
+   // else
+     //   {
         
-            
+       /*
             cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
             cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
 
 
     }
-
+*/
     if([[piskeyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
         
         [cell.guestEMail setHidden:YES];

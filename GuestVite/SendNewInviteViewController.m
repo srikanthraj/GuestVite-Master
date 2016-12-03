@@ -104,7 +104,7 @@
         CNPPopupButton *button = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        [button setTitle:@"Okay, Got it!" forState:UIControlStateNormal];
+        [button setTitle:@"Okay, Got it" forState:UIControlStateNormal];
         button.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
         button.layer.cornerRadius = 4;
         button.selectionHandler = ^(CNPPopupButton *button){
@@ -138,6 +138,12 @@
     [self setNeedsStatusBarAppearanceUpdate];
     
    
+    //Style the Send Invite Button
+    
+    self.sendInvite.layer.cornerRadius = 10.0;
+    [[self.sendInvite layer] setBorderWidth:1.0f];
+    [[self.sendInvite layer] setBorderColor:[UIColor whiteColor].CGColor];
+    
     // Set the Text Views
     
     self.fNameTextView.text = NSLocalizedString(@"😐", nil);
@@ -169,11 +175,11 @@
     NSString *currentTime = [currentDateFormatter stringFromDate:[NSDate date]];
     
     self.startTime = currentTime;
-    NSLog(@"Start Time on load %@", self.startTime);
+    //NSLog(@"Start Time on load %@", self.startTime);
 
     self.endTime = currentTime;
     
-    NSLog(@"End Time on load %@", self.endTime);
+   // NSLog(@"End Time on load %@", self.endTime);
     
     
     
@@ -398,7 +404,7 @@
         self.fNameTextView.text = NSLocalizedString(@"😃", nil);
         self.guestNameText.backgroundColor = [UIColor whiteColor];
         self.entryErrorFName = NO;
-        NSLog(@"Error of First Name is %@",self.entryErrorFName ? @"YES" : @"NO");
+       // NSLog(@"Error of First Name is %@",self.entryErrorFName ? @"YES" : @"NO");
     }
     
     
@@ -435,7 +441,7 @@
         self.emailTextView.text = NSLocalizedString(@"😃", nil);
         self.guestEMailText.backgroundColor = [UIColor whiteColor];
         self.entryErrorEMail = NO;
-        NSLog(@"Error of E-Mail is %@",self.entryErrorEMail ? @"YES" : @"NO");
+        //NSLog(@"Error of E-Mail is %@",self.entryErrorEMail ? @"YES" : @"NO");
     }
     
     else {
@@ -464,7 +470,7 @@
         self.phoneTextView.text = NSLocalizedString(@"😃", nil);
         self.guestPhoneText.backgroundColor = [UIColor whiteColor];
         self.entryErrorPhone = NO;
-        NSLog(@"Error of Phone is %@",self.entryErrorPhone ? @"YES" : @"NO");
+       // NSLog(@"Error of Phone is %@",self.entryErrorPhone ? @"YES" : @"NO");
         
     }
     
@@ -520,7 +526,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [dateFormatter stringFromDate:self.datePicker.date];
-    NSLog(@"Time For %@", currentTime);
+    //NSLog(@"Time For %@", currentTime);
     self.startTime = currentTime;
 }
 
@@ -529,7 +535,7 @@
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"MM/dd/yyyy hh:mm a"];
     NSString *currentTime = [dateFormatter stringFromDate:self.datePickerExpire.date];
-    NSLog(@"Time Expire%@", currentTime);
+    //NSLog(@"Time Expire%@", currentTime);
     self.endTime = currentTime;
 }
 
@@ -543,7 +549,7 @@
 
 -(void)doneClicked:(id)sender
 {
-    NSLog(@"Done Clicked.");
+    //NSLog(@"Done Clicked.");
     [self.view endEditing:YES];
 }
 
@@ -677,7 +683,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         CNPPopupButton *button = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        [button setTitle:@"Okay, Got it!" forState:UIControlStateNormal];
+        [button setTitle:@"Okay, Got it" forState:UIControlStateNormal];
         button.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
         button.layer.cornerRadius = 4;
         button.selectionHandler = ^(CNPPopupButton *button){
@@ -713,8 +719,8 @@ if(self.segmentControl.selectedSegmentIndex ==1){
     __block NSString *endDateTime = [[NSString alloc] init];
     
     
-        NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
-        NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
+        //NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
+       // NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
         
         startDateTime = self.startTime;
         endDateTime = self.endTime;
@@ -726,9 +732,9 @@ if(self.segmentControl.selectedSegmentIndex ==1){
     NSDate *toDate = [self dateToFormatedDate:endDateTime];
     
     
-    NSLog(@"FROM DATE %@",fromDate);
+    //NSLog(@"FROM DATE %@",fromDate);
     
-    NSLog(@"TO DATE %@",toDate);
+   //NSLog(@"TILL DATE %@",toDate);
 
     // 4 conditions to be checked
         /*
@@ -748,7 +754,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
     if(([self entryErrorFName] || [self entryErrorEMail] || [self entryErrorPhone]) && !([fromDate compare:toDate] == NSOrderedAscending)) {
         
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check your input fields",@"From Date cannot be later than To Date"]preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check your input fields",@"From Date cannot be later than Till Date"]preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
@@ -773,7 +779,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
     //  3. Else If (From date > To Date)
     else if(!([fromDate compare:toDate] == NSOrderedAscending)) {
         
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than Till Date"preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
         
@@ -792,7 +798,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
 
         NSString *userID = [FIRAuth auth].currentUser.uid;
         
-        NSLog(@"User Id %@",userID);
+       // NSLog(@"User Id %@",userID);
         
         [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
             
@@ -819,9 +825,9 @@ if(self.segmentControl.selectedSegmentIndex ==1){
             }
             
             CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
-            NSLog(@"Guest Name is %@",self.guestNameText.text);
-            NSLog(@"ARR is %@",arr);
-            NSLog(@"Name field Length is %lu",(unsigned long)[arr count]);
+            //NSLog(@"Guest Name is %@",self.guestNameText.text);
+            //NSLog(@"ARR is %@",arr);
+           // NSLog(@"Name field Length is %lu",(unsigned long)[arr count]);
     
             if([arr count] > 1) // If Last Name present
                 {
@@ -1030,10 +1036,10 @@ self.countLabel.text = @"100";
     switch (result)
     {
         case MFMailComposeResultCancelled:
-            NSLog(@"Mail cancelled");
+            //NSLog(@"Mail cancelled");
             break;
         case MFMailComposeResultSaved:
-            NSLog(@"Mail saved");
+            //NSLog(@"Mail saved");
             break;
         case MFMailComposeResultSent: {
                 
@@ -1043,7 +1049,7 @@ self.countLabel.text = @"100";
             break;
         }
         case MFMailComposeResultFailed:
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            //NSLog(@"Mail sent failure: %@", [error localizedDescription]);
             break;
         default:
             break;

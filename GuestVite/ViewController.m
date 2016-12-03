@@ -9,10 +9,7 @@
 #import "ViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "RegPageViewController.h"
-
 #import "HomePageViewController.h"
-
-
 #import "SignOut.h"
 
 @import Firebase;
@@ -95,20 +92,8 @@ NSUInteger currIndex;
     [self presentViewController:hPViewController animated:YES completion:nil];
     }
     
-    
-
-    
-    
-    
-    
-    
 }
 
-/*
--(UIStatusBarStyle)preferredStatusBarStyle {
-    return UIStatusBarStyleLightContent;
-}
-*/
 -(void) autoLogin {
     HomePageViewController *hPViewController =
     [[HomePageViewController alloc] init];
@@ -116,10 +101,13 @@ NSUInteger currIndex;
     
     [self presentViewController:hPViewController animated:YES completion:nil];
 }
+
 -(void)doneClicked:(id)sender
 {
     [self.view endEditing:YES];
 }
+
+
 - (IBAction)forgotPasswordTapped:(id)sender {
     
      NSString *eMailEntered = self.emailField.text;
@@ -175,6 +163,7 @@ NSUInteger currIndex;
 }
 
 
+
 - (BOOL)validateEmailWithString:(NSString*)checkString
 {
     BOOL stricterFilter = NO;
@@ -204,7 +193,7 @@ NSUInteger currIndex;
                              
                              if(![self validateEmailWithString:eMailEntered] && [passwordEntered length] == 0) {
                                  
-                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the format of your E-Mail Address and try again",@"Password Field is empty, please Enter the password"]preferredStyle:UIAlertControllerStyleAlert];
+                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the format of your email address and try again",@"Password Field is empty, please enter the password"]preferredStyle:UIAlertControllerStyleAlert];
                                  
                                  UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                                  
@@ -215,7 +204,7 @@ NSUInteger currIndex;
 
                              else if(![self validateEmailWithString:eMailEntered] && [passwordEntered length] <= 6) {
                                  
-                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the format of your E-Mail Address and try again",@"Please check your password and try again"]preferredStyle:UIAlertControllerStyleAlert];
+                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the format of your email address and try again",@"Please check your password and try again"]preferredStyle:UIAlertControllerStyleAlert];
                                  
                                  UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                                  
@@ -226,7 +215,7 @@ NSUInteger currIndex;
                              
                              else if(![self validateEmailWithString:eMailEntered]) {
                                  
-                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check the format of your E-Mail Address and try again"preferredStyle:UIAlertControllerStyleAlert];
+                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check the format of your email address and try again"preferredStyle:UIAlertControllerStyleAlert];
                                  
                                  UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                                  
@@ -238,7 +227,7 @@ NSUInteger currIndex;
                              
                              else if([passwordEntered length] == 0) {
                                  
-                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Password Field is empty, please Enter the password"preferredStyle:UIAlertControllerStyleAlert];
+                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Password Field is empty, please enter your password"preferredStyle:UIAlertControllerStyleAlert];
                                  
                                  UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                                  
@@ -248,7 +237,7 @@ NSUInteger currIndex;
                              
                              else if(error){
                                  
-                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Incorrect Password, please try again!"preferredStyle:UIAlertControllerStyleAlert];
+                                 UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Incorrect password, please try again"preferredStyle:UIAlertControllerStyleAlert];
                                  
                                  UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                                  
@@ -263,7 +252,6 @@ NSUInteger currIndex;
                                  HomePageViewController *hPViewController =
                                  [[HomePageViewController alloc] initWithNibName:@"HomePageViewController" bundle:nil];
                                  
-                                 //hPViewController.userName  = eMailEntered;
                                  [self.navigationController pushViewController:hPViewController animated:YES];
                                  
                                  [self presentViewController:hPViewController animated:YES completion:nil];
@@ -280,7 +268,6 @@ NSUInteger currIndex;
     RegPageViewController *regPageViewController =
     [[RegPageViewController alloc] initWithNibName:@"RegPageViewController" bundle:nil];
     
-    //hPViewController.userName  = eMailEntered;
     [self.navigationController pushViewController:regPageViewController animated:YES];
     
     [self presentViewController:regPageViewController animated:YES completion:nil];
@@ -289,7 +276,6 @@ NSUInteger currIndex;
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

@@ -29,8 +29,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *eMailguestList;
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 
+@property (weak, nonatomic) IBOutlet UIButton *sendSMS;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentControl;
 
+@property (weak, nonatomic) IBOutlet UIButton *sendEMail;
 @property (weak, nonatomic) IBOutlet UILabel *countLabel;
 
 @property (weak, nonatomic) IBOutlet UISwitch *informSwitch;
@@ -112,6 +114,21 @@
     
    //[self loadPhoneContacts];
   
+    //Style the Buttons
+    
+    self.sendSMS.layer.cornerRadius = 10.0;
+    [[self.sendSMS layer] setBorderWidth:1.0f];
+    [[self.sendSMS layer] setBorderColor:[UIColor whiteColor].CGColor];
+    
+    self.sendEMail.layer.cornerRadius = 10.0;
+    [[self.sendEMail layer] setBorderWidth:1.0f];
+    [[self.sendEMail layer] setBorderColor:[UIColor whiteColor].CGColor];
+    
+    self.addressBookButton.layer.cornerRadius = 10.0;
+    [[self.addressBookButton layer] setBorderWidth:1.0f];
+    [[self.addressBookButton layer] setBorderColor:[UIColor whiteColor].CGColor];
+    
+
     self.eMailguestList.editable = NO;
     self.smsGuestList.editable = NO;
     
@@ -126,11 +143,11 @@
     NSString *currentTime = [currentDateFormatter stringFromDate:[NSDate date]];
     
     self.startTime = currentTime;
-    NSLog(@"Start Time on load %@", self.startTime);
+   // NSLog(@"Start Time on load %@", self.startTime);
     
     self.endTime = currentTime;
     
-    NSLog(@"End Time on load %@", self.endTime);
+   // NSLog(@"End Time on load %@", self.endTime);
     
     
     UIImage *navBackgroundImage = [UIImage imageNamed:@"blue-orange-backgrounds-wallpaper"];
@@ -676,7 +693,7 @@
     if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusDenied ||
         ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusRestricted){
         //1
-        NSLog(@"Denied");
+        //NSLog(@"Denied");
         UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"You must give the app permission to add the contact first."preferredStyle:UIAlertControllerStyleAlert];
         
         UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
@@ -686,11 +703,11 @@
         
     } else if (ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusAuthorized){
         //2
-        NSLog(@"Authorized");
+       // NSLog(@"Authorized");
         [self showAddressBook];
     } else{ //ABAddressBookGetAuthorizationStatus() == kABAuthorizationStatusNotDetermined
         //3
-        NSLog(@"Not determined");
+        //NSLog(@"Not determined");
         ABAddressBookRequestAccessWithCompletion(ABAddressBookCreateWithOptions(NULL, nil), ^(bool granted, CFErrorRef error) {
             if (!granted){
                 //4
@@ -974,9 +991,9 @@
     
     NSDate *toDate = [self dateToFormatedDate:endDateTime];
     
-        NSLog(@"FROM DATE %@",fromDate);
+        //NSLog(@"FROM DATE %@",fromDate);
         
-        NSLog(@"TO DATE %@",toDate);
+        //NSLog(@"TO DATE %@",toDate);
     
     
     if([self.phoneContactsData count] ==0) {
@@ -1121,7 +1138,7 @@
 
     }
         else {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than Till Date"preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             
@@ -1191,8 +1208,8 @@
     
     __block NSString *endDateTime = [[NSString alloc] init];
     
-        NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
-        NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
+        //NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
+        //NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
         
         startDateTime = self.startTime;
         endDateTime = self.endTime;
@@ -1202,9 +1219,9 @@
     
     NSDate *toDate = [self dateToFormatedDate:endDateTime];
 
-        NSLog(@"FROM DATE %@",fromDate);
+        //NSLog(@"FROM DATE %@",fromDate);
         
-        NSLog(@"TO DATE %@",toDate);
+        //NSLog(@"TO DATE %@",toDate);
     
        
     if([self.emailContactsData count] ==0) {
@@ -1248,7 +1265,7 @@
                 
                 NSString *lastNameTemp = [[NSString alloc]init];
                 
-                NSLog(@"EMail Data First Name %@",[self.firstNameEmailContactsData objectAtIndex:[self.emailContactsData indexOfObject:address]]);
+                //NSLog(@"EMail Data First Name %@",[self.firstNameEmailContactsData objectAtIndex:[self.emailContactsData indexOfObject:address]]);
                 
                 if(![[self.lastNameEmailContactsData objectAtIndex:[self.emailContactsData indexOfObject:address]] isEqualToString:@"Not Specified"]){
                     
@@ -1345,7 +1362,7 @@
             
         }
         else {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than To Date"preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than Till Date"preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             

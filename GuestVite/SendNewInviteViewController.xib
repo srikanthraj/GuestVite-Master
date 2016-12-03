@@ -57,7 +57,7 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tRg-g6-fEy">
                     <rect key="frame" x="0.0" y="44" width="320" height="568"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="purple" translatesAutoresizingMaskIntoConstraints="NO" id="dFe-Z6-Ztw">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="test-purple" translatesAutoresizingMaskIntoConstraints="NO" id="dFe-Z6-Ztw">
                             <rect key="frame" x="0.0" y="-58" width="412" height="900"/>
                         </imageView>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Guest's Phone Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="FLY-oL-FLt">
@@ -102,7 +102,7 @@
                             <rect key="frame" x="103" y="486" width="76" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="QR0-9v-x4l"/>
-                                <constraint firstAttribute="width" constant="76" id="zW0-0B-mhK"/>
+                                <constraint firstAttribute="width" constant="80" id="zW0-0B-mhK"/>
                             </constraints>
                             <state key="normal" title="Send Invite">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -290,6 +290,6 @@
     </objects>
     <resources>
         <image name="Back" width="30" height="24"/>
-        <image name="purple" width="336" height="280"/>
+        <image name="test-purple" width="2560" height="1600"/>
     </resources>
 </document>

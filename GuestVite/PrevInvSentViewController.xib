@@ -41,7 +41,7 @@
                         </navigationItem>
                     </items>
                 </navigationBar>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7nZ-g5-ofm">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="7nZ-g5-ofm">
                     <rect key="frame" x="0.0" y="66" width="320" height="502"/>
                     <color key="backgroundColor" red="0.75294117650000003" green="0.37647058820000001" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                     <color key="sectionIndexBackgroundColor" red="0.75294117647058822" green="0.37647058823529411" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
@@ -54,6 +54,7 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="TcV-bQ-GJZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9t9-hS-1m2"/>
+                <constraint firstAttribute="bottom" secondItem="7nZ-g5-ofm" secondAttribute="bottom" id="KWJ-Zw-Z3k"/>
                 <constraint firstItem="TcV-bQ-GJZ" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Rwd-D5-srC"/>
                 <constraint firstItem="TcV-bQ-GJZ" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="STw-dh-lvd"/>
                 <constraint firstItem="7nZ-g5-ofm" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ai5-Wm-r7O"/>
@@ -67,6 +68,6 @@
         </view>
     </objects>
     <resources>
-        <image name="Back" width="32" height="30"/>
+        <image name="Back" width="30" height="24"/>
     </resources>
 </document>

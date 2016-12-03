@@ -59,7 +59,7 @@ NSMutableString *fName;
     
     Reachability *kCFHostReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
-    NSLog(@"Netwrok Status %ld",(long)networkStatus);
+    //NSLog(@"Netwrok Status %ld",(long)networkStatus);
     if (networkStatus == NotReachable) {
         
         NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
@@ -68,12 +68,12 @@ NSMutableString *fName;
         
         NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"We are Sorry " attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
         
-        NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Looks like there's poor Internet connectivity, because of which you might not be able to use some of our features " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+        NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Looks like there's poor Internet connectivity, because of which you might not be able to use some of our features" attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
         
         CNPPopupButton *button = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        [button setTitle:@"Okay, Got it!" forState:UIControlStateNormal];
+        [button setTitle:@"Okay, Got it" forState:UIControlStateNormal];
         button.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
         button.layer.cornerRadius = 4;
         button.selectionHandler = ^(CNPPopupButton *button){
@@ -87,8 +87,6 @@ NSMutableString *fName;
         UILabel *lineOneLabel = [[UILabel alloc] init];
         lineOneLabel.numberOfLines = 0;
         lineOneLabel.attributedText = lineOne;
-        
-       // UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sad-smiley"]];
         
         self.popupController = [[CNPPopupController alloc] initWithContents:@[titleLabel, lineOneLabel,button]];
         self.popupController.theme = [CNPPopupTheme defaultTheme];
@@ -135,12 +133,6 @@ NSMutableString *fName;
     
     CGRect screenRect = [[UIScreen mainScreen] bounds];
     
-    
-    NSLog(@"screen Width  %f",screenRect.size.width);
-    
-    NSLog(@"screen Height  %f",screenRect.size.height);
-    
-    
    
     // self.homeView.frame.size.height = screenRect.size.height;
     
@@ -169,7 +161,7 @@ NSMutableString *fName;
     
     [self.waitingRespButton setButtonColor:[UIColor ht_amethystColor]];
     [self.waitingRespButton setShadowColor:[UIColor ht_wisteriaColor]];
-    [self.waitingRespButton setTitle:@"Waiting Responses From:" forState:UIControlStateNormal];
+    [self.waitingRespButton setTitle:@"Pending Responses" forState:UIControlStateNormal];
     [self.waitingRespButton addTarget:self action:@selector(waitingRespButtonPressed:)
                        forControlEvents:UIControlEventTouchUpInside];
     
@@ -179,7 +171,7 @@ NSMutableString *fName;
     self.prevInvSentButton = [[HTPressableButton alloc] initWithFrame:frame2 buttonStyle:HTPressableButtonStyleRounded];
     [self.prevInvSentButton setButtonColor:[UIColor ht_amethystColor]];
     [self.prevInvSentButton setShadowColor:[UIColor ht_wisteriaColor]];
-    [self.prevInvSentButton setTitle:@"Previous Invites Sent" forState:UIControlStateNormal];
+    [self.prevInvSentButton setTitle:@"Invites Sent" forState:UIControlStateNormal];
     [self.prevInvSentButton addTarget:self action:@selector(prevInvSentButtonPressed:)
                      forControlEvents:UIControlEventTouchUpInside];
     
@@ -189,7 +181,7 @@ NSMutableString *fName;
     self.prevInvRecvdButton = [[HTPressableButton alloc] initWithFrame:frame3 buttonStyle:HTPressableButtonStyleRounded];
     [self.prevInvRecvdButton setButtonColor:[UIColor ht_amethystColor]];
     [self.prevInvRecvdButton setShadowColor:[UIColor ht_wisteriaColor]];
-    [self.prevInvRecvdButton setTitle:@"Previous Invites Received" forState:UIControlStateNormal];
+    [self.prevInvRecvdButton setTitle:@"Invites Received" forState:UIControlStateNormal];
     [self.prevInvRecvdButton addTarget:self action:@selector(prevInvRecvdButtonPressed:)
                      forControlEvents:UIControlEventTouchUpInside];
     
