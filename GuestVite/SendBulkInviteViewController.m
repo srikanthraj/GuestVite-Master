@@ -2,7 +2,7 @@
 //  SendBulkInviteViewController.m
 //  GuestVite
 //
-//  Created by admin on 2016-10-13.
+//  Created by Srikanth Raj on 2016-10-13.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
@@ -92,7 +92,7 @@
     [[self.sendEMail layer] setBorderWidth:1.0f];
     [[self.sendEMail layer] setBorderColor:[UIColor whiteColor].CGColor];
     
-
+    
     
     // Set the Text Views
     
@@ -101,7 +101,7 @@
     
     self.phoneTextView.text = NSLocalizedString(@"😐", nil);
     self.phoneTextView.editable = NO;
-
+    
     self.entryErrorEMail = YES;
     self.entryErrorPhone = YES;
     
@@ -136,7 +136,7 @@
     [self.view addSubview:_sendBulkInviteBack];
     
     
-   
+    
     self.ref = [[FIRDatabase database] reference];
     
     self.eMailguestList.text = @"Enter Email Addressses here";
@@ -170,8 +170,8 @@
     
     
     [keyboardDoneButtonView setItems:[NSArray arrayWithObjects:doneButton, nil]];
-
-   
+    
+    
     
     [self.datePicker setValue:[UIColor whiteColor]forKey:@"textColor"];
     
@@ -230,8 +230,6 @@
     
 }
 
-
-// Test-------------------------------
 
 
 - (void)registerForKeyboardNotifications {
@@ -341,7 +339,7 @@
         
     }
     
-
+    
     
     
 }
@@ -434,7 +432,7 @@
         
         [self presentViewController:sendAddrVC animated:YES completion:nil];
     }
-
+    
     
 }
 
@@ -499,7 +497,7 @@
         }
         
     }
-
+    
     
 }
 
@@ -542,8 +540,8 @@
     
     if(self.inviteMessage.isFirstResponder)
     {
-    NSUInteger len = textView.text.length;
-    self.countLabel.text=[NSString stringWithFormat:@"%lu",100-(unsigned long)len];
+        NSUInteger len = textView.text.length;
+        self.countLabel.text=[NSString stringWithFormat:@"%lu",100-(unsigned long)len];
     }
 }
 
@@ -552,7 +550,7 @@
     
     if(self.inviteMessage.isFirstResponder)
     {
-    return self.inviteMessage.text.length + (text.length - range.length) <= 100;
+        return self.inviteMessage.text.length + (text.length - range.length) <= 100;
     }
     
     else {
@@ -619,14 +617,14 @@
         paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
         paragraphStyle.alignment = NSTextAlignmentCenter;
         
-        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"We are Sorry " attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
+        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"We are Sorry" attributes:@{NSFontAttributeName : [UIFont boldSystemFontOfSize:24], NSParagraphStyleAttributeName : paragraphStyle}];
         
-        NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Looks like there's poor Internet connectivity, your data could not be saved " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
+        NSAttributedString *lineOne = [[NSAttributedString alloc] initWithString:@"Looks like there's poor Internet connectivity, because of which your data might not saved " attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18], NSForegroundColorAttributeName : [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0], NSParagraphStyleAttributeName : paragraphStyle}];
         
         CNPPopupButton *button = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        [button setTitle:@"Okay, Got it!" forState:UIControlStateNormal];
+        [button setTitle:@"Okay, Got it" forState:UIControlStateNormal];
         button.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
         button.layer.cornerRadius = 4;
         button.selectionHandler = ^(CNPPopupButton *button){
@@ -653,60 +651,60 @@
     
     
     else {
-
-    
-    // Get the invite Row
-    
-    __block NSMutableString *rowValue = [[NSMutableString alloc] init];
-    
-    __block NSMutableString *senderName = [[NSMutableString alloc] init];
-    
-    __block NSMutableArray *smsList = [[NSMutableArray alloc] init];
-    
-    //__block NSMutableArray *emailList = [[NSMutableArray alloc] init];
-    
         
-    NSMutableArray *badPhoneList = [[NSMutableArray alloc] init];
-    
-    
-    __block NSString *startDateTime  = [[NSString alloc] init];
-    
-    __block NSString *endDateTime = [[NSString alloc] init];
+        
+        // Get the invite Row
+        
+        __block NSMutableString *rowValue = [[NSMutableString alloc] init];
+        
+        __block NSMutableString *senderName = [[NSMutableString alloc] init];
+        
+        __block NSMutableArray *smsList = [[NSMutableArray alloc] init];
+        
+        //__block NSMutableArray *emailList = [[NSMutableArray alloc] init];
+        
+        
+        NSMutableArray *badPhoneList = [[NSMutableArray alloc] init];
+        
+        
+        __block NSString *startDateTime  = [[NSString alloc] init];
+        
+        __block NSString *endDateTime = [[NSString alloc] init];
         
         //NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
         //NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
         
-    
-    startDateTime = self.startTime;
-    
-    endDateTime= self.endTime;
-    
-    
-    
-    NSDate *fromDate = [self dateToFormatedDate:startDateTime];
-    
-    NSDate *toDate = [self dateToFormatedDate:endDateTime];
-    
-    
-    //NSLog(@"FROM DATE %@",fromDate);
-    
-    //NSLog(@"TILL DATE %@",toDate);
+        
+        startDateTime = self.startTime;
+        
+        endDateTime= self.endTime;
         
         
-     // Check all phone numbers to see if anything is present in Bad Phone List
+        
+        NSDate *fromDate = [self dateToFormatedDate:startDateTime];
+        
+        NSDate *toDate = [self dateToFormatedDate:endDateTime];
+        
+        
+        //NSLog(@"FROM DATE %@",fromDate);
+        
+        //NSLog(@"TILL DATE %@",toDate);
+        
+        
+        // Check all phone numbers to see if anything is present in Bad Phone List
         
         NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
         
         for(NSString *address in arr)
         {
-           
-           
+            
+            
             
             if(![self validatePhoneWithString:address] || [address length] != 10 || [address length] ==0)
                 
-            [badPhoneList addObject:address];
+                [badPhoneList addObject:address];
             
-
+            
         }
         
         //NSLog(@"Bad Phone numbers are %@",badPhoneList);
@@ -721,142 +719,142 @@
          4. Else - Go Ahead and Add in DB
          
          */
-
-     //1. If( Error in fields and From Date > To Date)
-    
-    if([badPhoneList count] > 0 && !([fromDate compare:toDate] == NSOrderedAscending)) {
         
-        // Mark bad Phone with red
+        //1. If( Error in fields and From Date > To Date)
         
-        NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
-        NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:self.smsGuestList.text];
-        
-        for(NSString *temp in arr){
-            for(NSString *tempNone in badPhoneList){
-                
-                //NSLog(@"Comparing %@ against %@",tempNone,temp);
-                if([temp isEqualToString:tempNone]){
+        if([badPhoneList count] > 0 && !([fromDate compare:toDate] == NSOrderedAscending)) {
+            
+            // Mark bad Phone with red
+            
+            NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
+            NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:self.smsGuestList.text];
+            
+            for(NSString *temp in arr){
+                for(NSString *tempNone in badPhoneList){
                     
-                    //NSLog(@"None String is %@",temp);
-                    
-                    NSRange range=[temp rangeOfString:tempNone options:NSCaseInsensitiveSearch];
-                    //NSLog(@"RANGE IS %lu",(unsigned long)range.location);
-                    [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                    //NSLog(@"Comparing %@ against %@",tempNone,temp);
+                    if([temp isEqualToString:tempNone]){
+                        
+                        //NSLog(@"None String is %@",temp);
+                        
+                        NSRange range=[temp rangeOfString:tempNone options:NSCaseInsensitiveSearch];
+                        //NSLog(@"RANGE IS %lu",(unsigned long)range.location);
+                        [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                    }
                 }
             }
+            
+            [self.smsGuestList setAttributedText:string];
+            
+            
+            self.phoneTextView.text = NSLocalizedString(@"😧", nil);
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the Phone numbers marked in red (May be you left an empty line?)",@"From Date cannot be later than Till Date"]preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
         }
         
-        [self.smsGuestList setAttributedText:string];
+        // 2. Else If (Error in Fields)
         
-        
-        self.phoneTextView.text = NSLocalizedString(@"😧", nil);
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the Phone numbers marked in red (May be you left an empty line?)",@"From Date cannot be later than Till Date"]preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        
-        [ac addAction:aa];
-        [self presentViewController:ac animated:YES completion:nil];
-    }
-    
-    // 2. Else If (Error in Fields)
-        
-    else if([badPhoneList count] > 0) {
-        
-        // Mark bad Phone with red
-        
-        NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
-        NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:self.smsGuestList.text];
-        
-        for(NSString *temp in arr){
-            for(NSString *tempNone in badPhoneList){
-                
-                if([temp isEqualToString:tempNone]){
+        else if([badPhoneList count] > 0) {
+            
+            // Mark bad Phone with red
+            
+            NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
+            NSMutableAttributedString * string = [[NSMutableAttributedString alloc]initWithString:self.smsGuestList.text];
+            
+            for(NSString *temp in arr){
+                for(NSString *tempNone in badPhoneList){
                     
-                    //NSLog(@"None String is %@",temp);
-                    
-                    NSRange range=[self.smsGuestList.text rangeOfString:temp];
-                    [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                    if([temp isEqualToString:tempNone]){
+                        
+                        //NSLog(@"None String is %@",temp);
+                        
+                        NSRange range=[self.smsGuestList.text rangeOfString:temp];
+                        [string addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:range];
+                    }
                 }
             }
+            
+            [self.smsGuestList setAttributedText:string];
+            
+            
+            self.phoneTextView.text = NSLocalizedString(@"😧", nil);
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check the Phone numbers marked in red (May be you left an empty line?)"preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+            
+            
         }
-        
-        [self.smsGuestList setAttributedText:string];
-        
-        
-        self.phoneTextView.text = NSLocalizedString(@"😧", nil);
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check the Phone numbers marked in red (May be you left an empty line?)"preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        
-        [ac addAction:aa];
-        [self presentViewController:ac animated:YES completion:nil];
-        
-        
-    }
         
         //  3. Else If (From date > To Date)
-    else if(!([fromDate compare:toDate] == NSOrderedAscending)) {
-        
-        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than Till Date"preferredStyle:UIAlertControllerStyleAlert];
-        
-        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-        
-        [ac addAction:aa];
-        [self presentViewController:ac animated:YES completion:nil];
-    }
-
-     //4. Else - Go Ahead and Add in DB
-        
-    else{
-        
-        // Mark phone numbers with Black
-        
-        self.smsGuestList.textColor = [UIColor blackColor];
-        
-        
-    
-        // Make face smiling Again
-        self.phoneTextView.text = NSLocalizedString(@"😃", nil);
-        
+        else if(!([fromDate compare:toDate] == NSOrderedAscending)) {
             
-        self.ref = [[FIRDatabase database] reference];
-        
-        
-        
-        NSString *userID = [FIRAuth auth].currentUser.uid;
-        
-        //NSLog(@"User Id %@",userID);
-        
-        [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"From Date cannot be later than Till Date"preferredStyle:UIAlertControllerStyleAlert];
             
-            NSDictionary *dict = snapshot.value;
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             
-            NSString *sendMessages = [[NSString alloc]init];
-            if(self.informSwitch.isOn)
-                sendMessages = @"YES";
-            else
-                sendMessages = @"NO";
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
+        }
+        
+        //4. Else - Go Ahead and Add in DB
+        
+        else{
+            
+            // Mark phone numbers with Black
+            
+            self.smsGuestList.textColor = [UIColor blackColor];
             
             
-             NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
-            int i =0;
-            for(NSString *address in arr)
-            {
+            
+            // Make face smiling Again
+            self.phoneTextView.text = NSLocalizedString(@"😃", nil);
+            
+            
+            self.ref = [[FIRDatabase database] reference];
+            
+            
+            
+            NSString *userID = [FIRAuth auth].currentUser.uid;
+            
+            //NSLog(@"User Id %@",userID);
+            
+            [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
                 
-                                  NSString *hostaddr = [[NSString alloc]init];
-                                  
-                                  if([[dict valueForKey:@"Address2"] length] > 0)
-                                  {
-                                      hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",[dict valueForKey:@"Address1"],[dict valueForKey:@"Address2"],[dict valueForKey:@"City"],[dict valueForKey:@"Zip"]];
-                                  }
-                                  
-                                  else {
-                                      hostaddr = [NSString stringWithFormat:@"%@,%@,%@",[dict valueForKey:@"Address1"],[dict valueForKey:@"City"],[dict valueForKey:@"Zip"]];
-                                  }
-                                  
-                                  CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
-
-                                  
+                NSDictionary *dict = snapshot.value;
+                
+                NSString *sendMessages = [[NSString alloc]init];
+                if(self.informSwitch.isOn)
+                    sendMessages = @"YES";
+                else
+                    sendMessages = @"NO";
+                
+                
+                NSArray * arr = [self.smsGuestList.text componentsSeparatedByString:@"\n"];
+                int i =0;
+                for(NSString *address in arr)
+                {
+                    
+                    NSString *hostaddr = [[NSString alloc]init];
+                    
+                    if([[dict valueForKey:@"Address2"] length] > 0)
+                    {
+                        hostaddr = [NSString stringWithFormat:@"%@,%@,%@,%@",[dict valueForKey:@"Address1"],[dict valueForKey:@"Address2"],[dict valueForKey:@"City"],[dict valueForKey:@"Zip"]];
+                    }
+                    
+                    else {
+                        hostaddr = [NSString stringWithFormat:@"%@,%@,%@",[dict valueForKey:@"Address1"],[dict valueForKey:@"City"],[dict valueForKey:@"Zip"]];
+                    }
+                    
+                    CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
+                    
+                    
                     NSDictionary *post = @{@"Sender First Name": [dict valueForKey:@"First Name"],
                                            @"Sender Last Name": [dict valueForKey:@"Last Name"],
                                            @"Sender EMail": [dict valueForKey:@"EMail"],
@@ -890,7 +888,7 @@
                     NSString *pkey1 = [userID stringByAppendingString:primarykey];
                     
                     NSString *pkey2 = [pkey1 stringByAppendingString:@"_"] ;
-                
+                    
                     NSString *pKey = [pkey2 stringByAppendingString:[NSString stringWithFormat:@"%lu",(unsigned long)[arr indexOfObject:address]]];
                     
                     [rowValue setString:pKey];
@@ -901,61 +899,59 @@
                     [_ref updateChildValues:childUpdates];
                     [smsList addObject:address];
                     //NSLog(@"PKEY for PHONE NUMBER %@",pKey);
+                    
+                    
+                    
+                    
+                    i++;
+                    
+                    
+                } // for loop ends
                 
-    
                 
                 
-                i++;
-                
-                
-            } // for loop ends
+            }]; // DB Query ends
             
-            
-            
-        }]; // DB Query ends
-        
-        while([rowValue length]== 0 && [senderName length] ==0 && [smsList count] == 0) {
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        }
-        
-        if([smsList count] > 0){
-            
-            
-            
-            if(![MFMessageComposeViewController canSendText]) {
-                UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"Error" message:@"Your Device Does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
-                
-                UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
-                
-                [ac addAction:aa];
-                [self presentViewController:ac animated:YES completion:nil];
-                return;
+            while([rowValue length]== 0 && [senderName length] ==0 && [smsList count] == 0) {
+                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
             }
             
+            if([smsList count] > 0){
+                
+                
+                
+                if(![MFMessageComposeViewController canSendText]) {
+                    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Sorry, your Device does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
+                    
+                    UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                        [self clearFields];
+                    }];
+                    
+                    [ac addAction:aa];
+                    [self presentViewController:ac animated:YES completion:nil];
+                    return;
+                }
+                
+                
+                
+                
+                
+                //NSArray *recipents = [NSArray arrayWithObject:self.guestPhoneText.text];
+                
+                
+                NSString *message = [NSString stringWithFormat:@"Hey!, This is %@ and you are invited at our place on %@ , Please Login/Register to this cool App, GuestVite @ %@ for more details, Thanks!",senderName,self.startTime,@"https://itunes.apple.com/us/app/guestvite/id1182204052?ls=1&mt=8"];
+                
+                MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
+                messageController.messageComposeDelegate = self;
+                [messageController setRecipients:smsList];
+                [messageController setBody:message];
+                
+                
+                [self presentViewController:messageController animated:YES completion:nil];
+                
+            }
             
-            
-            
-            
-            //NSArray *recipents = [NSArray arrayWithObject:self.guestPhoneText.text];
-            
-            
-            NSString *message = [NSString stringWithFormat:@"Hey!, You are invited by %@ at their place on %@, Please login/Register to GuestVite App for more Details ,Thanks!",senderName,self.startTime];
-            
-            MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
-            messageController.messageComposeDelegate = self;
-            [messageController setRecipients:smsList];
-            [messageController setBody:message];
-            
-            
-            [self presentViewController:messageController animated:YES completion:nil];
-            
-        }
-        
-    
-
-        
-        
-    } // Main else ends
+        } // Main else ends
     }// Internet connectivity else ends
     
 }
@@ -970,7 +966,7 @@
     
     Reachability *kCFHostReachability = [Reachability reachabilityForInternetConnection];
     NetworkStatus networkStatus = [kCFHostReachability currentReachabilityStatus];
-   // NSLog(@"Netwrok Status %ld",(long)networkStatus);
+    // NSLog(@"Netwrok Status %ld",(long)networkStatus);
     if (networkStatus == NotReachable) {
         
         NSMutableParagraphStyle *paragraphStyle = NSMutableParagraphStyle.new;
@@ -984,7 +980,7 @@
         CNPPopupButton *button = [[CNPPopupButton alloc] initWithFrame:CGRectMake(0, 0, 200, 60)];
         [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
-        [button setTitle:@"Okay, Got it!" forState:UIControlStateNormal];
+        [button setTitle:@"Okay, Got it" forState:UIControlStateNormal];
         button.backgroundColor = [UIColor colorWithRed:0.46 green:0.8 blue:1.0 alpha:1.0];
         button.layer.cornerRadius = 4;
         button.selectionHandler = ^(CNPPopupButton *button){
@@ -1008,37 +1004,37 @@
         [self.popupController presentPopupControllerAnimated:YES];
         
     }
-
+    
     
     else {
-    // Get the invite Row
-    
-    __block NSMutableString *rowValue = [[NSMutableString alloc] init];
-    
-    __block NSMutableString *senderName = [[NSMutableString alloc] init];
-    
-    //__block NSMutableArray *smsList = [[NSMutableArray alloc] init];
+        // Get the invite Row
         
-    NSMutableArray *badEMailList = [[NSMutableArray alloc] init];
-    
-    __block NSMutableArray *emailList = [[NSMutableArray alloc] init];
-    
-    
-    __block NSString *startDateTime  = [[NSString alloc] init];
-    
-    __block NSString *endDateTime = [[NSString alloc] init];
+        __block NSMutableString *rowValue = [[NSMutableString alloc] init];
+        
+        __block NSMutableString *senderName = [[NSMutableString alloc] init];
+        
+        //__block NSMutableArray *smsList = [[NSMutableArray alloc] init];
+        
+        NSMutableArray *badEMailList = [[NSMutableArray alloc] init];
+        
+        __block NSMutableArray *emailList = [[NSMutableArray alloc] init];
+        
+        
+        __block NSString *startDateTime  = [[NSString alloc] init];
+        
+        __block NSString *endDateTime = [[NSString alloc] init];
         
         //NSLog(@"Send Invite Tapped start datetime %@",self.startTime);
         //NSLog(@"Send Invite Tapped end datetime %@",self.endTime);
         
         startDateTime = self.startTime;
         endDateTime = self.endTime;
-    
-    
-    
-    NSDate *fromDate = [self dateToFormatedDate:startDateTime];
-    
-    NSDate *toDate = [self dateToFormatedDate:endDateTime];
+        
+        
+        
+        NSDate *fromDate = [self dateToFormatedDate:startDateTime];
+        
+        NSDate *toDate = [self dateToFormatedDate:endDateTime];
         
         //NSLog(@"FROM DATE %@",fromDate);
         
@@ -1062,7 +1058,7 @@
         }
         
         //NSLog(@"Bad E-Mail Addresses are %@",badEMailList);
-      
+        
         // 4 conditions to be checked
         /*
          
@@ -1072,8 +1068,8 @@
          4. Else - Go Ahead and Add in DB
          
          */
-
-     
+        
+        
         //1. If( Error in fields and From Date > To Date)
         
         if([badEMailList count] > 0 && !([fromDate compare:toDate] == NSOrderedAscending)) {
@@ -1100,16 +1096,16 @@
             
             
             self.emailTextView.text = NSLocalizedString(@"😧", nil);
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the E-Mail addresses marked in red (May be you left an empty line?)",@"From Date cannot be later than To Date"]preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"%@\n\n%@",@"Please check the E-Mail addresses marked in red (May be you left an empty line?)",@"From Date cannot be later than Till Date"]preferredStyle:UIAlertControllerStyleAlert];
             
             UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
             
             [ac addAction:aa];
             [self presentViewController:ac animated:YES completion:nil];
         }
-   
         
-      
+        
+        
         // 2. Else If (Error in Fields)
         
         else if([badEMailList count] > 0) {
@@ -1145,7 +1141,7 @@
             
             
         }
-  
+        
         
         //  3. Else If (From date > To Date)
         else if(!([fromDate compare:toDate] == NSOrderedAscending)) {
@@ -1157,47 +1153,47 @@
             [ac addAction:aa];
             [self presentViewController:ac animated:YES completion:nil];
         }
-
-        
-     //4. Else - Go Ahead and Add in DB
-        
-    else{
-        
-        // Mark E-Mail Addresses with Black
-        
-        self.eMailguestList.textColor = [UIColor blackColor];
         
         
+        //4. Else - Go Ahead and Add in DB
         
-        // Make face smiling Again
-        self.emailTextView.text = NSLocalizedString(@"😃", nil);
+        else{
             
-        self.ref = [[FIRDatabase database] reference];
-        
-        
-        
-        NSString *userID = [FIRAuth auth].currentUser.uid;
-        
-        //NSLog(@"User Id %@",userID);
-        
-        [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+            // Mark E-Mail Addresses with Black
             
-            NSDictionary *dict = snapshot.value;
-            
-            NSString *sendMessages = [[NSString alloc]init];
-            if(self.informSwitch.isOn)
-                sendMessages = @"YES";
-            else
-                sendMessages = @"NO";
+            self.eMailguestList.textColor = [UIColor blackColor];
             
             
-            NSArray * arr = [self.eMailguestList.text componentsSeparatedByString:@"\n"];
-            int i =0;
-            for(NSString *address in arr)
-            {
+            
+            // Make face smiling Again
+            self.emailTextView.text = NSLocalizedString(@"😃", nil);
+            
+            self.ref = [[FIRDatabase database] reference];
+            
+            
+            
+            NSString *userID = [FIRAuth auth].currentUser.uid;
+            
+            //NSLog(@"User Id %@",userID);
+            
+            [[[_ref child:@"users"] child:userID] observeSingleEventOfType:FIRDataEventTypeValue withBlock:^(FIRDataSnapshot * _Nonnull snapshot) {
+                
+                NSDictionary *dict = snapshot.value;
+                
+                NSString *sendMessages = [[NSString alloc]init];
+                if(self.informSwitch.isOn)
+                    sendMessages = @"YES";
+                else
+                    sendMessages = @"NO";
                 
                 
-                
+                NSArray * arr = [self.eMailguestList.text componentsSeparatedByString:@"\n"];
+                int i =0;
+                for(NSString *address in arr)
+                {
+                    
+                    
+                    
                     NSString *hostaddr = [[NSString alloc]init];
                     
                     if([[dict valueForKey:@"Address2"] length] > 0)
@@ -1210,7 +1206,7 @@
                     }
                     
                     CLLocationCoordinate2D dest = [self geoCodeUsingAddress:hostaddr];
-
+                    
                     
                     
                     NSDictionary *post = @{@"Sender First Name": [dict valueForKey:@"First Name"],
@@ -1258,45 +1254,46 @@
                     NSDictionary *childUpdates = @{[NSString stringWithFormat:@"/invites/%@/", pKey]: post};
                     [_ref updateChildValues:childUpdates];
                     [emailList addObject:address];
+                    
+                    
+                    i++;
+                    
+                    
+                }// For loop ends
                 
                 
-                i++;
+                
+            }]; // DB Query ends
+            
+            while([rowValue length]== 0 && [senderName length] ==0 && [emailList count] == 0) {
+                [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
+            }
+            
+            if([emailList count] > 0) {
+                
+                // Email Subject
+                NSString *emailTitle = @"Message From GuestVite";
+                // Email Content
+                NSString *messageBody = [NSString stringWithFormat:@"Hey!, This is %@ and you are invited at our place on %@, Please Login/Register to this cool App, <a href = '%@'> GuestVite </a> for more details, Thanks!",senderName,self.startTime,@"https://itunes.apple.com/us/app/guestvite/id1182204052?ls=1&mt=8"];
+                
+                // To address
+                //NSArray *toRecipents = [NSArray arrayWithObject:self.guestEMailText.text];
+                
+                MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
+                mc.mailComposeDelegate = self;
+                [mc setSubject:emailTitle];
+                [mc setMessageBody:messageBody isHTML:YES];
+                [mc setToRecipients:emailList];
+                
+                // Present mail view controller on screen
+                [self presentViewController:mc animated:YES completion:NULL];
                 
                 
-            }// For loop ends
+            }
             
             
-            
-        }]; // DB Query ends
+        }// Main else ends
         
-        while([rowValue length]== 0 && [senderName length] ==0 && [emailList count] == 0) {
-            [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
-        }
-        
-        if([emailList count] > 0) {
-            
-            // Email Subject
-            NSString *emailTitle = @"Message From GeuestVite";
-            // Email Content
-            NSString *messageBody = [NSString stringWithFormat:@"Hey!, You are invited by %@ at their place on %@, Please login/Register to GuestVite App for more Details ,Thanks!",senderName,self.startTime];
-            // To address
-            //NSArray *toRecipents = [NSArray arrayWithObject:self.guestEMailText.text];
-            
-            MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-            mc.mailComposeDelegate = self;
-            [mc setSubject:emailTitle];
-            [mc setMessageBody:messageBody isHTML:NO];
-            [mc setToRecipients:emailList];
-            
-            // Present mail view controller on screen
-            [self presentViewController:mc animated:YES completion:NULL];
-            
-            
-        }
-
-    
-    }// Main else ends
-    
         
     }// Network connectivity else ends
 }
@@ -1315,7 +1312,9 @@
         {
             UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to send SMS!"preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [self clearFields];
+            }];
             
             [ac addAction:aa];
             [self presentViewController:ac animated:YES completion:nil];
@@ -1344,19 +1343,28 @@
     switch (result)
     {
         case MFMailComposeResultCancelled:
-           // NSLog(@"Mail cancelled");
+            // NSLog(@"Mail cancelled");
             break;
         case MFMailComposeResultSaved:
-           // NSLog(@"Mail saved");
+            // NSLog(@"Mail saved");
             break;
         case MFMailComposeResultSent: {
             [self clearFields];
             
             break;
         }
-        case MFMailComposeResultFailed:
+        case MFMailComposeResultFailed: {
             //NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to send E-Mail, please try again." preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [self clearFields];
+            }];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
             break;
+        }
         default:
             break;
     }

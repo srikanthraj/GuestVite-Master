@@ -2,7 +2,7 @@
 //  SendNewInviteViewController.m
 //  GuestVite
 //
-//  Created by admin on 2016-10-11.
+//  Created by Srikanth Raj on 2016-10-11.
 //  Copyright © 2016 admin. All rights reserved.
 //
 
@@ -75,7 +75,6 @@
 @implementation SendNewInviteViewController
 
 
-//Test
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -84,7 +83,6 @@
     
 }
 
-//Test Ends
 
 -(void)viewDidAppear:(BOOL)animated {
     
@@ -266,8 +264,6 @@
 
 
 
-// Test-------------------------------
-
 
 - (void)registerForKeyboardNotifications {
     
@@ -371,16 +367,7 @@
             [self.scrollView setContentOffset:scrollPoint animated:YES];
             
         }
-        
-        
-        
     }
-
-    
-    
-    
-    
-    
 }
 
 - (void)keyboardWillBeHidden:(NSNotification *)notification {
@@ -394,7 +381,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-//---------------------------------
 
 
 - (void)firstNameTextChanged:(UITextField *)sender
@@ -519,7 +505,6 @@
 }
 
 
-// -------------------------------
 
 - (void)dateChanged:(id)sender
 {
@@ -919,9 +904,11 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         
         
         if(![MFMessageComposeViewController canSendText]) {
-            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Your Device does not support SMS, please try again" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Sorry, your Device does not support SMS" preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [self clearFields];
+            }];
             
             [ac addAction:aa];
             [self presentViewController:ac animated:YES completion:nil];
@@ -935,7 +922,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
         NSArray *recipents = [NSArray arrayWithObject:self.guestPhoneText.text];
        
         
-        NSString *message = [NSString stringWithFormat:@"Hey! %@ , You are invited by %@ at their place on %@ , Please Login/Register to this cool App GuestVite @ %@ for more details ,Thanks!",self.guestNameText.text,senderName,self.startTime,@"https://itunes.apple.com/us/app/guestvite/id1182204052?ls=1&mt=8"];
+        NSString *message = [NSString stringWithFormat:@"Hey %@, This is %@ and you are invited at our place on %@ , Please Login/Register to this cool App, GuestVite @ %@ for more details, Thanks!",self.guestNameText.text,senderName,self.startTime,@"https://itunes.apple.com/us/app/guestvite/id1182204052?ls=1&mt=8"];
         
         MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
         messageController.messageComposeDelegate = self;
@@ -959,7 +946,7 @@ if(self.segmentControl.selectedSegmentIndex ==1){
             // Email Subject
             NSString *emailTitle = @"Message From GuestVite";
             // Email Content
-            NSString *messageBody = [NSString stringWithFormat:@"Hey %@ , You are invited by %@ at their place on %@, Please Login/Register to this cool App <a href = '%@'> GuestVite </a> for more details ,Thanks!",self.guestNameText.text,senderName,self.startTime,@"https://itunes.apple.com/us/app/guestvite/id1182204052?ls=1&mt=8"];
+            NSString *messageBody = [NSString stringWithFormat:@"Hey %@, This is %@ and you are invited at our place on %@, Please Login/Register to this cool App, <a href = '%@'> GuestVite </a> for more details, Thanks!",self.guestNameText.text,senderName,self.startTime,@"https://itunes.apple.com/us/app/guestvite/id1182204052?ls=1&mt=8"];
             // To address
             NSArray *toRecipents = [NSArray arrayWithObject:self.guestEMailText.text];
             
@@ -1010,7 +997,9 @@ self.countLabel.text = @"100";
             
             UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to send SMS!, please try again." preferredStyle:UIAlertControllerStyleAlert];
             
-            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [self clearFields];
+            }];
             
             [ac addAction:aa];
             [self presentViewController:ac animated:YES completion:nil];
@@ -1051,9 +1040,18 @@ self.countLabel.text = @"100";
        
             break;
         }
-        case MFMailComposeResultFailed:
-            //NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+        case MFMailComposeResultFailed: {
+            
+            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Failed to send E-Mail, please try again." preferredStyle:UIAlertControllerStyleAlert];
+            
+            UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [self clearFields];
+            }];
+            
+            [ac addAction:aa];
+            [self presentViewController:ac animated:YES completion:nil];
             break;
+        }
         default:
             break;
     }
