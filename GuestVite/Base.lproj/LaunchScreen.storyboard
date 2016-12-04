@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -14,14 +15,40 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="test-house" highlightedImage="test-house" translatesAutoresizingMaskIntoConstraints="NO" id="0EC-Rm-YJB">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="GuestVite" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVl-4a-3C6">
+                                <rect key="frame" x="93" y="71" width="144" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="IXE-uH-fh9"/>
+                                    <constraint firstAttribute="width" constant="150" id="dQV-zZ-tP0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="28"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0EC-Rm-YJB" firstAttribute="top" secondItem="CVl-4a-3C6" secondAttribute="bottom" constant="-92" id="9JS-id-Kwf"/>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="0EC-Rm-YJB" secondAttribute="bottom" id="Bgm-gu-2kY"/>
+                            <constraint firstItem="CVl-4a-3C6" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="hmI-Nb-Tin"/>
+                            <constraint firstItem="0EC-Rm-YJB" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" id="l6n-Wo-2H6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0EC-Rm-YJB" secondAttribute="trailing" constant="-20" id="mg3-TA-pUg"/>
+                            <constraint firstItem="0EC-Rm-YJB" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="-20" id="nNI-SX-FPc"/>
+                        </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="53" y="375"/>
+            <point key="canvasLocation" x="28" y="355"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="test-house" width="1024" height="683"/>
+    </resources>
 </document>
