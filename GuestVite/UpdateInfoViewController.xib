@@ -57,7 +57,7 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jQq-U0-AFT">
                     <rect key="frame" x="0.0" y="44" width="320" height="568"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="purple" translatesAutoresizingMaskIntoConstraints="NO" id="Cd6-6Z-1SE">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="test-purple" translatesAutoresizingMaskIntoConstraints="NO" id="Cd6-6Z-1SE">
                             <rect key="frame" x="0.0" y="-58" width="412" height="900"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="E-Mail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bTR-ZR-KMk">
@@ -183,7 +183,9 @@
                             <constraints>
                                 <constraint firstAttribute="width" constant="96" id="YPr-Nw-IDt"/>
                             </constraints>
-                            <state key="normal" title="Update"/>
+                            <state key="normal" title="Update">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
                             <connections>
                                 <action selector="updateTapped:" destination="-1" eventType="touchUpInside" id="mcN-YS-NTu"/>
                             </connections>
@@ -317,7 +319,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Back" width="32" height="30"/>
-        <image name="purple" width="336" height="280"/>
+        <image name="Back" width="30" height="24"/>
+        <image name="test-purple" width="300" height="168"/>
     </resources>
 </document>

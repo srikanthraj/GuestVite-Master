@@ -388,23 +388,23 @@ NSString *myAcceptedInviteSelcetedKey;
     cell.invitedFromDateLabel.text = [maiinvitedFromData objectAtIndex:indexPath.row];
     cell.invitedTillDateLabel.text = [maiinvitedTillData objectAtIndex:indexPath.row];
     
-    if (indexPath.row % 2 == 0)
-    {
-        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
-    }
+    //if (indexPath.row % 2 == 0)
+    //{
+        cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+        cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"test-purple"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
+    //}
     
-    else
-    {
+    //else
+    //{
         
-        
+      /*
         cell.backgroundView = [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         cell.selectedBackgroundView =  [[UIImageView alloc] initWithImage:[ [UIImage imageNamed:@"orange-1"] stretchableImageWithLeftCapWidth:0.0 topCapHeight:5.0] ];
         
         
     }
 
-    
+    */
     
     if([[maikeyData objectAtIndex:indexPath.row]integerValue] == -1){ // No entries in the Table
         
@@ -451,9 +451,9 @@ NSString *myAcceptedInviteSelcetedKey;
     
     mySelectedRowNumber = indexPath.row;
     
-    NSLog(@"MY SELECTED HOST Lat Long is  %@",destLoc);
+    //NSLog(@"MY SELECTED HOST Lat Long is  %@",destLoc);
     
-    NSLog(@"MY SELECTED ROW NUMBER %ld",(long)mySelectedRowNumber);
+    //NSLog(@"MY SELECTED ROW NUMBER %ld",(long)mySelectedRowNumber);
     
     if([[maiGuestLocationStatusData objectAtIndex:mySelectedRowNumber] isEqualToString:@"REACHED"]) {
         
@@ -495,7 +495,7 @@ NSString *myAcceptedInviteSelcetedKey;
         
         if (status == kCLAuthorizationStatusAuthorizedWhenInUse) {
             
-            NSLog(@"Authorized location when start to Host tapped");
+           // NSLog(@"Authorized location when start to Host tapped");
             
             //[self updateDB:@"IN_TRANSIT" withInvitationStatus:@"Accepted"];
             [self startNavigation:indexPath.row];
@@ -505,7 +505,7 @@ NSString *myAcceptedInviteSelcetedKey;
         
         if (status == kCLAuthorizationStatusDenied) {
             
-            NSLog(@"Denied location when start to Host tapped");
+            //NSLog(@"Denied location when start to Host tapped");
             
             __block NSMutableString *guestAddr1 = [[NSMutableString alloc]init];
             __block NSMutableString *guestAddr2 = [[NSMutableString alloc]init];
@@ -543,10 +543,10 @@ NSString *myAcceptedInviteSelcetedKey;
                 [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
             }
             
-            NSLog(@"Addre1 %@",guestAddr1);
-            NSLog(@"Addre2 %@",guestAddr2);
-            NSLog(@"City %@",guestCity);
-            NSLog(@"Zip %@",guestZip);
+           // NSLog(@"Addre1 %@",guestAddr1);
+           // NSLog(@"Addre2 %@",guestAddr2);
+           // NSLog(@"City %@",guestCity);
+            //NSLog(@"Zip %@",guestZip);
             
             [self startNavigationWithoutLocationTracking:guestAddr1 line2:guestAddr2 city:guestCity zip:guestZip row:mySelectedRowNumber];
             [self.popupController dismissPopupControllerAnimated:YES];
@@ -768,8 +768,8 @@ NSString *myAcceptedInviteSelcetedKey;
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         }
         
-        NSLog(@"Current Latitude is %f",maicurrentLatitude);
-        NSLog(@"Current Longitude is %f",maicurrentLongitude);
+        //NSLog(@"Current Latitude is %f",maicurrentLatitude);
+        //NSLog(@"Current Longitude is %f",maicurrentLongitude);
         
         
         NSString *newAddOneString = [[maihostAddLOne objectAtIndex:row] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
@@ -821,8 +821,8 @@ NSString *myAcceptedInviteSelcetedKey;
             [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.1]];
         }
         
-        NSLog(@"Current Latitude is %f",maicurrentLatitude);
-        NSLog(@"Current Longitude is %f",maicurrentLongitude);
+        //NSLog(@"Current Latitude is %f",maicurrentLatitude);
+       // NSLog(@"Current Longitude is %f",maicurrentLongitude);
         
         
         NSString *newAddOneString = [[maihostAddLOne objectAtIndex:row] stringByReplacingOccurrencesOfString:@" " withString:@"+"];
@@ -940,7 +940,12 @@ NSString *myAcceptedInviteSelcetedKey;
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    NSLog(@"PERMISSION DENIED");
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:[NSString stringWithFormat:@"Sorry, Encountered the following error occured \n\n %@",error] preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+    
+    [ac addAction:aa];
+    [self presentViewController:ac animated:YES completion:nil];
 }
 
 
@@ -969,7 +974,7 @@ NSString *myAcceptedInviteSelcetedKey;
  
     
   
-    NSLog(@"DEST LOC is %@",destLoc);
+    //NSLog(@"DEST LOC is %@",destLoc);
     
     
     
@@ -1107,7 +1112,7 @@ NSString *myAcceptedInviteSelcetedKey;
                         break;
 
         case MFMailComposeResultFailed:
-            NSLog(@"Mail sent failure: %@", [error localizedDescription]);
+            //NSLog(@"Mail sent failure: %@", [error localizedDescription]);
             break;
         default:
             break;
@@ -1126,7 +1131,12 @@ NSString *myAcceptedInviteSelcetedKey;
     
     if (![[UIApplication sharedApplication] canOpenURL:
           [NSURL URLWithString:@"comgooglemaps://"]]) {
-        NSLog(@"Your Device does not have Google Maps");
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Sorry, Your Device does not have Google Maps" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        [self presentViewController:ac animated:YES completion:nil];
     }
     
     else { // If device has Google Maps

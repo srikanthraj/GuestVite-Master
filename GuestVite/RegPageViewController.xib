@@ -64,7 +64,7 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" bounces="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kfS-nD-PEQ">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="blue-orange-backgrounds-wallpaper" translatesAutoresizingMaskIntoConstraints="NO" id="d4P-ib-7JS">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" image="test-purple" translatesAutoresizingMaskIntoConstraints="NO" id="d4P-ib-7JS">
                             <rect key="frame" x="0.0" y="57" width="412" height="519"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="E-Mail " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eCh-a9-kQg">
@@ -384,7 +384,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Back" width="32" height="30"/>
-        <image name="blue-orange-backgrounds-wallpaper" width="1680" height="1050"/>
+        <image name="Back" width="30" height="24"/>
+        <image name="test-purple" width="300" height="168"/>
     </resources>
 </document>
