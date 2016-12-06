@@ -165,12 +165,22 @@ NSArray *pirkeys;
             endDateTime = arr[i][@"Invite Valid Till Date"];
            // NSLog(@"END DATE TIME %@",endDateTime);
             
-            if([currentUserEMail length] > 0 && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail])
-               && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
+            NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay
+                                                                fromDate:[self dateToFormatedDate:endDateTime]
+                                                                  toDate:loginDate
+                                                                 options:0];
+            
+            
+            if([currentUserEMail length] > 0 && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail]) && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
             {
                 
                 //NSLog(@"INSIDE EMAIL");
                 
+                NSLog(@"Days Between login Date and Till Date is %ld", [components day]);
+                
+                if([components day] <= 15)
+                {
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
@@ -180,15 +190,18 @@ NSArray *pirkeys;
                 [myactionTakenData addObject:arr[i][@"Invitation Status"]];
                 [myKeyData addObject:pirkeys[i]];
                 continue;
-                
+                }
             }
             
             
             
-            if([currentUserPhone length] > 0 && ([arr[i][@"Receiver Phone"] isEqualToString:currentUserPhone])
-               && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
+            if([currentUserPhone length] > 0 && ([arr[i][@"Receiver Phone"] isEqualToString:currentUserPhone]) && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
             {
                 
+                NSLog(@"Days Between login Date and Till Date is %ld", [components day]);
+                
+                if([components day] <= 15)
+                {
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
                 [myinvitedFromData addObject:arr[i][@"Invite For Date"]];
@@ -199,7 +212,7 @@ NSArray *pirkeys;
                 [myKeyData addObject:pirkeys[i]];
                 
                 continue;
-                
+                }
             }
             
             
@@ -303,22 +316,12 @@ NSArray *pirkeys;
     cell.invitedTillDateLabel.text = [pirinvitedTillData objectAtIndex:indexPath.row];
     cell.actionTakenLabel.text = [piractionTakenData objectAtIndex:indexPath.row];
     
-    if([[pirkeyData objectAtIndex:indexPath.row]integerValue] == -1)
+    if([[pirkeyData objectAtIndex:indexPath.row]integerValue] == -1 || [[piractionTakenData objectAtIndex:indexPath.row]isEqualToString:@"Accepted"] || [[piractionTakenData objectAtIndex:indexPath.row]isEqualToString:@"Declined"])
+        
         cell.userInteractionEnabled = NO;
-        
-    if([[piractionTakenData objectAtIndex:indexPath.row]isEqualToString:@"Accepted"] || [[piractionTakenData objectAtIndex:indexPath.row]isEqualToString:@"Declined"]){
-        
-        [rightUtilityButtons sw_addUtilityButtonWithColor:
-         [UIColor colorWithRed:128.0f green:0.0f blue:0.0 alpha:0.7f]
-                                                    title:@"Delete"];
-        
-    }
     
     
     else {
-        [rightUtilityButtons sw_addUtilityButtonWithColor:
-         [UIColor colorWithRed:128.0f green:0.0f blue:0.0 alpha:0.7f]
-                                                    title:@"Delete"];
         
         
         [rightUtilityButtons sw_addUtilityButtonWithColor:
@@ -394,28 +397,6 @@ NSArray *pirkeys;
             
             
         case 0:
-        {
-            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
-            
-            [[[_ref child:@"invites"] child:[pirkeyData objectAtIndex:cellIndexPath.row]] removeValue];
-            
-            
-            [pirfirstNameData removeObjectAtIndex:cellIndexPath.row];
-            [pirlastNameData removeObjectAtIndex:cellIndexPath.row];
-            [pirinvitedFromData removeObjectAtIndex:cellIndexPath.row];
-            [pirinvitedTillData removeObjectAtIndex:cellIndexPath.row];
-            [pirsenderPhoneData removeObjectAtIndex:cellIndexPath.row];
-            [pirsenderEMailData removeObjectAtIndex:cellIndexPath.row];
-            [piractionTakenData removeObjectAtIndex:cellIndexPath.row];
-            [pirkeyData removeObjectAtIndex:cellIndexPath.row];
-            
-            [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
-            
-            break;
-            
-        }
-            
-        case 1:
         {
             
             /*
