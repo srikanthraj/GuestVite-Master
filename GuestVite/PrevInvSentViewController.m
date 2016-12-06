@@ -94,7 +94,7 @@ UIActivityIndicatorView *activityIndicator;
     //NSLog(@"DATE IS %@",[NSDate date]);
     
     
-   // NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
+   NSDate *loginDate = [self dateToFormatedDate:[dateFormatter stringFromDate:[NSDate date]]];
     
     
     __block NSMutableArray *myGuestEMailData = [[NSMutableArray alloc] init];
@@ -155,11 +155,21 @@ UIActivityIndicatorView *activityIndicator;
             endDateTime = arr[i][@"Invite Valid Till Date"];
            // NSLog(@"END DATE TIME %@",endDateTime);
             
+            NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay
+                                                                fromDate:[self dateToFormatedDate:endDateTime]
+                                                                  toDate:loginDate
+                                                                 options:0];
+            
+            
             if([currentUserEMail length] > 0 && ([arr[i][@"Sender EMail"] isEqualToString:currentUserEMail]))
                //&& ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
             {
                 
                // NSLog(@"INSIDE EMAIL");
+                
+                if([components day] <= 15)
+                {
                 
                 if([arr[i][@"Receiver EMail"] length] == 0) {
                     [myGuestEMailData addObject: @"Not Specified"];
@@ -192,12 +202,15 @@ UIActivityIndicatorView *activityIndicator;
                 continue;
                 
             }
-            
+            }
             
             
             if([currentUserPhone length] > 0 && ([arr[i][@"Sender Phone"] isEqualToString:currentUserPhone]))
                //&& ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedDescending))
             {
+                
+                if([components day] <= 15)
+                {
                 
                 if([arr[i][@"Receiver EMail"] length] == 0) {
                     [myGuestEMailData addObject: @"Not Specified"];
@@ -234,7 +247,7 @@ UIActivityIndicatorView *activityIndicator;
                 
             }
             
-            
+            }
             
             
             
