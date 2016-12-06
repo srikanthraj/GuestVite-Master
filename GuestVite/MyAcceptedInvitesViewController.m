@@ -638,7 +638,7 @@ NSString *myAcceptedInviteSelcetedKey;
             
             
             // Email Subject
-            NSString *emailTitle = @"Message From GeuestVite";
+            NSString *emailTitle = @"Message From GuestVite";
             // Email Content
             NSString *messageBody = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that something came up last minute so I might not be able to make it this time, May be next time!",[maifirstNameData objectAtIndex:indexPath.row]];
             // To address

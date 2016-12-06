@@ -462,7 +462,7 @@ NSArray *wrfkeys;
                         NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
                         
                         // Email Subject
-                        NSString *emailTitle = @"Message From GeuestVite";
+                        NSString *emailTitle = @"Message From GuestVite";
                         // Email Content
                         NSString *messageBody = [NSString stringWithFormat:@"Hey!, I am extremely sorry that I would have to cancel this invite"];
                         // To address

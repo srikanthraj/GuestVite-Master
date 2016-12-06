@@ -390,7 +390,7 @@ float currentLongitude = 0.0;
         
         NSLog(@"Device Cant send Text , So End E-Mail");
         // Email Subject
-        NSString *emailTitle = @"Message From GeuestVite";
+        NSString *emailTitle = @"Message From GuestVite";
         // Email Content
         
         NSString *messageBody = [[NSString alloc]init];

@@ -415,7 +415,7 @@ NSArray *pirkeys;
             NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
             
             // Email Subject
-            NSString *emailTitle = @"Message From GeuestVite";
+            NSString *emailTitle = @"Message From GuestVite";
             // Email Content
             NSString *messageBody = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I could not respond to your invitation. I Thank You for the invite and hope to see you soon!",[pirfirstNameData objectAtIndex:cellIndexPath.row]];
             // To address

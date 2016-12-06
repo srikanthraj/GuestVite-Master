@@ -1345,7 +1345,7 @@
                 
                 
                 // Email Subject
-                NSString *emailTitle = @"Message From GeuestVite";
+                NSString *emailTitle = @"Message From GuestVite";
                 // Email Content
                 NSString *messageBody = [NSString stringWithFormat:@"Hey!, This is %@ and you are invited at our place on %@, Please Login/Register to this cool App, <a href = '%@'> GuestVite </a> for more details, Thanks!",senderName,self.startTime,@"https://itunes.apple.com/us/app/guestvite/id1182204052?ls=1&mt=8"];
                 // To address
