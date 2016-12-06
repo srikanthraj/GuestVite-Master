@@ -297,37 +297,40 @@ NSArray *pirkeys;
     // Add utility buttons
     NSMutableArray *rightUtilityButtons = [NSMutableArray new];
     
-    [rightUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:250/255.0 green:142/255.0 blue:80/255.0 alpha:0.5]
-                                                title:@"E-Mail"];
-    [rightUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:90/255.0 green:53/255.0 blue:104/255.0 alpha:0.5]
-                                                title:@"SMS"];
-    
-    
-    /*
-    [rightUtilityButtons sw_addUtilityButtonWithColor:
-     [UIColor colorWithRed:1.0f green:0.231f blue:0.188 alpha:1.0f]
-                                                title:@"Delete"];
-    */
-    
-    cell.rightUtilityButtons = rightUtilityButtons;
-    cell.delegate = self;
-    
-    
-    
     cell.firstNameLabel.text = [pirfirstNameData objectAtIndex:indexPath.row];
     cell.lastNameLabel.text = [pirlastNameData objectAtIndex:indexPath.row];
     cell.invitedFromDateLabel.text = [pirinvitedFromData objectAtIndex:indexPath.row];
     cell.invitedTillDateLabel.text = [pirinvitedTillData objectAtIndex:indexPath.row];
     cell.actionTakenLabel.text = [piractionTakenData objectAtIndex:indexPath.row];
     
-    if([[pirkeyData objectAtIndex:indexPath.row]integerValue] == -1 || [[piractionTakenData objectAtIndex:indexPath.row]isEqualToString:@"Accepted"] || [[piractionTakenData objectAtIndex:indexPath.row]isEqualToString:@"Declined"]){
-        
+    if([[pirkeyData objectAtIndex:indexPath.row]integerValue] == -1)
         cell.userInteractionEnabled = NO;
+        
+    if([[piractionTakenData objectAtIndex:indexPath.row]isEqualToString:@"Accepted"] || [[piractionTakenData objectAtIndex:indexPath.row]isEqualToString:@"Declined"]){
+        
+        [rightUtilityButtons sw_addUtilityButtonWithColor:
+         [UIColor colorWithRed:128.0f green:0.0f blue:0.0 alpha:0.7f]
+                                                    title:@"Delete"];
+        
     }
     
     
+    else {
+        [rightUtilityButtons sw_addUtilityButtonWithColor:
+         [UIColor colorWithRed:128.0f green:0.0f blue:0.0 alpha:0.7f]
+                                                    title:@"Delete"];
+        
+        
+        [rightUtilityButtons sw_addUtilityButtonWithColor:
+         [UIColor colorWithRed:250/255.0 green:142/255.0 blue:80/255.0 alpha:0.5]
+                                                    title:@"E-Mail"];
+        [rightUtilityButtons sw_addUtilityButtonWithColor:
+         [UIColor colorWithRed:90/255.0 green:53/255.0 blue:104/255.0 alpha:0.5]
+                                                    title:@"SMS"];
+    }
+    
+    cell.rightUtilityButtons = rightUtilityButtons;
+    cell.delegate = self;
     
     
     //if (indexPath.row % 2 == 0)
@@ -388,7 +391,31 @@ NSArray *pirkeys;
 - (void)swipeableTableViewCell:(SWTableViewCell *)cell didTriggerRightUtilityButtonWithIndex:(NSInteger)index {
     
     switch (index) {
+            
+            
         case 0:
+        {
+            NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
+            
+            [[[_ref child:@"invites"] child:[pirkeyData objectAtIndex:cellIndexPath.row]] removeValue];
+            
+            
+            [pirfirstNameData removeObjectAtIndex:cellIndexPath.row];
+            [pirlastNameData removeObjectAtIndex:cellIndexPath.row];
+            [pirinvitedFromData removeObjectAtIndex:cellIndexPath.row];
+            [pirinvitedTillData removeObjectAtIndex:cellIndexPath.row];
+            [pirsenderPhoneData removeObjectAtIndex:cellIndexPath.row];
+            [pirsenderEMailData removeObjectAtIndex:cellIndexPath.row];
+            [piractionTakenData removeObjectAtIndex:cellIndexPath.row];
+            [pirkeyData removeObjectAtIndex:cellIndexPath.row];
+            
+            [self.tableView deleteRowsAtIndexPaths:@[cellIndexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            
+            break;
+            
+        }
+            
+        case 1:
         {
             
             /*
@@ -409,7 +436,7 @@ NSArray *pirkeys;
             // Email Subject
             NSString *emailTitle = @"Message From GeuestVite";
             // Email Content
-            NSString *messageBody = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I could not respond to your invitation. I thank You for the invite and hope to see you soon!",[pirfirstNameData objectAtIndex:cellIndexPath.row]];
+            NSString *messageBody = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I could not respond to your invitation. I Thank You for the invite and hope to see you soon!",[pirfirstNameData objectAtIndex:cellIndexPath.row]];
             // To address
             NSArray *toRecipents = [NSArray arrayWithObject:[pirsenderEMailData objectAtIndex:cellIndexPath.row]];
             
@@ -427,7 +454,7 @@ NSArray *pirkeys;
             
             break;
         }
-        case 1:
+        case 2:
         {
             //Send SMS
             NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
@@ -449,7 +476,7 @@ NSArray *pirkeys;
             NSArray *recipents = [NSArray arrayWithObject:[pirsenderPhoneData objectAtIndex:cellIndexPath.row]];
             
             
-            NSString *message = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I could not respond to your invitation. I thank You for the invite and hope to see you soon!",[pirfirstNameData objectAtIndex:cellIndexPath.row]];
+            NSString *message = [NSString stringWithFormat:@"Hey %@!, I am extremely sorry that I could not respond to your invitation. I Thank You for the invite and hope to see you soon!",[pirfirstNameData objectAtIndex:cellIndexPath.row]];
             
             MFMessageComposeViewController *messageController = [[MFMessageComposeViewController alloc] init];
             messageController.messageComposeDelegate = self;
