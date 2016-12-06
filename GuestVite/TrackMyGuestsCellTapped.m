@@ -441,6 +441,31 @@ float totalDistance;
 }
 
 
+-(MKAnnotationView *)mapView:(MKMapView *)mV viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    if (annotation == self.mapView.userLocation)
+        return nil;
+    
+    MKPinAnnotationView *pin = (MKPinAnnotationView *) [self.mapView dequeueReusableAnnotationViewWithIdentifier: @"asdf"];
+    
+    if (pin == nil)
+        pin = [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier: @"asdf"];
+    else
+        pin.annotation = annotation;
+    
+    if ([annotation.title isEqualToString:@"Your Location"]) {
+        pin.pinTintColor = [UIColor colorWithRed:34.0f/255.0f green:139.0f/255.0f blue:34.0f/255.0f alpha:1.0f];
+        // pin.image=[UIImage imageNamed:@"arrest.png"] ;
+    }
+
+    [pin setAnimatesDrop:YES];
+    [pin setEnabled:YES];
+    [pin setCanShowCallout:YES];
+    return pin;
+}
+
+
+
 -(void) addAnnotations {
     
     
@@ -453,6 +478,7 @@ float totalDistance;
     self.yourLocationAnno.coordinate = CLLocationCoordinate2DMake([hostLatitude floatValue],[hostLongitude floatValue]);
     
     self.yourLocationAnno.title = @"Your Location";
+
     
     
     self.guestLocationAnno = [[MKPointAnnotation alloc]init];

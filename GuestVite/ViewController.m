@@ -151,7 +151,7 @@ NSUInteger currIndex;
                                         
                                         else {
                                             
-                                            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check your Inbox for datils to reset your password"preferredStyle:UIAlertControllerStyleAlert];
+                                            UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message:@"Please check your Inbox for details to reset your password"preferredStyle:UIAlertControllerStyleAlert];
                                             
                                             UIAlertAction *aa = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
                                             

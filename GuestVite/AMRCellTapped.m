@@ -336,7 +336,7 @@ float currentLongitude = 0.0;
                     self.acceptOrDeclineLabel.textColor = [UIColor greenColor];
                     
                     [self performSelector:@selector(loadingNextView)
-                               withObject:nil afterDelay:4.0f];
+                               withObject:nil afterDelay:10.0f];
                 }
 
             }];

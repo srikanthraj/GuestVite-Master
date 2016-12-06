@@ -18,13 +18,6 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyView" translatesAutoresizingMaskIntoConstraints="NO" id="VVH-ji-FC8">
-                    <rect key="frame" x="17" y="185" width="286" height="198"/>
-                    <constraints>
-                        <constraint firstAttribute="height" constant="198" id="R0x-6t-bAF"/>
-                        <constraint firstAttribute="width" constant="286" id="h1k-HZ-eHM"/>
-                    </constraints>
-                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="You can check out other cool features of Our App!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCd-Lp-RjC">
                     <rect key="frame" x="8" y="155" width="383" height="21"/>
                     <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
@@ -59,8 +52,15 @@
                     <color key="textColor" red="0.16078431369999999" green="0.1058823529" blue="0.21960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyView" translatesAutoresizingMaskIntoConstraints="NO" id="VVH-ji-FC8">
+                    <rect key="frame" x="17" y="185" width="286" height="198"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="198" id="R0x-6t-bAF"/>
+                        <constraint firstAttribute="width" constant="286" id="h1k-HZ-eHM"/>
+                    </constraints>
+                </imageView>
             </subviews>
-            <color key="backgroundColor" red="0.72156862745098038" green="0.43137254901960786" blue="0.4823529411764706" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="vCd-Lp-RjC" firstAttribute="leading" secondItem="NJY-29-qjF" secondAttribute="leading" id="L52-mT-bQo"/>
                 <constraint firstItem="VVH-ji-FC8" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Nc2-1G-LZC"/>
@@ -76,7 +76,7 @@
         </view>
     </objects>
     <resources>
-        <image name="Back" width="32" height="30"/>
+        <image name="Back" width="30" height="24"/>
         <image name="EmptyView" width="400" height="333"/>
     </resources>
 </document>
