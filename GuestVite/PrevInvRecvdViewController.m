@@ -435,7 +435,7 @@ NSArray *pirkeys;
             
             break;
         }
-        case 2:
+        case 1:
         {
             //Send SMS
             NSIndexPath *cellIndexPath = [self.tableView indexPathForCell:cell];
