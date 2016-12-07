@@ -34,7 +34,7 @@
    
    // [application setStatusBarHidden:NO];
    // [application setStatusBarStyle:UIStatusBarStyleLightContent];
-    
+   //[[UIApplication sharedApplication] cancelAllLocalNotifications];
     
     return YES;
 }

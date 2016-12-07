@@ -39,7 +39,6 @@
 		847340491DA937670038C047 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 847340481DA937670038C047 /* main.m */; };
 		8473404C1DA937670038C047 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473404B1DA937670038C047 /* AppDelegate.m */; };
 		8473404F1DA937670038C047 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8473404E1DA937670038C047 /* ViewController.m */; };
-		847340551DA937680038C047 /* GuestVite.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 847340531DA937680038C047 /* GuestVite.xcdatamodeld */; };
 		847340571DA937680038C047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 847340561DA937680038C047 /* Assets.xcassets */; };
 		8473405A1DA937680038C047 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 847340581DA937680038C047 /* LaunchScreen.storyboard */; };
 		8473406C1DA96F180038C047 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8473406A1DA96F180038C047 /* Main.storyboard */; };
@@ -122,7 +121,6 @@
 		8473404B1DA937670038C047 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		8473404D1DA937670038C047 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		8473404E1DA937670038C047 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		847340541DA937680038C047 /* GuestVite.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GuestVite.xcdatamodel; sourceTree = "<group>"; };
 		847340561DA937680038C047 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		847340591DA937680038C047 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8473405B1DA937680038C047 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -254,7 +252,6 @@
 				8473406A1DA96F180038C047 /* Main.storyboard */,
 				8473405B1DA937680038C047 /* Info.plist */,
 				84267BF71DA9AB750044ACF4 /* GoogleService-Info.plist */,
-				847340531DA937680038C047 /* GuestVite.xcdatamodeld */,
 				847340471DA937670038C047 /* Supporting Files */,
 				8473406D1DA977CD0038C047 /* HomePageViewController.h */,
 				84267C0D1DAD9CF10044ACF4 /* SendNewInviteViewController.h */,
@@ -489,7 +486,6 @@
 				8462B1521DD772EF003F553F /* MyAcceptedInvitesViewController.m in Sources */,
 				847340701DA977CD0038C047 /* HomePageViewController.m in Sources */,
 				845E1A0B1DDD25B0008EDC62 /* EmptyViewController.m in Sources */,
-				847340551DA937680038C047 /* GuestVite.xcdatamodeld in Sources */,
 				84DF6AA91DC6525000047435 /* PrevInvSentCell.m in Sources */,
 				84D53A2E1DCE924A00FF7643 /* GuestMapViewController.m in Sources */,
 				847340751DA979A50038C047 /* RegPageViewController.m in Sources */,
@@ -670,19 +666,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		847340531DA937680038C047 /* GuestVite.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				847340541DA937680038C047 /* GuestVite.xcdatamodel */,
-			);
-			currentVersion = 847340541DA937680038C047 /* GuestVite.xcdatamodel */;
-			path = GuestVite.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 8473403C1DA937670038C047 /* Project object */;
 }
