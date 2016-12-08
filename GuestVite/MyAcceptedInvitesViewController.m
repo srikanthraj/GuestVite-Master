@@ -202,12 +202,19 @@ NSString *myAcceptedInviteSelcetedKey;
             endDateTime = arr[i][@"Invite Valid Till Date"];
             
             
+            NSCalendar *gregorianCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *components = [gregorianCalendar components:NSCalendarUnitDay
+                                                                fromDate:[self dateToFormatedDate:endDateTime]
+                                                                  toDate:loginDate
+                                                                 options:0];
+            
             
             if([currentUserEMail length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Accepted"] && ([arr[i][@"Receiver EMail"] isEqualToString:currentUserEMail])
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
             {
                 
-                //NSLog(@"INSIDE EMAIL");
+                if([components day] <= 5)
+                {
                 
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
@@ -229,13 +236,16 @@ NSString *myAcceptedInviteSelcetedKey;
                 [myKeyData addObject:maikeys[i]];
                 continue;
                 
+                }
             }
-            
             
             
             if([currentUserPhone length] > 0 && [arr[i][@"Invitation Status"] isEqualToString:@"Accepted"] && ([arr[i][@"Receiver Phone"] isEqualToString:currentUserPhone])
                && ([loginDate compare:[self dateToFormatedDate:endDateTime]] == NSOrderedAscending))
             {
+                
+                if([components day] <= 5)
+                {
                 
                 [myfirstNameData addObject: arr[i][@"Sender First Name"]];
                 [mylastNameData addObject:arr[i][@"Sender Last Name"]];
@@ -262,7 +272,7 @@ NSString *myAcceptedInviteSelcetedKey;
                 
             }
             
-            
+            }
             
             
             
@@ -936,6 +946,31 @@ NSString *myAcceptedInviteSelcetedKey;
 }
 
 
+
+// Notification
+
+- (void) createANotification {
+    
+    UILocalNotification *localNotif = [[UILocalNotification alloc] init];
+    localNotif.fireDate = [NSDate date];
+    localNotif.timeZone = nil;
+    
+    localNotif.alertTitle = @"GuestVite";
+    localNotif.alertBody = @"You have almost reached your Host's location , Your location tracking will now be stopped";
+    localNotif.alertAction = @"OK";
+    
+    localNotif.soundName = UILocalNotificationDefaultSoundName;
+    
+    localNotif.applicationIconBadgeNumber = 1;
+    
+    
+    [[UIApplication sharedApplication] scheduleLocalNotification:localNotif];
+    
+    
+    
+}
+
+
 #pragma mark - CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
@@ -1025,6 +1060,9 @@ NSString *myAcceptedInviteSelcetedKey;
         }];
         
         // NSLog(@"GUEST REACHED");
+        
+        //Fire Notification
+        [self createANotification];
     }
     
     
@@ -1067,6 +1105,7 @@ NSString *myAcceptedInviteSelcetedKey;
         }];
         
     }
+    
     
 }
 

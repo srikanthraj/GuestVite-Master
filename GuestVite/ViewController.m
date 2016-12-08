@@ -92,6 +92,8 @@ NSUInteger currIndex;
     [self presentViewController:hPViewController animated:YES completion:nil];
     }
     
+    
+    
 }
 
 -(void) autoLogin {
@@ -101,6 +103,10 @@ NSUInteger currIndex;
     
     [self presentViewController:hPViewController animated:YES completion:nil];
 }
+
+
+
+
 
 -(void)doneClicked:(id)sender
 {

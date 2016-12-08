@@ -36,8 +36,49 @@
    // [application setStatusBarStyle:UIStatusBarStyleLightContent];
    //[[UIApplication sharedApplication] cancelAllLocalNotifications];
     
+    application.applicationIconBadgeNumber = 0;
+    UILocalNotification *localNotif = launchOptions[UIApplicationLaunchOptionsLocalNotificationKey];
+    
+    if(localNotif){
+        
+        UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message: localNotif.alertBody preferredStyle:UIAlertControllerStyleAlert];
+        
+        
+        UIAlertAction *aa = [UIAlertAction actionWithTitle:@"You have almost reached your Host's location , Your location tracking will now be stopped" style:UIAlertActionStyleDefault handler:nil];
+        
+        [ac addAction:aa];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            
+            [application.keyWindow.rootViewController presentViewController:ac animated:YES completion:nil];
+        });
+        
+        
+    }
+
+    
     return YES;
 }
+
+// Received Notification in all states except "Not Running"
+
+- (void) application:(UIApplication *)application didReceiveLocalNotification:(nonnull UILocalNotification *)notification {
+    
+    application.applicationIconBadgeNumber = 0;
+    
+    UIAlertController *ac = [UIAlertController alertControllerWithTitle:@"GuestVite" message: notification.alertBody preferredStyle:UIAlertControllerStyleAlert];
+    
+    
+    UIAlertAction *aa = [UIAlertAction actionWithTitle:@"You have almost reached your Host's location , Your location tracking will now be stopped" style:UIAlertActionStyleDefault handler:nil];
+    
+    [ac addAction:aa];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        [application.keyWindow.rootViewController presentViewController:ac animated:YES completion:nil];
+    });
+    
+    
+}
+
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

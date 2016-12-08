@@ -113,6 +113,7 @@ NSMutableString *fName;
   // [self addFirstName];
     
      [self configureButtons];
+    [self requestPermissionToNotify];
     
   
 }
@@ -121,6 +122,18 @@ NSMutableString *fName;
     return UIStatusBarStyleLightContent;
 }
 
+
+- (void) requestPermissionToNotify {
+    
+    
+    
+    UIUserNotificationType types = UIUserNotificationTypeBadge | UIUserNotificationTypeBadge | UIUserNotificationTypeAlert;
+    
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes: types categories:nil];
+    
+    [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    
+}
 
 
 - (void) configureButtons {
