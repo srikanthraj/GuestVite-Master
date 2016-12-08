@@ -118,7 +118,7 @@ float totalDistance;
         self.indicator.center = center;
 
         
-    newTimer =  [NSTimer scheduledTimerWithTimeInterval:20.0 target:self selector:@selector(refreshLocation) userInfo:nil repeats:YES];
+    newTimer =  [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(refreshLocation) userInfo:nil repeats:YES];
         
             }
 
